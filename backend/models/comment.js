@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import { User } from './user.js'
 import { Poll } from './poll.js'
-import sequelize from '../config/db.js'
+import { sequelize } from '../config/db.js'
 
 export const Comment = sequelize.define('comment', {
   id: {

@@ -1,8 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import { usersRouter } from './routes/users.js'
-import sequelize from './db.js'
-
+import { sequelize } from './config/db.js'
+import './models/index.js';
 const app = express()
 
 app.disable('x-powered-by') // Desactivar header innecesario
@@ -22,7 +22,7 @@ sequelize.sync({ force: false })
   })
 
 // Inicializar servidor
-const PORT = process.env.PORT ?? 3000
+const PORT = process.env.PORT ?? 3001
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`)
