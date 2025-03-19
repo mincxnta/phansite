@@ -1,42 +1,82 @@
-import { UserModel } from '../models/user.js'
-import { validateNewUser } from '../schemas/users.js'
+import { validateNewUser, validateUpdatedUser } from '../schemas/users.js'
+import { User } from '../models/user.js'
 
 export class UserController {
   static async getAll (req, res) {
     try {
-      const users = await UserModel.getAll()
-      res.send(`Users found ${users}`)
+      const users = await User.findAll({
+        attributes: { exclude: ['password'] } // No retornem la contrasenya
+      })
+      res.json(users)
     } catch (error) {
-      res.status(500).json({ message: error.message })
+      res.status(500).json({ error: error.message })
     }
   }
 
   static async getById (req, res) {
-    const { id } = req.params
-    const user = await UserModel.getById({ id })
-    res.send(`User ${user} found`)
+    try {
+      const { id } = req.params
+      // Funciona?
+      const user = await User.findByPk(id, { attributes: { exclude: ['password'] } })
+
+      if (!user) {
+        return res.status(404).json({ error: 'Usuario no encontrado' })
+      }
+      res.json(user)
+    } catch (error) {
+      res.status(500).json({ error: error.message })
+    }
   }
 
   static async create (req, res) {
     const newUser = validateNewUser(req.body)
 
     if (!newUser.success) {
-      return res.status(400).json({ message: newUser.error.message })
+      return res.status(400).json({ error: newUser.error.message })
     }
 
-    const user = await UserModel.create(newUser.data)
-    res.send(`User ${user} created`)
+    try {
+      const user = await User.create(newUser.data)
+      res.status(201).json(user)
+    } catch (error) {
+      res.status(500).json({ error: error.message })
+    }
   }
 
   static async update (req, res) {
     const { id } = req.params
-    const user = await UserModel.update({ id })
-    res.send(`User ${user} updated`)
+
+    const user = await User.findByPk(id)
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' })
+    }
+
+    const updatedUser = validateUpdatedUser(req.body)
+
+    if (!updatedUser.success) {
+      return res.status(400).json({ error: updatedUser.error.message })
+    }
+
+    try {
+      await user.update(updatedUser.data)
+      res.json(user)
+    } catch (error) {
+      res.status(500).json({ error: error.message })
+    }
   }
 
   static async delete (req, res) {
-    const { id } = req.params
-    const user = await UserModel.delete({ id })
-    res.send(`User ${user} deleted`)
+    try {
+      const { id } = req.params
+      const user = await User.findByPk(id)
+
+      if (!user) {
+        return res.status(404).json({ error: 'Usuario no encontrado' })
+      }
+      await user.destroy()
+      res.json({ message: `Usuario ${id} eliminado` })
+    } catch (error) {
+      res.status(500).json({ error: error.message })
+    }
   }
 }

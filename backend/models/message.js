@@ -1,48 +1,61 @@
-import { DataTypes, Sequelize } from "sequelize";
-import { User } from "./user.js";
+import { DataTypes } from 'sequelize'
+import { User } from './user.js'
+import sequelize from '../config/db.js'
+
 export const Message = sequelize.define('message', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  message: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+  user1Id: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id'
     },
-    message: {
-        type: DataTypes.TEXT,
-        allowNull: false
+    field: 'user1_id'
+  },
+  user2Id: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id'
     },
-    user1Id: {
-        type: DataTypes.UUIDV4,
-        allowNull: false,
-        references: {
-            model: 'user',
-            key: 'id'
-        },
-        field: 'user1_id'
-    },
-    user2Id: {
-        type: DataTypes.UUIDV4,
-        allowNull: false,
-        references: {
-            model: 'user',
-            key: 'id'
-        },
-        field: 'user2_id'
-    },
+    field: 'user2_id'
+  }
 }, {
-    timestamps: true,
-    createdAt: 'submitDate',
-    updatedAt: false,
-    underscored: true
-});
+  tableName: 'messages',
+  timestamps: true,
+  createdAt: 'date',
+  updatedAt: false,
+  underscored: true
+})
 
 Message.belongsTo(User, {
-    foreignKey: 'user1_id',
-    as: 'user1',
-    onDelete: 'CASCADE'
-});
+  foreignKey: 'user1Id',
+  as: 'user1',
+  onDelete: 'CASCADE'
+})
 
 Message.belongsTo(User, {
-    foreignKey: 'user2_id',
-    as: 'user2',
-    onDelete: 'CASCADE'
-});
+  foreignKey: 'user2Id',
+  as: 'user2',
+  onDelete: 'CASCADE'
+})
+
+User.hasMany(Message, {
+  foreignKey: 'user1Id',
+  as: 'sentMessages'
+})
+
+User.hasMany(Message, {
+  foreignKey: 'user2Id',
+  as: 'receivedMessages'
+})

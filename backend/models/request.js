@@ -1,6 +1,8 @@
-import { DataTypes, Sequelize } from "sequelize";
-import { STATUS } from "../constants/constants.js";
-import { User } from "./user.js";
+import { DataTypes } from 'sequelize'
+import { STATUS } from '../constants/constants.js'
+import { User } from './user.js'
+import sequelize from '../config/db.js'
+
 export const Request = sequelize.define('request', {
   id: {
     type: DataTypes.INTEGER,
@@ -16,36 +18,41 @@ export const Request = sequelize.define('request', {
     allowNull: false
   },
   userId: {
-    type: DataTypes.UUIDV4,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
-      model: 'user',
+      model: 'users',
       key: 'id'
     }
   },
   image: {
-    type: DataTypes.STRING(255),
-    //allowNull: false,
-    //defaultValue: 1
+    type: DataTypes.STRING(255)
+    // allowNull: false,
+    // defaultValue: 1
   },
   status: {
-    type: DataTypes.ENUM(STATUS),
+    type: DataTypes.ENUM(...STATUS),
     defaultValue: STATUS[0],
-    allowNull: false,
+    allowNull: false
   },
   thiefComment: {
     type: DataTypes.STRING(500),
-    defaultValue: false,
-    allowNull: true,
-  },
+    allowNull: true
+  }
 }, {
+  tableName: 'requests',
   timestamps: true,
   createdAt: 'submitDate',
   updatedAt: 'updateDate',
   underscored: true
-});
+})
 
 Request.belongsTo(User, {
   foreignKey: 'userId',
-  as: 'user',
-});
+  as: 'user'
+})
+
+User.hasMany(Request, {
+  foreignKey: 'userId',
+  as: 'requests'
+})

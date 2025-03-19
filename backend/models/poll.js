@@ -1,4 +1,6 @@
-import { DataTypes, Sequelize } from "sequelize";
+import { DataTypes } from 'sequelize'
+import sequelize from '../config/db.js'
+
 export const Poll = sequelize.define('poll', {
   id: {
     type: DataTypes.INTEGER,
@@ -12,10 +14,11 @@ export const Poll = sequelize.define('poll', {
   isActive: {
     type: DataTypes.BOOLEAN,
     default: true
-  },
+  }
 }, {
+  tableName: 'polls',
   timestamps: true,
-  createdAt: 'submitDate',
+  createdAt: 'date',
   updatedAt: false,
   underscored: true
-});
+})
