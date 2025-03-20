@@ -1,7 +1,8 @@
-POST http://localhost:3000/auth/login
+POST http://localhost:3000/requests
 Content-Type: application/json
 
 {
-  "username": "janedoe",
-  "password": "securepassword321"
+  "title": "Request",
+  "description": "Description",
+  "userId": "30b2d3be-5886-4432-a6d1-4f11a1fc18f4"
 }

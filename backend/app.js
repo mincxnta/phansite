@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import { usersRouter } from './routes/users.js'
 import { authRouter } from './routes/auth.js'
+import { requestsRouter } from './routes/requests.js'
 import { sequelize } from './config/db.js'
 import './models/index.js'
 const app = express()
@@ -13,6 +14,7 @@ app.use(express.json()) // Middleware para parsear JSON a objetos
 // Rutas de la API
 app.use('/auth', authRouter)
 app.use('/users', usersRouter)
+app.use('/requests', requestsRouter)
 
 // Sincronizar modelos con la base de datos
 sequelize.sync({ force: false })
