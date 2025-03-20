@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export const Login = () => {
+export const Register = () => {
     const [username, setUsername] = useState(null)
     const [password, setPassword] = useState(null)
     const [email, setEmail] = useState(null)
