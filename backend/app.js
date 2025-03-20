@@ -1,15 +1,17 @@
 import express from 'express'
 import cors from 'cors'
 import { usersRouter } from './routes/users.js'
+import { authRouter } from './routes/auth.js'
 import { sequelize } from './config/db.js'
-import './models/index.js';
+import './models/index.js'
 const app = express()
 
 app.disable('x-powered-by') // Desactivar header innecesario
 app.use(cors()) // Evitar problemas de CORS
 app.use(express.json()) // Middleware para parsear JSON a objetos
 
-// Rutas de la API de usuarios
+// Rutas de la API
+app.use('/auth', authRouter)
 app.use('/users', usersRouter)
 
 // Sincronizar modelos con la base de datos
@@ -22,7 +24,7 @@ sequelize.sync({ force: false })
   })
 
 // Inicializar servidor
-const PORT = process.env.PORT ?? 3001
+const PORT = process.env.PORT ?? 3000
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`)

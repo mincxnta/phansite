@@ -2,7 +2,7 @@ import { validateNewUser, validateUpdatedUser } from '../schemas/users.js'
 import { User } from '../models/user.js'
 
 export class UserController {
-  static async getAll(req, res) {
+  static async getAll (req, res) {
     try {
       const users = await User.findAll({
         attributes: { exclude: ['password'] } // No retornem la contrasenya
@@ -13,7 +13,7 @@ export class UserController {
     }
   }
 
-  static async getById(req, res) {
+  static async getById (req, res) {
     try {
       const { id } = req.params
       // Funciona?
@@ -28,7 +28,7 @@ export class UserController {
     }
   }
 
-  static async create(req, res) {
+  static async create (req, res) {
     const newUser = validateNewUser(req.body)
 
     if (!newUser.success) {
@@ -43,7 +43,7 @@ export class UserController {
     }
   }
 
-  static async update(req, res) {
+  static async update (req, res) {
     const { id } = req.params
 
     const user = await User.findByPk(id)
@@ -65,7 +65,7 @@ export class UserController {
     }
   }
 
-  static async delete(req, res) {
+  static async delete (req, res) {
     try {
       const { id } = req.params
       const user = await User.findByPk(id)

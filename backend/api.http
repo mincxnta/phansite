@@ -1,11 +1,7 @@
-POST http://localhost:3001/users
+POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "username": "johndoe",
-  "password": "securepassword123",
-  "email": "johndoe@example.com",
-  "profilePicture": "https://example.com/profile.jpg",
-  "role": "fan",
-  "banned": false
+  "username": "janedoe",
+  "password": "securepassword321"
 }
