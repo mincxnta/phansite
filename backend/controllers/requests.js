@@ -13,6 +13,18 @@ export class RequestController {
     }
   }
 
+  static async getAllByUser (req, res) {
+    try {
+      const requests = await Request.findAll({
+        where: { userId: req.user.id },
+        order: ['submitDate', 'DESC']
+      })
+      res.json(requests)
+    } catch (error) {
+      res.status(500).json({ error: error.message })
+    }
+  }
+
   static async getById (req, res) {
     try {
       const { id } = req.params
