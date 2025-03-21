@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 
 export const Profile = () => {
     const [user, setUser] = useState(null)
@@ -30,6 +30,25 @@ export const Profile = () => {
         fetchProfile()
     }, [navigate])
 
+    const handleLogout = async (event) => {
+        event.preventDefault()
+        try {
+            const response = await fetch('http://localhost:3000/auth/logout', {
+                method: 'POST',
+                credentials: 'include'
+            })
+
+            if (response.ok) {
+                await response.json()
+                navigate('/login')
+            } else {
+                console.log('Error')
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     if (!user) {
         return <div>Carregant...</div>;
     }
@@ -38,6 +57,8 @@ export const Profile = () => {
         <div>
             <h1>Profile</h1>
             <p>{`Hola soy ${user.username}`}</p>
+            <button><Link to="/">Home</Link></button>
+            <button onClick={handleLogout}>Logout</button>
         </div>
     )
 }

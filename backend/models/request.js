@@ -9,7 +9,7 @@ export const Request = sequelize.define('request', {
     primaryKey: true,
     autoIncrement: true
   },
-  title: {
+  target: {
     type: DataTypes.STRING(255),
     allowNull: false
   },

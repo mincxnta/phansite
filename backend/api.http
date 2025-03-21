@@ -1,8 +1,8 @@
-POST http://localhost:3000/requests
+POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "title": "Request",
-  "description": "Description",
-  "userId": "30b2d3be-5886-4432-a6d1-4f11a1fc18f4"
+"username":"aaron",
+"password":"aaron",
+"email":"evil@aaron.com"
 }

@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 export class AuthController {
-  static async login (req, res) {
+  static async login(req, res) {
     try {
       const { username, password } = req.body
       const user = await User.findOne({ where: { username } })
@@ -30,7 +30,7 @@ export class AuthController {
   }
 
   // Preguntar cómo manejar, guardar en BBDD
-  static async refresh (req, res) {
+  static async refresh(req, res) {
     const refreshToken = req.cookies.refresh_token
 
     if (!refreshToken) {
@@ -52,7 +52,7 @@ export class AuthController {
     }
   }
 
-  static async register (req, res) {
+  static async register(req, res) {
     const newUser = validateNewUser(req.body)
 
     if (!newUser.success) {
@@ -61,7 +61,7 @@ export class AuthController {
 
     try {
       const hashedPassword = await bcrypt.hash(newUser.data.password, 10)
-      const user = await User.create({ ...newUser.data, password: hashedPassword, role: 'fan', banned: false })
+      const user = await User.create({ ...newUser.data, password: hashedPassword })
       const { password: _, ...userData } = user.toJSON()
       res.status(201).json(userData)
     } catch (error) {
@@ -69,7 +69,7 @@ export class AuthController {
     }
   }
 
-  static async logout (req, res) {
+  static async logout(req, res) {
     res.clearCookie('access_token').clearCookie('refresh_token').json({ message: 'Logged out' })
   }
 }

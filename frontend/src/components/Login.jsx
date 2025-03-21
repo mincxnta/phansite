@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export const Login = () => {
     const [username, setUsername] = useState('')
@@ -40,6 +41,8 @@ export const Login = () => {
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
 
                 <input type="submit" value="Iniciar sesion" />
+                <Link to="/register">Register</Link>
+
             </form>
         </div>
     )

@@ -34,7 +34,7 @@ export const User = sequelize.define('user', {
   },
   banned: {
     type: DataTypes.BOOLEAN,
-    defaultValue: false
+
   }
 }, {
   tableName: 'users',
