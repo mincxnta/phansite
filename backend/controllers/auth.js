@@ -61,7 +61,7 @@ export class AuthController {
 
     try {
       const hashedPassword = await bcrypt.hash(newUser.data.password, 10)
-      const user = await User.create({ ...newUser.data, password: hashedPassword, role: 'fan' })
+      const user = await User.create({ ...newUser.data, password: hashedPassword, role: 'fan', banned: false })
       const { password: _, ...userData } = user.toJSON()
       res.status(201).json(userData)
     } catch (error) {
