@@ -12,7 +12,7 @@ export class UserController {
       const users = await User.findAll({
         attributes: { exclude: ['password'] } // No retornem la contrasenya
       })
-      res.json(users)
+      res.status(200).json(users)
     } catch (error) {
       res.status(500).json({ error: error.message })
     }
@@ -25,7 +25,7 @@ export class UserController {
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
-      res.json(user)
+      res.status(200).json(user)
     } catch (error) {
       res.status(500).json({ error: error.message })
     }
@@ -43,8 +43,13 @@ export class UserController {
 
     try {
       const hashedPassword = await bcrypt.hash(newUser.data.password, 10)
-      const user = await User.create({ ...newUser.data, password: hashedPassword, banned: false })
-      res.status(201).json(user)
+      const user = await User.create({
+        ...newUser.data,
+        password: hashedPassword,
+        banned: false // Hace falta o por defecto del modelo?
+      })
+      const { password: _, ...userData } = user.toJSON()
+      res.status(201).json(userData)
     } catch (error) {
       res.status(500).json({ error: error.message })
     }
@@ -59,17 +64,19 @@ export class UserController {
     const updatedUser = validateUpdatedUser(req.body)
 
     if (!updatedUser.success) {
-      return res.status(400).json({ error: updatedUser.error.message })
+      return res.status(400).json({ error: JSON.parse(updatedUser.error.message) })
     }
 
     try {
       await user.update(updatedUser.data)
-      res.json(user)
+      const updatedUserData = await User.findByPk(req.user.id, { attributes: { exclude: ['password'] } })
+      res.status(200).json(updatedUserData)
     } catch (error) {
       res.status(500).json({ error: error.message })
     }
   }
 
+  // Eliminaremos usuarios?
   static async delete (req, res) {
     try {
       const user = await User.findByPk(req.user.id)
@@ -78,7 +85,27 @@ export class UserController {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
       await user.destroy()
-      res.json({ message: 'Usuario eliminado' })
+      res.status(200).json({ message: 'Usuario eliminado' })
+    } catch (error) {
+      res.status(500).json({ error: error.message })
+    }
+  }
+
+  static async ban (req, res) {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ error: 'No autorizado' })
+    }
+
+    const { id } = req.params // ID de l'usuari a banear
+
+    try {
+      const user = await User.findByPk(id)
+      if (!user) {
+        return res.status(404).json({ error: 'Usuario no encontrado' })
+      }
+
+      await user.update({ banned: true })
+      res.status(200).json({ message: `Usuario ${id} baneado` })
     } catch (error) {
       res.status(500).json({ error: error.message })
     }

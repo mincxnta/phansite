@@ -1,24 +1,15 @@
 import express from 'express'
-import cors from 'cors'
-import { usersRouter } from './routes/users.js'
-import { authRouter } from './routes/auth.js'
-import { requestsRouter } from './routes/requests.js'
-import { sequelize } from './config/db.js'
-import cookieParser from 'cookie-parser'
+import { configureServer } from './config/server.js'
+import { authRouter, usersRouter, requestsRouter } from './routes'
 import { authenticateToken } from './middlewares/auth.js'
+import { sequelize } from './config/database.js'
+import { PORT } from './constants/constants.js'
 import './models/index.js'
+
+// Configuración del servidor
 const app = express()
-
-app.disable('x-powered-by') // Desactivar header innecesario
-
-const corsOptions = {
-  origin: 'http://localhost:5173', // Només aquest origen
-  credentials: true // Permet credencials
-}
-
-app.use(cors(corsOptions)) // Evitar problemas de CORS
-app.use(express.json()) // Middleware para parsear JSON a objetos
-app.use(cookieParser())
+app.use(express.json())
+configureServer(app)
 
 // Rutas de la API
 app.use('/auth', authRouter)
@@ -35,8 +26,6 @@ sequelize.sync({ force: false })
   })
 
 // Inicializar servidor
-const PORT = process.env.PORT ?? 3000
-
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`)
 })

@@ -11,4 +11,6 @@ usersRouter.post('/', UserController.create)
 
 usersRouter.patch('/profile', UserController.update)
 
+usersRouter.patch('/:id/ban', UserController.ban)
+
 usersRouter.delete('/profile', UserController.delete)
