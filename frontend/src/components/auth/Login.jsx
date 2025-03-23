@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { API_URL } from '../../constants/constants.js'
 
 export const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
 
     const handleLogin = async (event) => {
         event.preventDefault()
         try {
-            const response = await fetch('http://localhost:3000/auth/login', {
+            const response = await fetch(`${API_URL}/auth/login`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -19,14 +21,14 @@ export const Login = () => {
                 body: JSON.stringify({ username, password })
             })
 
-            if (response.ok) {
-                await response.json()
-                navigate('/profile')
-            } else {
-                console.log('Error')
+            if (!response.ok) {
+                const errorData = await response.json()
+                throw new Error(errorData.message)
             }
+            await response.json()
+            navigate('/')
         } catch (error) {
-            console.log(error)
+            setErrorMessage(error.message)
         }
     }
 
@@ -34,11 +36,12 @@ export const Login = () => {
         <div>
             <h1>Login</h1>
             <form onSubmit={handleLogin}>
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 <label>Username</label>
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Enter your username" />
+                <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder="Enter your username" />
                 <br />
                 <label>Password</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
+                <input type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
 
                 <input type="submit" value="Iniciar sesion" />
                 <Link to="/register">Register</Link>

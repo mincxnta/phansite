@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import { API_URL } from '../../constants/constants.js'
 
 export const Register = () => {
     const [username, setUsername] = useState('')
@@ -11,7 +12,7 @@ export const Register = () => {
     const handleRegister = async (event) => {
         event.preventDefault()
         try {
-            const response = await fetch('http://localhost:3000/auth/register', {
+            const response = await fetch(`${API_URL}/auth/register`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -36,14 +37,14 @@ export const Register = () => {
             <h1>Register</h1>
             <form onSubmit={handleRegister}>
                 <label>Username</label>
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Enter your username" />
+                <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder="Enter your username" />
                 <br />
                 <label>Password</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
+                <input type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
                 <br />
                 <label>Email</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
-                <input type="submit" value="Iniciar sesion" />
+                <input type="email" value={email} required onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
+                <input type="submit" value="Registrarse" />
             </form>
             <Link to="/login">Login</Link>
         </div>
