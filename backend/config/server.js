@@ -1,8 +1,11 @@
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // Fer CONST
+  origin: process.env.CLIENT_URL,
   credentials: true
 }
 

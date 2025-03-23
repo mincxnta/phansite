@@ -10,16 +10,16 @@ export class AuthController {
       const user = await User.findOne({ where: { username } })
 
       if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado' })
+        return res.status(404).send({ message: 'Usuario no encontrado' })
       }
 
       if (user.banned) {
-        return res.status(403).json({ error: 'Usuario baneado' })
+        return res.status(403).send({ message: 'Usuario baneado' })
       }
 
       const isValid = await bcrypt.compare(password, user.password)
       if (!isValid) {
-        return res.status(401).json({ error: 'Contraseña incorrecta' })
+        return res.status(401).send({ message: 'Contraseña incorrecta' })
       }
 
       const { password: _, ...userData } = user.toJSON()
@@ -31,7 +31,20 @@ export class AuthController {
 
       res.status(200).json(userData)
     } catch (error) {
-      res.status(500).json({ error: error.message })
+      res.status(500).send({ message: error.message })
+    }
+  }
+
+  static async getUser (req, res) {
+    try {
+      const user = await User.findByPk(req.user.id, { attributes: { exclude: ['password'] } })
+
+      if (!user) {
+        return res.status(404).send({ message: 'Usuario no encontrado' })
+      }
+      res.status(200).json(user)
+    } catch (error) {
+      res.status(500).send({ message: error.message })
     }
   }
 
@@ -39,21 +52,21 @@ export class AuthController {
     const newUser = validateNewUser(req.body)
 
     if (!newUser.success) {
-      return res.status(400).json({ error: JSON.parse(newUser.error.message) })
+      return res.status(400).send({ message: JSON.parse(newUser.error.message) })
     }
 
     try {
       const existingUser = await User.findOne({ where: { email: newUser.data.email } })
       if (existingUser && existingUser.banned) {
-        return res.status(403).json({ error: 'Este correo está baneado y no puede registrarse' })
+        return res.status(403).send({ message: 'Este correo está baneado y no puede registrarse' })
       }
       if (existingUser) {
-        return res.status(409).json({ error: 'El correo ya está registrado' })
+        return res.status(409).send({ message: 'El correo ya está registrado' })
       }
 
       const existingUsername = await User.findOne({ where: { email: newUser.data.email } })
       if (existingUsername) {
-        return res.status(409).json({ error: 'El usuario ya existe' })
+        return res.status(409).send({ message: 'El usuario ya existe' })
       }
 
       const hashedPassword = await bcrypt.hash(newUser.data.password, 10)
@@ -61,14 +74,14 @@ export class AuthController {
       const { password: _, ...userData } = user.toJSON()
       res.status(201).json(userData)
     } catch (error) {
-      res.status(500).json({ error: error.message })
+      res.status(500).send({ message: error.message })
     }
   }
 
   static async logout (req, res) {
     res.clearCookie('access_token')
     res.clearCookie('refresh_token')
-    res.status(200).json({ message: 'Sesión cerrada' })
+    res.status(200).send({ message: 'Sesión cerrada' })
   }
 
   // Preguntar cómo manejar, guardar en BBDD
@@ -76,7 +89,7 @@ export class AuthController {
     const refreshToken = req.cookies.refresh_token
 
     if (!refreshToken) {
-      return res.status(403).json({ error: 'No autorizado' })
+      return res.status(403).send({ message: 'No autorizado' })
     }
 
     try {
@@ -84,14 +97,14 @@ export class AuthController {
       const user = await User.findByPk(data.id)
 
       if (!user) {
-        return res.status(403).json({ error: 'No autorizado' })
+        return res.status(403).send({ message: 'No autorizado' })
       }
 
       const newAccessToken = generateAccessToken(user)
       res.cookie('access_token', newAccessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 })
-      res.status(200).json({ message: 'Token actualizado' })
+      res.status(200).send({ message: 'Token actualizado' })
     } catch (error) {
-      res.status(403).json({ error: 'No autorizado' })
+      res.status(403).send({ message: 'No autorizado' })
     }
   }
 }

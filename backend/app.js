@@ -1,19 +1,21 @@
 import express from 'express'
-import { configureServer } from './config/server.js'
-import { authRouter, usersRouter, requestsRouter } from './routes'
+import { serverConfig } from './config/server.js'
+import { authRouter, usersRouter, requestsRouter, adminRouter } from './routes/index.js'
 import { authenticateToken } from './middlewares/auth.js'
 import { sequelize } from './config/database.js'
-import { PORT } from './constants/constants.js'
+import dotenv from 'dotenv'
 import './models/index.js'
 
 // Configuración del servidor
 const app = express()
 app.use(express.json())
-configureServer(app)
+dotenv.config()
+serverConfig(app)
 
 // Rutas de la API
 app.use('/auth', authRouter)
 app.use('/users', authenticateToken, usersRouter)
+app.use('/admin', authenticateToken, adminRouter)
 app.use('/requests', authenticateToken, requestsRouter)
 
 // Sincronizar modelos con la base de datos
@@ -26,6 +28,6 @@ sequelize.sync({ force: false })
   })
 
 // Inicializar servidor
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`)
+app.listen(process.env.PORT, () => {
+  console.log(`Server listening on port ${process.env.PORT}`)
 })

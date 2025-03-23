@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import { STATUS } from '../constants/constants.js'
 import { User } from './user.js'
-import { sequelize } from '../config/db.js'
+import { sequelize } from '../config/database.js'
 
 export const Request = sequelize.define('request', {
   id: {

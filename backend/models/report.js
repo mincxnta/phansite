@@ -3,7 +3,7 @@ import { REPORT_TYPE } from '../constants/constants.js'
 import { User } from './user.js'
 import { Comment } from './comment.js'
 import { Request } from './request.js'
-import { sequelize } from '../config/db.js'
+import { sequelize } from '../config/database.js'
 
 export const Report = sequelize.define('report', {
   id: {

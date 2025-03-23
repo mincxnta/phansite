@@ -9,7 +9,7 @@ export class RequestController {
       })
       res.status(200).json(requests)
     } catch (error) {
-      res.status(500).json({ error: error.message })
+      res.status(500).send({ message: error.message })
     }
   }
 
@@ -21,7 +21,7 @@ export class RequestController {
       })
       res.status(200).json(requests)
     } catch (error) {
-      res.status(500).json({ error: error.message })
+      res.status(500).send({ message: error.message })
     }
   }
 
@@ -31,12 +31,12 @@ export class RequestController {
       const request = await Request.findByPk(id)
 
       if (!request) {
-        return res.status(404).json({ error: 'Petición no encontrada' })
+        return res.status(404).send({ message: 'Petición no encontrada' })
       }
 
       res.status(200).json(request)
     } catch (error) {
-      res.status(500).json({ error: error.message })
+      res.status(500).send({ message: error.message })
     }
   }
 
@@ -44,7 +44,7 @@ export class RequestController {
     const newRequest = validateRequest(req.body)
 
     if (!newRequest.success) {
-      return res.status(400).json({ error: JSON.parse(newRequest.error.message) })
+      return res.status(400).send({ message: JSON.parse(newRequest.error.message) })
     }
 
     try {
@@ -56,7 +56,7 @@ export class RequestController {
       const request = await Request.create(requestData)
       res.status(201).json(request)
     } catch (error) {
-      res.status(500).json({ error: error.message })
+      res.status(500).send({ message: error.message })
     }
   }
 
@@ -66,24 +66,24 @@ export class RequestController {
 
     const request = await Request.findByPk(id)
     if (!request) {
-      return res.status(404).json({ error: 'Petición no encontrada' })
+      return res.status(404).send({ message: 'Petición no encontrada' })
     }
 
     if (request.userId !== req.user.id) {
-      return res.status(403).json({ error: 'No autorizado' })
+      return res.status(403).send({ message: 'No autorizado' })
     }
 
     const updatedRequest = validateUpdatedRequest(req.body)
 
     if (!updatedRequest.success) {
-      return res.status(400).json({ error: JSON.parse(updatedRequest.error.message) })
+      return res.status(400).send({ message: JSON.parse(updatedRequest.error.message) })
     }
 
     try {
       await request.update(updatedRequest.data)
       res.status(200).json(request)
     } catch (error) {
-      res.status(500).json({ error: error.message })
+      res.status(500).send({ message: error.message })
     }
   }
 
@@ -94,17 +94,17 @@ export class RequestController {
       const request = await Request.findByPk(id)
 
       if (!request) {
-        return res.status(404).json({ error: 'Petición no encontrada' })
+        return res.status(404).send({ message: 'Petición no encontrada' })
       }
 
       if (request.userId !== req.user.id) {
-        return res.status(403).json({ error: 'No autorizado' })
+        return res.status(403).send({ message: 'No autorizado' })
       }
 
       await request.destroy()
-      res.status(200).json({ message: `Petición ${id} eliminada` })
+      res.status(200).send({ message: `Petición ${id} eliminada` })
     } catch (error) {
-      res.status(500).json({ error: error.message })
+      res.status(500).send({ message: error.message })
     }
   }
 }

@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize'
 import { ROLES } from '../constants/constants.js'
-import { sequelize } from '../config/db.js'
+import { sequelize } from '../config/database.js'
 
 export const User = sequelize.define('user', {
   id: {
@@ -33,7 +33,7 @@ export const User = sequelize.define('user', {
     allowNull: false
   },
   banned: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.BOOLEAN
 
   }
 }, {

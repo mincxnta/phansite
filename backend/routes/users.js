@@ -5,12 +5,12 @@ export const usersRouter = Router()
 
 usersRouter.get('/', UserController.getAll)
 
-usersRouter.get('/profile', UserController.getById)
+usersRouter.get('/me', UserController.getMe)
 
-usersRouter.post('/', UserController.create)
+usersRouter.get('/:username', UserController.getById)
 
-usersRouter.patch('/profile', UserController.update)
+usersRouter.patch('/update', UserController.update)
 
 usersRouter.patch('/:id/ban', UserController.ban)
 
-usersRouter.delete('/profile', UserController.delete)
+usersRouter.delete('/delete', UserController.delete)
