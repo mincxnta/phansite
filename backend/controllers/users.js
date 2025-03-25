@@ -90,7 +90,7 @@ export class UserController {
       return res.status(403).send({ message: 'No autorizado' })
     }
 
-    const { id } = req.params // ID de l'usuari a banear
+    const { id } = req.params
 
     try {
       const user = await User.findByPk(id)

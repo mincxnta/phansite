@@ -19,7 +19,7 @@ app.use('/admin', authenticateToken, adminRouter)
 app.use('/requests', authenticateToken, requestsRouter)
 
 // Sincronizar modelos con la base de datos
-sequelize.sync({ force: false })
+sequelize.sync({ alter: true })
   .then(() => {
     console.log('Conexión establecida con la base de datos')
   })
