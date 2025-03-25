@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Link, useParams } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { getAuthUser } from '../../utils/auth.js'
+import { Menu } from '../Menu.jsx'
 
 export const Profile = () => {
     const [user, setUser] = useState(null)
@@ -91,16 +92,17 @@ export const Profile = () => {
     const isOwnProfile = !username || authUser.username === username
 
     return (
-        <div>
+        <>
+        <Menu/>
             <h1>{isOwnProfile ? 'Mi perfil' : `Perfil de ${user.username}`}</h1>
             <p>{`Hola soy ${user.username}`}</p>
-            <button><Link to="/">Home</Link></button>
             {isOwnProfile && (
                 <>
                     <button onClick={handleLogout}>Logout</button>
                     <button><Link to="edit">Editar</Link></button>
                     <button onClick={handleDelete}>Eliminar cuenta</button>
                 </>)}
-        </div>
+        
+        </>
     )
 }

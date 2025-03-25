@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
+import { Menu } from '../Menu.jsx'
 
 export const Login = () => {
     const [username, setUsername] = useState('')
@@ -34,6 +35,7 @@ export const Login = () => {
 
     return (
         <div>
+            <Menu/>
             <h1>Login</h1>
             <form onSubmit={handleLogin}>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}

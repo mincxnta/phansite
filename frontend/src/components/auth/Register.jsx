@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
+import { Menu } from '../Menu.jsx'
 
 export const Register = () => {
     const [username, setUsername] = useState('')
@@ -34,6 +35,7 @@ export const Register = () => {
 
     return (
         <div>
+            <Menu/>
             <h1>Register</h1>
             <form onSubmit={handleRegister}>
                 <label>Username</label>
@@ -46,7 +48,6 @@ export const Register = () => {
                 <input type="email" value={email} required onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
                 <input type="submit" value="Registrarse" />
             </form>
-            <Link to="/login">Login</Link>
         </div>
     )
 }
