@@ -4,9 +4,10 @@ import { Menu } from './Menu'
 export const Home = () => {
     return (
         <div>
-            <Menu/>
+            <Menu />
             <h1>Home yuju</h1>
-            <Link to="/newrequest">Create Request</Link>
+            <Link to="/requests">Requests</Link>
+
 
         </div>
     )

@@ -1,4 +1,4 @@
-export const ROUTES ={
+export const ROUTES = {
     HOME: '/',
     LOGIN: '/login',
     REGISTER: '/register',
@@ -8,4 +8,6 @@ export const ROUTES ={
     ADMIN: '/admin',
     CREATE_USER: '/admin/create',
     ADD_REQUEST: '/newrequest',
+    REQUEST_LIST: '/requests',
+    REQUEST_DETAILS: '/requests/:id',
 }

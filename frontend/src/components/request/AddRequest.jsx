@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { API_URL } from '../../constants/constants'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 export const AddRequest = () => {
 
@@ -36,6 +36,7 @@ export const AddRequest = () => {
 
     return (
         <div>
+            <Link to="/requests">Requests</Link>
             <h1>AddRequest</h1>
             <form onSubmit={handleNewRequest}>
                 <label>Title</label>

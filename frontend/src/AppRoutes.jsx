@@ -9,6 +9,8 @@ import { Admin } from "./components/admin/Admin.jsx";
 import { CreateUser } from "./components/admin/CreateUser.jsx";
 import { UpdateUser } from "./components/user/UpdateUser.jsx";
 import { ROUTES } from "./constants/routes.js";
+import { RequestList } from "./components/request/RequestList.jsx";
+import { RequestDetail } from "./components/request/RequestDetail.jsx";
 
 export const AppRoutes = () => {
     return (
@@ -19,7 +21,9 @@ export const AppRoutes = () => {
                 <Route path={ROUTES.PROFILE} element={<Profile />} />
                 <Route path={ROUTES.USER_PROFILE} element={<Profile />} />
                 <Route path={ROUTES.REGISTER} element={<Register />} />
+                <Route path={ROUTES.REQUEST_LIST} element={<RequestList />} />
                 <Route path={ROUTES.ADD_REQUEST} element={<AddRequest />} />
+                <Route path={ROUTES.REQUEST_DETAILS} element={<RequestDetail />} />
                 <Route path={ROUTES.ADMIN} element={<Admin />} />
                 <Route path={ROUTES.CREATE_USER} element={<CreateUser />} />
                 <Route path={ROUTES.EDIT_PROFILE} element={<UpdateUser />} />

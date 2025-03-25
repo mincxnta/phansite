@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 
-export const UserList = () => {
+export const RequestList = () => {
     const [requests, setRequests] = useState([])
     const navigate = useNavigate()
 
@@ -30,7 +30,10 @@ export const UserList = () => {
 
     return (
         <div>
-            <h1>User List</h1>
+            <Link to="/">Home</Link>
+            <h1>New Request</h1>
+            <Link to="/newrequest">Create Request</Link>
+            <h1>Requests</h1>
             <table>
                 <thead>
                     <tr>
@@ -43,11 +46,13 @@ export const UserList = () => {
                     {requests.map((request) => (
                         <tr key={request.id}>
                             <td>
-                                <button><Link to={``}>{request.title}</Link></button>
+                                {request.status}
                             </td>
-                            <td>{request.email}</td>
                             <td>
-                                <button onClick={() => handleBan(request.id)}>Ban</button>
+                                <button><Link to={`${request.id}`}>{request.title}</Link></button>
+                            </td>
+                            <td>
+                                {request.target}
                             </td>
                         </tr>
                     ))}
