@@ -1,83 +1,100 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import React, { useState } from 'react'
 import { API_URL } from '../../constants/constants.js'
 import '../../assets/requests/RequestDetail.css'
+import { createPortal } from 'react-dom';
+
+let showRequestDetail;
 
 export const RequestDetail = () => {
     const [request, setRequest] = useState(null)
-    const navigate = useNavigate()
-    const { id } = useParams()
+    const [visible, setVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        const fetchRequest = async () => {
-            try {
-                const url = `${API_URL}/requests/${id}`;
+    showRequestDetail = async (requestId) => {
+        setLoading(true);
+        setVisible(true);
+        try {
+            const url = `${API_URL}/requests/${requestId}`;
 
-                const response = await fetch(url, {
-                    method: 'GET',
-                    credentials: 'include'
-                })
+            const response = await fetch(url, {
+                method: 'GET',
+                credentials: 'include'
+            })
 
-                if (!response.ok) {
-                    console.log('Error')
-                    navigate('/login')
-                    return;
-
-                }
-                const data = await response.json()
-                setRequest(data)
-            } catch (error) {
-                console.log(error)
-                navigate('/')
+            if (!response.ok) {
+                setRequest(null);
+                setLoading(false);
+                return;
 
             }
-        }
-        fetchRequest()
-    }, [navigate])
+            const data = await response.json()
+            setRequest(data)
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
+            setRequest(null);
+            setLoading(false);
 
-    if (!request) {
-        return <div>Carregant...</div>;
+        }
     }
 
-    return (
-        <>
+    const closePopup = () => {
+        setVisible(false);
+    }
 
-            <div>
-                <h2>{request.status}</h2>
-                <h1>{request.title}</h1>
-            </div>
+    if (!visible) return null;
 
-            <table>
+    return createPortal(
+        <div className="popup-overlay">
+          {loading ? (
+            <div>Carregant...</div>
+          ) : request ? (
+            <div className="popup-content">
+              <button className="popup-close" onClick={closePopup}>Tancar</button>
+              <h2>{request.status}</h2>
+              <h1>{request.title}</h1>
+              <table>
                 <tbody>
-                    <tr>
-                        <td>
-                            <h3>Target</h3>
-                        </td>
-                        <td>
-                            <h3>Image</h3>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h3>{request.target}</h3>
-                        </td>
-                        <td rowSpan='3'>
-                            <img src={request.image ? request.image : '/assets/requests/unknownTarget.png'} alt={request.target} style={{ width: '200px' }} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h3>Description</h3>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h3>{request.description}</h3>
-                        </td>
-                    </tr>
+                  <tr>
+                    <td>
+                      <h3>Target</h3>
+                    </td>
+                    <td>
+                      <h3>Image</h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>{request.target}</p>
+                    </td>
+                    <td rowSpan="3">
+                      <img
+                        src={request.image ? request.image : '/assets/requests/unknownTarget.png'}
+                        alt={request.target}
+                        style={{ width: '200px' }}
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h3>Description</h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>{request.description}</p>
+                    </td>
+                  </tr>
                 </tbody>
-            </table >
+              </table>
+            </div>
+          ) : (
+            <div>No s'han pogut carregar els detalls</div>
+          )}
+        </div>,
+        document.body
+      );
+    };
 
-        </>
-    )
-}
+export { showRequestDetail };
+export default RequestDetail;

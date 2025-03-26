@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
+import { showRequestDetail } from './RequestDetail.jsx'
 
 export const RequestList = () => {
     const [requests, setRequests] = useState([])
@@ -30,7 +31,6 @@ export const RequestList = () => {
 
     return (
         <div>
-            <Link to="/">Home</Link>
             <h1>New Request</h1>
             <Link to="/newrequest">Create Request</Link>
             <h1>Requests</h1>
@@ -49,7 +49,8 @@ export const RequestList = () => {
                                 {request.status}
                             </td>
                             <td>
-                                <button><Link to={`${request.id}`}>{request.title}</Link></button>
+                                {/* <button><Link to={`${request.id}`}>{request.title}</Link></button> */}
+                                <button onClick={() => showRequestDetail(request.id)}>{request.title}</button>
                             </td>
                             <td>
                                 {request.target}

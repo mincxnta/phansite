@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useOutletContext  } from 'react-router-dom'
 import { Link, useParams } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { getAuthUser } from '../../utils/auth.js'
-import { Menu } from '../Menu.jsx'
 
 export const Profile = () => {
     const [user, setUser] = useState(null)
-    const [authUser, setAuthUser] = useState(null);
     const navigate = useNavigate()
     const { username } = useParams()
+    const { authUser, setAuthUser } = useOutletContext();
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -46,7 +45,7 @@ export const Profile = () => {
             }
         }
         fetchProfile()
-    }, [navigate, username])
+    }, [navigate, username, setAuthUser])
 
     const handleLogout = async () => {
         try {
@@ -58,6 +57,7 @@ export const Profile = () => {
 
             if (response.ok) {
                 await response.json()
+                setAuthUser(null)
                 navigate('/login')
             } else {
                 console.log('Error')
@@ -93,7 +93,6 @@ export const Profile = () => {
 
     return (
         <>
-        <Menu/>
             <h1>{isOwnProfile ? 'Mi perfil' : `Perfil de ${user.username}`}</h1>
             <p>{`Hola soy ${user.username}`}</p>
             {isOwnProfile && (
