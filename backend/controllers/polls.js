@@ -1,4 +1,4 @@
-import { validatePoll, validateUpdatedPoll } from '../schemas/polls.js'
+import { validatePoll, validateUpdatedPoll } from '../schemas/poll.js'
 import { validatePollVote } from '../schemas/pollvote.js'
 import { Poll } from '../models/poll.js'
 import { PollVotes } from '../models/poll_votes.js'

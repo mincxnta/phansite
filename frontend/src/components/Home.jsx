@@ -1,10 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Poll } from './poll/Poll'
 export const Home = () => {
     return (
         <div>
             <h1>Home yuju</h1>
-            <Link to="/requests">Requests</Link>
+            <Poll />
         </div>
     )
 }

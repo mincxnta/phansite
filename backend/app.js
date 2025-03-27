@@ -1,6 +1,6 @@
 import express from 'express'
 import { serverConfig } from './config/server.js'
-import { authRouter, usersRouter, requestsRouter, adminRouter } from './routes/index.js'
+import { authRouter, usersRouter, requestsRouter, adminRouter, pollsRouter } from './routes/index.js'
 import { authenticateToken } from './middlewares/auth.js'
 import { sequelize } from './config/database.js'
 import dotenv from 'dotenv'
@@ -17,6 +17,7 @@ app.use('/auth', authRouter)
 app.use('/users', authenticateToken, usersRouter)
 app.use('/admin', authenticateToken, adminRouter)
 app.use('/requests', authenticateToken, requestsRouter)
+app.use('/polls', authenticateToken, pollsRouter)
 
 // Sincronizar modelos con la base de datos
 sequelize.sync({ alter: true })

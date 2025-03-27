@@ -8,6 +8,9 @@ export const Menu = ({ authUser }) => {
                 <Link to="/">Home</Link>
             </button>
             <button>
+                <Link to="/requests">Requests</Link>
+            </button>
+            <button>
                 <Link to={authUser ? "/profile" : "/login"}>
                     {authUser ? "Profile" : "Login"}
                 </Link>
