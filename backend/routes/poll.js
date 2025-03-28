@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { PollController } from '../controllers/polls.js'
+import { authenticateToken } from '../middlewares/auth.js'
 
 export const pollsRouter = Router()
 
@@ -7,8 +8,10 @@ pollsRouter.get('/', PollController.getAll)
 
 pollsRouter.get('/active', PollController.getActivePoll)
 
-pollsRouter.post('/', PollController.create)
+pollsRouter.post('/', authenticateToken, PollController.create)
 
-pollsRouter.patch('/:id', PollController.update)
+pollsRouter.patch('/:id', authenticateToken, PollController.update)
 
-pollsRouter.patch('/:id/vote', PollController.vote)
+pollsRouter.post('/:id/vote', authenticateToken, PollController.vote)
+
+pollsRouter.get('/:id/results', PollController.getPollResults)

@@ -11,13 +11,13 @@ export const AddPoll = () => {
     const handleNewPoll = async (event) => {
         event.preventDefault()
         try {
-            const response = await fetch(`${API_URL}/requests`, {
+            const response = await fetch(`${API_URL}/polls`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ title, target, description })
+                body: JSON.stringify({ question })
             })
 
             if (!response.ok) {

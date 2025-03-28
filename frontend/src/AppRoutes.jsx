@@ -12,6 +12,7 @@ import { ROUTES } from "./constants/routes.js";
 import { RequestList } from "./components/request/RequestList.jsx";
 import { RequestDetail } from "./components/request/RequestDetail.jsx";
 import { Layout } from "./components/Layout.jsx";
+import { AddPoll } from "./components/poll/AddPoll.jsx";
 
 export const AppRoutes = () => {
     return (
@@ -29,6 +30,7 @@ export const AppRoutes = () => {
                     <Route path={ROUTES.ADMIN} element={<Admin />} />
                     <Route path={ROUTES.CREATE_USER} element={<CreateUser />} />
                     <Route path={ROUTES.EDIT_PROFILE} element={<UpdateUser />} />
+                    <Route path={ROUTES.ADD_POLL} element={<AddPoll/>}/>
                 </Route>
             </Routes>
         </Router>
