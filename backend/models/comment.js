@@ -35,7 +35,9 @@ export const Comment = sequelize.define('comment', {
   }
 }, {
   tableName: 'comments',
-  timestamps: false,
+  timestamps: true,
+  createdAt: 'date',
+  updatedAt: false,
   underscored: true
 })
 

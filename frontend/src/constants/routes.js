@@ -10,4 +10,5 @@ export const ROUTES = {
     ADD_REQUEST: '/newrequest',
     REQUEST_LIST: '/requests',
     REQUEST_DETAILS: '/requests/:id',
+    ADD_POLL: '/newpoll'
 }

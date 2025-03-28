@@ -2,7 +2,7 @@ import { validateRequest, validateUpdatedRequest } from '../schemas/requests.js'
 import { Request } from '../models/request.js'
 
 export class RequestController {
-  static async getAll(req, res) {
+  static async getAll (req, res) {
     try {
       const requests = await Request.findAll({
         order: [['submitDate', 'DESC']]
@@ -13,7 +13,7 @@ export class RequestController {
     }
   }
 
-  static async getAllByUser(req, res) {
+  static async getAllByUser (req, res) {
     try {
       const requests = await Request.findAll({
         where: { userId: req.user.id },
@@ -25,7 +25,7 @@ export class RequestController {
     }
   }
 
-  static async getById(req, res) {
+  static async getById (req, res) {
     try {
       const { id } = req.params
       const request = await Request.findByPk(id)
@@ -40,7 +40,7 @@ export class RequestController {
     }
   }
 
-  static async create(req, res) {
+  static async create (req, res) {
     const newRequest = validateRequest(req.body)
 
     if (!newRequest.success) {
@@ -61,7 +61,7 @@ export class RequestController {
   }
 
   // Dejamos editar?
-  static async update(req, res) {
+  static async update (req, res) {
     const { id } = req.params
 
     const request = await Request.findByPk(id)
@@ -88,7 +88,7 @@ export class RequestController {
   }
 
   // Dejamos eliminar?
-  static async delete(req, res) {
+  static async delete (req, res) {
     try {
       const { id } = req.params
       const request = await Request.findByPk(id)

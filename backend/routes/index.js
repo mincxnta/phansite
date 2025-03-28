@@ -3,5 +3,6 @@ import { usersRouter } from './users.js'
 import { requestsRouter } from './requests.js'
 import { adminRouter } from './admin.js'
 import { pollsRouter } from './poll.js'
+import { commentsRouter } from './comment.js'
 
-export { authRouter, usersRouter, requestsRouter, adminRouter, pollsRouter }
+export { authRouter, usersRouter, requestsRouter, adminRouter, pollsRouter, commentsRouter }
