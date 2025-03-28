@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { API_URL } from '../../constants/constants'
 import { getAuthUser } from "../../utils/auth.js";
+import { showReportForm } from '../report/Report.jsx';
 
 export const Comments = ({ pollId }) => {
     const [comments, setComments] = useState([]);
@@ -14,37 +15,37 @@ export const Comments = ({ pollId }) => {
     const limit = 5; // Comentaris per pàgina
     const [authUser, setAuthUser] = useState(null);
 
-        const checkAuthUser = async () => {
-          try {
+    const checkAuthUser = async () => {
+        try {
             const authData = await getAuthUser();
             console.log(authData)
             setAuthUser(authData);
-            
-          } catch (error) {
+
+        } catch (error) {
             console.log(error);
             setAuthUser(null);
-          }
-        };
+        }
+    };
 
-        const fetchComments = async () => {
-            try {
-              const response = await fetch(`${API_URL}/comments/${pollId}?page=${page}&limit=${limit}`, {
+    const fetchComments = async () => {
+        try {
+            const response = await fetch(`${API_URL}/comments/${pollId}?page=${page}&limit=${limit}`, {
                 method: 'GET',
                 credentials: 'include',
-              });
-        
-              if (response.ok) {
+            });
+
+            if (response.ok) {
                 const data = await response.json();
                 setComments(data.comments);
                 setTotalPages(data.totalPages);
                 setTotalComments(data.totalComments);
-              } else {
+            } else {
                 console.log('Error al obtenir els comentaris:', response.status);
-              }
-            } catch (error) {
-              console.log('Error de xarxa:', error);
             }
-          };
+        } catch (error) {
+            console.log('Error de xarxa:', error);
+        }
+    };
 
     // Funció per afegir un nou comentari
     const handleAddComment = async () => {
@@ -86,36 +87,42 @@ export const Comments = ({ pollId }) => {
             <h1>Comentarios</h1>
             <h4>Añadir comentario</h4>
             {error && <p>{error}</p>}
-            <div style={{display: "flex"}}>
+            <div style={{ display: "flex" }}>
                 <img src={authUser && authUser.profilePicture ? authUser.profilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
                 <textarea value={newComment} placeholder="Your comment here..." onChange={(e) => setNewComment(e.target.value)}
-                    style={{ maxHeight: "50px", resize: "none", width: "90%"}}></textarea>
+                    style={{ maxHeight: "50px", resize: "none", width: "90%" }}></textarea>
                 <label>
-            <input
-              type="checkbox"
-              checked={anonymous}
-              onChange={(e) => setAnonymous(e.target.checked)}
-            />
-            Comentar como anónimo
-          </label>
+                    <input
+                        type="checkbox"
+                        checked={anonymous}
+                        onChange={(e) => setAnonymous(e.target.checked)}
+                    />
+                    Comentar como anónimo
+                </label>
                 <button onClick={handleAddComment}>Send</button>
             </div>
             <h4>Comentarios ({totalComments})</h4>
             {comments.length === 0 ? (
                 <p>No hay comentarios</p>
             ) : (
-                
+
                 comments.map((comment) => (
                     <div key={comment.id} style={{ display: "flex" }}>
                         <img src={comment.user?.profilePicture ? comment.user.profilePicture : '/assets/requests/unknownTarget.png'} alt="Profile picture" style={{ maxHeight: '50px' }} />
                         <div style={{ maxHeight: "100px", resize: "none", width: "90%", padding: "4px" }}>
-                            <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? "Anon" : comment.user.username}</p>
+                            <div style={{ display: "flex" }}>
+                                <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? "Anon" : comment.user.username}</p>
+                                <button onClick={() => showReportForm("comment", comment.id)}>
+                                    <img src={'/assets/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
+                                </button>
+                            </div>
+
                             <p style={{ margin: "0" }}>{comment.text}</p>
                         </div>
                     </div>
                 ))
             )}
-    
+
             {totalPages > 1 && (
                 <div>
                     <button
@@ -135,7 +142,7 @@ export const Comments = ({ pollId }) => {
                     </button>
                 </div>
             )}
-            
+
 
 
 
