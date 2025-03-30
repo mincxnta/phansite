@@ -91,7 +91,7 @@ export const Poll = () => {
             <button onClick={() =>handleVote(true)}>Yes</button>
             <p>Total votes: {results.total}</p>
 
-            <Comments pollId={poll.id}/>
+            {poll.id && <Comments pollId={poll.id} />}
         </div>
     )
 }

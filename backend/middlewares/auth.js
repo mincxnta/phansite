@@ -15,3 +15,21 @@ export function authenticateToken (req, res, next) {
     res.status(403).json({ error: 'No autorizado' })
   }
 }
+
+export function optionalAuthenticateToken (req, res, next) {
+  const token = req.cookies.access_token
+
+  if (!token) {
+    req.user = null
+    return next()
+  }
+
+  try {
+    const data = jwt.verify(token, process.env.JWT_SECRET)
+    req.user = data
+  } catch (error) {
+    req.user = null
+  }
+
+  next()
+}

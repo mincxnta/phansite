@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { API_URL } from '../../constants/constants'
-import { getAuthUser } from "../../utils/auth.js";
 import { showReportForm } from '../report/Report.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export const Comments = ({ pollId }) => {
     const [comments, setComments] = useState([]);
@@ -13,19 +13,7 @@ export const Comments = ({ pollId }) => {
     const [totalComments, setTotalComments] = useState(0);
     const [anonymous, setAnonymous] = useState(false)
     const limit = 5; // Comentaris per pàgina
-    const [authUser, setAuthUser] = useState(null);
-
-    const checkAuthUser = async () => {
-        try {
-            const authData = await getAuthUser();
-            console.log(authData)
-            setAuthUser(authData);
-
-        } catch (error) {
-            console.log(error);
-            setAuthUser(null);
-        }
-    };
+    const { user } = useAuth
 
     const fetchComments = async () => {
         try {
@@ -79,7 +67,6 @@ export const Comments = ({ pollId }) => {
     };
 
     useEffect(() => {
-        checkAuthUser()
         fetchComments()
     }, [pollId, page]);
     return (
@@ -88,7 +75,7 @@ export const Comments = ({ pollId }) => {
             <h4>Añadir comentario</h4>
             {error && <p>{error}</p>}
             <div style={{ display: "flex" }}>
-                <img src={authUser && authUser.profilePicture ? authUser.profilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
+                <img src={user && user.profilePicture ? user.profilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
                 <textarea value={newComment} placeholder="Your comment here..." onChange={(e) => setNewComment(e.target.value)}
                     style={{ maxHeight: "50px", resize: "none", width: "90%" }}></textarea>
                 <label>

@@ -37,6 +37,9 @@ export class AuthController {
 
   static async getUser (req, res) {
     try {
+      if (!req.user) {
+        return res.status(200).json(null)
+      }
       const user = await User.findByPk(req.user.id, { attributes: { exclude: ['password'] } })
 
       if (!user) {

@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useOutletContext  } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Link, useParams } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
-import { getAuthUser } from '../../utils/auth.js'
+import { useAuth } from '../../context/AuthContext.jsx'
 
 export const Profile = () => {
-    const [user, setUser] = useState(null)
+    const [profileUser, setProfileUser] = useState(null)
     const navigate = useNavigate()
     const { username } = useParams()
-    const { authUser, setAuthUser } = useOutletContext();
+    const { user } = useAuth()
 
     useEffect(() => {
         const fetchProfile = async () => {
-            const authData = await getAuthUser()
-            if (!authData) {
-                navigate('/login');
-                return;
-              }
-              setAuthUser(authData)
+            if (user) {
+                setProfileUser(user)
+                return
+            }
             try {
-                const url = username ? `${API_URL}/users/${username}` : `${API_URL}/users/me`;
-
-                const response = await fetch(url, {
+                const response = await fetch(`${API_URL}/users/${username}`, {
                     method: 'GET',
                     credentials: 'include'
                 })
@@ -33,9 +29,9 @@ export const Profile = () => {
 
                 }
                 const data = await response.json()
-                setUser(data)
+                setProfileUser(data)
 
-                if (username && authData.username === username) {
+                if (username && user.username === username) {
                     navigate('/profile', { replace: true });
                 }
             } catch (error) {
@@ -45,7 +41,7 @@ export const Profile = () => {
             }
         }
         fetchProfile()
-    }, [navigate, username, setAuthUser])
+    }, [navigate, username, user])
 
     const handleLogout = async () => {
         try {
@@ -57,7 +53,7 @@ export const Profile = () => {
 
             if (response.ok) {
                 await response.json()
-                setAuthUser(null)
+                setProfileUser(null)
                 navigate('/login')
             } else {
                 console.log('Error')
@@ -85,23 +81,23 @@ export const Profile = () => {
         }
     }
 
-    if (!user) {
+    if (!profileUser) {
         return <div>Carregant...</div>;
     }
 
-    const isOwnProfile = !username || authUser.username === username
+    const isOwnProfile = !username || user.username === username
 
     return (
         <>
-            <h1>{isOwnProfile ? 'Mi perfil' : `Perfil de ${user.username}`}</h1>
-            <p>{`Hola soy ${user.username}`}</p>
+            <h1>{isOwnProfile ? 'Mi perfil' : `Perfil de ${profileUser.username}`}</h1>
+            <p>{`Hola soy ${profileUser.username}`}</p>
             {isOwnProfile && (
                 <>
                     <button onClick={handleLogout}>Logout</button>
                     <button><Link to="edit">Editar</Link></button>
                     <button onClick={handleDelete}>Eliminar cuenta</button>
                 </>)}
-        
+
         </>
     )
 }
