@@ -7,14 +7,15 @@ import { useAuth } from '../../context/AuthContext.jsx'
 export const Profile = () => {
     const [profileUser, setProfileUser] = useState(null)
     const navigate = useNavigate()
-    const { username } = useParams()
+    let { username } = useParams()
     const { user } = useAuth()
 
     useEffect(() => {
         const fetchProfile = async () => {
-            if (user) {
+            if (!username) {
                 setProfileUser(user)
-                return
+                username = user.username
+                return;
             }
             try {
                 const response = await fetch(`${API_URL}/users/${username}`, {
@@ -31,7 +32,7 @@ export const Profile = () => {
                 const data = await response.json()
                 setProfileUser(data)
 
-                if (username && user.username === username) {
+                if (user.username === username) {
                     navigate('/profile', { replace: true });
                 }
             } catch (error) {

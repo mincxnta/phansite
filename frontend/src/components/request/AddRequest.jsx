@@ -1,16 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { API_URL } from '../../constants/constants'
 import { useNavigate, Link } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext.jsx';
+
 
 export const AddRequest = () => {
-
     const [title, setTitle] = useState('')
     const [target, setTarget] = useState('')
     const [description, setDescription] = useState('')
     const [image, setImage] = useState('')
     const navigate = useNavigate()
+    const { user } = useAuth()
 
-
+    useEffect(() => {
+        if (!user) {
+            console.log('Error')
+            navigate('/login')
+        }
+    })
+    
     const handleNewRequest = async (event) => {
         event.preventDefault()
         try {

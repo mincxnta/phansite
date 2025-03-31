@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../../constants/constants'
 import { showReportForm } from '../report/Report.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
@@ -14,6 +15,7 @@ export const Comments = ({ pollId }) => {
     const [anonymous, setAnonymous] = useState(false)
     const limit = 5; // Comentaris per pàgina
     const { user } = useAuth
+    const navigate = useNavigate()
 
     const fetchComments = async () => {
         try {
@@ -35,8 +37,11 @@ export const Comments = ({ pollId }) => {
         }
     };
 
-    // Funció per afegir un nou comentari
     const handleAddComment = async () => {
+        if (!user) {
+            return;
+        }
+
         if (!newComment.trim()) {
             setError('El comentario no puede estar vacío');
             return;
@@ -66,6 +71,13 @@ export const Comments = ({ pollId }) => {
         }
     };
 
+    const handleReport = (type, postId) => {
+        if (!user){
+            navigate('/login')
+            return
+        }
+        showReportForm(type, postId)
+    }
     useEffect(() => {
         fetchComments()
     }, [pollId, page]);
@@ -77,16 +89,17 @@ export const Comments = ({ pollId }) => {
             <div style={{ display: "flex" }}>
                 <img src={user && user.profilePicture ? user.profilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
                 <textarea value={newComment} placeholder="Your comment here..." onChange={(e) => setNewComment(e.target.value)}
-                    style={{ maxHeight: "50px", resize: "none", width: "90%" }}></textarea>
+                    style={{ maxHeight: "50px", resize: "none", width: "90%" }} disabled={!user}> </textarea>
                 <label>
                     <input
                         type="checkbox"
                         checked={anonymous}
+                        disabled={!user}
                         onChange={(e) => setAnonymous(e.target.checked)}
                     />
                     Comentar como anónimo
                 </label>
-                <button onClick={handleAddComment}>Send</button>
+                <button onClick={handleAddComment} disabled={!user}>Send</button>
             </div>
             <h4>Comentarios ({totalComments})</h4>
             {comments.length === 0 ? (
@@ -99,7 +112,7 @@ export const Comments = ({ pollId }) => {
                         <div style={{ maxHeight: "100px", resize: "none", width: "90%", padding: "4px" }}>
                             <div style={{ display: "flex" }}>
                                 <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? "Anon" : comment.user.username}</p>
-                                <button onClick={() => showReportForm("comment", comment.id)}>
+                                <button onClick={() => handleReport("comment", comment.id)}>
                                     <img src={'/assets/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
                                 </button>
                             </div>
@@ -129,33 +142,6 @@ export const Comments = ({ pollId }) => {
                     </button>
                 </div>
             )}
-
-
-
-
-            {/* <div style="display: flex;">
-                <img src={request.image ? request.image : '/assets/requests/unknownTarget.png'} alt={request.target} style={{ maxHeight: '50px' }} />
-                <div style="max-height: 100px; resize: none; width: 90%; padding: 4px;">
-                    <p style="font-weight: bolder; margin: 0;"> Lucifer</p>
-                    <p style="margin: 0;"> OS VOY A MATAR</p>
-                </div>
-            </div>
-
-            <div style="display: flex;">
-                <img src={request.image ? request.image : '/assets/requests/unknownTarget.png'} alt={request.target} style={{ maxHeight: '50px' }} />
-                <div style="max-height: 100px; resize: none; width: 90%; padding: 4px;">
-                    <p style="font-weight: bolder; margin: 0;"> Admin</p>
-                    <p style="margin: 0;"> Lucifer te vas baneado</p>
-                </div>
-            </div>
-
-            <div style="display: flex;">
-                <img src={request.image ? request.image : '/assets/requests/unknownTarget.png'} alt={request.target} style={{ maxHeight: '50px' }} />
-                <div style="max-height: 100px; resize: none; width: 90%; padding: 4px;">
-                    <p style="font-weight: bolder; margin: 0;"> Anon</p>
-                    <p style="margin: 0;"> LOL</p>
-                </div>
-            </div> */}
         </div>
     )
 }

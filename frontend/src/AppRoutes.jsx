@@ -18,7 +18,6 @@ import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 
 export const AppRoutes = () => {
     return (
-        <AuthProvider>
         <Router>
             <Routes>
                 <Route path="/" element={<Layout />}>
@@ -28,15 +27,14 @@ export const AppRoutes = () => {
                     <Route path={ROUTES.USER_PROFILE} element={<Profile />} />
                     <Route path={ROUTES.REGISTER} element={<Register />} />
                     <Route path={ROUTES.REQUEST_LIST} element={<RequestList />} />
-                    <Route path={ROUTES.ADD_REQUEST} element={<AddRequest />} />
+                    <Route path={ROUTES.ADD_REQUEST} element={<ProtectedRoute><AddRequest /></ProtectedRoute>} />
                     <Route path={ROUTES.REQUEST_DETAILS} element={<RequestDetail />} />
                     <Route path={ROUTES.ADMIN} element={<ProtectedRoute role="admin"><Admin /></ProtectedRoute>} />
-                    <Route path={ROUTES.CREATE_USER} element={<CreateUser />} />
+                    <Route path={ROUTES.CREATE_USER} element={<ProtectedRoute role="admin"><CreateUser /></ProtectedRoute>} />
                     <Route path={ROUTES.EDIT_PROFILE} element={<UpdateUser />} />
-                    <Route path={ROUTES.ADD_POLL} element={<AddPoll/>}/>
+                    <Route path={ROUTES.ADD_POLL} element={<ProtectedRoute role="admin"><AddPoll/></ProtectedRoute>}/>
                 </Route>
             </Routes>
         </Router>
-        </AuthProvider>
     );
 }

@@ -1,29 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { API_URL } from '../../constants/constants.js'
 import '../../assets/requests/RequestDetail.css'
 import { createPortal } from 'react-dom';
-
+import { useAuth } from '../../context/AuthContext.jsx';
 
 let showReportForm;
 
 export const ReportForm = () => {
-
   const [reason, setReason] = useState(null)
   const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [reportedType, setReportedType] = useState(null);
   const [postId, setPostId] = useState(null);
+  const { user } = useAuth()
+
+  useEffect(()=>{
+    if (!user){
+      return
+    }
+  })
 
   showReportForm = async (type, postId) => {
     setReportedType(type);
-    //setLoading(true);
     setVisible(true);
     setPostId(postId);
-    //setLoading(false);
   }
 
   const handleNewReport = async (event) => {
     event.preventDefault()
+    
+
     try {
       const response = await fetch(`${API_URL}/reports`, {
         method: 'POST',

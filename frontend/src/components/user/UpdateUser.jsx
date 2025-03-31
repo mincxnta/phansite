@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export const UpdateUser = () => {
-    const [user, setUser] = useState(null)
+    const {user} = useAuth()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -13,18 +14,9 @@ export const UpdateUser = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-
-                const response = await fetch(`${API_URL}/users/me`, {
-                    method: 'GET',
-                    credentials: 'include'
-                })
-
-                if (response.ok) {
-                    const data = await response.json()
-                    setUser(data)
-
-                    setUsername(data.username);
-                    setEmail(data.email);
+                if (user){
+                    setUsername(user.username)
+                    setEmail(user.email)
                 } else {
                     console.log('Error')
                     navigate('/login')
@@ -36,7 +28,7 @@ export const UpdateUser = () => {
             }
         }
         fetchProfile()
-    }, [navigate])
+    }, [navigate, user])
 
     const handleUpdateUser = async (event) => {
         event.preventDefault()

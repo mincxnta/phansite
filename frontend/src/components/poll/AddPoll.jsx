@@ -1,12 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { API_URL } from '../../constants/constants'
 import { useNavigate, Link } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export const AddPoll = () => {
-
     const [question, setQuestion] = useState('')
     const navigate = useNavigate()
+    const { user } = useAuth()
 
+    useEffect(() => {
+        const verifyAdmin = () => {
+            if (!user) {
+                navigate('/login');
+                return;
+            }
+
+            if (user.role !== 'admin') {
+                navigate('/');
+            }
+        }
+        verifyAdmin();
+    }, [navigate, user])
 
     const handleNewPoll = async (event) => {
         event.preventDefault()

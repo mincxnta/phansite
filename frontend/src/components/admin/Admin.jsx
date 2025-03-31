@@ -1,15 +1,15 @@
 import { useEffect } from "react"
 import { UserList } from "./UserList.jsx"
-import { getAuthUser } from "../../utils/auth.js"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export const Admin = () => {
     const navigate = useNavigate()
+    const {user} = useAuth()
 
     useEffect(() => {
-        const verifyAdmin = async () => {
-            const user = await getAuthUser()
+        const verifyAdmin = () => {
             if (!user) {
                 navigate('/login');
                 return;
@@ -20,7 +20,7 @@ export const Admin = () => {
             }
         }
         verifyAdmin();
-    }, [navigate])
+    }, [navigate, user])
 
 
     return (

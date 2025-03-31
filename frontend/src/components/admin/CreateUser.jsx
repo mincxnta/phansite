@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export const CreateUser = () => {
     const [username, setUsername] = useState('')
@@ -9,6 +10,21 @@ export const CreateUser = () => {
     const [email, setEmail] = useState('')
     const [role, setRole] = useState('')
     const navigate = useNavigate()
+    const { user } = useAuth()
+
+    useEffect(() => {
+        const verifyAdmin = () => {
+            if (!user) {
+                navigate('/login');
+                return;
+            }
+
+            if (user.role !== 'admin') {
+                navigate('/');
+            }
+        }
+        verifyAdmin();
+    }, [navigate, user])
 
     const handleCreateUser = async (event) => {
         event.preventDefault()
@@ -50,7 +66,7 @@ export const CreateUser = () => {
                     <option value="fan">Fan</option>
                     <option value="phantom_thief">Phantom thief</option>
                     <option value="admin">Admin</option>
-                </select>                
+                </select>
                 <input type="submit" value="Crear usuario" />
             </form>
             <Link to="/login">Login</Link>
