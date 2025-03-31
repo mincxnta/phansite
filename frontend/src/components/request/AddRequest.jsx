@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { API_URL } from '../../constants/constants'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext.jsx';
-
+import { useTranslation } from 'react-i18next'
 
 export const AddRequest = () => {
     const [title, setTitle] = useState('')
@@ -11,6 +11,7 @@ export const AddRequest = () => {
     const [image, setImage] = useState('')
     const navigate = useNavigate()
     const { user } = useAuth()
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (!user) {
@@ -44,21 +45,21 @@ export const AddRequest = () => {
 
     return (
         <div>
-            <Link to="/requests">Requests</Link>
-            <h1>AddRequest</h1>
+            <Link to="/requests">{t("requests")}</Link>
+            <h1>{t("add.request")}</h1>
             <form onSubmit={handleNewRequest}>
-                <label>Title</label>
-                <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter request title" />
+                <label>{t("title")}</label>
+                <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("title.request.placeholder")} />
                 <br />
-                <label>Target</label>
-                <input type="text" required value={target} onChange={(e) => setTarget(e.target.value)} placeholder="Enter target name" />
+                <label>{t("target")}</label>
+                <input type="text" required value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("target.placeholder")} />
                 <br />
-                <label>Description</label>
-                <input type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter your password" />
+                <label>{t("description")}</label>
+                <input type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t("description.request.placeholder")} />
                 <br />
-                <label>Target image</label>
+                <label>{t("target.image")}</label>
                 <input type="image" value={image} onChange={(e) => setImage(e.target.value)} />
-                <input type="submit" value="Send Request" />
+                <input type="submit" value={t("request.send")} />
             </form>
         </div>
     )

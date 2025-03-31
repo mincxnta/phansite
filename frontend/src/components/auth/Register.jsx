@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
+import { useTranslation } from 'react-i18next'
 
 export const Register = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const navigate = useNavigate()
+    const { t } = useTranslation();
 
     const handleRegister = async (event) => {
         event.preventDefault()
@@ -34,17 +36,17 @@ export const Register = () => {
 
     return (
         <div>
-            <h1>Register</h1>
+            <h1>{t("register")}</h1>
             <form onSubmit={handleRegister}>
-                <label>Username</label>
-                <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder="Enter your username" />
+                <label>{t("username")}</label>
+                <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder={t("username.placeholder")} />
                 <br />
-                <label>Password</label>
-                <input type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
+                <label>{t("password")}</label>
+                <input type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder={t("password.placeholder")} />
                 <br />
-                <label>Email</label>
+                <label>{t("email")}</label>
                 <input type="email" value={email} required onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
-                <input type="submit" value="Registrarse" />
+                <input type="submit" value={t("register")} />
             </form>
         </div>
     )

@@ -4,6 +4,7 @@ import { API_URL } from '../../constants/constants'
 import { useNavigate } from 'react-router-dom'
 import { Comments } from './Comments'
 import { useAuth } from '../../context/AuthContext.jsx';
+import { useTranslation } from 'react-i18next'
 
 export const Poll = () => {
   const navigate = useNavigate()
@@ -12,6 +13,7 @@ export const Poll = () => {
   const [error, setError] = useState(null);
   const [yesPercentage, setYesPercentage] = useState(0);
   const { user } = useAuth()
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getActivePoll = async () => {
@@ -93,9 +95,9 @@ export const Poll = () => {
       <div>
         <progress value={yesPercentage} max="100" /> <span>{yesPercentage}%</span>
       </div>
-      <button onClick={() => handleVote(false)} disabled={!user}>No</button>
-      <button onClick={() => handleVote(true)} disabled={!user}>Yes</button>
-      <p>Total votes: {results.total}</p>
+      <button onClick={() => handleVote(false)} disabled={!user}>{t("no")}</button>
+      <button onClick={() => handleVote(true)} disabled={!user}>{t("yes")}</button>
+      <p>{t("total.votes")}: {results.total}</p>
 
       {poll.id && <Comments pollId={poll.id} />}
     </div>

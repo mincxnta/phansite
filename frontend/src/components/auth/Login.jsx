@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
+import { useTranslation } from 'react-i18next'
 
 export const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
+    const { t } = useTranslation();
 
     const handleLogin = async (event) => {
         event.preventDefault()
@@ -34,17 +36,17 @@ export const Login = () => {
 
     return (
         <div>
-            <h1>Login</h1>
+            <h1>{t("login")}</h1>
             <form onSubmit={handleLogin}>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-                <label>Username</label>
-                <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder="Enter your username" />
+                <label>{t("username")}</label>
+                <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder={t("username.placeholder")} />
                 <br />
-                <label>Password</label>
-                <input type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
+                <label>{t("password")}</label>
+                <input type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder={t("password.placeholder")} />
 
-                <input type="submit" value="Iniciar sesion" />
-                <Link to="/register">Register</Link>
+                <input type="submit" value={t("login")} />
+                <Link to="/register">{t("register")}</Link>
 
             </form>
         </div>

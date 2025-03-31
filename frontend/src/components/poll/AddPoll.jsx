@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { API_URL } from '../../constants/constants'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext.jsx';
+import { useTranslation } from 'react-i18next'
 
 export const AddPoll = () => {
     const [question, setQuestion] = useState('')
     const navigate = useNavigate()
     const { user } = useAuth()
+    const { t } = useTranslation();
 
     useEffect(() => {
         const verifyAdmin = () => {
@@ -47,12 +49,12 @@ export const AddPoll = () => {
 
     return (
         <div>
-            <h1>New poll</h1>
+            <h1>{t("poll.new")}</h1>
             <form onSubmit={handleNewPoll}>
-                <label>Question</label>
-                <input type="text" required placeholder="Enter poll question" value={question} onChange={(e) => setQuestion(e.target.value)} />
+                <label>{t("question")}</label>
+                <input type="text" required placeholder={t("question.placeholder")} value={question} onChange={(e) => setQuestion(e.target.value)} />
                 <br />
-                <input type="submit" value="Publish poll" />
+                <input type="submit" value={t("poll.send")} />
             </form>
         </div>
     )

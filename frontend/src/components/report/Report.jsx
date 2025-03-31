@@ -3,6 +3,7 @@ import { API_URL } from '../../constants/constants.js'
 import '../../assets/requests/RequestDetail.css'
 import { createPortal } from 'react-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { useTranslation } from 'react-i18next'
 
 let showReportForm;
 
@@ -12,6 +13,7 @@ export const ReportForm = () => {
   const [reportedType, setReportedType] = useState(null);
   const [postId, setPostId] = useState(null);
   const { user } = useAuth()
+  const { t } = useTranslation();
 
   useEffect(()=>{
     if (!user){
@@ -62,9 +64,9 @@ export const ReportForm = () => {
       <div className="popup-content">
         <button className="popup-close" onClick={closePopup}>Tancar</button>
         <form onSubmit={handleNewReport}>
-          <h4>What's wrong with this post?</h4>
+          <h4>{t("report.title")}</h4>
           <textarea name="" id="reason" value={reason} onChange={(e) => setReason(e.target.value)}></textarea>
-          <input type="submit" value="Submit" />
+          <input type="submit" value={t("report.send")} />
         </form>
       </div>
     </div>,

@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import { Link, useParams } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx'
+import { useTranslation } from 'react-i18next'
 
 export const Profile = () => {
     const [profileUser, setProfileUser] = useState(null)
     const navigate = useNavigate()
     let { username } = useParams()
     const { user } = useAuth()
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -90,13 +92,13 @@ export const Profile = () => {
 
     return (
         <>
-            <h1>{isOwnProfile ? 'Mi perfil' : `Perfil de ${profileUser.username}`}</h1>
+            <h1>{isOwnProfile ? t("my.profile") : `Perfil de ${profileUser.username}`}</h1>
             <p>{`Hola soy ${profileUser.username}`}</p>
             {isOwnProfile && (
                 <>
-                    <button onClick={handleLogout}>Logout</button>
-                    <button><Link to="edit">Editar</Link></button>
-                    <button onClick={handleDelete}>Eliminar cuenta</button>
+                    <button onClick={handleLogout}>{t("logout")}</button>
+                    <button><Link to="edit">{t("edit.profile")}</Link></button>
+                     <button onClick={handleDelete}>Eliminar cuenta</button> {/*//Se quita? */}
                 </>)}
 
         </>

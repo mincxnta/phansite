@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { API_URL } from '../../constants/constants.js'
 import '../../assets/requests/RequestDetail.css'
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next'
 
 let showRequestDetail;
 
@@ -9,6 +10,7 @@ export const RequestDetail = () => {
     const [request, setRequest] = useState(null)
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { t } = useTranslation();
 
     showRequestDetail = async (requestId) => {
         setLoading(true);
@@ -50,17 +52,17 @@ export const RequestDetail = () => {
             <div>Carregant...</div>
           ) : request ? (
             <div className="popup-content">
-              <button className="popup-close" onClick={closePopup}>Tancar</button>
+              <button className="popup-close" onClick={closePopup}>x</button>
               <h2>{request.status}</h2>
               <h1>{request.title}</h1>
               <table>
                 <tbody>
                   <tr>
                     <td>
-                      <h3>Target</h3>
+                      <h3>{t("target")}</h3>
                     </td>
                     <td>
-                      <h3>Image</h3>
+                      <h3>{t("target.image")}</h3>
                     </td>
                   </tr>
                   <tr>
@@ -77,7 +79,7 @@ export const RequestDetail = () => {
                   </tr>
                   <tr>
                     <td>
-                      <h3>Description</h3>
+                      <h3>{t("description")}</h3>
                     </td>
                   </tr>
                   <tr>

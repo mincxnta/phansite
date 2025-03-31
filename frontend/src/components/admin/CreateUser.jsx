@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx';
+import { useTranslation } from 'react-i18next'
 
 export const CreateUser = () => {
     const [username, setUsername] = useState('')
@@ -11,6 +12,7 @@ export const CreateUser = () => {
     const [role, setRole] = useState('')
     const navigate = useNavigate()
     const { user } = useAuth()
+    const { t } = useTranslation();
 
     useEffect(() => {
         const verifyAdmin = () => {
@@ -51,25 +53,24 @@ export const CreateUser = () => {
 
     return (
         <div>
-            <h1>Create user</h1>
+            <h1>{t("user.create")}</h1>
             <form onSubmit={handleCreateUser}>
-                <label>Username</label>
-                <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder="Enter your username" />
+                <label>{t("username")}</label>
+                <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder={t("username.placeholder")} />
                 <br />
-                <label>Password</label>
-                <input type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
+                <label>{t("password")}</label>
+                <input type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder={t("password.placeholder")} />
                 <br />
-                <label>Email</label>
+                <label>{t("email")}</label>
                 <input type="email" value={email} required onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
-                <label>Role</label>
+                <label>{t("role")}</label>
                 <select value={role} required onChange={(e) => setRole(e.target.value)}>
-                    <option value="fan">Fan</option>
-                    <option value="phantom_thief">Phantom thief</option>
-                    <option value="admin">Admin</option>
+                    <option value="fan">{t("role.fan")}</option>
+                    <option value="phantom_thief">{t("role.phantom.thief")}</option>
+                    <option value="admin">{t("role.admin")}</option>
                 </select>
-                <input type="submit" value="Crear usuario" />
+                <input type="submit" value={t("user.create")} />
             </form>
-            <Link to="/login">Login</Link>
         </div>
     )
 }

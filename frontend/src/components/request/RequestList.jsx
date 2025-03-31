@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { showRequestDetail } from './RequestDetail.jsx'
+import { useTranslation } from 'react-i18next'
 
 export const RequestList = () => {
     const [requests, setRequests] = useState([])
     const navigate = useNavigate()
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -31,15 +33,15 @@ export const RequestList = () => {
 
     return (
         <div>
-            <h1>New Request</h1>
-            <Link to="/newrequest">Create Request</Link>
-            <h1>Requests</h1>
+            <h1>{t("request.new")}</h1>
+            <Link to="/newrequest">{t("request.create")}</Link>
+            <h1>{t("requests")}</h1>
             <table>
                 <thead>
                     <tr>
-                        <th>Status</th>
-                        <th>Title</th>
-                        <th>Target</th>
+                        <th>{t("status")}</th>
+                        <th>{t("title")}</th>
+                        <th>{t("target")}</th>
                     </tr>
                 </thead>
                 <tbody>

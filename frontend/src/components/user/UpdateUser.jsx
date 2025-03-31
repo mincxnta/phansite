@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx';
+import { useTranslation } from 'react-i18next'
 
 export const UpdateUser = () => {
     const {user} = useAuth()
@@ -10,6 +11,7 @@ export const UpdateUser = () => {
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const navigate = useNavigate()
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -63,18 +65,18 @@ export const UpdateUser = () => {
 
     return (
         <div>
-            <h1>Editar perfil</h1>
+            <h1>{t("edit.profile")}</h1>
             <form onSubmit={handleUpdateUser}>
-                <label>Username</label>
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Enter your username" />
+                <label>{t("username")}</label>
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder={t("username.placeholder")} />
                 <br />
-                <label>Password</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
+                <label>{t("password")}</label>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t("password.placeholder")} />
                 <br />
-                <label>Email</label>
+                <label>{t("email")}</label>
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
                 <input type="image" />
-                <input type="submit" value="Editar perfil" />
+                <input type="submit" value={t("edit.profile")} />
             </form>
         </div>
     )

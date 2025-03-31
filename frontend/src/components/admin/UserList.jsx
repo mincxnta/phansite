@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx';
+import { useTranslation } from 'react-i18next'
 
 export const UserList = () => {
     const [users, setUsers] = useState([])
     const navigate = useNavigate()
     const { user } = useAuth()
+    const { t } = useTranslation();
 
     useEffect(() => {
         const verifyAdmin = () => {
@@ -66,13 +68,13 @@ export const UserList = () => {
 
     return (
         <div>
-            <h1>User List</h1>
+            <h1>{t("users.list")}</h1>
             <table>
                 <thead>
                     <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Actions</th>
+                        <th>{t("username")}</th>
+                        <th>{t("email")}</th>
+                        <th>{t("actions")}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,7 +85,7 @@ export const UserList = () => {
                             </td>
                             <td>{user.email}</td>
                             <td>
-                                <button onClick={() => handleBan(user.id)}>Ban</button>
+                                <button onClick={() => handleBan(user.id)}>{t("ban")}</button>
                             </td>
                         </tr>
                     ))}

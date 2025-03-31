@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../../constants/constants'
 import { showReportForm } from '../report/Report.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { useTranslation } from 'react-i18next'
 
 export const Comments = ({ pollId }) => {
     const [comments, setComments] = useState([]);
@@ -16,6 +17,7 @@ export const Comments = ({ pollId }) => {
     const limit = 5; // Comentaris per pàgina
     const { user } = useAuth
     const navigate = useNavigate()
+    const { t } = useTranslation();
 
     const fetchComments = async () => {
         try {
@@ -83,12 +85,12 @@ export const Comments = ({ pollId }) => {
     }, [pollId, page]);
     return (
         <div>
-            <h1>Comentarios</h1>
-            <h4>Añadir comentario</h4>
+            <h1>{t("comments")}</h1>
+            <h4>{t("comment.add")}</h4>
             {error && <p>{error}</p>}
             <div style={{ display: "flex" }}>
                 <img src={user && user.profilePicture ? user.profilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
-                <textarea value={newComment} placeholder="Your comment here..." onChange={(e) => setNewComment(e.target.value)}
+                <textarea value={newComment} placeholder={t("comment.placeholder")} onChange={(e) => setNewComment(e.target.value)}
                     style={{ maxHeight: "50px", resize: "none", width: "90%" }} disabled={!user}> </textarea>
                 <label>
                     <input
@@ -97,13 +99,13 @@ export const Comments = ({ pollId }) => {
                         disabled={!user}
                         onChange={(e) => setAnonymous(e.target.checked)}
                     />
-                    Comentar como anónimo
+                    {t("comment.anonymous")}
                 </label>
-                <button onClick={handleAddComment} disabled={!user}>Send</button>
+                <button onClick={handleAddComment} disabled={!user}>{t("comment.send")}</button>
             </div>
-            <h4>Comentarios ({totalComments})</h4>
+            <h4>{t("comments")}: ({totalComments})</h4>
             {comments.length === 0 ? (
-                <p>No hay comentarios</p>
+                <p>{t("no.comments")}</p>
             ) : (
 
                 comments.map((comment) => (
@@ -111,7 +113,7 @@ export const Comments = ({ pollId }) => {
                         <img src={comment.user?.profilePicture ? comment.user.profilePicture : '/assets/requests/unknownTarget.png'} alt="Profile picture" style={{ maxHeight: '50px' }} />
                         <div style={{ maxHeight: "100px", resize: "none", width: "90%", padding: "4px" }}>
                             <div style={{ display: "flex" }}>
-                                <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? "Anon" : comment.user.username}</p>
+                                <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? t("anonymous") : comment.user.username}</p>
                                 <button onClick={() => handleReport("comment", comment.id)}>
                                     <img src={'/assets/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
                                 </button>
@@ -129,7 +131,7 @@ export const Comments = ({ pollId }) => {
                         onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
                         disabled={page === 1}
                     >
-                        Previous
+                        {t("previous")}
                     </button>
                     <span>
                         Página {page} de {totalPages}
@@ -138,7 +140,7 @@ export const Comments = ({ pollId }) => {
                         onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
                         disabled={page === totalPages}
                     >
-                        Next
+                        {t("next")}
                     </button>
                 </div>
             )}

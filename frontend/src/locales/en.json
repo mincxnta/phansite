@@ -1,3 +1,27 @@
 {
-    "home": "Home"
+    "home": "Inicio",
+    "requests": "Peticiones",
+    "profile": "Perfil",
+    "my.profile": "Mi perfil",
+    "edit.profile": "Editar perfil",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "username": "Nombre de usuario",
+    "username.placeholder": "Introduce tu nombre de usuario",
+    "password": "Contraseña",
+    "password.placeholder": "Introduce tu contraseña",
+    "email": "Correo electrónico",
+    "add.request": "Añadir petición",
+    "status": "Estado",
+    "title": "Título",
+    "title.request.placeholder": "Introduce el título de la petición",
+    "target": "Objetivo",
+    "target.placeholder": "Introduce el nombre del objetivo",
+    "description": "Descripción",
+    "description.request.placeholder": "Introduce la descripción de la petición",
+    "target.image": "Imagen del objetivo",
+    "request.new": "Nueva petición",
+    "request.create": "Crear petición",
+    "request.send": "Enviar petición",
+    "report.title": "What's wrong with this post?"
 }
