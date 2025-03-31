@@ -1,36 +1,28 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useTranslation } from 'react-i18next'
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
-    const navigate = useNavigate()
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { login } = useAuth();
+
+    const from = location.state?.from?.pathname || "/";
 
     const handleLogin = async (event) => {
         event.preventDefault()
+        setErrorMessage('');
         try {
-            const response = await fetch(`${API_URL}/auth/login`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
-            })
-
-            if (!response.ok) {
-                const errorData = await response.json()
-                throw new Error(errorData.message)
-            }
-            await response.json()
-            navigate('/')
+            await login(username, password);
+            navigate(from, { replace: true });
         } catch (error) {
-            setErrorMessage(error.message)
+            setErrorMessage(error.message);
         }
     }
 

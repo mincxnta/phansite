@@ -9,7 +9,7 @@ export const Profile = () => {
     const [profileUser, setProfileUser] = useState(null)
     const navigate = useNavigate()
     let { username } = useParams()
-    const { user } = useAuth()
+    const { user, logout } = useAuth()
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -47,23 +47,7 @@ export const Profile = () => {
     }, [navigate, username, user])
 
     const handleLogout = async () => {
-        try {
-
-            const response = await fetch(`${API_URL}/auth/logout`, {
-                method: 'POST',
-                credentials: 'include'
-            })
-
-            if (response.ok) {
-                await response.json()
-                setProfileUser(null)
-                navigate('/login')
-            } else {
-                console.log('Error')
-            }
-        } catch (error) {
-            console.log(error)
-        }
+        logout();
     }
 
     const handleDelete = async () => {

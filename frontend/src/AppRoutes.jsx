@@ -13,12 +13,10 @@ import { RequestList } from "./components/request/RequestList.jsx";
 import { RequestDetail } from "./components/request/RequestDetail.jsx";
 import { Layout } from "./components/Layout.jsx";
 import { AddPoll } from "./components/poll/AddPoll.jsx";
-import { AuthProvider } from "./context/AuthContext.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 
 export const AppRoutes = () => {
     return (
-        <Router>
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
@@ -35,6 +33,5 @@ export const AppRoutes = () => {
                     <Route path={ROUTES.ADD_POLL} element={<ProtectedRoute role="admin"><AddPoll/></ProtectedRoute>}/>
                 </Route>
             </Routes>
-        </Router>
     );
 }

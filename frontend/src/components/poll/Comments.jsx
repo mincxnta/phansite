@@ -15,7 +15,7 @@ export const Comments = ({ pollId }) => {
     const [totalComments, setTotalComments] = useState(0);
     const [anonymous, setAnonymous] = useState(false)
     const limit = 5; // Comentaris per pàgina
-    const { user } = useAuth
+    const { user } = useAuth()
     const navigate = useNavigate()
     const { t } = useTranslation();
 
@@ -40,9 +40,9 @@ export const Comments = ({ pollId }) => {
     };
 
     const handleAddComment = async () => {
-        // if (!user) {
-        //     return;
-        // }
+        if (!user) {
+            return;
+        }
 
         if (!newComment.trim()) {
             setError('El comentario no puede estar vacío');
@@ -74,10 +74,10 @@ export const Comments = ({ pollId }) => {
     };
 
     const handleReport = (type, postId) => {
-        // if (!user) {
-        //     navigate('/login')
-        //     return
-        // }
+        if (!user) {
+            navigate('/login')
+            return
+        }
         showReportForm(type, postId)
     }
     useEffect(() => {
@@ -92,19 +92,19 @@ export const Comments = ({ pollId }) => {
                 <img src={user && user.profilePicture ? user.profilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
                 <textarea value={newComment} placeholder={t("comment.placeholder")} onChange={(e) => setNewComment(e.target.value)}
                     style={{ maxHeight: "50px", resize: "none", width: "90%" }}
-                //disabled={!user}
+                disabled={!user}
                 > </textarea>
                 <label>
                     <input
                         type="checkbox"
                         checked={anonymous}
-                        //disabled={!user}
+                        disabled={!user}
                         onChange={(e) => setAnonymous(e.target.checked)}
                     />
                     {t("comment.anonymous")}
                 </label>
                 <button onClick={handleAddComment}
-                //disabled={!user}
+                disabled={!user}
                 >{t("comment.send")}</button>
             </div>
             <h4>{t("comments")}: ({totalComments})</h4>
