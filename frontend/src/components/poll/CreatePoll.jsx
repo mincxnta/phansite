@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { API_URL } from '../../constants/constants'
+import { API_URL } from '../../constants/constants.js'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 
-export const AddPoll = () => {
+export const CreatePoll = () => {
     const [question, setQuestion] = useState('')
     const navigate = useNavigate()
     const { user } = useAuth()

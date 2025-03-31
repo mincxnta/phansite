@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { API_URL } from '../../constants/constants'
 import { useNavigate } from 'react-router-dom'
-import { Comments } from './Comments'
+import { CommentSection } from './CommentSection.jsx'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 
@@ -99,7 +99,7 @@ export const Poll = () => {
       <button onClick={() => handleVote(true)} disabled={!user}>{t("yes")}</button>
       <p>{t("total.votes")}: {results.total}</p>
 
-      {poll.id && <Comments pollId={poll.id} />}
+      {poll.id && <CommentSection pollId={poll.id} />}
     </div>
   )
 }

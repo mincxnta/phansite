@@ -16,9 +16,9 @@ export const ReportForm = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    // if (!user){
-    //   return
-    // }
+    if (!user){
+      return
+    }
   })
 
   showReportForm = async (type, postId) => {

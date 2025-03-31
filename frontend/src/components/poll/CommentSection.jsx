@@ -1,12 +1,12 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { API_URL } from '../../constants/constants'
+import { API_URL } from '../../constants/constants.js'
 import { showReportForm } from '../report/Report.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 
-export const Comments = ({ pollId }) => {
+export const CommentSection = ({ pollId }) => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const [error, setError] = useState(null);
