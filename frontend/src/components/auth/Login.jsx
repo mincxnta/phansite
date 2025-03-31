@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { API_URL } from '../../constants/constants.js'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../context/AuthContext.jsx';
 
@@ -39,7 +38,6 @@ export const Login = () => {
 
                 <input type="submit" value={t("login")} />
                 <Link to="/register">{t("register")}</Link>
-
             </form>
         </div>
     )

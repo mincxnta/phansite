@@ -25,7 +25,6 @@ export const RequestList = () => {
             } catch (error) {
                 console.log(error.message)
                 navigate('/')
-
             }
         }
         fetchRequests()
@@ -51,7 +50,6 @@ export const RequestList = () => {
                                 {request.status}
                             </td>
                             <td>
-                                {/* <button><Link to={`${request.id}`}>{request.title}</Link></button> */}
                                 <button onClick={() => showRequestDetail(request.id)}>{request.title}</button>
                             </td>
                             <td>

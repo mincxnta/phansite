@@ -19,7 +19,6 @@ export const Menu = () => {
                     {user ? t("profile") : t("login")}
                 </Link>
             </button>
-
         </nav>
     )
 }

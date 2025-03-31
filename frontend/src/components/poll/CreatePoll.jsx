@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { API_URL } from '../../constants/constants.js'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 

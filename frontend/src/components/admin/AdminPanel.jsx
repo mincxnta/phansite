@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { UserList } from "./UserList.jsx"
-import { useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 
@@ -23,7 +22,6 @@ export const AdminPanel = () => {
         }
         verifyAdmin();
     }, [navigate, user])
-
 
     return (
         <div>

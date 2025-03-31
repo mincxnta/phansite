@@ -1,5 +1,4 @@
-import React from 'react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { API_URL } from '../../constants/constants'
 import { useNavigate } from 'react-router-dom'
 import { CommentSection } from './CommentSection.jsx'
@@ -98,7 +97,6 @@ export const Poll = () => {
       <button onClick={() => handleVote(false)} disabled={!user}>{t("no")}</button>
       <button onClick={() => handleVote(true)} disabled={!user}>{t("yes")}</button>
       <p>{t("total.votes")}: {results.total}</p>
-
       {poll.id && <CommentSection pollId={poll.id} />}
     </div>
   )

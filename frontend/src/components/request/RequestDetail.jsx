@@ -36,7 +36,6 @@ export const RequestDetail = () => {
             console.log(error)
             setRequest(null);
             setLoading(false);
-
         }
     }
 

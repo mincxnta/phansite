@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../../constants/constants.js'
 import { showReportForm } from '../report/Report.jsx';
@@ -111,7 +110,6 @@ export const CommentSection = ({ pollId }) => {
             {comments.length === 0 ? (
                 <p>{t("no.comments")}</p>
             ) : (
-
                 comments.map((comment) => (
                     <div key={comment.id} style={{ display: "flex" }}>
                         <img src={comment.user?.profilePicture ? comment.user.profilePicture : '/assets/requests/unknownTarget.png'} alt="Profile picture" style={{ maxHeight: '50px' }} />
