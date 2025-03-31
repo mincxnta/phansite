@@ -15,10 +15,10 @@ export const ReportForm = () => {
   const { user } = useAuth()
   const { t } = useTranslation();
 
-  useEffect(()=>{
-    if (!user){
-      return
-    }
+  useEffect(() => {
+    // if (!user){
+    //   return
+    // }
   })
 
   showReportForm = async (type, postId) => {
@@ -29,7 +29,7 @@ export const ReportForm = () => {
 
   const handleNewReport = async (event) => {
     event.preventDefault()
-    
+
 
     try {
       const response = await fetch(`${API_URL}/reports`, {
