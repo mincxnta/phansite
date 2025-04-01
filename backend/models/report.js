@@ -12,7 +12,7 @@ export const Report = sequelize.define('report', {
     autoIncrement: true
   },
   reason: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING(500),
     allowNull: false
   },
   userId: {

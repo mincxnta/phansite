@@ -23,6 +23,6 @@ const errorMessages = {
 };
 
 export const errorHandler = (error) => {
-  const message = errorMessages[error.code] || 'internal.server';
+  const message = `error.${errorMessages[error.code]}` || 'internal.server';
   return message;
 };

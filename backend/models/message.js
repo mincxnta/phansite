@@ -9,7 +9,7 @@ export const Message = sequelize.define('message', {
     autoIncrement: true
   },
   message: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING(2000),
     allowNull: false
   },
   user1Id: {

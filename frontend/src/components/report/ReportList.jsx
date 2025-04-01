@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
-import { showReportDetail } from './ReportDetail.jsx'
 import { useTranslation } from 'react-i18next'
+import { ReportedComments } from './ReportedComments.jsx'
+import { ReportedRequests } from './ReportedRequests.jsx'
 
 export const ReportList = () => {
     const [reports, setReports] = useState([])
@@ -33,33 +34,8 @@ export const ReportList = () => {
 
     return (
         <div>
-            <h1>Publicaciones reportadas</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Reporter</th>
-                        <th>Razon</th>
-                        <th>Comentario</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {reports.map((report) => (
-                        <tr key={report.id}>
-                            <td>
-                                {report.status}
-                            </td>
-                            <td>
-                                {/* <button><Link to={`${report.id}`}>{report.title}</Link></button> */}
-                                <button onClick={() => showReportDetail(report.id)}>{report.title}</button>
-                            </td>
-                            <td>
-                                {report.target}
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <ReportedComments />
+            <ReportedRequests />
         </div>
     )
 }

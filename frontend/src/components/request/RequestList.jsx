@@ -38,7 +38,7 @@ export const RequestList = () => {
             <table>
                 <thead>
                     <tr>
-                        <th>{t("requests.status")}</th>
+                        {/* <th>{t("requests.status")}</th> */}
                         <th>{t("title")}</th>
                         <th>{t("requests.target")}</th>
                     </tr>
@@ -46,9 +46,9 @@ export const RequestList = () => {
                 <tbody>
                     {requests.map((request) => (
                         <tr key={request.id}>
-                            <td>
+                            {/* <td>
                                 {request.status}
-                            </td>
+                            </td> */}
                             <td>
                                 <button onClick={() => showRequestDetail(request.id)}>{request.title}</button>
                             </td>

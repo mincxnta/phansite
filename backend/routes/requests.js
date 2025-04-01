@@ -12,6 +12,6 @@ requestsRouter.get('/:id', RequestController.getById)
 
 requestsRouter.post('/', authenticateToken, RequestController.create)
 
-requestsRouter.patch('/:id', authenticateToken, RequestController.update)
+//requestsRouter.patch('/:id', authenticateToken, RequestController.update)
 
-requestsRouter.delete('/:id', authenticateToken, RequestController.delete)
+//requestsRouter.delete('/:id', authenticateToken, RequestController.delete)

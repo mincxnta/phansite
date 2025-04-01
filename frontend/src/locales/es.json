@@ -68,13 +68,14 @@
     "admin": {
         "title": "Panel de administración",
         "actions": "Acciones",
-        "ban": "Banear"
+        "ban": "Banear",
+        "reportList": "Lista de reportes"
     },
     "error": {
         "forbidden": "Acción prohibida",
         "unauthorized": "No tienes permisos para realizar esta acción",
         "unauthenticated": "No estás autenticado",
-        "invalid":{
+        "invalid": {
             "user.data": "Datos de usuario inválidos",
             "comment.data": "Datos de usuario inválidos",
             "poll.data": "Datos de usuario inválidos",
@@ -84,16 +85,16 @@
             "reported.type": "Datos de usuario inválidos",
             "post.id": "Datos de usuario inválidos"
         },
-        "not.found":{
+        "not.found": {
             "user": "Usuario no encontrado",
             "request": "Petición no encontrada",
             "poll": "Encuesta no encontrada"
         },
-        "banned":{
+        "banned": {
             "user": "El usuario está baneado",
             "email": "El correo está baneado"
         },
-        "already":{
+        "already": {
             "voted": "Ya has votado en esta encuesta",
             "registered": "El correo electrónico ya está registrado",
             "exists": "El nombre de usuario ya existe"
@@ -101,7 +102,6 @@
         "missing.refresh.token": "Falta de token de refresco",
         "inactive.poll": "La encuesta está inactiva",
         "internal.server": "Error inesperado"
-        
     },
     "previous": "Anterior",
     "next": "Siguiente",

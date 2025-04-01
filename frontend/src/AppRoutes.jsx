@@ -14,24 +14,26 @@ import { RequestDetail } from "./components/request/RequestDetail.jsx";
 import { Layout } from "./components/Layout.jsx";
 import { CreatePoll } from "./components/poll/CreatePoll.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
+import { ReportList } from "./components/report/ReportList.jsx";
 
 export const AppRoutes = () => {
     return (
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />} />
-                    <Route path={ROUTES.LOGIN} element={<Login />} />
-                    <Route path={ROUTES.PROFILE} element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-                    <Route path={ROUTES.USER_PROFILE} element={<Profile />} />
-                    <Route path={ROUTES.REGISTER} element={<Register />} />
-                    <Route path={ROUTES.REQUEST_LIST} element={<RequestList />} />
-                    <Route path={ROUTES.ADD_REQUEST} element={<ProtectedRoute><CreateRequest /></ProtectedRoute>} />
-                    <Route path={ROUTES.REQUEST_DETAILS} element={<RequestDetail />} />
-                    <Route path={ROUTES.ADMIN} element={<ProtectedRoute role="admin"><AdminPanel /></ProtectedRoute>} />
-                    <Route path={ROUTES.CREATE_USER} element={<ProtectedRoute role="admin"><CreateUser /></ProtectedRoute>} />
-                    <Route path={ROUTES.EDIT_PROFILE} element={<UpdateUser />} />
-                    <Route path={ROUTES.ADD_POLL} element={<ProtectedRoute role="admin"><CreatePoll/></ProtectedRoute>}/>
-                </Route>
-            </Routes>
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path={ROUTES.LOGIN} element={<Login />} />
+                <Route path={ROUTES.PROFILE} element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                <Route path={ROUTES.USER_PROFILE} element={<Profile />} />
+                <Route path={ROUTES.REGISTER} element={<Register />} />
+                <Route path={ROUTES.REQUEST_LIST} element={<RequestList />} />
+                <Route path={ROUTES.ADD_REQUEST} element={<ProtectedRoute><CreateRequest /></ProtectedRoute>} />
+                <Route path={ROUTES.REQUEST_DETAILS} element={<RequestDetail />} />
+                <Route path={ROUTES.ADMIN} element={<ProtectedRoute role="admin"><AdminPanel /></ProtectedRoute>} />
+                <Route path={ROUTES.CREATE_USER} element={<ProtectedRoute role="admin"><CreateUser /></ProtectedRoute>} />
+                <Route path={ROUTES.EDIT_PROFILE} element={<UpdateUser />} />
+                <Route path={ROUTES.ADD_POLL} element={<ProtectedRoute role="admin"><CreatePoll /></ProtectedRoute>} />
+                <Route path={ROUTES.REPORT_LIST} element={<ProtectedRoute role="admin"><ReportList /></ProtectedRoute>} />
+            </Route>
+        </Routes>
     );
 }

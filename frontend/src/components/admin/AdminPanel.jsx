@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 
 export const AdminPanel = () => {
     const navigate = useNavigate()
-    const {user} = useAuth()
+    const { user } = useAuth()
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -31,6 +31,7 @@ export const AdminPanel = () => {
             <UserList />
             <h5>{t("users.create")}</h5>
             <button> <Link to="create">{t("users.create")}</Link></button>
+            <button> <Link to="reportlist">{t("admin.reportList")}</Link></button>
         </div>
     )
 }

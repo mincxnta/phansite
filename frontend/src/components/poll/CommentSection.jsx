@@ -91,7 +91,7 @@ export const CommentSection = ({ pollId }) => {
                 <img src={user && user.profilePicture ? user.profilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
                 <textarea value={newComment} placeholder={t("comments.placeholder")} onChange={(e) => setNewComment(e.target.value)}
                     style={{ maxHeight: "50px", resize: "none", width: "90%" }}
-                disabled={!user}
+                    disabled={!user}
                 > </textarea>
                 <label>
                     <input
@@ -103,7 +103,7 @@ export const CommentSection = ({ pollId }) => {
                     {t("comments.anonymous")}
                 </label>
                 <button onClick={handleAddComment}
-                disabled={!user}
+                    disabled={!user}
                 >{t("comments.send")}</button>
             </div>
             <h4>{t("comments.title")}: ({totalComments})</h4>
@@ -113,7 +113,7 @@ export const CommentSection = ({ pollId }) => {
                 comments.map((comment) => (
                     <div key={comment.id} style={{ display: "flex" }}>
                         <img src={comment.user?.profilePicture ? comment.user.profilePicture : '/assets/requests/unknownTarget.png'} alt="Profile picture" style={{ maxHeight: '50px' }} />
-                        <div style={{ maxHeight: "100px", resize: "none", width: "90%", padding: "4px" }}>
+                        <div style={{ resize: "none", width: "90%", padding: "4px" }}>
                             <div style={{ display: "flex" }}>
                                 <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? t("anonymous") : comment.user.username}</p>
                                 <button onClick={() => handleReport("comment", comment.id)}>

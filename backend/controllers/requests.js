@@ -2,7 +2,7 @@ import { validateRequest, validateUpdatedRequest } from '../schemas/requests.js'
 import { Request } from '../models/request.js'
 
 export class RequestController {
-  static async getAll (req, res) {
+  static async getAll(req, res) {
     try {
       const requests = await Request.findAll({
         order: [['submitDate', 'DESC']]
@@ -13,7 +13,7 @@ export class RequestController {
     }
   }
 
-  static async getAllByUser (req, res) {
+  static async getAllByUser(req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }
@@ -29,7 +29,7 @@ export class RequestController {
     }
   }
 
-  static async getById (req, res) {
+  static async getById(req, res) {
     try {
       const { id } = req.params
       const request = await Request.findByPk(id)
@@ -44,7 +44,7 @@ export class RequestController {
     }
   }
 
-  static async create (req, res) {
+  static async create(req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }
@@ -68,58 +68,58 @@ export class RequestController {
   }
 
   // Dejamos editar?
-  static async update (req, res) {
-    if (!req.user || !req.user.id) {
-      return res.status(401).json({ code: 'unauthorized' })
-    }
+  // static async update (req, res) {
+  //   if (!req.user || !req.user.id) {
+  //     return res.status(401).json({ code: 'unauthorized' })
+  //   }
 
-    const { id } = req.params
+  //   const { id } = req.params
 
-    const request = await Request.findByPk(id)
-    if (!request) {
-      return res.status(404).json({ code: 'request_not_found' })
-    }
+  //   const request = await Request.findByPk(id)
+  //   if (!request) {
+  //     return res.status(404).json({ code: 'request_not_found' })
+  //   }
 
-    if (request.userId !== req.user.id) {
-      return res.status(403).json({ code: 'forbidden' })
-    }
+  //   if (request.userId !== req.user.id) {
+  //     return res.status(403).json({ code: 'forbidden' })
+  //   }
 
-    const updatedRequest = validateUpdatedRequest(req.body)
+  //   const updatedRequest = validateUpdatedRequest(req.body)
 
-    if (!updatedRequest.success) {
-      return res.status(400).json({ code: 'invalid_request_data' })
-    }
+  //   if (!updatedRequest.success) {
+  //     return res.status(400).json({ code: 'invalid_request_data' })
+  //   }
 
-    try {
-      await request.update(updatedRequest.data)
-      res.status(200).json(request)
-    } catch (error) {
-      res.status(500).json({ code: 'internal_server_error' })
-    }
-  }
+  //   try {
+  //     await request.update(updatedRequest.data)
+  //     res.status(200).json(request)
+  //   } catch (error) {
+  //     res.status(500).json({ code: 'internal_server_error' })
+  //   }
+  // }
 
-  // Dejamos eliminar?
-  static async delete (req, res) {
-    if (!req.user || !req.user.id) {
-      return res.status(401).json({ code: 'unauthorized' })
-    }
+  // // Dejamos eliminar?
+  // static async delete (req, res) {
+  //   if (!req.user || !req.user.id) {
+  //     return res.status(401).json({ code: 'unauthorized' })
+  //   }
 
-    try {
-      const { id } = req.params
-      const request = await Request.findByPk(id)
+  //   try {
+  //     const { id } = req.params
+  //     const request = await Request.findByPk(id)
 
-      if (!request) {
-        return res.status(404).json({ code: 'request_not_found' })
-      }
+  //     if (!request) {
+  //       return res.status(404).json({ code: 'request_not_found' })
+  //     }
 
-      if (request.userId !== req.user.id) {
-        return res.status(403).json({ code: 'forbidden' })
-      }
+  //     if (request.userId !== req.user.id) {
+  //       return res.status(403).json({ code: 'forbidden' })
+  //     }
 
-      await request.destroy()
-      res.status(200).json({ success: true })
-    } catch (error) {
-      res.status(500).json({ code: 'internal_server_error' })
-    }
-  }
+  //     await request.destroy()
+  //     res.status(200).json({ success: true })
+  //   } catch (error) {
+  //     res.status(500).json({ code: 'internal_server_error' })
+  //   }
+  // }
 }

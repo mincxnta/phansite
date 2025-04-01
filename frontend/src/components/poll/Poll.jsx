@@ -88,7 +88,7 @@ export const Poll = () => {
 
   return (
     <div>
-      {error && error}
+      {error && t(error)}
       <h1>
         {poll.question}
       </h1>
