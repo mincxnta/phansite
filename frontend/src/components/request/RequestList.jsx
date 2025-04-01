@@ -32,15 +32,15 @@ export const RequestList = () => {
 
     return (
         <div>
-            <h1>{t("request.new")}</h1>
-            <Link to="/newrequest">{t("request.create")}</Link>
-            <h1>{t("requests")}</h1>
+            <h1>{t("requests.new")}</h1>
+            <Link to="/newrequest">{t("requests.create")}</Link>
+            <h1>{t("requests.title")}</h1>
             <table>
                 <thead>
                     <tr>
-                        <th>{t("status")}</th>
+                        <th>{t("requests.status")}</th>
                         <th>{t("title")}</th>
-                        <th>{t("target")}</th>
+                        <th>{t("requests.target")}</th>
                     </tr>
                 </thead>
                 <tbody>

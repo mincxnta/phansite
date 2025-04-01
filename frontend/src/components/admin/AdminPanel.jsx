@@ -25,12 +25,12 @@ export const AdminPanel = () => {
 
     return (
         <div>
-            <h1>{t("admin.panel")}</h1>
-            <h4>{t("users")}</h4>
+            <h1>{t("admin.title")}</h1>
+            <h4>{t("users.title")}</h4>
             <h5>{t("users.list")}</h5>
             <UserList />
-            <h5>{t("user.create")}</h5>
-            <button> <Link to="create">{t("user.create")}</Link></button>
+            <h5>{t("users.create")}</h5>
+            <button> <Link to="create">{t("users.create")}</Link></button>
         </div>
     )
 }

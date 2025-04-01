@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { CommentSection } from './CommentSection.jsx'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
+import { errorHandler } from '../../utils/errorHandler.js';
 
 export const Poll = () => {
   const navigate = useNavigate()
@@ -76,8 +77,8 @@ export const Poll = () => {
         await getPollResults(poll.id)
         setError(null);
       } else {
-        const errorData = await response.json();
-        setError(errorData.message);
+        const data = await response.json();
+        setError(errorHandler(data));
       }
     } catch (error) {
       console.log(error);
@@ -96,7 +97,7 @@ export const Poll = () => {
       </div>
       <button onClick={() => handleVote(false)} disabled={!user}>{t("no")}</button>
       <button onClick={() => handleVote(true)} disabled={!user}>{t("yes")}</button>
-      <p>{t("total.votes")}: {results.total}</p>
+      <p>{t("poll.total.votes")}: {results.total}</p>
       {poll.id && <CommentSection pollId={poll.id} />}
     </div>
   )

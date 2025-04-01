@@ -58,10 +58,10 @@ export const RequestDetail = () => {
                 <tbody>
                   <tr>
                     <td>
-                      <h3>{t("target")}</h3>
+                      <h3>{t("requests.target")}</h3>
                     </td>
                     <td>
-                      <h3>{t("target.image")}</h3>
+                      <h3>{t("requests.target.image")}</h3>
                     </td>
                   </tr>
                   <tr>
@@ -78,7 +78,7 @@ export const RequestDetail = () => {
                   </tr>
                   <tr>
                     <td>
-                      <h3>{t("description")}</h3>
+                      <h3>{t("requests.description")}</h3>
                     </td>
                   </tr>
                   <tr>

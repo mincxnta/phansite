@@ -10,16 +10,16 @@ export class AuthController {
       const user = await User.findOne({ where: { username } })
 
       if (!user) {
-        return res.status(404).send({ message: 'Usuario no encontrado' })
+        return res.status(404).json({ code: 'user_not_found' })
       }
 
       if (user.banned) {
-        return res.status(403).send({ message: 'Usuario baneado' })
+        return res.status(403).json({ code: 'user_banned' })
       }
 
       const isValid = await bcrypt.compare(password, user.password)
       if (!isValid) {
-        return res.status(401).send({ message: 'Contraseña incorrecta' })
+        return res.status(401).json({ code: 'invalid_user_data' })
       }
 
       const { password: _, ...userData } = user.toJSON()
@@ -31,7 +31,7 @@ export class AuthController {
 
       res.status(200).json(userData)
     } catch (error) {
-      res.status(500).send({ message: error.message })
+      res.status(500).json({ code: 'internal_server_error' })
     }
   }
 
@@ -43,11 +43,11 @@ export class AuthController {
       const user = await User.findByPk(req.user.id, { attributes: { exclude: ['password'] } })
 
       if (!user) {
-        return res.status(404).send({ message: 'Usuario no encontrado' })
+        return res.status(404).json({ code: 'user_not_found' })
       }
       res.status(200).json(user)
     } catch (error) {
-      res.status(500).send({ message: error.message })
+      res.status(500).json({ code: 'internal_server_error' })
     }
   }
 
@@ -55,21 +55,21 @@ export class AuthController {
     const newUser = validateNewUser(req.body)
 
     if (!newUser.success) {
-      return res.status(400).send({ message: JSON.parse(newUser.error.message) })
+      return res.status(400).json({ code: 'invalid_user_data' })
     }
 
     try {
-      const existingUser = await User.findOne({ where: { email: newUser.data.email } })
-      if (existingUser && existingUser.banned) {
-        return res.status(403).send({ message: 'Este correo está baneado y no puede registrarse' })
+      const existingEmail = await User.findOne({ where: { email: newUser.data.email } })
+      if (existingEmail && existingEmail.banned) {
+        return res.status(403).json({ code: 'email_banned' })
       }
-      if (existingUser) {
-        return res.status(409).send({ message: 'El correo ya está registrado' })
+      if (existingEmail) {
+        return res.status(409).json({ code: 'email_already_registered' })
       }
 
-      const existingUsername = await User.findOne({ where: { email: newUser.data.email } })
+      const existingUsername = await User.findOne({ where: { email: newUser.data.username } })
       if (existingUsername) {
-        return res.status(409).send({ message: 'El usuario ya existe' })
+        return res.status(409).json({ code: 'username_already_exists' })
       }
 
       const hashedPassword = await bcrypt.hash(newUser.data.password, 10)
@@ -77,14 +77,14 @@ export class AuthController {
       const { password: _, ...userData } = user.toJSON()
       res.status(201).json(userData)
     } catch (error) {
-      res.status(500).send({ message: error.message })
+      res.status(500).json({ code: 'internal_server_error' })
     }
   }
 
   static async logout (req, res) {
     res.clearCookie('access_token')
     res.clearCookie('refresh_token')
-    res.status(200).send({ message: 'Sesión cerrada' })
+    res.status(200).json({ code: 'logout_success', success: true })
   }
 
   // Preguntar cómo manejar, guardar en BBDD
@@ -92,7 +92,7 @@ export class AuthController {
     const refreshToken = req.cookies.refresh_token
 
     if (!refreshToken) {
-      return res.status(403).send({ message: 'No autorizado' })
+      return res.status(403).json({ code: 'missing_refresh_token' })
     }
 
     try {
@@ -100,14 +100,14 @@ export class AuthController {
       const user = await User.findByPk(data.id)
 
       if (!user) {
-        return res.status(403).send({ message: 'No autorizado' })
+        return res.status(403).json({ code: 'forbidden' })
       }
 
       const newAccessToken = generateAccessToken(user)
       res.cookie('access_token', newAccessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 })
-      res.status(200).send({ message: 'Token actualizado' })
+      res.status(200).json({ code: 'token_refreshed', success: true })
     } catch (error) {
-      res.status(403).send({ message: 'No autorizado' })
+      res.status(403).json({ code: 'forbidden' })
     }
   }
 }

@@ -5,12 +5,12 @@ import bcrypt from 'bcrypt'
 export class AdminController {
   static async create (req, res) {
     if (req.user.role !== 'admin') {
-      return res.status(403).send({ message: 'No autorizado' })
+      return res.status(403).json({ code: 'forbidden' })
     }
 
     const newUser = validateNewUser(req.body)
     if (!newUser.success) {
-      return res.status(400).send({ message: JSON.parse(newUser.error.message) })
+      return res.status(400).json({ code: 'invalid_user_data' })
     }
 
     try {
@@ -18,12 +18,12 @@ export class AdminController {
       const user = await User.create({
         ...newUser.data,
         password: hashedPassword,
-        banned: false // Hace falta o por defecto del modelo?
+        banned: false
       })
       const { password: _, ...userData } = user.toJSON()
       res.status(201).json(userData)
     } catch (error) {
-      res.status(500).send({ message: error.message })
+      res.status(500).json({ code: 'internal_server_error' })
     }
   }
 }

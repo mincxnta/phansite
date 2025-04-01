@@ -72,9 +72,9 @@ export const UserList = () => {
             <table>
                 <thead>
                     <tr>
-                        <th>{t("username")}</th>
-                        <th>{t("email")}</th>
-                        <th>{t("actions")}</th>
+                        <th>{t("auth.username")}</th>
+                        <th>{t("auth.email")}</th>
+                        <th>{t("admin.actions")}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -85,7 +85,7 @@ export const UserList = () => {
                             </td>
                             <td>{user.email}</td>
                             <td>
-                                <button onClick={() => handleBan(user.id)}>{t("ban")}</button>
+                                <button onClick={() => handleBan(user.id)}>{t("admin.ban")}</button>
                             </td>
                         </tr>
                     ))}

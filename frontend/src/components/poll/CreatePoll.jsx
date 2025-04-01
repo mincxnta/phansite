@@ -51,8 +51,8 @@ export const CreatePoll = () => {
         <div>
             <h1>{t("poll.new")}</h1>
             <form onSubmit={handleNewPoll}>
-                <label>{t("question")}</label>
-                <input type="text" required placeholder={t("question.placeholder")} value={question} onChange={(e) => setQuestion(e.target.value)} />
+                <label>{t("poll.question")}</label>
+                <input type="text" required placeholder={t("poll.question.placeholder")} value={question} onChange={(e) => setQuestion(e.target.value)} />
                 <br />
                 <input type="submit" value={t("poll.send")} />
             </form>

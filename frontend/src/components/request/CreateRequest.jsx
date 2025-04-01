@@ -37,7 +37,7 @@ export const CreateRequest = () => {
                 throw new Error(errorData.message)
             }
             await response.json()
-            navigate('/')
+            navigate('/requests')
         } catch (error) {
             console.log(error);
         }
@@ -45,21 +45,20 @@ export const CreateRequest = () => {
 
     return (
         <div>
-            <Link to="/requests">{t("requests")}</Link>
-            <h1>{t("add.request")}</h1>
+            <h1>{t("requests.add")}</h1>
             <form onSubmit={handleNewRequest}>
                 <label>{t("title")}</label>
-                <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("title.request.placeholder")} />
+                <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("requests.title.placeholder")} />
                 <br />
-                <label>{t("target")}</label>
-                <input type="text" required value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("target.placeholder")} />
+                <label>{t("requests.target")}</label>
+                <input type="text" required value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("requests.target.placeholder")} />
                 <br />
-                <label>{t("description")}</label>
-                <input type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t("description.request.placeholder")} />
+                <label>{t("requests.description")}</label>
+                <input type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t("requests.description.placeholder")} />
                 <br />
-                <label>{t("target.image")}</label>
+                <label>{t("requests.target.image")}</label>
                 <input type="image" value={image} onChange={(e) => setImage(e.target.value)} />
-                <input type="submit" value={t("request.send")} />
+                <input type="submit" value={t("requests.send")} />
             </form>
         </div>
     )

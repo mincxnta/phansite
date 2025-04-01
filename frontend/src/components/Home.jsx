@@ -6,7 +6,7 @@ export const Home = () => {
 
     return (
         <div>
-            <h1>{t("home")}</h1>
+            <h1>{t("home.title")}</h1>
             <Poll />
         </div>
     )

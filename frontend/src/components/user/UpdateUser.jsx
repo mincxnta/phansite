@@ -65,18 +65,18 @@ export const UpdateUser = () => {
 
     return (
         <div>
-            <h1>{t("edit.profile")}</h1>
+            <h1>{t("profile.edit")}</h1>
             <form onSubmit={handleUpdateUser}>
-                <label>{t("username")}</label>
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder={t("username.placeholder")} />
+                <label>{t("auth.username")}</label>
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder={t("auth.username.placeholder")} />
                 <br />
-                <label>{t("password")}</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t("password.placeholder")} />
+                <label>{t("auth.password")}</label>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t("auth.password.placeholder")} />
                 <br />
-                <label>{t("email")}</label>
+                <label>{t("auth.email")}</label>
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
                 <input type="image" />
-                <input type="submit" value={t("edit.profile")} />
+                <input type="submit" value={t("profile.edit")} />
             </form>
         </div>
     )

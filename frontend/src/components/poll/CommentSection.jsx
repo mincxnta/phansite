@@ -84,12 +84,12 @@ export const CommentSection = ({ pollId }) => {
     }, [pollId, page]);
     return (
         <div>
-            <h1>{t("comments")}</h1>
-            <h4>{t("comment.add")}</h4>
+            <h1>{t("comments.title")}</h1>
+            <h4>{t("comments.add")}</h4>
             {error && <p>{error}</p>}
             <div style={{ display: "flex" }}>
                 <img src={user && user.profilePicture ? user.profilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
-                <textarea value={newComment} placeholder={t("comment.placeholder")} onChange={(e) => setNewComment(e.target.value)}
+                <textarea value={newComment} placeholder={t("comments.placeholder")} onChange={(e) => setNewComment(e.target.value)}
                     style={{ maxHeight: "50px", resize: "none", width: "90%" }}
                 disabled={!user}
                 > </textarea>
@@ -100,15 +100,15 @@ export const CommentSection = ({ pollId }) => {
                         disabled={!user}
                         onChange={(e) => setAnonymous(e.target.checked)}
                     />
-                    {t("comment.anonymous")}
+                    {t("comments.anonymous")}
                 </label>
                 <button onClick={handleAddComment}
                 disabled={!user}
-                >{t("comment.send")}</button>
+                >{t("comments.send")}</button>
             </div>
-            <h4>{t("comments")}: ({totalComments})</h4>
+            <h4>{t("comments.title")}: ({totalComments})</h4>
             {comments.length === 0 ? (
-                <p>{t("no.comments")}</p>
+                <p>{t("comments.none")}</p>
             ) : (
                 comments.map((comment) => (
                     <div key={comment.id} style={{ display: "flex" }}>

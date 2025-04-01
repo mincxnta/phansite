@@ -12,7 +12,7 @@ export class CommentController {
     try {
       const poll = await Poll.findByPk(pollId)
       if (!poll) {
-        return res.status(404).send({ message: 'Encuesta no encontrada' })
+        return res.status(404).json({ code: 'poll_not_found' })
       }
 
       const { count, rows } = await Comment.findAndCountAll({
@@ -20,7 +20,7 @@ export class CommentController {
         include: [
           {
             model: User,
-            as: 'user', // Especifiquem l'àlies definit a la relació
+            as: 'user',
             attributes: ['username', 'profilePicture']
           }
         ],
@@ -36,8 +36,7 @@ export class CommentController {
         currentPage: page
       })
     } catch (error) {
-      console.error('Error al obtenir els comentaris:', error)
-      res.status(500).send({ message: error.message })
+      res.status(500).json({ code: 'internal_server_error' })
     }
   }
 
@@ -46,10 +45,15 @@ export class CommentController {
     const newComment = validateComment(req.body)
 
     if (!newComment.success) {
-      return res.status(400).send({ message: JSON.parse(newComment.error.message) })
+      return res.status(400).json({ code: 'invalid_comment_data' })
     }
 
     try {
+      const poll = await Poll.findByPk(pollId)
+      if (!poll) {
+        return res.status(404).json({ code: 'poll_not_found' })
+      }
+
       const commentData = {
         ...newComment.data,
         userId: req.user.id,
@@ -58,7 +62,7 @@ export class CommentController {
       const comment = await Comment.create(commentData)
       res.status(201).json(comment)
     } catch (error) {
-      res.status(500).send({ message: error.message })
+      res.status(500).json({ code: 'internal_server_error' })
     }
   }
 }

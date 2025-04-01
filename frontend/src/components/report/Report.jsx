@@ -62,11 +62,11 @@ export const ReportForm = () => {
   return createPortal(
     <div className="popup-overlay">
       <div className="popup-content">
-        <button className="popup-close" onClick={closePopup}>Tancar</button>
+        <button className="popup-close" onClick={closePopup}>X</button>
         <form onSubmit={handleNewReport}>
-          <h4>{t("report.title")}</h4>
+          <h4>{t("reports.reason")}</h4>
           <textarea name="" id="reason" value={reason} onChange={(e) => setReason(e.target.value)}></textarea>
-          <input type="submit" value={t("report.send")} />
+          <input type="submit" value={t("reports.send")} />
         </form>
       </div>
     </div>,

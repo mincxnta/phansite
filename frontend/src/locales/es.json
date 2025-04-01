@@ -1,55 +1,112 @@
 {
-    "home": "Inicio",
-    "requests": "Peticiones",
-    "profile": "Perfil",
-    "my.profile": "Mi perfil",
-    "edit.profile": "Editar perfil",
-    "register": "Registro",
-    "login": "Iniciar sesión",
-    "logout": "Cerrar sesión",
-    "username": "Nombre de usuario",
-    "username.placeholder": "Introduce tu nombre de usuario",
-    "password": "Contraseña",
-    "password.placeholder": "Introduce tu contraseña",
-    "email": "Correo electrónico",
-    "role": "Rol",
-    "role.admin": "Administrador",
-    "role.phantom.thief": "Ladrón fantasma",
-    "role.fan": "Fan",
-    "add.request": "Añadir petición",
-    "status": "Estado",
-    "title": "Título",
-    "title.request.placeholder": "Introduce el título de la petición",
-    "target": "Objetivo",
-    "target.placeholder": "Introduce el nombre del objetivo",
-    "description": "Descripción",
-    "description.request.placeholder": "Introduce la descripción de la petición",
-    "target.image": "Imagen del objetivo",
-    "request.new": "Nueva petición",
-    "request.create": "Crear petición",
-    "request.send": "Enviar petición",
-    "report.title": "¿Qué ocurre con esta publicación?",
-    "report.send": "Enviar reporte",
-    "poll.new": "Nueva encuesta",
-    "question": "Pregunta",
-    "question.placeholder": "Introduce la pregunta de la encuesta",
-    "poll.send": "Publicar encuesta",
-    "no": "No",
-    "yes": "Sí",
-    "total.votes": "Votos totales",
-    "comments": "Comentarios",
-    "comment.add": "Añadir comentario",
-    "comment.placeholder": "Tu comentario aquí...",
-    "comment.anonymous": "Comentar como anónimo",
-    "anonymous": "Anónimo",
-    "comment.send": "Enviar comentario",
-    "no.comments": "No hay comentarios",
+    "home": {
+        "title": "Inicio"
+    },
+    "requests": {
+        "title": "Peticiones",
+        "add": "Añadir petición",
+        "new": "Nueva petición",
+        "create": "Crear petición",
+        "send": "Enviar petición",
+        "status": "Estado",
+        "title.placeholder": "Introduce el título de la petición",
+        "target": "Objetivo",
+        "target.placeholder": "Introduce el nombre del objetivo",
+        "description": "Descripción",
+        "description.placeholder": "Introduce la descripción de la petición",
+        "target.image": "Imagen del objetivo"
+    },
+    "profile": {
+        "title": "Perfil",
+        "me": "Mi perfil",
+        "edit": "Editar perfil"
+    },
+    "auth": {
+        "register": "Registro",
+        "login": "Iniciar sesión",
+        "logout": "Cerrar sesión",
+        "username": "Nombre de usuario",
+        "username.placeholder": "Introduce tu nombre de usuario",
+        "password": "Contraseña",
+        "password.placeholder": "Introduce tu contraseña",
+        "email": "Correo electrónico"
+    },
+    "role": {
+        "title": "Rol",
+        "admin": "Administrador",
+        "phantom.thief": "Ladrón fantasma",
+        "fan": "Fan"
+    },
+    "poll": {
+        "title": "Encuesta",
+        "new": "Nueva encuesta",
+        "create": "Crear encuesta",
+        "send": "Publicar encuesta",
+        "question": "Pregunta",
+        "question.placeholder": "Introduce la pregunta de la encuesta",
+        "total.votes": "Votos totales"
+    },
+    "comments": {
+        "title": "Comentarios",
+        "add": "Añadir comentario",
+        "send": "Enviar comentario",
+        "placeholder": "Tu comentario aquí...",
+        "anonymous": "Comentar como anónimo",
+        "none": "No hay comentarios"
+    },
+    "reports": {
+        "title": "Reportes",
+        "send": "Enviar reporte",
+        "reason": "¿Qué ocurre con esta publicación?",
+        "reason.label": "Razón"
+    },
+    "users": {
+        "title": "Usuarios",
+        "list": "Lista de usuarios",
+        "create": "Crear usuario"
+    },
+    "admin": {
+        "title": "Panel de administración",
+        "actions": "Acciones",
+        "ban": "Banear"
+    },
+    "error": {
+        "forbidden": "Acción prohibida",
+        "unauthorized": "No tienes permisos para realizar esta acción",
+        "unauthenticated": "No estás autenticado",
+        "invalid":{
+            "user.data": "Datos de usuario inválidos",
+            "comment.data": "Datos de usuario inválidos",
+            "poll.data": "Datos de usuario inválidos",
+            "vote.data": "Datos de usuario inválidos",
+            "report.data": "Datos de usuario inválidos",
+            "request.data": "Datos de usuario inválidos",
+            "reported.type": "Datos de usuario inválidos",
+            "post.id": "Datos de usuario inválidos"
+        },
+        "not.found":{
+            "user": "Usuario no encontrado",
+            "request": "Petición no encontrada",
+            "poll": "Encuesta no encontrada"
+        },
+        "banned":{
+            "user": "El usuario está baneado",
+            "email": "El correo está baneado"
+        },
+        "already":{
+            "voted": "Ya has votado en esta encuesta",
+            "registered": "El correo electrónico ya está registrado",
+            "exists": "El nombre de usuario ya existe"
+        },
+        "missing.refresh.token": "Falta de token de refresco",
+        "inactive.poll": "La encuesta está inactiva",
+        "internal.server": "Error inesperado"
+        
+    },
     "previous": "Anterior",
     "next": "Siguiente",
-    "admin.panel": "Panel de administración",
-    "users": "Usuarios",
-    "users.list": "Lista de usuarios",
-    "user.create": "Crear usuario",
-    "actions": "Acciones",
-    "ban": "Banear"
+    "title": "Título",
+    "no": "No",
+    "yes": "Sí",
+    "anonymous": "Anónimo"
 }

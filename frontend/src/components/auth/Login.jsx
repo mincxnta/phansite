@@ -27,17 +27,17 @@ export const Login = () => {
 
     return (
         <div>
-            <h1>{t("login")}</h1>
+            <h1>{t("auth.login")}</h1>
             <form onSubmit={handleLogin}>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-                <label>{t("username")}</label>
-                <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder={t("username.placeholder")} />
+                <label>{t("auth.username")}</label>
+                <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder={t("auth.username.placeholder")} />
                 <br />
-                <label>{t("password")}</label>
-                <input type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder={t("password.placeholder")} />
+                <label>{t("auth.password")}</label>
+                <input type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder={t("auth.password.placeholder")} />
 
-                <input type="submit" value={t("login")} />
-                <Link to="/register">{t("register")}</Link>
+                <input type="submit" value={t("auth.login")} />
+                <Link to="/register">{t("auth.register")}</Link>
             </form>
         </div>
     )

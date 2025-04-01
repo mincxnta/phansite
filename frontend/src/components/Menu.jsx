@@ -9,14 +9,14 @@ export const Menu = () => {
     return (
         <nav style={{ display: "flex", width: "100vw", justifyContent: "space-between", backgroundColor: "black" }}>
             <button>
-                <Link to="/">{t("home")}</Link>
+                <Link to="/">{t("home.title")}</Link>
             </button>
             <button>
-                <Link to="/requests">{t("requests")}</Link>
+                <Link to="/requests">{t("requests.title")}</Link>
             </button>
             <button>
                 <Link to={user ? "/profile" : "/login"}>
-                    {user ? t("profile") : t("login")}
+                    {user ? t("profile.title") : t("auth.login")}
                 </Link>
             </button>
         </nav>
