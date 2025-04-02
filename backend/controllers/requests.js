@@ -98,28 +98,21 @@ export class RequestController {
   //   }
   // }
 
-  // // Dejamos eliminar?
-  // static async delete (req, res) {
-  //   if (!req.user || !req.user.id) {
-  //     return res.status(401).json({ code: 'unauthorized' })
-  //   }
-
-  //   try {
-  //     const { id } = req.params
-  //     const request = await Request.findByPk(id)
-
-  //     if (!request) {
-  //       return res.status(404).json({ code: 'request_not_found' })
-  //     }
-
-  //     if (request.userId !== req.user.id) {
-  //       return res.status(403).json({ code: 'forbidden' })
-  //     }
-
-  //     await request.destroy()
-  //     res.status(200).json({ success: true })
-  //   } catch (error) {
-  //     res.status(500).json({ code: 'internal_server_error' })
-  //   }
-  // }
+  // Dejamos eliminar?
+  static async delete(req, res) {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ code: 'forbidden' })
+    }
+    try {
+      const { id } = req.params
+      const request = await Request.findByPk(id)
+      if (!request) {
+        return res.status(404).json({ code: 'request_not_found' })
+      }
+      await request.destroy()
+      res.status(200).json({ success: true })
+    } catch (error) {
+      res.status(500).json({ code: 'internal_server_error' })
+    }
+  }
 }

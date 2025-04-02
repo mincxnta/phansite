@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
+import { showPopUp } from '../PopUp.jsx';
 
 export const ReportedComments = () => {
     const [reports, setReports] = useState([])
@@ -19,9 +20,9 @@ export const ReportedComments = () => {
                 })
 
                 const data = await response.json()
-                if (response.ok) {   
+                if (response.ok) {
                     setReports(data)
-                }else{
+                } else {
                     setError(errorHandler(data));
                 }
             } catch (error) {
@@ -47,6 +48,39 @@ export const ReportedComments = () => {
             const data = await response.json()
             if (!response.ok) {
                 setError(errorHandler(data));
+            }
+            showPopUp("Usuario baneado satisfactoriamente");
+        } catch (error) {
+            setError(errorHandler(error));
+        }
+    }
+
+    const handleDiscard = async (id) => {
+        try {
+            const response = await fetch(`${API_URL}/reports/delete/${id}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            })
+
+            if (response.ok) {
+                await response.json()
+                setReports((prevReports) => prevReports.filter(report => report.id !== id));
+            }
+        } catch (error) {
+            setError(errorHandler(error));
+        }
+    }
+
+    const handleDelete = async (report) => {
+        handleDiscard(report.id);
+        try {
+            const response = await fetch(`${API_URL}/comments/${report.comment.id}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            })
+
+            if (response.ok) {
+                await response.json()
             }
         } catch (error) {
             setError(errorHandler(error));
@@ -81,8 +115,8 @@ export const ReportedComments = () => {
                                 {report.comment.text}
                             </td>
                             <td>
-                                <button>Descartar</button>
-                                <button>Eliminar</button>
+                                <button onClick={() => handleDiscard(report.id)}>Descartar</button>
+                                <button onClick={() => handleDelete(report)}>Eliminar</button>
                                 <button onClick={() => handleBan(report.comment.userId)}>Banear</button>
                             </td>
                         </tr>
@@ -91,6 +125,6 @@ export const ReportedComments = () => {
             </table>
 
 
-        </div>
+        </div >
     )
 }

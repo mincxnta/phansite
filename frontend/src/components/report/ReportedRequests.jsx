@@ -4,6 +4,7 @@ import { API_URL } from '../../constants/constants.js'
 import { useTranslation } from 'react-i18next'
 import { showRequestDetail } from '../request/RequestDetail.jsx'
 import { errorHandler } from '../../utils/errorHandler.js';
+import { showPopUp } from '../PopUp.jsx'
 
 export const ReportedRequests = () => {
     const [reports, setReports] = useState([])
@@ -22,7 +23,7 @@ export const ReportedRequests = () => {
                 const data = await response.json()
                 if (response.ok) {
                     setReports(data)
-                }else{
+                } else {
                     setError(errorHandler(data));
                 }
             } catch (error) {
@@ -48,7 +49,40 @@ export const ReportedRequests = () => {
             const data = await response.json()
             if (!response.ok) {
                 setError(errorHandler(data));
-            } 
+            }
+            showPopUp("Usuario baneado satisfactoriamente");
+        } catch (error) {
+            setError(errorHandler(error));
+        }
+    }
+
+    const handleDiscard = async (id) => {
+        try {
+            const response = await fetch(`${API_URL}/reports/delete/${id}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            })
+
+            if (response.ok) {
+                await response.json()
+                setReports((prevReports) => prevReports.filter(report => report.id !== id));
+            }
+        } catch (error) {
+            setError(errorHandler(error));
+        }
+    }
+
+    const handleDelete = async (report) => {
+        handleDiscard(report.id);
+        try {
+            const response = await fetch(`${API_URL}/requests/${report.request.id}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            })
+
+            if (response.ok) {
+                await response.json()
+            }
         } catch (error) {
             setError(errorHandler(error));
         }
@@ -82,8 +116,8 @@ export const ReportedRequests = () => {
                                 <button onClick={() => showRequestDetail(report.request.id)}>{report.request.title}</button>
                             </td>
                             <td>
-                                <button>Descartar</button>
-                                <button>Eliminar</button>
+                                <button onClick={() => handleDiscard(report.id)}>Descartar</button>
+                                <button onClick={() => handleDelete(report)}>Eliminar</button>
                                 <button onClick={() => handleBan(report.request.userId)}>Banear</button>
                             </td>
                         </tr>

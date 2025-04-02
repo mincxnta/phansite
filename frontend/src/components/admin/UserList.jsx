@@ -4,6 +4,7 @@ import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
+import { showPopUp } from '../PopUp.jsx';
 
 export const UserList = () => {
     const [users, setUsers] = useState([])
@@ -34,7 +35,7 @@ export const UserList = () => {
                 const data = await response.json()
                 if (response.ok) {
                     setUsers(data)
-                }else{
+                } else {
                     setError(errorHandler(data));
                 }
             } catch (error) {
@@ -62,6 +63,7 @@ export const UserList = () => {
             if (!response.ok) {
                 setError(errorHandler(data));
             }
+            showPopUp("Usuario baneado correctamente");
         } catch (error) {
             setError(errorHandler(error));
         }

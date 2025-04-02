@@ -7,3 +7,5 @@ export const commentsRouter = Router()
 commentsRouter.get('/:pollId', CommentController.getComments)
 
 commentsRouter.post('/:pollId', authenticateToken, CommentController.addComment)
+
+commentsRouter.delete('/:id', authenticateToken, CommentController.delete)

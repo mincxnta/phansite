@@ -100,5 +100,22 @@ export class ReportController {
     }
   }
 
+  static async deleteReport(req, res) {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ code: 'forbidden' })
+    }
+    const { id } = req.params
+    try {
+      const report = await Report.findByPk(id)
+
+      if (!report) {
+        return res.status(404).json({ code: 'report_not_found' })
+      }
+      await report.destroy()
+      res.status(200).json({ success: true })
+    } catch (error) {
+      res.status(500).json({ code: 'internal_server_error' })
+    }
+  }
 
 }

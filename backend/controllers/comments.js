@@ -4,7 +4,7 @@ import { User } from '../models/user.js'
 import { validateComment } from '../schemas/comment.js'
 
 export class CommentController {
-  static async getComments (req, res) {
+  static async getComments(req, res) {
     const { pollId } = req.params
     const page = parseInt(req.query.page) || 1 // Página por defecto
     const limit = parseInt(req.query.limit) || 5 // Comentarios por página
@@ -40,7 +40,7 @@ export class CommentController {
     }
   }
 
-  static async addComment (req, res) {
+  static async addComment(req, res) {
     const { pollId } = req.params
     const newComment = validateComment(req.body)
 
@@ -65,5 +65,21 @@ export class CommentController {
       res.status(500).json({ code: 'internal_server_error' })
     }
   }
-  // TODO eliminar comentarios
+
+  static async delete(req, res) {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ code: 'forbidden' })
+    }
+    try {
+      const { id } = req.params
+      const request = await Comment.findByPk(id)
+      if (!request) {
+        return res.status(404).json({ code: 'request_not_found' })
+      }
+      await request.destroy()
+      res.status(200).json({ success: true })
+    } catch (error) {
+      res.status(500).json({ code: 'internal_server_error' })
+    }
+  }
 }

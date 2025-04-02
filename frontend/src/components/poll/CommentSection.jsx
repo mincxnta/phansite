@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from '../../constants/constants.js'
 import { showReportForm } from '../report/Report.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
@@ -45,7 +45,7 @@ export const CommentSection = ({ pollId }) => {
         }
 
         // Si no lo pones, deja poner comentario vacío
-        
+
 
         try {
             const response = await fetch(`${API_URL}/comments/${pollId}`, {
@@ -62,7 +62,7 @@ export const CommentSection = ({ pollId }) => {
                 setNewComment('');
                 setError(null);
                 await fetchComments()
-            } else {     
+            } else {
                 console.log(data.code[0])
                 setError(errorHandler(data));
             }
@@ -81,6 +81,22 @@ export const CommentSection = ({ pollId }) => {
     useEffect(() => {
         fetchComments()
     }, [pollId, page]);
+
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`${API_URL}/comments/${id}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            })
+
+            if (response.ok) {
+                await response.json()
+                setComments((prevComments) => prevComments.filter(comment => comment.id !== id));
+            }
+        } catch (error) {
+            setError(errorHandler(error));
+        }
+    }
     return (
         <div>
             <h1>{t("comments.title")}</h1>
@@ -114,10 +130,15 @@ export const CommentSection = ({ pollId }) => {
                         <img src={comment.user?.profilePicture ? comment.user.profilePicture : '/assets/requests/unknownTarget.png'} alt="Profile picture" style={{ maxHeight: '50px' }} />
                         <div style={{ resize: "none", width: "90%", padding: "4px" }}>
                             <div style={{ display: "flex" }}>
-                                <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? t("anonymous") : comment.user.username}</p>
+                                <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? t("anonymous") : (<Link to={`/profile/${comment.user.username}`}>{comment.user.username}</Link>)}</p>
                                 <button onClick={() => handleReport("comment", comment.id)}>
                                     <img src={'/assets/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
                                 </button>
+                                {user && (user.role === 'admin') &&
+                                    <button onClick={() => handleDelete(comment.id)}>
+                                        <img src={'/assets/delete.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
+                                    </button>
+                                }
                             </div>
 
                             <p style={{ margin: "0" }}>{comment.text}</p>
