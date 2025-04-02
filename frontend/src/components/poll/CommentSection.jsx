@@ -44,9 +44,6 @@ export const CommentSection = ({ pollId }) => {
             return;
         }
 
-        // Si no lo pones, deja poner comentario vacío
-
-
         try {
             const response = await fetch(`${API_URL}/comments/${pollId}`, {
                 method: 'POST',
@@ -63,7 +60,7 @@ export const CommentSection = ({ pollId }) => {
                 setError(null);
                 await fetchComments()
             } else {
-                console.log(data.code[0])
+                console.log(data.code)
                 setError(errorHandler(data));
             }
         } catch (error) {
@@ -156,6 +153,7 @@ export const CommentSection = ({ pollId }) => {
                         {t("previous")}
                     </button>
                     <span>
+                        //TODO añadir mensajes traducidos con variables de por medio
                         Página {page} de {totalPages}
                     </span>
                     <button

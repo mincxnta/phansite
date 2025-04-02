@@ -18,6 +18,7 @@ export class UserController {
     }
   }
 
+  // TODO Se usa?
   static async getMe (req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
@@ -78,7 +79,7 @@ export class UserController {
     }
   }
 
-  // Eliminaremos usuarios?
+  // TODO Eliminaremos usuarios?
   static async delete (req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })

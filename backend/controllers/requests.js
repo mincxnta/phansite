@@ -1,8 +1,8 @@
-import { validateRequest, validateUpdatedRequest } from '../schemas/requests.js'
+import { validateRequest } from '../schemas/requests.js'
 import { Request } from '../models/request.js'
 
 export class RequestController {
-  static async getAll(req, res) {
+  static async getAll (req, res) {
     try {
       const requests = await Request.findAll({
         order: [['submitDate', 'DESC']]
@@ -13,7 +13,7 @@ export class RequestController {
     }
   }
 
-  static async getAllByUser(req, res) {
+  static async getAllByUser (req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }
@@ -29,7 +29,7 @@ export class RequestController {
     }
   }
 
-  static async getById(req, res) {
+  static async getById (req, res) {
     try {
       const { id } = req.params
       const request = await Request.findByPk(id)
@@ -44,7 +44,7 @@ export class RequestController {
     }
   }
 
-  static async create(req, res) {
+  static async create (req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }
@@ -67,7 +67,6 @@ export class RequestController {
     }
   }
 
-  // Dejamos editar?
   // static async update (req, res) {
   //   if (!req.user || !req.user.id) {
   //     return res.status(401).json({ code: 'unauthorized' })
@@ -98,8 +97,7 @@ export class RequestController {
   //   }
   // }
 
-  // Dejamos eliminar?
-  static async delete(req, res) {
+  static async delete (req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }

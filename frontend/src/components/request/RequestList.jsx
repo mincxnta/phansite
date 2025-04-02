@@ -33,6 +33,7 @@ export const RequestList = () => {
     }, [navigate])
 
     return (
+        // TODO Refactor para aprovechar para: vista phantom thief, lista general, lista usuarios
         <div>
             <h1>{t("requests.new")}</h1>
             {error && t(error)}

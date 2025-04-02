@@ -10,7 +10,12 @@ export const Message = sequelize.define('message', {
   },
   message: {
     type: DataTypes.STRING(2000),
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: 'empty_message'
+      }
+    }
   },
   user1Id: {
     type: DataTypes.UUID,

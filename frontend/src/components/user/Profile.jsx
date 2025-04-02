@@ -81,7 +81,7 @@ export const Profile = () => {
                 <>
                     <button onClick={handleLogout}>{t("auth.logout")}</button>
                     <button><Link to="edit">{t("profile.edit")}</Link></button>
-                     <button onClick={handleDelete}>Eliminar cuenta</button> {/*//Se quita? */}
+                     <button onClick={handleDelete}>Eliminar cuenta</button> {/*//TODO Se quita? */}
                 </>)}
 
         </>

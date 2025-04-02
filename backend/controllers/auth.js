@@ -87,7 +87,7 @@ export class AuthController {
     res.status(200).json({ code: 'logout_success', success: true })
   }
 
-  // Preguntar cómo manejar, guardar en BBDD
+  // TODO Preguntar cómo manejar, guardar en BBDD
   static async refresh (req, res) {
     const refreshToken = req.cookies.refresh_token
 

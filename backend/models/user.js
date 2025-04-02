@@ -11,16 +11,34 @@ export const User = sequelize.define('user', {
   username: {
     type: DataTypes.STRING(50),
     allowNull: false,
-    unique: true
+    unique: true,
+    validate: {
+      notEmpty: {
+        msg: 'empty_username'
+      }
+    }
   },
   password: {
     type: DataTypes.STRING(255),
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: 'empty_password'
+      }
+    }
   },
   email: {
     type: DataTypes.STRING(255),
     allowNull: false,
-    unique: true
+    unique: true,
+    validate: {
+      notEmpty: {
+        msg: 'empty_email'
+      },
+      isEmail: {
+        msg: 'invalid_email'
+      }
+    }
   },
   profilePicture: {
     type: DataTypes.STRING(255)
@@ -33,7 +51,8 @@ export const User = sequelize.define('user', {
     allowNull: false
   },
   banned: {
-    type: DataTypes.BOOLEAN
+    type: DataTypes.BOOLEAN,
+    defaultValue: false // Revisar
 
   }
 }, {

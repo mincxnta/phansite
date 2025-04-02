@@ -13,7 +13,12 @@ export const Report = sequelize.define('report', {
   },
   reason: {
     type: DataTypes.STRING(500),
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: 'empty_report_reason'
+      }
+    }
   },
   userId: {
     type: DataTypes.UUID,
@@ -46,7 +51,17 @@ export const Report = sequelize.define('report', {
 }, {
   tableName: 'reports',
   timestamps: false,
-  underscored: true
+  underscored: true,
+  validate: {
+    hasCommentOrRequest () {
+      if (!this.commentId && !this.requestId) {
+        throw new Error('missing_reported_entity')
+      }
+      if (this.commentId && this.requestId) {
+        throw new Error('multiple_reported_entities')
+      }
+    }
+  }
 })
 
 Report.belongsTo(User, {

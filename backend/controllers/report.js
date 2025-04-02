@@ -5,7 +5,7 @@ import { Comment } from '../models/comment.js'
 import { Request } from '../models/request.js'
 
 export class ReportController {
-  static async create(req, res) {
+  static async create (req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthenticated' })
     }
@@ -39,7 +39,7 @@ export class ReportController {
     }
   }
 
-  static async getAll(req, res) {
+  static async getAll (req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }
@@ -66,7 +66,7 @@ export class ReportController {
     }
   }
 
-  static async getAllByType(req, res) {
+  static async getAllByType (req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }
@@ -100,7 +100,7 @@ export class ReportController {
     }
   }
 
-  static async deleteReport(req, res) {
+  static async delete (req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }
@@ -117,5 +117,4 @@ export class ReportController {
       res.status(500).json({ code: 'internal_server_error' })
     }
   }
-
 }

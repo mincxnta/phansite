@@ -9,11 +9,16 @@ export const Poll = sequelize.define('poll', {
   },
   question: {
     type: DataTypes.STRING(100),
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: 'empty_poll_question'
+      }
+    }
   },
   isActive: {
     type: DataTypes.BOOLEAN,
-    default: true
+    defaultValue: true
   }
 }, {
   tableName: 'polls',

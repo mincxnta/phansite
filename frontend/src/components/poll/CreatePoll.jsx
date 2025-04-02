@@ -38,7 +38,6 @@ export const CreatePoll = () => {
                 body: JSON.stringify({ question })
             })
 
-            //Si se envía vacío, devuelve ok igualmente
             const data = await response.json()
             if (!response.ok) {
                 setError(errorHandler(data));

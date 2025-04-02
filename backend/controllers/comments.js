@@ -4,7 +4,7 @@ import { User } from '../models/user.js'
 import { validateComment } from '../schemas/comment.js'
 
 export class CommentController {
-  static async getComments(req, res) {
+  static async getAll (req, res) {
     const { pollId } = req.params
     const page = parseInt(req.query.page) || 1 // Página por defecto
     const limit = parseInt(req.query.limit) || 5 // Comentarios por página
@@ -40,12 +40,12 @@ export class CommentController {
     }
   }
 
-  static async addComment(req, res) {
+  static async create (req, res) {
     const { pollId } = req.params
     const newComment = validateComment(req.body)
 
     if (!newComment.success) {
-      return res.status(400).json({ code: 'invalid_comment_data' })
+      return res.status(400).json({ code: newComment.error.issues[0].message }) // TODO Hacer esto en todas las validaciones
     }
 
     try {
@@ -62,11 +62,15 @@ export class CommentController {
       const comment = await Comment.create(commentData)
       res.status(201).json(comment)
     } catch (error) {
+      // if (error.name === 'SequelizeValidationError') {
+      //   const errorCode = error.errors[0].message;
+      //   return res.status(400).json({ code: errorCode });
+      // }
       res.status(500).json({ code: 'internal_server_error' })
     }
   }
 
-  static async delete(req, res) {
+  static async delete (req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }

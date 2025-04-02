@@ -3,7 +3,7 @@ import { API_URL } from "../constants/constants.js";
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
-
+//TODO Añadir errorHandler
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -16,19 +16,23 @@ export const AuthProvider = ({ children }) => {
                 credentials: 'include'
             });
 
-            if (!response.ok) {
-                setUser(null);
-                return;
-            }
-
             const data = await response.json();
-            setUser(data || null);
-
+            if (response.ok) {
+                if (data.banned) {
+                    await logout();
+                    navigate('/login')
+                    setUser(data)
+                }
+                return;
+            } else {
+                setUser(null);
+            }
         } catch (error) {
             console.log(error)
             setUser(null);
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
 
     const login = async (username, password) => {
@@ -48,8 +52,8 @@ export const AuthProvider = ({ children }) => {
             if (!response.ok) {
                 return data;
             }
-            
-            
+
+
             setUser(data)
             navigate('/')
         } catch (error) {

@@ -48,7 +48,6 @@ export class PollController {
     }
   }
 
-  // Dejamos editar?
   // static async update (req, res) {
   //   const { id } = req.params
 

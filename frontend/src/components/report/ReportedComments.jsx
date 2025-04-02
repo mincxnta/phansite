@@ -36,7 +36,7 @@ export const ReportedComments = () => {
     const handleBan = async (userId) => {
 
         try {
-            const response = await fetch(`${API_URL}/users/${userId}/ban`, {
+            const response = await fetch(`${API_URL}/users/ban/${userId}`, {
                 method: 'PATCH',
                 credentials: 'include',
                 headers: {
@@ -57,7 +57,7 @@ export const ReportedComments = () => {
 
     const handleDiscard = async (id) => {
         try {
-            const response = await fetch(`${API_URL}/reports/delete/${id}`, {
+            const response = await fetch(`${API_URL}/reports/${id}`, {
                 method: 'DELETE',
                 credentials: 'include'
             })

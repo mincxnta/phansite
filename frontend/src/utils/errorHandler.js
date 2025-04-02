@@ -20,7 +20,7 @@ const errorMessages = {
   'username_already_exists': 'already.exists',
   'missing_refresh_token': 'missing.refresh.token',
   'unauthenticated': 'unauthenticated',
-  'too_small': "to small",
+  'empty_comment': "empty.comment",
   'internal_server_error': 'internal.server'
 };
 

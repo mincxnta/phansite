@@ -11,6 +11,6 @@ usersRouter.get('/:username', UserController.getById)
 
 usersRouter.patch('/update', UserController.update)
 
-usersRouter.patch('/:id/ban', UserController.ban)
+usersRouter.patch('/ban/:id', UserController.ban)
 
 usersRouter.delete('/delete', UserController.delete)

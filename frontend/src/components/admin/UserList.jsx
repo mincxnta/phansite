@@ -50,7 +50,7 @@ export const UserList = () => {
     const handleBan = async (userId) => {
 
         try {
-            const response = await fetch(`${API_URL}/users/${userId}/ban`, {
+            const response = await fetch(`${API_URL}/users/ban/${userId}`, {
                 method: 'PATCH',
                 credentials: 'include',
                 headers: {

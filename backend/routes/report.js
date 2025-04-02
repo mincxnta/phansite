@@ -9,4 +9,4 @@ reportsRouter.get('/:type', ReportController.getAllByType)
 
 reportsRouter.post('/', ReportController.create)
 
-reportsRouter.delete('/delete/:id', ReportController.deleteReport)
+reportsRouter.delete('/:id', ReportController.delete)
