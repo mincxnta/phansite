@@ -77,13 +77,13 @@
         "unauthenticated": "No estás autenticado",
         "invalid": {
             "user.data": "Datos de usuario inválidos",
-            "comment.data": "Datos de usuario inválidos",
-            "poll.data": "Datos de usuario inválidos",
-            "vote.data": "Datos de usuario inválidos",
-            "report.data": "Datos de usuario inválidos",
-            "request.data": "Datos de usuario inválidos",
-            "reported.type": "Datos de usuario inválidos",
-            "post.id": "Datos de usuario inválidos"
+            "comment.data": "Datos de comentario inválidos",
+            "poll.data": "Datos de encuesta inválidos",
+            "vote.data": "Datos de votación inválidos",
+            "report.data": "Datos de reporte inválidos",
+            "request.data": "Datos de petición inválidos",
+            "reported.type": "Tipo de reporte inválido",
+            "post.id": "ID de publicación inválido"
         },
         "not.found": {
             "user": "Usuario no encontrado",

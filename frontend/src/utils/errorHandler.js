@@ -20,9 +20,15 @@ const errorMessages = {
   'username_already_exists': 'already.exists',
   'missing_refresh_token': 'missing.refresh.token',
   'unauthenticated': 'unauthenticated',
+  'too_small': "to small",
+  'internal_server_error': 'internal.server'
 };
 
+let message = 'internal.server';
+
 export const errorHandler = (error) => {
-  const message = `error.${errorMessages[error.code]}` || 'internal.server';
+  if (error.code) {
+    message = `error.${errorMessages[error.code]}`;
+  }
   return message;
 };

@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useTranslation } from 'react-i18next'
 import { showRequestDetail } from '../request/RequestDetail.jsx'
+import { errorHandler } from '../../utils/errorHandler.js';
 
 export const ReportedRequests = () => {
     const [reports, setReports] = useState([])
     const navigate = useNavigate()
     const { t } = useTranslation();
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchReports = async () => {
@@ -17,14 +19,14 @@ export const ReportedRequests = () => {
                     credentials: 'include'
                 })
 
-                console.log(response)
+                const data = await response.json()
                 if (response.ok) {
-                    const data = await response.json()
                     setReports(data)
+                }else{
+                    setError(errorHandler(data));
                 }
             } catch (error) {
-                console.log(error.message)
-                navigate('/')
+                setError(errorHandler(error));
 
             }
         }
@@ -43,18 +45,18 @@ export const ReportedRequests = () => {
                 body: JSON.stringify({ banned: true })
             })
 
-            if (response.ok) {
-                await response.json()
-            } else {
-                console.log('Error')
-            }
+            const data = await response.json()
+            if (!response.ok) {
+                setError(errorHandler(data));
+            } 
         } catch (error) {
-            console.log(error)
+            setError(errorHandler(error));
         }
     }
 
     return (
         <div>
+            {error && t(error)}
             <h1>Peticiones reportadas</h1>
             <table>
                 <thead>

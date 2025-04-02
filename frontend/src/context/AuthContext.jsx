@@ -43,12 +43,13 @@ export const AuthProvider = ({ children }) => {
                 body: JSON.stringify({ username, password })
             });
 
+            const data = await response.json()
+
             if (!response.ok) {
-                const errorData = await response.json()
-                throw new Error(errorData.message)
+                return data;
             }
             
-            const data = await response.json()
+            
             setUser(data)
             navigate('/')
         } catch (error) {

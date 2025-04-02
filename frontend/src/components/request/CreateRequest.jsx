@@ -3,6 +3,7 @@ import { API_URL } from '../../constants/constants.js'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
+import { errorHandler } from '../../utils/errorHandler.js';
 
 export const CreateRequest = () => {
     const [title, setTitle] = useState('')
@@ -11,11 +12,11 @@ export const CreateRequest = () => {
     const [image, setImage] = useState('')
     const navigate = useNavigate()
     const { user } = useAuth()
+    const [error, setError] = useState(null);
     const { t } = useTranslation();
 
     useEffect(() => {
         if (!user) {
-            console.log('Error')
             navigate('/login')
         }
     })
@@ -32,20 +33,20 @@ export const CreateRequest = () => {
                 body: JSON.stringify({ title, target, description })
             })
 
+            const data = await response.json()
             if (!response.ok) {
-                const errorData = await response.json()
-                throw new Error(errorData.message)
+                setError(errorHandler(data));
             }
-            await response.json()
             navigate('/requests')
         } catch (error) {
-            console.log(error);
+            setError(errorHandler(error));
         }
     }
 
     return (
         <div>
             <h1>{t("requests.add")}</h1>
+            {error && t(error)}
             <form onSubmit={handleNewRequest}>
                 <label>{t("title")}</label>
                 <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("requests.title.placeholder")} />

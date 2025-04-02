@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { showRequestDetail } from './RequestDetail.jsx'
 import { useTranslation } from 'react-i18next'
+import { errorHandler } from '../../utils/errorHandler.js';
 
 export const RequestList = () => {
     const [requests, setRequests] = useState([])
     const navigate = useNavigate()
     const { t } = useTranslation();
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -17,14 +19,14 @@ export const RequestList = () => {
                     credentials: 'include'
                 })
 
-                console.log(response)
+                const data = await response.json()
                 if (response.ok) {
-                    const data = await response.json()
                     setRequests(data)
+                }else{
+                    setError(errorHandler(data));
                 }
             } catch (error) {
-                console.log(error.message)
-                navigate('/')
+                setError(errorHandler(error));
             }
         }
         fetchRequests()
@@ -33,6 +35,7 @@ export const RequestList = () => {
     return (
         <div>
             <h1>{t("requests.new")}</h1>
+            {error && t(error)}
             <Link to="/newrequest">{t("requests.create")}</Link>
             <h1>{t("requests.title")}</h1>
             <table>

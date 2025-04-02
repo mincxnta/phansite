@@ -3,11 +3,13 @@ import { API_URL } from '../../constants/constants.js'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
+import { errorHandler } from '../../utils/errorHandler.js';
 
 export const CreatePoll = () => {
     const [question, setQuestion] = useState('')
     const navigate = useNavigate()
     const { user } = useAuth()
+    const [error, setError] = useState(null);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -36,20 +38,21 @@ export const CreatePoll = () => {
                 body: JSON.stringify({ question })
             })
 
+            //Si se envía vacío, devuelve ok igualmente
+            const data = await response.json()
             if (!response.ok) {
-                const errorData = await response.json()
-                throw new Error(errorData.message)
+                setError(errorHandler(data));
             }
-            await response.json()
             navigate('/')
         } catch (error) {
-            console.log(error);
+            setError(errorHandler(error));
         }
     }
 
     return (
         <div>
             <h1>{t("poll.new")}</h1>
+            {error && <p>{t(error)}</p>}
             <form onSubmit={handleNewPoll}>
                 <label>{t("poll.question")}</label>
                 <input type="text" required placeholder={t("poll.question.placeholder")} value={question} onChange={(e) => setQuestion(e.target.value)} />

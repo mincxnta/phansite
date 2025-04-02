@@ -1,7 +1,8 @@
 import z from 'zod'
 
 const commentSchema = z.object({
-  text: z.string(),
+  // Arreglar esto { message: 'empty_comment' }
+  text: z.string().min(1),
   anonymous: z.boolean().default(false)
 })
 

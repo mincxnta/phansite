@@ -4,12 +4,14 @@ import { Link, useParams } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx'
 import { useTranslation } from 'react-i18next'
+import { errorHandler } from '../../utils/errorHandler.js';
 
 export const Profile = () => {
     const [profileUser, setProfileUser] = useState(null)
     const navigate = useNavigate()
     let { username } = useParams()
     const { user, logout } = useAuth()
+    const [error, setError] = useState(null);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -26,7 +28,6 @@ export const Profile = () => {
                 })
 
                 if (!response.ok) {
-                    console.log('Error')
                     navigate('/login')
                     return;
 
@@ -38,7 +39,6 @@ export const Profile = () => {
                     navigate('/profile', { replace: true });
                 }
             } catch (error) {
-                console.log(error)
                 navigate('/')
 
             }
@@ -60,11 +60,9 @@ export const Profile = () => {
             if (response.ok) {
                 await response.json()
                 navigate('/login')
-            } else {
-                console.log('Error')
             }
         } catch (error) {
-            console.log(error)
+            setError(errorHandler(error));
         }
     }
 
@@ -76,6 +74,7 @@ export const Profile = () => {
 
     return (
         <>
+        {error && t(error)}
             <h1>{isOwnProfile ? t("profile.me") : `Perfil de ${profileUser.username}`}</h1>
             <p>{`Hola soy ${profileUser.username}`}</p>
             {isOwnProfile && (

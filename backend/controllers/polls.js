@@ -1,10 +1,10 @@
-import { validatePoll, validateUpdatedPoll } from '../schemas/poll.js'
+import { validatePoll } from '../schemas/poll.js'
 import { validatePollVote } from '../schemas/pollvote.js'
 import { Poll } from '../models/poll.js'
 import { PollVotes } from '../models/poll_votes.js'
 
 export class PollController {
-  static async getAll(req, res) {
+  static async getAll (req, res) {
     try {
       const polls = await Poll.findAll({
         order: [['date', 'DESC']]
@@ -15,7 +15,7 @@ export class PollController {
     }
   }
 
-  static async getActivePoll(req, res) {
+  static async getActivePoll (req, res) {
     try {
       const poll = await Poll.findOne({ where: { isActive: true } })
       if (!poll) {
@@ -27,7 +27,7 @@ export class PollController {
     }
   }
 
-  static async create(req, res) {
+  static async create (req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }
@@ -75,7 +75,7 @@ export class PollController {
   //   }
   // }
 
-  static async vote(req, res) {
+  static async vote (req, res) {
     const { id } = req.params
 
     if (!req.user || !req.user.id) {
@@ -110,7 +110,7 @@ export class PollController {
     }
   }
 
-  static async getPollResults(req, res) {
+  static async getPollResults (req, res) {
     const { id } = req.params
 
     try {

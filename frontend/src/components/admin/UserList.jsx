@@ -3,12 +3,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
+import { errorHandler } from '../../utils/errorHandler.js';
 
 export const UserList = () => {
     const [users, setUsers] = useState([])
     const navigate = useNavigate()
     const { user } = useAuth()
     const { t } = useTranslation();
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const verifyAdmin = () => {
@@ -29,14 +31,14 @@ export const UserList = () => {
                     credentials: 'include'
                 })
 
-                console.log(response)
+                const data = await response.json()
                 if (response.ok) {
-                    const data = await response.json()
                     setUsers(data)
+                }else{
+                    setError(errorHandler(data));
                 }
             } catch (error) {
-                console.log(error.message)
-                navigate('/')
+                setError(errorHandler(error));
 
             }
         }
@@ -56,19 +58,19 @@ export const UserList = () => {
                 body: JSON.stringify({ banned: true })
             })
 
-            if (response.ok) {
-                await response.json()
-            } else {
-                console.log('Error')
+            const data = await response.json()
+            if (!response.ok) {
+                setError(errorHandler(data));
             }
         } catch (error) {
-            console.log(error)
+            setError(errorHandler(error));
         }
     }
 
     return (
         <div>
             <h1>{t("users.list")}</h1>
+            {error && <p>{t(error)}</p>}
             <table>
                 <thead>
                     <tr>

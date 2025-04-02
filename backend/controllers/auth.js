@@ -67,7 +67,7 @@ export class AuthController {
         return res.status(409).json({ code: 'email_already_registered' })
       }
 
-      const existingUsername = await User.findOne({ where: { email: newUser.data.username } })
+      const existingUsername = await User.findOne({ where: { username: newUser.data.username } })
       if (existingUsername) {
         return res.status(409).json({ code: 'username_already_exists' })
       }

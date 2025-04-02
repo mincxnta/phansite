@@ -4,6 +4,7 @@ import { API_URL } from '../../constants/constants.js'
 import { showReportForm } from '../report/Report.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
+import { errorHandler } from '../../utils/errorHandler.js';
 
 export const CommentSection = ({ pollId }) => {
     const [comments, setComments] = useState([]);
@@ -25,16 +26,16 @@ export const CommentSection = ({ pollId }) => {
                 credentials: 'include',
             });
 
+            const data = await response.json();
             if (response.ok) {
-                const data = await response.json();
                 setComments(data.comments);
                 setTotalPages(data.totalPages);
                 setTotalComments(data.totalComments);
             } else {
-                console.log('Error al obtenir els comentaris:', response.status);
+                setError(errorHandler(data));
             }
         } catch (error) {
-            console.log('Error de xarxa:', error);
+            setError(errorHandler(error));
         }
     };
 
@@ -43,10 +44,8 @@ export const CommentSection = ({ pollId }) => {
             return;
         }
 
-        if (!newComment.trim()) {
-            setError('El comentario no puede estar vacío');
-            return;
-        }
+        // Si no lo pones, deja poner comentario vacío
+        
 
         try {
             const response = await fetch(`${API_URL}/comments/${pollId}`, {
@@ -58,17 +57,17 @@ export const CommentSection = ({ pollId }) => {
                 credentials: 'include',
             });
 
+            const data = await response.json();
             if (response.ok) {
                 setNewComment('');
                 setError(null);
                 await fetchComments()
-            } else {
-                const errorData = await response.json();
-                setError(errorData.message);
+            } else {     
+                console.log(data.code[0])
+                setError(errorHandler(data));
             }
         } catch (error) {
-            console.log('Error de xarxa:', error);
-            setError('Error al enviar el comentario');
+            setError(errorHandler(error));
         }
     };
 
@@ -86,12 +85,12 @@ export const CommentSection = ({ pollId }) => {
         <div>
             <h1>{t("comments.title")}</h1>
             <h4>{t("comments.add")}</h4>
-            {error && <p>{error}</p>}
+            {error && <p>{t(error)}</p>}
             <div style={{ display: "flex" }}>
                 <img src={user && user.profilePicture ? user.profilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
                 <textarea value={newComment} placeholder={t("comments.placeholder")} onChange={(e) => setNewComment(e.target.value)}
                     style={{ maxHeight: "50px", resize: "none", width: "90%" }}
-                    disabled={!user}
+                    required disabled={!user}
                 > </textarea>
                 <label>
                     <input

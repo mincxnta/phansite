@@ -23,15 +23,16 @@ export const Poll = () => {
           credentials: 'include'
         })
 
-        console.log(response)
+        const data = await response.json()
         if (response.ok) {
-          const data = await response.json()
           setPoll(data)
           await getPollResults(data.id)
+        }else{
+          setError(errorHandler(data));
         }
+
       } catch (error) {
-        console.log(error.message)
-        navigate('/')
+        setError(errorHandler(error));
 
       }
     }
@@ -45,16 +46,16 @@ export const Poll = () => {
         credentials: 'include',
       });
 
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
         setResults(data);
         const percentage = data.total > 0 ? (data.yes / data.total) * 100 : 0;
         setYesPercentage(percentage.toFixed(1));
       } else {
-        console.log('Error al obtenir els resultats');
+        setError(errorHandler(data));
       }
     } catch (error) {
-      console.log('Error de xarxa:', error);
+      setError(errorHandler(error));
     }
   };
 
@@ -73,16 +74,16 @@ export const Poll = () => {
         credentials: 'include',
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         await getPollResults(poll.id)
         setError(null);
-      } else {
-        const data = await response.json();
+      } else {  
         setError(errorHandler(data));
       }
     } catch (error) {
-      console.log(error);
-      setError('Error al votar');
+      setError(errorHandler(error));
     }
   };
 

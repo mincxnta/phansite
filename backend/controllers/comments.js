@@ -65,5 +65,5 @@ export class CommentController {
       res.status(500).json({ code: 'internal_server_error' })
     }
   }
-  //TODO eliminar comentarios 
+  // TODO eliminar comentarios
 }

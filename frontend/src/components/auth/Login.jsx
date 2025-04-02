@@ -2,26 +2,28 @@ import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../context/AuthContext.jsx';
+import { errorHandler } from '../../utils/errorHandler.js';
 
 export const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [errorMessage, setErrorMessage] = useState('')
     const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
     const { login } = useAuth();
+    const [error, setError] = useState(null);
 
     const from = location.state?.from?.pathname || "/";
 
     const handleLogin = async (event) => {
         event.preventDefault()
-        setErrorMessage('');
+        setError('');
         try {
+            //TODO Manejar errores
             await login(username, password);
             navigate(from, { replace: true });
         } catch (error) {
-            setErrorMessage(error.message);
+            setError(errorHandler(error));
         }
     }
 
@@ -29,7 +31,7 @@ export const Login = () => {
         <div>
             <h1>{t("auth.login")}</h1>
             <form onSubmit={handleLogin}>
-                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                {error && <p style={{ color: 'red' }}>{error}</p>}
                 <label>{t("auth.username")}</label>
                 <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder={t("auth.username.placeholder")} />
                 <br />

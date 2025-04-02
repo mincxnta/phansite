@@ -16,7 +16,7 @@ export const ReportForm = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (!user){
+    if (!user) {
       return
     }
   })
@@ -41,15 +41,14 @@ export const ReportForm = () => {
         body: JSON.stringify({ reason, reportedType, postId })
       })
 
+      const data = await response.json();
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message)
+        return data;
       }
-      await response.json()
       setReason(null);
       closePopup();
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }
 

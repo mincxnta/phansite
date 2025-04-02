@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useTranslation } from 'react-i18next'
+import { errorHandler } from '../../utils/errorHandler.js';
 
 export const ReportedComments = () => {
     const [reports, setReports] = useState([])
     const navigate = useNavigate()
     const { t } = useTranslation();
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchReports = async () => {
@@ -16,14 +18,14 @@ export const ReportedComments = () => {
                     credentials: 'include'
                 })
 
-                console.log(response)
-                if (response.ok) {
-                    const data = await response.json()
+                const data = await response.json()
+                if (response.ok) {   
                     setReports(data)
+                }else{
+                    setError(errorHandler(data));
                 }
             } catch (error) {
-                console.log(error.message)
-                navigate('/')
+                setError(errorHandler(error));
 
             }
         }
@@ -42,18 +44,18 @@ export const ReportedComments = () => {
                 body: JSON.stringify({ banned: true })
             })
 
-            if (response.ok) {
-                await response.json()
-            } else {
-                console.log('Error')
+            const data = await response.json()
+            if (!response.ok) {
+                setError(errorHandler(data));
             }
         } catch (error) {
-            console.log(error)
+            setError(errorHandler(error));
         }
     }
 
     return (
         <div>
+            {error && t(error)}
             <h1>Publicaciones reportadas</h1>
             <table>
                 <thead>

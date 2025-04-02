@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useTranslation } from 'react-i18next'
+import { errorHandler } from '../../utils/errorHandler.js';
 
 export const Register = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState(null);
     const [email, setEmail] = useState('')
     const navigate = useNavigate()
     const { t } = useTranslation();
@@ -22,20 +24,22 @@ export const Register = () => {
                 body: JSON.stringify({ username, password, email })
             })
 
+            const data = await response.json()
+            console.log(data)
             if (response.ok) {
-                await response.json()
                 navigate('/login')
             } else {
-                console.log('Error')
+                setError(errorHandler(data));
             }
         } catch (error) {
-            console.log(error)
+            setError(errorHandler(error));
         }
     }
 
     return (
         <div>
             <h1>{t("auth.register")}</h1>
+            {error && <p>{t(error)}</p>}
             <form onSubmit={handleRegister}>
                 <label>{t("auth.username")}</label>
                 <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder={t("auth.username.placeholder")} />
