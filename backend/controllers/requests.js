@@ -1,5 +1,7 @@
 import { validateRequest } from '../schemas/requests.js'
 import { Request } from '../models/request.js'
+import { RequestVotes } from '../models/request_votes.js'
+import { validateRequestVote } from '../schemas/requestvote.js'
 
 export class RequestController {
   static async getAll (req, res) {
@@ -109,6 +111,39 @@ export class RequestController {
       }
       await request.destroy()
       res.status(200).json({ success: true })
+    } catch (error) {
+      res.status(500).json({ code: 'internal_server_error' })
+    }
+  }
+
+  static async vote (req, res) {
+    const { id } = req.params
+
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ code: 'unauthenticated' })
+    }
+
+    const request = await Request.findByPk(id)
+    if (!request) {
+      return res.status(404).json({ code: 'request_not_found' })
+    }
+
+    const newRequestVote = validateRequestVote(req.body)
+
+    if (!newRequestVote.success) {
+      return res.status(400).json({ code: 'invalid_vote_data' })
+    }
+
+    // TODO Revisar
+    try {
+      let pollVote = await RequestVotes.findOne({ where: { requestId: id, userId: req.user.id } })
+      if (pollVote) {
+        await pollVote.update(newRequestVote.data)
+      } else {
+        pollVote = await RequestVotes.create({ ...newRequestVote.data, requestId: id, userId: req.user.id })
+      }
+
+      res.status(201).json(pollVote)
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }
