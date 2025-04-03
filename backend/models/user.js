@@ -54,7 +54,12 @@ export const User = sequelize.define('user', {
     type: DataTypes.BOOLEAN,
     defaultValue: false // Revisar
 
-  }
+  },
+  aboutMe: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+    defaultValue: "I am thou, thou art I..."
+  },
 }, {
   tableName: 'users',
   timestamps: true,

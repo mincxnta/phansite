@@ -15,3 +15,5 @@ requestsRouter.post('/', authenticateToken, RequestController.create)
 // requestsRouter.patch('/:id', authenticateToken, RequestController.update)
 
 requestsRouter.delete('/:id', authenticateToken, RequestController.delete)
+
+requestsRouter.post('/:id/vote', authenticateToken, RequestController.vote)

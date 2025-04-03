@@ -7,29 +7,31 @@ import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 
 export const UpdateUser = () => {
-    const {user} = useAuth()
+    const { user } = useAuth()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
+    const [aboutMe, setAboutMe] = useState('')
     const [error, setError] = useState(null);
     const navigate = useNavigate()
     const { t } = useTranslation();
 
     useEffect(() => {
         const fetchProfile = () => {
-                if (user){
-                    setUsername(user.username)
-                    setEmail(user.email)
-                } else {
-                    navigate('/login')
-                }
+            if (user) {
+                setUsername(user.username)
+                setEmail(user.email)
+                setAboutMe(user.aboutMe)
+            } else {
+                navigate('/login')
+            }
         }
         fetchProfile()
     }, [navigate, user])
 
     const handleUpdateUser = async (event) => {
         event.preventDefault()
-        const updatedData = { username, email }
+        const updatedData = { username, email, aboutMe }
         if (password) {
             updatedData.password = password
         }
@@ -72,6 +74,8 @@ export const UpdateUser = () => {
                 <br />
                 <label>{t("auth.email")}</label>
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
+                <label>{t("auth.aboutMe")}</label>
+                <input type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("auth.aboutMe.placeholder")} />
                 <input type="image" />
                 <input type="submit" value={t("profile.edit")} />
             </form>

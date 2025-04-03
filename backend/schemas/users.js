@@ -7,13 +7,15 @@ const userSchema = z.object({
   password: z.string(),
   profile_picture: z.string().url().endsWith('.jpg').optional().nullable(),
   role: z.enum(ROLES).default(ROLES[2]),
-  banned: z.boolean().default(false)
+  banned: z.boolean().default(false),
+  aboutMe: z.string(),
+
 })
 
-export function validateNewUser (user) {
+export function validateNewUser(user) {
   return userSchema.safeParse(user)
 }
 
-export function validateUpdatedUser (user) {
+export function validateUpdatedUser(user) {
   return userSchema.partial().safeParse(user)
 }

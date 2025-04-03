@@ -9,15 +9,15 @@ export const authenticateToken = async (req, res, next) => {
 
   try {
     const data = jwt.verify(token, process.env.JWT_SECRET)
-    const user = await User.findByPk(data.id)
+    // const user = await User.findByPk(data.id)
 
-    if (!user) {
-      return res.status(404).json({ code: 'user_not_found' })
-    }
+    // if (!user) {
+    //   return res.status(404).json({ code: 'user_not_found' })
+    // }
 
-    if (user.banned) {
-      return res.status(403).json({ code: 'user_banned' })
-    }
+    // if (user.banned) {
+    //   return res.status(403).json({ code: 'user_banned' })
+    // }
 
     req.user = data
     next()
@@ -27,7 +27,7 @@ export const authenticateToken = async (req, res, next) => {
 }
 
 // TODO Mejorar
-export function optionalAuthenticateToken (req, res, next) {
+export function optionalAuthenticateToken(req, res, next) {
   const token = req.cookies.access_token
 
   if (!token) {
