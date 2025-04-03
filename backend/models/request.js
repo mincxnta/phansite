@@ -57,6 +57,11 @@ export const Request = sequelize.define('request', {
   thiefComment: {
     type: DataTypes.STRING(500),
     allowNull: true
+  },
+  totalVotes: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0
   }
 }, {
   tableName: 'requests',

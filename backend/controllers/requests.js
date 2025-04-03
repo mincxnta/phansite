@@ -134,16 +134,38 @@ export class RequestController {
       return res.status(400).json({ code: 'invalid_vote_data' })
     }
 
-    // TODO Revisar
     try {
-      let pollVote = await RequestVotes.findOne({ where: { requestId: id, userId: req.user.id } })
-      if (pollVote) {
-        await pollVote.update(newRequestVote.data)
+      let requestVote = await RequestVotes.findOne({ where: { requestId: id, userId: req.user.id } })
+      if (requestVote) {
+        if (requestVote.vote === newRequestVote.data.vote) {
+          return res.status(400).json({ code: 'user_already_voted' })
+        }
+
+        await requestVote.update(newRequestVote.data)
       } else {
-        pollVote = await RequestVotes.create({ ...newRequestVote.data, requestId: id, userId: req.user.id })
+        requestVote = await RequestVotes.create({ ...newRequestVote.data, requestId: id, userId: req.user.id })
       }
 
-      res.status(201).json(pollVote)
+      await request.update({ totalVotes: request.totalVotes + (newRequestVote.data.vote ? 1 : -1) })
+
+      res.status(201).json(requestVote)
+    } catch (error) {
+      res.status(500).json({ code: 'internal_server_error' })
+    }
+  }
+
+  static async getUserRequestsVotes (req, res) {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ code: 'unauthorized' })
+    }
+
+    try {
+      const requestsVotes = await RequestVotes.findAll({
+        attributes: ['requestId', 'vote', 'userId'],
+        where: { userId: req.user.id }
+      })
+
+      res.status(200).json(requestsVotes)
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }
