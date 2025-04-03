@@ -18,12 +18,12 @@ export const AuthProvider = ({ children }) => {
 
             const data = await response.json();
             if (response.ok) {
-                // if (data.banned) {
-                //     await logout();
-                //     navigate('/login')
+                console.log(data)
+                if (data.banned) {
+                    await logout();
+                    navigate('/login')
+                }
                 setUser(data)
-                // }
-                // return;
             } else {
                 setUser(null);
             }
