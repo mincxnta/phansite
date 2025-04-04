@@ -18,24 +18,6 @@ export class UserController {
     }
   }
 
-  // TODO Se usa?
-  static async getMe (req, res) {
-    if (!req.user || !req.user.id) {
-      return res.status(401).json({ code: 'unauthorized' })
-    }
-
-    try {
-      const user = await User.findByPk(req.user.id, { attributes: { exclude: ['password'] } })
-
-      if (!user) {
-        return res.status(404).json({ code: 'user_not_found' })
-      }
-      res.status(200).json(user)
-    } catch (error) {
-      res.status(500).json({ code: 'internal_server_error' })
-    }
-  }
-
   static async getById (req, res) {
     try {
       const { username } = req.params
@@ -63,7 +45,7 @@ export class UserController {
     const updatedUser = validateUpdatedUser(req.body)
 
     if (!updatedUser.success) {
-      return res.status(400).json({ code: 'invalid_user_data' })
+      return res.status(400).json({ code: updatedUser.error.issues[0].message })
     }
 
     try {

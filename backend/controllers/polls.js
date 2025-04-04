@@ -35,7 +35,7 @@ export class PollController {
     const newPoll = validatePoll(req.body)
 
     if (!newPoll.success) {
-      return res.status(400).json({ code: 'invalid_poll_data' })
+      return res.status(400).json({ code: newPoll.error.issues[0].message })
     }
 
     try {
@@ -97,7 +97,7 @@ export class PollController {
     const newPollVote = validatePollVote(req.body)
 
     if (!newPollVote.success) {
-      return res.status(400).json({ code: 'invalid_vote_data' })
+      return res.status(400).json({ code: newPollVote.error.issues[0].message })
     }
 
     try {

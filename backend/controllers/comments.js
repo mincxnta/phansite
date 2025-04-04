@@ -45,7 +45,7 @@ export class CommentController {
     const newComment = validateComment(req.body)
 
     if (!newComment.success) {
-      return res.status(400).json({ code: newComment.error.issues[0].message }) // TODO Hacer esto en todas las validaciones
+      return res.status(400).json({ code: newComment.error.issues[0].message })
     }
 
     try {
@@ -62,10 +62,6 @@ export class CommentController {
       const comment = await Comment.create(commentData)
       res.status(201).json(comment)
     } catch (error) {
-      // if (error.name === 'SequelizeValidationError') {
-      //   const errorCode = error.errors[0].message;
-      //   return res.status(400).json({ code: errorCode });
-      // }
       res.status(500).json({ code: 'internal_server_error' })
     }
   }

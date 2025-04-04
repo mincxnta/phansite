@@ -11,30 +11,15 @@ export const Request = sequelize.define('request', {
   },
   title: {
     type: DataTypes.STRING(255),
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        msg: 'empty_request_title'
-      }
-    }
+    allowNull: false
   },
   target: {
     type: DataTypes.STRING(255),
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        msg: 'empty_request_target'
-      }
-    }
+    allowNull: false
   },
   description: {
     type: DataTypes.STRING(500),
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        msg: 'empty_request_description'
-      }
-    }
+    allowNull: false
   },
   userId: {
     type: DataTypes.UUID,

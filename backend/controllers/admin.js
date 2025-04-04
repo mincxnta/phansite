@@ -1,4 +1,4 @@
-import { validateNewUser } from '../schemas/users.js'
+import { validateUser } from '../schemas/users.js'
 import { User } from '../models/user.js'
 import bcrypt from 'bcrypt'
 
@@ -8,9 +8,9 @@ export class AdminController {
       return res.status(403).json({ code: 'forbidden' })
     }
 
-    const newUser = validateNewUser(req.body)
+    const newUser = validateUser(req.body)
     if (!newUser.success) {
-      return res.status(400).json({ code: 'invalid_user_data' })
+      return res.status(400).json({ code: newUser.error.issues[0].message })
     }
 
     try {

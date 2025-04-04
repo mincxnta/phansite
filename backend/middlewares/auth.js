@@ -26,8 +26,7 @@ export const authenticateToken = async (req, res, next) => {
   }
 }
 
-// TODO Mejorar
-export function optionalAuthenticateToken (req, res, next) {
+export const loadUserFromToken = async (req, res, next) => {
   const token = req.cookies.access_token
 
   if (!token) {
@@ -37,7 +36,13 @@ export function optionalAuthenticateToken (req, res, next) {
 
   try {
     const data = jwt.verify(token, process.env.JWT_SECRET)
-    req.user = data
+    const user = await User.findByPk(data.id)
+
+    if (!user || user.banned) {
+      req.user = null
+    } else {
+      req.user = data
+    }
   } catch (error) {
     req.user = null
   }

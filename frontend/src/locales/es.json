@@ -107,6 +107,7 @@
         "en": "Inglés",
         "es": "Español"
     },
+    "pagination": "Página {{page}} de {{totalPages}}",
     "previous": "Anterior",
     "next": "Siguiente",
     "title": "Título",

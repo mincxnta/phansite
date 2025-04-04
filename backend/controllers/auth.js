@@ -1,4 +1,4 @@
-import { validateNewUser } from '../schemas/users.js'
+import { validateUser } from '../schemas/users.js'
 import { User } from '../models/user.js'
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../utils/jwt.js'
 import bcrypt from 'bcrypt'
@@ -52,10 +52,10 @@ export class AuthController {
   }
 
   static async register (req, res) {
-    const newUser = validateNewUser(req.body)
+    const newUser = validateUser(req.body)
 
     if (!newUser.success) {
-      return res.status(400).json({ code: 'invalid_user_data' })
+      return res.status(400).json({ code: newUser.error.issues[0].message })
     }
 
     try {

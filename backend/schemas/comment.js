@@ -1,8 +1,7 @@
 import z from 'zod'
 
 const commentSchema = z.object({
-  // TODO Añadir esto a todos los schemas
-  text: z.string().min(1, { message: 'empty_comment' }),
+  text: z.string().trim().min(1, { message: 'empty_comment' }).max(2000, { message: 'comment_too_long' }),
   anonymous: z.boolean().default(false)
 })
 

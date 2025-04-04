@@ -13,7 +13,7 @@ export class ReportController {
     const newReport = validateReport(req.body)
 
     if (!newReport.success) {
-      return res.status(400).json({ code: 'invalid_report_data' })
+      return res.status(400).json({ code: newReport.error.issues[0].message })
     }
 
     const { reportedType, postId } = req.body

@@ -70,7 +70,7 @@ export class RequestController {
     const newRequest = validateRequest(req.body)
 
     if (!newRequest.success) {
-      return res.status(400).json({ code: 'invalid_request_data' })
+      return res.status(400).json({ code: newRequest.error.issues[0].message })
     }
 
     try {
@@ -104,7 +104,7 @@ export class RequestController {
     const updatedRequest = validateUpdatedRequest(req.body)
 
     if (!updatedRequest.success) {
-      return res.status(400).json({ code: 'invalid_request_data' })
+      return res.status(400).json({ code: updatedRequest.error.issues[0].message })
     }
 
     try {
@@ -151,7 +151,7 @@ export class RequestController {
     const newRequestVote = validateRequestVote(req.body)
 
     if (!newRequestVote.success) {
-      return res.status(400).json({ code: 'invalid_vote_data' })
+      return res.status(400).json({ code: newRequestVote.error.issues[0].message })
     }
 
     try {

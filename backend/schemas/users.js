@@ -2,17 +2,20 @@ import z from 'zod'
 import { ROLES } from '../constants/constants.js'
 
 const userSchema = z.object({
-  email: z.string().email(),
-  username: z.string(),
-  password: z.string(),
-  profile_picture: z.string().url().endsWith('.jpg').optional().nullable(),
-  role: z.enum(ROLES).default(ROLES[2]),
+  email: z.string().trim().min(1, { message: 'empty_email' }).email({ message: 'invalid_email' }).max(255, { message: 'email_too_long' }),
+  username: z.string().trim().min(1, { message: 'empty_username' }).max(50, { message: 'username_too_long' }),
+  password: z.string().min(1, { message: 'empty_password' }).max(255, { message: 'password_too_long' }),
+  profile_picture: z.string().url({ message: 'invalid_url' }).refine(
+    (val) => !val || /\.(jpg|jpeg|png|gif)$/i.test(val),
+    { message: 'invalid_image_format' }
+  ).optional().nullable(),
+  role: z.enum(ROLES, { required_error: 'role_required' }).default(ROLES[2]),
   banned: z.boolean().default(false),
-  aboutMe: z.string().optional().nullable()
+  aboutMe: z.string().trim().max(2000, { message: 'about_me_too_long' }).optional().nullable()
 
 })
 
-export function validateNewUser (user) {
+export function validateUser (user) {
   return userSchema.safeParse(user)
 }
 

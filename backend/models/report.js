@@ -13,12 +13,7 @@ export const Report = sequelize.define('report', {
   },
   reason: {
     type: DataTypes.STRING(500),
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        msg: 'empty_report_reason'
-      }
-    }
+    allowNull: false
   },
   userId: {
     type: DataTypes.UUID,

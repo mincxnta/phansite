@@ -11,12 +11,7 @@ export const Comment = sequelize.define('comment', {
   },
   text: {
     type: DataTypes.STRING(2000),
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        msg: 'empty_comment'
-      }
-    }
+    allowNull: false
   },
   userId: {
     type: DataTypes.UUID,
