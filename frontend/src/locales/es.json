@@ -103,6 +103,10 @@
         "inactive.poll": "La encuesta está inactiva",
         "internal.server": "Error inesperado"
     },
+    "language":{
+        "en": "Inglés",
+        "es": "Español"
+    },
     "previous": "Anterior",
     "next": "Siguiente",
     "title": "Título",

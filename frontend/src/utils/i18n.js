@@ -12,13 +12,27 @@ const resources = {
         translation: en
     }
 }
+
+const savedLanguage = localStorage.getItem('language') || 'es';
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next) 
   .init({
     resources,
+    lng: savedLanguage,
     fallbackLng: 'es',
     interpolation: {
       escapeValue: false,
     },
+    detection: {
+      order: ['localStorage', 'navigator'], // Prioritza localStorage abans del navegador
+      caches: ['localStorage'], // Desa l'idioma detectat a localStorage
+    },
   });
+
+  i18n.on('languageChanged', (lng) => {
+    localStorage.setItem('language', lng);
+  });
+
+  export default i18n;

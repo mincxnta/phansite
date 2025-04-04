@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useTranslation } from 'react-i18next'
+import LanguageSwitcher from './LanguageSwitcher.jsx'
 
 export const Menu = () => {
     const { user } = useAuth()
@@ -19,6 +20,7 @@ export const Menu = () => {
                     {user ? t("profile.title") : t("auth.login")}
                 </Link>
             </button>
+            <LanguageSwitcher/>
         </nav>
     )
 }
