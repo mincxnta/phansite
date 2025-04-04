@@ -65,6 +65,7 @@ export const ReportForm = () => {
       <div className="popup-content">
         <button className="popup-close" onClick={closePopup}>X</button>
         <form onSubmit={handleNewReport}>
+          // TODO Cambiar texto según reportedType
           <h4>{t("reports.reason")}</h4>
           <textarea name="" id="reason" value={reason} onChange={(e) => setReason(e.target.value)}></textarea>
           <input type="submit" value={t("reports.send")} />

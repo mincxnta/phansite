@@ -5,6 +5,7 @@ import ReportForm from './components/report/Report.jsx'
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { BrowserRouter as Router } from 'react-router-dom';
 import { PopUp } from './components/PopUp.jsx'
+import { RequestPopup } from './components/thieves/RequestPopup.jsx';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <RequestDetail />
         <ReportForm />
         <PopUp />
+        <RequestPopup/>
       </AuthProvider>
     </Router>
   )

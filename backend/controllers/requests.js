@@ -1,4 +1,4 @@
-import { validateRequest } from '../schemas/requests.js'
+import { validateRequest, validateUpdatedRequest } from '../schemas/requests.js'
 import { Request } from '../models/request.js'
 import { RequestVotes } from '../models/request_votes.js'
 import { validateRequestVote } from '../schemas/requestvote.js'
@@ -85,35 +85,35 @@ export class RequestController {
     }
   }
 
-  // static async update (req, res) {
-  //   if (!req.user || !req.user.id) {
-  //     return res.status(401).json({ code: 'unauthorized' })
-  //   }
+  static async update (req, res) {
+    if (req.user.role !== 'phantom_thief') {
+      return res.status(403).json({ code: 'forbidden', message: 'Only phantom thieves can update requests' })
+    }
 
-  //   const { id } = req.params
+    const { id } = req.params
 
-  //   const request = await Request.findByPk(id)
-  //   if (!request) {
-  //     return res.status(404).json({ code: 'request_not_found' })
-  //   }
+    const request = await Request.findByPk(id)
+    if (!request) {
+      return res.status(404).json({ code: 'request_not_found' })
+    }
 
-  //   if (request.userId !== req.user.id) {
-  //     return res.status(403).json({ code: 'forbidden' })
-  //   }
+    if (request.status !== 'pending') {
+      return res.status(400).json({ code: 'invalid_status_change', message: 'Can only update requests that are in pending status' })
+    }
 
-  //   const updatedRequest = validateUpdatedRequest(req.body)
+    const updatedRequest = validateUpdatedRequest(req.body)
 
-  //   if (!updatedRequest.success) {
-  //     return res.status(400).json({ code: 'invalid_request_data' })
-  //   }
+    if (!updatedRequest.success) {
+      return res.status(400).json({ code: 'invalid_request_data' })
+    }
 
-  //   try {
-  //     await request.update(updatedRequest.data)
-  //     res.status(200).json(request)
-  //   } catch (error) {
-  //     res.status(500).json({ code: 'internal_server_error' })
-  //   }
-  // }
+    try {
+      await request.update(updatedRequest.data)
+      res.status(200).json(request)
+    } catch (error) {
+      res.status(500).json({ code: 'internal_server_error' })
+    }
+  }
 
   static async delete (req, res) {
     if (req.user.role !== 'admin') {

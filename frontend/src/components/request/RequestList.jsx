@@ -5,6 +5,8 @@ import { useAuth } from '../../context/AuthContext.jsx'
 import { showRequestDetail } from './RequestDetail.jsx'
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
+import { showReportForm } from '../report/Report.jsx'
+import { showRequestPopup } from '../thieves/RequestPopup.jsx'
 
 export const RequestList = () => {
     const [requests, setRequests] = useState([])
@@ -59,12 +61,14 @@ export const RequestList = () => {
         } catch (error) { setError(errorHandler(error)); }
     };
 
-
+    const handleReport = (type, postId) => {
+        showReportForm(type, postId)
+      }
 
     const fetchRequests = async () => {
         let url = `${API_URL}/requests/pending`;
         if (user) {
-            if (user.role === 'phantomThief') {
+            if (user.role === 'phantom_thief') {
                 if (location.pathname === '/thieves') {
                 url = `${API_URL}/requests`;
                 }
@@ -93,6 +97,7 @@ export const RequestList = () => {
             setError(errorHandler(error));
         }
     }
+
     useEffect(() => {
         fetchRequests()
         getAllRequestResults();
@@ -126,6 +131,11 @@ export const RequestList = () => {
             setError(errorHandler(error));
         }
     };
+
+    const handleStatusChange = async (id, status) => {
+        showRequestPopup(id, status)
+        fetchRequests();
+    }
 
     return (
         <div>
@@ -174,13 +184,13 @@ export const RequestList = () => {
                                     {showVoteButtons && <button style={{ backgroundColor: userVote === false ? "white" : "transparent", color: userVote === false ? "black" : "white" }} disabled={!user} onClick={() => handleVote(false, request)}>↓</button>}
                                 </td>
                                 {showActionButtons && (
-                                    <td>{request.comment || 'Sense comentari'}</td>
+                                    <td>{request.thiefComment || 'Sense comentari'}</td>
                                 )}
                                 {showActionButtons && (
                                     <td>
-                                        <button>Rechazar</button>
-                                        <button>Completar</button>
-                                        <button>Reportar</button>
+                                        <button disabled={request.status !== 'pending'} onClick={() => handleStatusChange(request.id, "rejected")}>Rechazar</button>
+                                        <button disabled={request.status !== 'pending'} onClick={() => showRequestPopup(request.id, "completed")}>Completar</button>
+                                        <button disabled={request.status !== 'pending'} onClick={() => handleReport("request", request.id)}>Reportar</button>
                                     </td>
                                 )}
 

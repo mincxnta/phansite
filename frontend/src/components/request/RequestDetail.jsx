@@ -70,7 +70,7 @@ export const RequestDetail = () => {
             <button onClick={() => handleReport("request", request.id)}>
               <img src={'/assets/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
             </button>
-          )};
+          )}
           <h1>{request.title}</h1>
           <table>
             <tbody>
