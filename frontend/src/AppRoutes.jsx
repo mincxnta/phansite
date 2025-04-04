@@ -15,6 +15,7 @@ import { Layout } from "./components/Layout.jsx";
 import { CreatePoll } from "./components/poll/CreatePoll.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import { ReportList } from "./components/report/ReportList.jsx";
+import { ThiefPanel } from "./components/thieves/ThievesPanel.jsx";
 
 export const AppRoutes = () => {
     return (
@@ -33,6 +34,7 @@ export const AppRoutes = () => {
                 <Route path={ROUTES.EDIT_PROFILE} element={<UpdateUser />} />
                 <Route path={ROUTES.ADD_POLL} element={<ProtectedRoute role="admin"><CreatePoll /></ProtectedRoute>} />
                 <Route path={ROUTES.REPORT_LIST} element={<ProtectedRoute role="admin"><ReportList /></ProtectedRoute>} />
+                <Route path={ROUTES.THIEVES} element={<ProtectedRoute role="phantom_thief"><ThiefPanel /></ProtectedRoute>} />
             </Route>
         </Routes>
     );

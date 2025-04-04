@@ -11,5 +11,7 @@ export const ROUTES = {
     REQUEST_LIST: '/requests',
     REQUEST_DETAILS: '/requests/:id',
     ADD_POLL: '/newpoll',
-    REPORT_LIST: '/admin/reportlist'
+    REPORT_LIST: '/admin/reportlist',
+    THIEVES: '/thieves',
+
 }

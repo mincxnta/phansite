@@ -8,6 +8,7 @@ import { errorHandler } from '../../utils/errorHandler.js';
 
 export const RequestList = () => {
     const [requests, setRequests] = useState([])
+    const [results, setResults] = useState({})
     const navigate = useNavigate()
     const { t } = useTranslation();
     const { user } = useAuth()
@@ -39,6 +40,25 @@ export const RequestList = () => {
         }
     };
 
+    const getAllRequestResults = async () => {
+        try {
+            const response = await fetch(`${API_URL}/requests/votes`,
+                { method: 'GET' });
+            const data = await response.json();
+            console.log(data);
+            if (response.ok) {
+                const results = data.reduce((results, vote) => {
+                    results[vote.requestId] = vote;
+                    return results;
+                }, {});
+                setResults(results); setError(null);
+            } else {
+                setError(errorHandler(data));
+            }
+        } catch (error) { setError(errorHandler(error)); }
+    };
+
+
 
     const fetchRequests = async () => {
         // let url = `${API_URL}/requests`;
@@ -59,6 +79,7 @@ export const RequestList = () => {
             const data = await response.json()
             if (response.ok) {
                 setRequests(data)
+                await getAllRequestResults();
                 if (user) await getUserVotes();
             } else {
                 setError(errorHandler(data));
@@ -69,6 +90,7 @@ export const RequestList = () => {
     }
     useEffect(() => {
         fetchRequests()
+        getAllRequestResults();
     }, [navigate])
 
     const handleVote = async (vote, request) => {
@@ -90,6 +112,7 @@ export const RequestList = () => {
 
             if (response.ok) {
                 await fetchRequests()
+                getAllRequestResults();
                 setError(null);
             } else {
                 setError(errorHandler(data));
@@ -108,35 +131,46 @@ export const RequestList = () => {
             <table>
                 <thead>
                     <tr>
-                        {/*{user && user.role !== 'fan' && <th>{t('requests.status')}</th>} */}
+                        {user && user.role !== 'fan' && <th>{t('requests.status')}</th>}
                         <th>{t("title")}</th>
                         <th>{t("requests.target")}</th>
+                        {user && user.role === 'phantom_thief' && <th>Comentarios</th>}
                         <th>votos</th>
-                        {/* {user && user.role === 'phantomThief' && <th>{t('actions')}</th>} */}
+                        {user && user.role === 'phantom_thief' && <th>{t('actions')}</th>}
                     </tr>
                 </thead>
                 <tbody>
                     {requests.map((request) => {
+                        const result = results[request.id] || { totalVotes: 0 };
                         const userVote = userVotes[request.id];
                         return (
                             <tr key={request.id}>
-                                {/* {user && user.role !== 'fan' && (
+                                {user && user.role !== 'fan' && (
                                     <td>{request.status}</td>
-                                )} */}
+                                )}
                                 <td>
                                     <button onClick={() => showRequestDetail(request.id)}>{request.title}</button>
                                 </td>
                                 <td>
                                     {request.target}
                                 </td>
-                                {/* {user && user.role !== 'admin' && (
+                                {user && user.role === 'phantom_thief' && (
                                     <td>{request.comment || 'Sense comentari'}</td>
-                                )} */}
+                                )}
                                 <td>
-                                    <button style={{ backgroundColor: userVote ? "white" : "", color: userVote ? "black" : "" }} disabled={!user} onClick={() => handleVote(true, request)}>↑</button>
-                                    <span>{request.totalVotes}</span>
-                                    <button style={{ backgroundColor: userVote ? "" : "white", color: userVote ? "" : "black" }} disabled={!user} onClick={() => handleVote(false, request)}>↓</button>
+                                    {user && user.role === 'fan' && <button style={{ backgroundColor: userVote ? "white" : "", color: userVote ? "black" : "" }} disabled={!user} onClick={() => handleVote(true, request)}>↑</button>}
+                                    <span>{result.totalVotes}</span>
+                                    {user && user.role === 'fan' && <button style={{ backgroundColor: userVote ? "" : "white", color: userVote ? "" : "black" }} disabled={!user} onClick={() => handleVote(false, request)}>↓</button>}
                                 </td>
+
+                                {user && user.role === 'phantom_thief' && (
+                                    <td>
+                                        <button>Rechazar</button>
+                                        <button>Completar</button>
+                                        <button>Reportar</button>
+                                    </td>
+                                )}
+
                             </tr>
                         );
                     })}

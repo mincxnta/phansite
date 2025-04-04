@@ -8,7 +8,7 @@ const userSchema = z.object({
   profile_picture: z.string().url().endsWith('.jpg').optional().nullable(),
   role: z.enum(ROLES).default(ROLES[2]),
   banned: z.boolean().default(false),
-  aboutMe: z.string(),
+  aboutMe: z.string().optional().nullable(),
 
 })
 

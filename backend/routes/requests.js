@@ -10,6 +10,8 @@ requestsRouter.get('/user', authenticateToken, RequestController.getAllByUser)
 
 requestsRouter.get('/user-votes', authenticateToken, RequestController.getUserRequestsVotes)
 
+requestsRouter.get('/votes', RequestController.getRequestsVotes)
+
 requestsRouter.get('/:id', RequestController.getById)
 
 requestsRouter.post('/', authenticateToken, RequestController.create)

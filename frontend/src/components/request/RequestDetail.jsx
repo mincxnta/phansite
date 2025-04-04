@@ -66,9 +66,11 @@ export const RequestDetail = () => {
         <div className="popup-content">
           <button className="popup-close" onClick={closePopup}>x</button>
           {/* <h2>{request.status}</h2> */}
-          <button onClick={() => handleReport("request", request.id)}>
-            <img src={'/assets/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
-          </button>
+          {user && user.role === 'fan' && (
+            <button onClick={() => handleReport("request", request.id)}>
+              <img src={'/assets/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
+            </button>
+          )};
           <h1>{request.title}</h1>
           <table>
             <tbody>
