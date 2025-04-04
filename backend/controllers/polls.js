@@ -81,6 +81,10 @@ export class PollController {
       return res.status(401).json({ code: 'unauthenticated' })
     }
 
+    if (req.user.role === 'phantom_thief' || req.user.role === 'admin') {
+      return res.status(403).json({ code: 'forbidden', message: 'Only fans can vote on polls' })
+    }
+
     const poll = await Poll.findByPk(id)
     if (!poll) {
       return res.status(404).json({ code: 'poll_not_found' })

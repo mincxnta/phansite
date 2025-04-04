@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx'
 import { showRequestDetail } from './RequestDetail.jsx'
@@ -10,6 +10,7 @@ export const RequestList = () => {
     const [requests, setRequests] = useState([])
     const [results, setResults] = useState({})
     const navigate = useNavigate()
+    const location = useLocation();
     const { t } = useTranslation();
     const { user } = useAuth()
     const [userVotes, setUserVotes] = useState({});
@@ -61,17 +62,21 @@ export const RequestList = () => {
 
 
     const fetchRequests = async () => {
-        // let url = `${API_URL}/requests`;
-        // if (user) {
-        //     if (user.role === 'phantomThief') {
-        //         url = `${API_URL}/requests/all`;
-        //     } else if (user.role === 'fan') {
-        //         url = `${API_URL}/requests/my`;
-        //     }
-        // }
+        let url = `${API_URL}/requests/pending`;
+        if (user) {
+            if (user.role === 'phantomThief') {
+                if (location.pathname === '/thieves') {
+                url = `${API_URL}/requests`;
+                }
+            } else if (user.role === 'fan') {
+                if (location.pathname === '/profile') {
+                url = `${API_URL}/requests/user`;
+                }
+            }
+        }
 
         try {
-            const response = await fetch(`${API_URL}/requests`, {
+            const response = await fetch(url, {
                 method: 'GET',
                 credentials: 'include'
             })
@@ -124,25 +129,34 @@ export const RequestList = () => {
 
     return (
         <div>
-            <h1>{t("requests.new")}</h1>
+            
             {error && t(error)}
+            {user && user.role === 'fan' && 
+            <>
+            <h1>{t("requests.new")}</h1>
             <Link to="/newrequest">{t("requests.create")}</Link>
+            </>}
             <h1>{t("requests.title")}</h1>
+            {requests.length === 0 ? (
+        <p>{t('requests.no_requests')}</p>
+      ) : (
             <table>
                 <thead>
                     <tr>
                         {user && user.role !== 'fan' && <th>{t('requests.status')}</th>}
                         <th>{t("title")}</th>
                         <th>{t("requests.target")}</th>
-                        {user && user.role === 'phantom_thief' && <th>Comentarios</th>}
-                        <th>votos</th>
-                        {user && user.role === 'phantom_thief' && <th>{t('actions')}</th>}
+                        <th>Votos</th>
+                        {user && user.role === 'phantom_thief' && location.pathname === '/thieves' && <th>Comentarios</th>}
+                        {user && user.role === 'phantom_thief' && location.pathname === '/thieves' && <th>{t('admin.actions')}</th>}
                     </tr>
                 </thead>
                 <tbody>
                     {requests.map((request) => {
                         const result = results[request.id] || { totalVotes: 0 };
                         const userVote = userVotes[request.id];
+                        const showActionButtons = user && user.role === 'phantom_thief' && location.pathname === '/thieves';
+                        const showVoteButtons = user && user.role === 'fan' && location.pathname === '/requests';
                         return (
                             <tr key={request.id}>
                                 {user && user.role !== 'fan' && (
@@ -154,16 +168,15 @@ export const RequestList = () => {
                                 <td>
                                     {request.target}
                                 </td>
-                                {user && user.role === 'phantom_thief' && (
+                                <td>
+                                    {showVoteButtons && <button style={{ backgroundColor: userVote === true ? "white" : "transparent", color: userVote === true ? "black" : "white" }} disabled={!user} onClick={() => handleVote(true, request)}>↑</button>}
+                                    <span>{result.totalVotes}</span>
+                                    {showVoteButtons && <button style={{ backgroundColor: userVote === false ? "white" : "transparent", color: userVote === false ? "black" : "white" }} disabled={!user} onClick={() => handleVote(false, request)}>↓</button>}
+                                </td>
+                                {showActionButtons && (
                                     <td>{request.comment || 'Sense comentari'}</td>
                                 )}
-                                <td>
-                                    {user && user.role === 'fan' && <button style={{ backgroundColor: userVote ? "white" : "", color: userVote ? "black" : "" }} disabled={!user} onClick={() => handleVote(true, request)}>↑</button>}
-                                    <span>{result.totalVotes}</span>
-                                    {user && user.role === 'fan' && <button style={{ backgroundColor: userVote ? "" : "white", color: userVote ? "" : "black" }} disabled={!user} onClick={() => handleVote(false, request)}>↓</button>}
-                                </td>
-
-                                {user && user.role === 'phantom_thief' && (
+                                {showActionButtons && (
                                     <td>
                                         <button>Rechazar</button>
                                         <button>Completar</button>
@@ -176,6 +189,7 @@ export const RequestList = () => {
                     })}
                 </tbody>
             </table>
+      )}
         </div>
     )
 }

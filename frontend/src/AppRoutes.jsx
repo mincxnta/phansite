@@ -27,7 +27,7 @@ export const AppRoutes = () => {
                 <Route path={ROUTES.USER_PROFILE} element={<Profile />} />
                 <Route path={ROUTES.REGISTER} element={<Register />} />
                 <Route path={ROUTES.REQUEST_LIST} element={<RequestList />} />
-                <Route path={ROUTES.ADD_REQUEST} element={<ProtectedRoute><CreateRequest /></ProtectedRoute>} />
+                <Route path={ROUTES.ADD_REQUEST} element={<ProtectedRoute role="fan"><CreateRequest /></ProtectedRoute>} />
                 <Route path={ROUTES.REQUEST_DETAILS} element={<RequestDetail />} />
                 <Route path={ROUTES.ADMIN} element={<ProtectedRoute role="admin"><AdminPanel /></ProtectedRoute>} />
                 <Route path={ROUTES.CREATE_USER} element={<ProtectedRoute role="admin"><CreateUser /></ProtectedRoute>} />

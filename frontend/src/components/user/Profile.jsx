@@ -5,6 +5,7 @@ import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx'
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
+import { RequestList } from '../request/RequestList.jsx'
 
 export const Profile = () => {
     const [profileUser, setProfileUser] = useState(null)
@@ -80,6 +81,12 @@ export const Profile = () => {
             <p>{`Sobre mi: ${profileUser.aboutMe}`}</p>
             {isOwnProfile && (
                 <>
+                    {user.role === 'fan' && (
+                        <>
+                            <h4>Mis peticiones</h4>
+                            <RequestList />
+                        </>
+                    )}
                     <button onClick={handleLogout}>{t("auth.logout")}</button>
                     <button><Link to="edit">{t("profile.edit")}</Link></button>
                     <button onClick={handleDelete}>Eliminar cuenta</button> {/*//TODO Se quita? */}

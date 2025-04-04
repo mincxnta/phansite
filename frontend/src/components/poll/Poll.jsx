@@ -96,8 +96,10 @@ export const Poll = () => {
       <div>
         <progress value={yesPercentage} max="100" /> <span>{yesPercentage}%</span>
       </div>
+      {user && user.role === 'fan' && (<>
       <button onClick={() => handleVote(false)} disabled={!user}>{t("no")}</button>
       <button onClick={() => handleVote(true)} disabled={!user}>{t("yes")}</button>
+      </>)}
       <p>{t("poll.total.votes")}: {results.total}</p>
       {poll.id && <CommentSection pollId={poll.id} />}
     </div>
