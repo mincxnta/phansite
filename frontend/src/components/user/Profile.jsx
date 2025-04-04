@@ -11,7 +11,7 @@ export const Profile = () => {
     const [profileUser, setProfileUser] = useState(null)
     const navigate = useNavigate()
     let { username } = useParams()
-    const { user, logout } = useAuth()
+    const { user, logout, error: authError } = useAuth()
     const [error, setError] = useState(null);
     const { t } = useTranslation();
 
@@ -48,7 +48,7 @@ export const Profile = () => {
     }, [navigate, username, user])
 
     const handleLogout = async () => {
-        logout();
+        await logout();
     }
 
     const handleDelete = async () => {
@@ -75,6 +75,7 @@ export const Profile = () => {
 
     return (
         <>
+            {authError && t(authError)}
             {error && t(error)}
             <h1>{isOwnProfile ? t("profile.me") : `Perfil de ${profileUser.username}`}</h1>
             <p>{`Hola soy ${profileUser.username}`}</p>

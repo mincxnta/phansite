@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../context/AuthContext.jsx';
-import { errorHandler } from '../../utils/errorHandler.js';
 
 export const Login = () => {
     const [username, setUsername] = useState('')
@@ -10,20 +9,15 @@ export const Login = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
-    const { login } = useAuth();
-    const [error, setError] = useState(null);
+    const { login, error } = useAuth();
 
     const from = location.state?.from?.pathname || "/";
 
     const handleLogin = async (event) => {
         event.preventDefault()
-        setError('');
-        try {
-            //TODO Manejar errores
-            await login(username, password);
+            const success = await login(username, password);
+            if (success){
             navigate(from, { replace: true });
-        } catch (error) {
-            setError(errorHandler(error));
         }
     }
 

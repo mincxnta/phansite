@@ -153,8 +153,7 @@ export const CommentSection = ({ pollId }) => {
                         {t("previous")}
                     </button>
                     <span>
-                        //TODO añadir mensajes traducidos con variables de por medio
-                        Página {page} de {totalPages}
+                    {t('pagination', { page, totalPages })}
                     </span>
                     <button
                         onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}

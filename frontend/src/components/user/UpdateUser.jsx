@@ -61,7 +61,6 @@ export const UpdateUser = () => {
     }
 
     return (
-        // TODO Añadir about me
         <div>
             {error && t(error)}
             <h1>{t("profile.edit")}</h1>

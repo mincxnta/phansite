@@ -1,13 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { API_URL } from "../constants/constants.js";
 import { useNavigate } from 'react-router-dom';
+import { errorHandler } from "../utils/errorHandler.js";
 
 const AuthContext = createContext();
-//TODO Añadir errorHandler
+
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const [error, setError] = useState(null);
 
     const fetchUser = async () => {
         try {
@@ -24,19 +26,20 @@ export const AuthProvider = ({ children }) => {
                     navigate('/login')
                 }
                 setUser(data)
+                setError(null);
             } else {
                 setUser(null);
+                setError(errorHandler(data));
             }
         } catch (error) {
-            console.log(error)
             setUser(null);
+            setError(errorHandler(error));
         } finally {
             setLoading(false);
         }
     };
 
     const login = async (username, password) => {
-        // eslint-disable-next-line no-useless-catch
         try {
             const response = await fetch(`${API_URL}/auth/login`, {
                 method: 'POST',
@@ -50,14 +53,16 @@ export const AuthProvider = ({ children }) => {
             const data = await response.json()
 
             if (!response.ok) {
-                return data;
+                setError(errorHandler(data));
+                return false;
             }
 
-
             setUser(data)
-            navigate('/')
+            setError(null);
+            return true;
         } catch (error) {
-            throw error;
+            setError(errorHandler(error));
+            return false;
         }
     };
 
@@ -69,13 +74,18 @@ export const AuthProvider = ({ children }) => {
             });
 
             if (!response.ok) {
-                throw new Error('Error during logout');
+                const data = await response.json();
+                setError(errorHandler(data));
+                return false;
             }
 
-            setUser(null); // Esborra l'usuari del context
-            navigate('/login'); // Redirigeix al login
+            setUser(null);
+            setError(null);
+            navigate('/login');
+            return true;
         } catch (error) {
-            console.log('Error logging out:', error);
+            setError(errorHandler(error));
+            return false;
         }
     };
 
@@ -84,7 +94,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, loading, setUser, login, logout }}>
+        <AuthContext.Provider value={{ user, loading, setUser, login, logout, error }}>
             {children}
         </AuthContext.Provider>
     );
