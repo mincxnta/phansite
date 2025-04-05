@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { RequestList } from '../request/RequestList.jsx'
 
-export const Profile = () => {
+export const UserProfile = () => {
     const [profileUser, setProfileUser] = useState(null)
     const navigate = useNavigate()
     let { username } = useParams()

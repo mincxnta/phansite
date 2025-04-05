@@ -25,7 +25,7 @@ export const ThiefPanel = () => {
 
     return (
         <div>
-            <h1>{t("phantom_thief.title")}</h1>
+            <h1>{t("phantom.thief.title")}</h1>
             <RequestList />
         </div>
     )

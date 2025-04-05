@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../context/AuthContext.jsx';
+import { errorHandler } from '../../utils/errorHandler.js';
 
 export const Login = () => {
     const [username, setUsername] = useState('')
@@ -9,15 +10,18 @@ export const Login = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
-    const { login, error } = useAuth();
+    const { login } = useAuth();
+    const [error, setError] = useState(null);
 
     const from = location.state?.from?.pathname || "/";
 
     const handleLogin = async (event) => {
-        event.preventDefault()
-            const success = await login(username, password);
-            if (success){
+        event.preventDefault();
+            const data = await login(username, password);
+            if (data === true){
             navigate(from, { replace: true });
+        }else{
+            setError(errorHandler(data));
         }
     }
 

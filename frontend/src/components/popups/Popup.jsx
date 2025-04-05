@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../assets/requests/RequestDetail.css'
+import '../../assets/requests/RequestDetail.css'
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next'
 

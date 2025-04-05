@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from '../../constants/constants.js'
-import { showReportForm } from '../report/Report.jsx';
+import { showReportPopup } from '../popups/ReportPopup.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
@@ -14,7 +14,7 @@ export const CommentSection = ({ pollId }) => {
     const [totalPages, setTotalPages] = useState(1);
     const [totalComments, setTotalComments] = useState(0);
     const [anonymous, setAnonymous] = useState(false)
-    const limit = 5; // Comentaris per pàgina
+    const limit = 5;
     const { user } = useAuth()
     const navigate = useNavigate()
     const { t } = useTranslation();
@@ -73,7 +73,7 @@ export const CommentSection = ({ pollId }) => {
             navigate('/login')
             return
         }
-        showReportForm(type, postId)
+        showReportPopup(type, postId)
     }
     useEffect(() => {
         fetchComments()

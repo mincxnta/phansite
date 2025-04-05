@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { API_URL } from "../constants/constants.js";
 import { useNavigate } from 'react-router-dom';
-import { errorHandler } from "../utils/errorHandler.js";
 
 const AuthContext = createContext();
 
@@ -9,7 +8,6 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-    const [error, setError] = useState(null);
 
     const fetchUser = async () => {
         try {
@@ -26,14 +24,12 @@ export const AuthProvider = ({ children }) => {
                     navigate('/login')
                 }
                 setUser(data)
-                setError(null);
             } else {
                 setUser(null);
-                setError(errorHandler(data));
             }
+            return user;
         } catch (error) {
             setUser(null);
-            setError(errorHandler(error));
         } finally {
             setLoading(false);
         }
@@ -53,16 +49,13 @@ export const AuthProvider = ({ children }) => {
             const data = await response.json()
 
             if (!response.ok) {
-                setError(errorHandler(data));
-                return false;
+                return data;
             }
 
             setUser(data)
-            setError(null);
             return true;
         } catch (error) {
-            setError(errorHandler(error));
-            return false;
+            return error;
         }
     };
 
@@ -75,26 +68,23 @@ export const AuthProvider = ({ children }) => {
 
             if (!response.ok) {
                 const data = await response.json();
-                setError(errorHandler(data));
-                return false;
+                return data;
             }
 
             setUser(null);
-            setError(null);
             navigate('/login');
             return true;
         } catch (error) {
-            setError(errorHandler(error));
-            return false;
+            return error;
         }
-    };
+    };;
 
     useEffect(() => {
         fetchUser();
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, loading, setUser, login, logout, error }}>
+        <AuthContext.Provider value={{ user, loading, setUser, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

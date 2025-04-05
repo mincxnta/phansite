@@ -5,8 +5,8 @@ import { useAuth } from '../../context/AuthContext.jsx'
 import { showRequestDetail } from './RequestDetail.jsx'
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
-import { showReportForm } from '../report/Report.jsx'
-import { showRequestPopup } from '../thieves/RequestPopup.jsx'
+import { showReportPopup } from '../popups/ReportPopup.jsx'
+import { showRequestPopup } from '../popups/RequestPopup.jsx'
 
 export const RequestList = () => {
     const [requests, setRequests] = useState([])
@@ -62,7 +62,7 @@ export const RequestList = () => {
     };
 
     const handleReport = (type, postId) => {
-        showReportForm(type, postId)
+        showReportPopup(type, postId)
       }
 
     const fetchRequests = async () => {
@@ -141,14 +141,14 @@ export const RequestList = () => {
         <div>
             
             {error && t(error)}
-            {user && user.role === 'fan' && 
+            {user && user.role === 'fan' && location.pathname === '/requests' &&
             <>
             <h1>{t("requests.new")}</h1>
             <Link to="/newrequest">{t("requests.create")}</Link>
             </>}
             <h1>{t("requests.title")}</h1>
             {requests.length === 0 ? (
-        <p>{t('requests.no_requests')}</p>
+        <p>{t('requests.no.requests')}</p>
       ) : (
             <table>
                 <thead>

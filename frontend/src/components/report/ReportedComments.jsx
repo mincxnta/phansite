@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
-import { showPopUp } from '../PopUp.jsx';
+import { showPopUp } from '../popups/PopUp.jsx';
 
 export const ReportedComments = () => {
     const [reports, setReports] = useState([])

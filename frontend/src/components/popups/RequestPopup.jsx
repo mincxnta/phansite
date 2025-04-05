@@ -4,7 +4,7 @@ import '../../assets/requests/RequestDetail.css'
 import { createPortal } from 'react-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
-import { showPopUp } from '../PopUp.jsx';
+import { showPopUp } from './PopUp.jsx';
 
 let showRequestPopup;
 

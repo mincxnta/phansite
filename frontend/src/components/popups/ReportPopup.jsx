@@ -4,11 +4,11 @@ import '../../assets/requests/RequestDetail.css'
 import { createPortal } from 'react-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
-import { showPopUp } from '../PopUp.jsx';
+import { showPopUp } from './PopUp.jsx';
 
-let showReportForm;
+let showReportPopup;
 
-export const ReportForm = () => {
+export const ReportPopup = () => {
   const [reason, setReason] = useState(null)
   const [visible, setVisible] = useState(false);
   const [reportedType, setReportedType] = useState(null);
@@ -22,7 +22,7 @@ export const ReportForm = () => {
     }
   })
 
-  showReportForm = async (type, postId) => {
+  showReportPopup = async (type, postId) => {
     setReportedType(type);
     setVisible(true);
     setPostId(postId);
@@ -65,8 +65,7 @@ export const ReportForm = () => {
       <div className="popup-content">
         <button className="popup-close" onClick={closePopup}>X</button>
         <form onSubmit={handleNewReport}>
-          // TODO Cambiar texto según reportedType
-          <h4>{t("reports.reason")}</h4>
+          <h4>{t(reportedType === "comment" ? "reports.comment" : "reports.request")}</h4>
           <textarea name="" id="reason" value={reason} onChange={(e) => setReason(e.target.value)}></textarea>
           <input type="submit" value={t("reports.send")} />
         </form>
@@ -76,5 +75,5 @@ export const ReportForm = () => {
   );
 };
 
-export { showReportForm };
-export default ReportForm;
+export { showReportPopup };
+export default ReportPopup;

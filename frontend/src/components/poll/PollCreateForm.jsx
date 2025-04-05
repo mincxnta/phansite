@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 
-export const CreatePoll = () => {
+export const PollCreateForm = () => {
     const [question, setQuestion] = useState('')
     const navigate = useNavigate()
     const { user } = useAuth()

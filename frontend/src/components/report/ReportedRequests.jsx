@@ -4,7 +4,7 @@ import { API_URL } from '../../constants/constants.js'
 import { useTranslation } from 'react-i18next'
 import { showRequestDetail } from '../request/RequestDetail.jsx'
 import { errorHandler } from '../../utils/errorHandler.js';
-import { showPopUp } from '../PopUp.jsx'
+import { showPopUp } from '../popups/PopUp.jsx'
 
 export const ReportedRequests = () => {
     const [reports, setReports] = useState([])

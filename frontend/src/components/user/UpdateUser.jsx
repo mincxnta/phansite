@@ -73,7 +73,7 @@ export const UpdateUser = () => {
                 <br />
                 <label>{t("auth.email")}</label>
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
-                <label>{t("auth.aboutMe")}</label>
+                <label>{t("profile.about.me")}</label>
                 <input type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("auth.aboutMe.placeholder")} />
                 <input type="image" />
                 <input type="submit" value={t("profile.edit")} />

@@ -4,7 +4,7 @@ import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
-import { showPopUp } from '../PopUp.jsx';
+import { showPopUp } from '../popups/PopUp.jsx'
 
 export const UserList = () => {
     const [users, setUsers] = useState([])
