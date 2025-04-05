@@ -5,6 +5,7 @@ import { authenticateToken } from '../middlewares/auth.js'
 export const requestsRouter = Router()
 
 requestsRouter.get('/', RequestController.getAll)
+
 requestsRouter.get('/pending', RequestController.getAllPending)
 
 requestsRouter.get('/user', authenticateToken, RequestController.getAllByUser)

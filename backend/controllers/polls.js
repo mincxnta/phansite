@@ -1,5 +1,5 @@
 import { validatePoll } from '../schemas/poll.js'
-import { validatePollVote } from '../schemas/pollvote.js'
+import { validatePollVote } from '../schemas/poll_vote.js'
 import { Poll } from '../models/poll.js'
 import { PollVotes } from '../models/poll_votes.js'
 
@@ -82,7 +82,7 @@ export class PollController {
     }
 
     if (req.user.role === 'phantom_thief' || req.user.role === 'admin') {
-      return res.status(403).json({ code: 'forbidden', message: 'Only fans can vote on polls' })
+      return res.status(403).json({ code: 'forbidden' })
     }
 
     const poll = await Poll.findByPk(id)

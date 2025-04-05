@@ -6,8 +6,8 @@ import { validateComment } from '../schemas/comment.js'
 export class CommentController {
   static async getAll (req, res) {
     const { pollId } = req.params
-    const page = parseInt(req.query.page) || 1 // Página por defecto
-    const limit = parseInt(req.query.limit) || 5 // Comentarios por página
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 5
     const offset = (page - 1) * limit
     try {
       const poll = await Poll.findByPk(pollId)

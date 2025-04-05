@@ -1,7 +1,7 @@
 import { validateRequest, validateUpdatedRequest } from '../schemas/requests.js'
 import { Request } from '../models/request.js'
 import { RequestVotes } from '../models/request_votes.js'
-import { validateRequestVote } from '../schemas/requestvote.js'
+import { validateRequestVote } from '../schemas/request_vote.js'
 
 export class RequestController {
   static async getAllPending (req, res) {
@@ -64,7 +64,7 @@ export class RequestController {
     }
 
     if (req.user.role === 'phantom_thief' || req.user.role === 'admin') {
-      return res.status(403).json({ code: 'forbidden', message: 'Only fans can create requests' })
+      return res.status(403).json({ code: 'forbidden' })
     }
 
     const newRequest = validateRequest(req.body)
@@ -87,7 +87,7 @@ export class RequestController {
 
   static async update (req, res) {
     if (req.user.role !== 'phantom_thief') {
-      return res.status(403).json({ code: 'forbidden', message: 'Only phantom thieves can update requests' })
+      return res.status(403).json({ code: 'forbidden' })
     }
 
     const { id } = req.params
@@ -98,7 +98,7 @@ export class RequestController {
     }
 
     if (request.status !== 'pending') {
-      return res.status(400).json({ code: 'invalid_status_change', message: 'Can only update requests that are in pending status' })
+      return res.status(400).json({ code: 'invalid_status_change' })
     }
 
     const updatedRequest = validateUpdatedRequest(req.body)
@@ -140,7 +140,7 @@ export class RequestController {
     }
 
     if (req.user.role === 'phantom_thief' || req.user.role === 'admin') {
-      return res.status(403).json({ code: 'forbidden', message: 'Only fans can vote on requests' })
+      return res.status(403).json({ code: 'forbidden' })
     }
 
     const request = await Request.findByPk(id)
