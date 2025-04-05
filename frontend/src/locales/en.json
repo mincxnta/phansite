@@ -3,110 +3,154 @@
         "title": "Home"
     },
     "requests": {
-        "title": "Peticiones",
-        "add": "Añadir petición",
-        "new": "Nueva petición",
-        "create": "Crear petición",
-        "send": "Enviar petición",
-        "status": "Estado",
-        "title.placeholder": "Introduce el título de la petición",
-        "target": "Objetivo",
-        "target.placeholder": "Introduce el nombre del objetivo",
-        "description": "Descripción",
-        "description.placeholder": "Introduce la descripción de la petición",
-        "target.image": "Imagen del objetivo"
+        "title": "Requests",
+        "add": "Add request",
+        "new": "New request",
+        "create": "Create request",
+        "send": "Send request",
+        "status": "Status",
+        "title.placeholder": "Enter the request title",
+        "target": "Target",
+        "target.placeholder": "Enter the target name",
+        "description": "Description",
+        "description.placeholder": "Enter the request description",
+        "target.image": "Target image",
+        "no.requests": "No requests",
+        "popup": "Do you want to add a comment to this request?",
+        "rejected": "Reject",
+        "completed": "Complete",
+        "report": "Report"
     },
     "profile": {
-        "title": "Perfil",
-        "me": "Mi perfil",
-        "edit": "Editar perfil"
+        "title": "Profile",
+        "me": "My profile",
+        "edit": "Edit profile",
+        "about.me": "About me",
+        "requests": "My requests",
+        "user": "{{username}}'s profile"
     },
     "auth": {
-        "register": "Registro",
-        "login": "Iniciar sesión",
-        "logout": "Cerrar sesión",
-        "username": "Nombre de usuario",
-        "username.placeholder": "Introduce tu nombre de usuario",
-        "password": "Contraseña",
-        "password.placeholder": "Introduce tu contraseña",
-        "email": "Correo electrónico"
+        "register": "Register",
+        "login": "Login",
+        "logout": "Logout",
+        "username": "Username",
+        "username.placeholder": "Enter your username",
+        "password": "Password",
+        "password.placeholder": "Enter your password",
+        "email": "Email"
     },
     "role": {
-        "title": "Rol",
-        "admin": "Administrador",
-        "phantom.thief": "Ladrón fantasma",
+        "title": "Role",
+        "admin": "Administrator",
+        "phantom.thief": "Phantom thief",
         "fan": "Fan"
     },
     "poll": {
-        "title": "Encuesta",
-        "new": "Nueva encuesta",
-        "create": "Crear encuesta",
-        "send": "Publicar encuesta",
-        "question": "Pregunta",
-        "question.placeholder": "Introduce la pregunta de la encuesta",
-        "total.votes": "Votos totales"
+        "title": "Poll",
+        "new": "New poll",
+        "create": "Create poll",
+        "send": "Publish poll",
+        "question": "Question",
+        "question.placeholder": "Enter the poll question",
+        "total.votes": "Total votes"
     },
     "comments": {
-        "title": "Comentarios",
-        "add": "Añadir comentario",
-        "send": "Enviar comentario",
-        "placeholder": "Tu comentario aquí...",
-        "anonymous": "Comentar como anónimo",
-        "none": "No hay comentarios"
+        "title": "Comments",
+        "add": "Add comment",
+        "send": "Send comment",
+        "placeholder": "Your comment here...",
+        "anonymous": "Comment as anonymous",
+        "none": "No comments"
     },
     "reports": {
-        "title": "Reportes",
-        "send": "Enviar reporte",
-        "reason": "¿Qué ocurre con esta publicación?",
-        "reason.label": "Razón"
+        "list": "Reports list",
+        "title": "Reports",
+        "title.comments": "Reported comments",
+        "title.requests": "Reported requests",
+        "reporter": "Reporter",
+        "reason": "Reason",
+        "comments": "Comment",
+        "send": "Send report",
+        "comment": "What's wrong with this comment?",
+        "request": "What's wrong with this request?"
     },
     "users": {
-        "title": "Usuarios",
-        "list": "Lista de usuarios",
-        "create": "Crear usuario"
+        "title": "Users",
+        "list": "Users list",
+        "create": "Create user"
     },
     "admin": {
-        "title": "Panel de administración",
-        "actions": "Acciones",
-        "ban": "Banear",
-        "reportList": "Lista de reportes"
+        "title": "Administration panel",
+        "actions": "Actions",
+        "ban": "Ban"
+    },
+    "phantom.thief":{
+        "title": "Phantom thieves"
     },
     "error": {
-        "forbidden": "Acción prohibida",
-        "unauthorized": "No tienes permisos para realizar esta acción",
-        "unauthenticated": "No estás autenticado",
+        "forbidden": "Forbidden action",
+        "unauthorized": "You don't have permission to perform this action",
+        "unauthenticated": "You're not authenticated",
         "invalid": {
-            "user.data": "Datos de usuario inválidos",
-            "comment.data": "Datos de comentario inválidos",
-            "poll.data": "Datos de encuesta inválidos",
-            "vote.data": "Datos de votación inválidos",
-            "report.data": "Datos de reporte inválidos",
-            "request.data": "Datos de petición inválidos",
-            "reported.type": "Tipo de reporte inválido",
-            "post.id": "ID de publicación inválido"
+            "user.data": "Invalid user data",
+            "poll.data": "Invalid poll data",
+            "reported.type": "Invalid report type",
+            "post.id": "Invalid post ID",
+            "status.change": "You can't change the status of this request",
+            "email": "Invalid email"
         },
         "not.found": {
-            "user": "Usuario no encontrado",
-            "request": "Petición no encontrada",
-            "poll": "Encuesta no encontrada"
+            "user": "User not found",
+            "request": "Request not found",
+            "poll": "Poll not found"
         },
         "banned": {
-            "user": "El usuario está baneado",
-            "email": "El correo está baneado"
+            "user": "The user is banned",
+            "email": "The email is banned"
         },
         "already": {
-            "voted": "Ya has votado en esta encuesta",
-            "registered": "El correo electrónico ya está registrado",
-            "exists": "El nombre de usuario ya existe"
+            "voted": "You have already voted in this poll",
+            "registered": "The email is already registered",
+            "exists": "Username already exists"
         },
-        "missing.refresh.token": "Falta de token de refresco",
-        "inactive.poll": "La encuesta está inactiva",
-        "internal.server": "Error inesperado"
+        "empty": {
+            "username": "Username cannot be empty",
+            "password": "Password cannot be empty",
+            "email": "Email cannot be empty",
+            "title": "Title cannot be empty",
+            "description": "Description cannot be empty",
+            "target": "Target cannot be empty",
+            "comment": "Comment cannot be empty",
+            "question": "Question cannot be empty",
+            "reason": "Reason cannot be empty"
+        },
+        "too.long": {
+            "username": "Username is too long",
+            "password": "Password is too long",
+            "email": "Email is too long",
+            "title": "Title is too long",
+            "description": "Description is too long",
+            "target": "Target is too long",
+            "comment": "Comment is too long",
+            "question": "Question is too long",
+            "reason": "Reason is too long",
+            "about.me": "About me is too long"
+        },
+        "missing.refresh.token": "Missing refresh token",
+        "inactive.poll": "The poll is inactive",
+        "internal.server": "Unexpected error"
     },
-    "previous": "Anterior",
-    "next": "Siguiente",
-    "title": "Título",
+    "language":{
+        "en": "English",
+        "es": "Spanish"
+    },
+    "pagination": "Page {{page}} of {{totalPages}}",
+    "previous": "Previous",
+    "next": "Next",
+    "title": "Title",
     "no": "No",
-    "yes": "Sí",
-    "anonymous": "Anónimo"
+    "yes": "Yes",
+    "anonymous": "Anonymous",
+    "delete": "Delete",
+    "discard": "Discard"
 }

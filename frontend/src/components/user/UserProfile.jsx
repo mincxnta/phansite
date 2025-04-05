@@ -68,7 +68,7 @@ export const UserProfile = () => {
     }
 
     if (!profileUser) {
-        return <div>Carregant...</div>;
+        return <div>Cargando...</div>;
     }
 
     const isOwnProfile = !username || user.username === username
@@ -77,14 +77,14 @@ export const UserProfile = () => {
         <>
             {authError && t(authError)}
             {error && t(error)}
-            <h1>{isOwnProfile ? t("profile.me") : `Perfil de ${profileUser.username}`}</h1>
+            <h1>{isOwnProfile ? t("profile.me") : t("profile.user", {username: profileUser.username})}</h1>
             <p>{`Hola soy ${profileUser.username}`}</p>
             <p>{`Sobre mi: ${profileUser.aboutMe}`}</p>
             {isOwnProfile && (
                 <>
                     {user.role === 'fan' && (
                         <>
-                            <h4>Mis peticiones</h4>
+                            <h4>{t("profile.requests")}</h4>
                             <RequestList />
                         </>
                     )}

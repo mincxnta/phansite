@@ -9,7 +9,7 @@ const userSchema = z.object({
     (val) => !val || /\.(jpg|jpeg|png|gif)$/i.test(val),
     { message: 'invalid_image_format' }
   ).optional().nullable(),
-  role: z.enum(ROLES, { required_error: 'role_required' }).default(ROLES[2]),
+  role: z.enum(ROLES).default(ROLES[2]),
   banned: z.boolean().default(false),
   aboutMe: z.string().trim().max(2000, { message: 'about_me_too_long' }).optional().nullable()
 

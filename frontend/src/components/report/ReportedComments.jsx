@@ -90,14 +90,14 @@ export const ReportedComments = () => {
     return (
         <div>
             {error && t(error)}
-            <h1>Publicaciones reportadas</h1>
+            <h1>{t("reports.title.comments")}</h1>
             <table>
                 <thead>
                     <tr>
-                        <th>Reporter</th>
-                        <th>Razon</th>
-                        <th>Comentario</th>
-                        <th>Acciones</th>
+                        <th>{t("reports.reporter")}</th>
+                        <th>{t("reports.reason")}</th>
+                        <th>{t("reports.comments")}</th>
+                        <th>{t("admin.actions")}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -115,9 +115,9 @@ export const ReportedComments = () => {
                                 {report.comment.text}
                             </td>
                             <td>
-                                <button onClick={() => handleDiscard(report.id)}>Descartar</button>
-                                <button onClick={() => handleDelete(report)}>Eliminar</button>
-                                <button onClick={() => handleBan(report.comment.userId)}>Banear</button>
+                                <button onClick={() => handleDiscard(report.id)}>{t("discard")}</button>
+                                <button onClick={() => handleDelete(report)}>{t("delete")}</button>
+                                <button onClick={() => handleBan(report.comment.userId)}>{t("admin.ban")}</button>
                             </td>
                         </tr>
                     ))}

@@ -1,7 +1,7 @@
 import z from 'zod'
 
 const pollVoteSchema = z.object({
-  vote: z.boolean({ required_error: 'vote_required' })
+  vote: z.boolean()
 })
 
 export function validatePollVote (pollVote) {

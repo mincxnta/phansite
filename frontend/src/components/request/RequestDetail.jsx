@@ -107,7 +107,7 @@ export const RequestDetail = () => {
           </table>
         </div>
       ) : (
-        <div>No s'han pogut carregar els detalls</div>
+        <div>No se han podido cargar los detalles</div>
       )}
     </div>,
     document.body

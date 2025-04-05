@@ -28,9 +28,8 @@ export const RequestList = () => {
             const data = await response.json();
             console.log('User Votes:', data);
             if (response.ok) {
-                // Transformem l'array de vots en un objecte per accedir-hi ràpidament per requestId
                 const votesMap = data.reduce((votes, vote) => {
-                    votes[vote.requestId] = vote.vote; // Només guardem el vote (true o false)
+                    votes[vote.requestId] = vote.vote;
                     return votes;
                 }, {});
                 setUserVotes(votesMap);
@@ -157,7 +156,7 @@ export const RequestList = () => {
                         <th>{t("title")}</th>
                         <th>{t("requests.target")}</th>
                         <th>Votos</th>
-                        {user && user.role === 'phantom_thief' && location.pathname === '/thieves' && <th>Comentarios</th>}
+                        {user && user.role === 'phantom_thief' && location.pathname === '/thieves' && <th>{t('comments.title')}</th>}
                         {user && user.role === 'phantom_thief' && location.pathname === '/thieves' && <th>{t('admin.actions')}</th>}
                     </tr>
                 </thead>
@@ -188,9 +187,9 @@ export const RequestList = () => {
                                 )}
                                 {showActionButtons && (
                                     <td>
-                                        <button disabled={request.status !== 'pending'} onClick={() => handleStatusChange(request.id, "rejected")}>Rechazar</button>
-                                        <button disabled={request.status !== 'pending'} onClick={() => showRequestPopup(request.id, "completed")}>Completar</button>
-                                        <button disabled={request.status !== 'pending'} onClick={() => handleReport("request", request.id)}>Reportar</button>
+                                        <button disabled={request.status !== 'pending'} onClick={() => handleStatusChange(request.id, "rejected")}>{t("requests.rejected")}</button>
+                                        <button disabled={request.status !== 'pending'} onClick={() => showRequestPopup(request.id, "completed")}>{t("requests.completed")}</button>
+                                        <button disabled={request.status !== 'pending'} onClick={() => handleReport("request", request.id)}>{t("requests.report")}</button>
                                     </td>
                                 )}
 

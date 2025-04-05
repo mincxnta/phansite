@@ -73,9 +73,9 @@ export const RequestPopup = () => {
             <div className="popup-content">
                 <button className="popup-close" onClick={closePopup}>X</button>
                 <form onSubmit={handleUpdateRequest}>
-                    <h4>{t("reports.reason")}</h4>
+                    <h4>{t("requests.popup")}</h4>
                     <textarea name="" id="message" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
-                    <input type="submit" value={t("reports.send")} />
+                    <input type="submit" value={t(status === "rejected" ? "requests.rejected" : "requests.completed")} />
                 </form>
             </div>
         </div>,

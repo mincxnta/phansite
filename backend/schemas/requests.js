@@ -10,8 +10,8 @@ const requestSchema = z.object({
       (val) => !val || /\.(jpg|jpeg|png|gif)$/i.test(val),
       { message: 'invalid_image_format' }
     ).optional().nullable(),
-  status: z.enum(STATUS, { required_error: 'status_required' }).default(STATUS[0]),
-  thiefComment: z.string().trim().max(500, { message: 'thief_comment_too_long' }).optional().nullable()
+  status: z.enum(STATUS).default(STATUS[0]),
+  thiefComment: z.string().trim().max(500, { message: 'comment_too_long' }).optional().nullable()
 })
 
 export function validateRequest (request) {

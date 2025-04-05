@@ -14,12 +14,20 @@
         "target.placeholder": "Introduce el nombre del objetivo",
         "description": "Descripción",
         "description.placeholder": "Introduce la descripción de la petición",
-        "target.image": "Imagen del objetivo"
+        "target.image": "Imagen del objetivo",
+        "no.requests": "No hay peticiones",
+        "popup": "¿Quieres añadir un comentario a esta petición?",
+        "rejected": "Rechazar",
+        "completed": "Completar",
+        "report": "Reportar"
     },
     "profile": {
         "title": "Perfil",
         "me": "Mi perfil",
-        "edit": "Editar perfil"
+        "edit": "Editar perfil",
+        "about.me": "Sobre mí",
+        "requests": "Mis peticiones",
+        "user": "Perfil de {{username}}"
     },
     "auth": {
         "register": "Registro",
@@ -55,10 +63,16 @@
         "none": "No hay comentarios"
     },
     "reports": {
+        "list": "Lista de reportes",
         "title": "Reportes",
+        "title.comments": "Comentarios reportados",
+        "title.requests": "Peticiones reportadas",
+        "reporter": "Reportado por",
+        "reason": "Razón",
+        "comments": "Comentario",
         "send": "Enviar reporte",
-        "reason": "¿Qué ocurre con esta publicación?",
-        "reason.label": "Razón"
+        "comment": "¿Qué ocurre con este comentario?",
+        "request": "¿Qué ocurre con esta petición?"
     },
     "users": {
         "title": "Usuarios",
@@ -68,8 +82,10 @@
     "admin": {
         "title": "Panel de administración",
         "actions": "Acciones",
-        "ban": "Banear",
-        "reportList": "Lista de reportes"
+        "ban": "Banear"
+    },
+    "phantom.thief":{
+        "title": "Ladrones fantasma"
     },
     "error": {
         "forbidden": "Acción prohibida",
@@ -77,13 +93,11 @@
         "unauthenticated": "No estás autenticado",
         "invalid": {
             "user.data": "Datos de usuario inválidos",
-            "comment.data": "Datos de comentario inválidos",
             "poll.data": "Datos de encuesta inválidos",
-            "vote.data": "Datos de votación inválidos",
-            "report.data": "Datos de reporte inválidos",
-            "request.data": "Datos de petición inválidos",
             "reported.type": "Tipo de reporte inválido",
-            "post.id": "ID de publicación inválido"
+            "post.id": "ID de publicación inválido",
+            "status.change": "No puedes cambiar el estado de esta petición",
+            "email": "Correo electrónico inválido"
         },
         "not.found": {
             "user": "Usuario no encontrado",
@@ -99,6 +113,29 @@
             "registered": "El correo electrónico ya está registrado",
             "exists": "El nombre de usuario ya existe"
         },
+        "empty": {
+            "username": "El nombre de usuario no puede estar vacío",
+            "password": "La contraseña no puede estar vacía",
+            "email": "El correo electrónico no puede estar vacío",
+            "title": "El título no puede estar vacío",
+            "description": "La descripción no puede estar vacía",
+            "target": "El objetivo no puede estar vacío",
+            "comment": "El comentario no puede estar vacío",
+            "question": "La pregunta no puede estar vacía",
+            "reason": "La razón no puede estar vacía"
+        },
+        "too.long": {
+            "username": "El nombre de usuario es demasiado largo",
+            "password": "La contraseña es demasiado larga",
+            "email": "El correo electrónico es demasiado largo",
+            "title": "El título es demasiado largo",
+            "description": "La descripción es demasiado larga",
+            "target": "El objetivo es demasiado largo",
+            "comment": "El comentario es demasiado largo",
+            "question": "La pregunta es demasiado larga",
+            "reason": "La razón es demasiado larga",
+            "about.me": "Sobre mí es demasiado largo"
+        },
         "missing.refresh.token": "Falta de token de refresco",
         "inactive.poll": "La encuesta está inactiva",
         "internal.server": "Error inesperado"
@@ -113,5 +150,7 @@
     "title": "Título",
     "no": "No",
     "yes": "Sí",
-    "anonymous": "Anónimo"
+    "anonymous": "Anónimo",
+    "delete": "Eliminar",
+    "discard": "Descartar"
 }

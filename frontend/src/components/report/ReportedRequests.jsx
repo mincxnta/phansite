@@ -91,14 +91,14 @@ export const ReportedRequests = () => {
     return (
         <div>
             {error && t(error)}
-            <h1>Peticiones reportadas</h1>
+            <h1>{t("reports.title.requests")}</h1>
             <table>
                 <thead>
                     <tr>
-                        <th>Reporter</th>
-                        <th>Razon</th>
-                        <th>Comentario</th>
-                        <th>Acciones</th>
+                        <th>{t("reports.reporter")}</th>
+                        <th>{t("reports.reason")}</th>
+                        <th>{t("reports.comments")}</th>
+                        <th>{t("admin.actions")}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -116,9 +116,9 @@ export const ReportedRequests = () => {
                                 <button onClick={() => showRequestDetail(report.request.id)}>{report.request.title}</button>
                             </td>
                             <td>
-                                <button onClick={() => handleDiscard(report.id)}>Descartar</button>
-                                <button onClick={() => handleDelete(report)}>Eliminar</button>
-                                <button onClick={() => handleBan(report.request.userId)}>Banear</button>
+                                <button onClick={() => handleDiscard(report.id)}>{t("discard")}</button>
+                                <button onClick={() => handleDelete(report)}>{t("delete")}</button>
+                                <button onClick={() => handleBan(report.request.userId)}>{t("admin.ban")}</button>
                             </td>
                         </tr>
                     ))}
