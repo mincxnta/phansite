@@ -4,7 +4,7 @@ import { User } from '../models/user.js'
 import { validateComment } from '../schemas/comment.js'
 
 export class CommentController {
-  static async getAll (req, res) {
+  static async getAll(req, res) {
     const { pollId } = req.params
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
@@ -40,8 +40,17 @@ export class CommentController {
     }
   }
 
-  static async create (req, res) {
+  static async create(req, res) {
     const { pollId } = req.params
+
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ code: 'unauthenticated' })
+    }
+
+    if (req.user.role === 'phantom_thief' || req.user.role === 'admin') {
+      return res.status(403).json({ code: 'forbidden' })
+    }
+
     const newComment = validateComment(req.body)
 
     if (!newComment.success) {
@@ -66,7 +75,7 @@ export class CommentController {
     }
   }
 
-  static async delete (req, res) {
+  static async delete(req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }

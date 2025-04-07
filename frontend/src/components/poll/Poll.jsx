@@ -27,7 +27,7 @@ export const Poll = () => {
         if (response.ok) {
           setPoll(data)
           await getPollResults(data.id)
-        }else{
+        } else {
           setError(errorHandler(data));
         }
 
@@ -79,7 +79,7 @@ export const Poll = () => {
       if (response.ok) {
         await getPollResults(poll.id)
         setError(null);
-      } else {  
+      } else {
         setError(errorHandler(data));
       }
     } catch (error) {
@@ -96,10 +96,8 @@ export const Poll = () => {
       <div>
         <progress value={yesPercentage} max="100" /> <span>{yesPercentage}%</span>
       </div>
-      {user && user.role === 'fan' && (<>
-      <button onClick={() => handleVote(false)} disabled={!user}>{t("no")}</button>
-      <button onClick={() => handleVote(true)} disabled={!user}>{t("yes")}</button>
-      </>)}
+      <button onClick={() => handleVote(false)} disabled={!user || user?.role !== 'fan'}>{t("no")}</button>
+      <button onClick={() => handleVote(true)} disabled={!user || user?.role !== 'fan'}>{t("yes")}</button>
       <p>{t("poll.total.votes")}: {results.total}</p>
       {poll.id && <CommentSection pollId={poll.id} />}
     </div>

@@ -103,19 +103,19 @@ export const CommentSection = ({ pollId }) => {
                 <img src={user && user.profilePicture ? user.profilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
                 <textarea value={newComment} placeholder={t("comments.placeholder")} onChange={(e) => setNewComment(e.target.value)}
                     style={{ maxHeight: "50px", resize: "none", width: "90%" }}
-                    required disabled={!user}
+                    required disabled={!user || user?.role !== 'fan'}
                 > </textarea>
                 <label>
                     <input
                         type="checkbox"
                         checked={anonymous}
-                        disabled={!user}
+                        disabled={!user || user?.role !== 'fan'}
                         onChange={(e) => setAnonymous(e.target.checked)}
                     />
                     {t("comments.anonymous")}
                 </label>
                 <button onClick={handleAddComment}
-                    disabled={!user}
+                    disabled={!user || user?.role !== 'fan'}
                 >{t("comments.send")}</button>
             </div>
             <h4>{t("comments.title")}: ({totalComments})</h4>
@@ -153,7 +153,7 @@ export const CommentSection = ({ pollId }) => {
                         {t("previous")}
                     </button>
                     <span>
-                    {t('pagination', { page, totalPages })}
+                        {t('pagination', { page, totalPages })}
                     </span>
                     <button
                         onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
