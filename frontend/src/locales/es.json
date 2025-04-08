@@ -19,7 +19,8 @@
         "popup": "¿Quieres añadir un comentario a esta petición?",
         "rejected": "Rechazar",
         "completed": "Completar",
-        "report": "Reportar"
+        "report": "Reportar",
+        "votes": "Votos"
     },
     "profile": {
         "title": "Perfil",
@@ -82,7 +83,9 @@
     "admin": {
         "title": "Panel de administración",
         "actions": "Acciones",
-        "ban": "Banear"
+        "ban": "Banear",
+        "reports":"Reportes",
+        "users":"Usuarios"
     },
     "phantom.thief":{
         "title": "Ladrones fantasma"

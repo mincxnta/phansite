@@ -19,7 +19,8 @@
         "popup": "Do you want to add a comment to this request?",
         "rejected": "Reject",
         "completed": "Complete",
-        "report": "Report"
+        "report": "Report",
+        "votes": "Votes"
     },
     "profile": {
         "title": "Profile",
@@ -82,9 +83,11 @@
     "admin": {
         "title": "Administration panel",
         "actions": "Actions",
-        "ban": "Ban"
+        "ban": "Ban",
+        "reports": "Reports",
+        "users": "Users"
     },
-    "phantom.thief":{
+    "phantom.thief": {
         "title": "Phantom thieves"
     },
     "error": {
@@ -140,7 +143,7 @@
         "inactive.poll": "The poll is inactive",
         "internal.server": "Unexpected error"
     },
-    "language":{
+    "language": {
         "en": "English",
         "es": "Spanish"
     },

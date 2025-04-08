@@ -72,6 +72,8 @@ export const UserList = () => {
     return (
         <div>
             <h1>{t("users.list")}</h1>
+            <h5>{t("users.create")}</h5>
+            <button> <Link to="create">{t("users.create")}</Link></button>
             {error && <p>{t(error)}</p>}
             <table>
                 <thead>

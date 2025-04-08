@@ -158,7 +158,7 @@ export const RequestList = () => {
                             {user && user.role !== 'fan' && <th>{t('requests.status')}</th>}
                             <th>{t("title")}</th>
                             <th>{t("requests.target")}</th>
-                            <th>Votos</th>
+                            <th>{t("requests.votes")}</th>
                             {user && user.role === 'phantom_thief' && location.pathname === '/thieves' && <th>{t('comments.title')}</th>}
                             {user && user.role === 'phantom_thief' && location.pathname === '/thieves' && <th>{t('admin.actions')}</th>}
                         </tr>

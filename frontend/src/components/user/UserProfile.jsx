@@ -77,9 +77,9 @@ export const UserProfile = () => {
         <>
             {authError && t(authError)}
             {error && t(error)}
-            <h1>{isOwnProfile ? t("profile.me") : t("profile.user", {username: profileUser.username})}</h1>
-            <p>{`Hola soy ${profileUser.username}`}</p>
-            <p>{`Sobre mi: ${profileUser.aboutMe}`}</p>
+            <h1>{isOwnProfile ? t("profile.me") : t("profile.user", { username: profileUser.username })}</h1>
+            <p>{`${profileUser.username}`}</p>
+            <p>{`${profileUser.aboutMe}`}</p>
             {isOwnProfile && (
                 <>
                     {user.role === 'fan' && (
@@ -90,7 +90,7 @@ export const UserProfile = () => {
                     )}
                     <button onClick={handleLogout}>{t("auth.logout")}</button>
                     <button><Link to="edit">{t("profile.edit")}</Link></button>
-                    <button onClick={handleDelete}>Eliminar cuenta</button> {/*//TODO Se quita? */}
+                    {/* <button onClick={handleDelete}>Eliminar cuenta</button> */}
                 </>)}
 
         </>
