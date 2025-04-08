@@ -49,11 +49,12 @@ export const RequestPopup = () => {
             })
 
             if (response.ok) {
+                const updatedRequest = await response.json();
                 closePopup();
                 showPopUp("Se ha actualizado la solicitud satisfactoriamente");
                 if (onSuccess) {
-                    onSuccess();
-                  }
+                    onSuccess(updatedRequest);
+                }
             }
         } catch (error) {
             return error;

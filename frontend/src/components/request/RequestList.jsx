@@ -132,8 +132,11 @@ export const RequestList = () => {
     };
 
     const handleStatusChange = async (id, status) => {
-        showRequestPopup(id, status)
-        fetchRequests();
+        showRequestPopup(id, status, (updatedRequest) => {
+            console.log('Updated request:', updatedRequest);
+            setRequests((prevRequests) => prevRequests.map((request) => request.id === id ? { ...request, ...updatedRequest } : request));
+        })
+        await fetchRequests();
     }
 
     return (
@@ -165,6 +168,8 @@ export const RequestList = () => {
                             const result = results[request.id] || { totalVotes: 0 };
                             const userVote = userVotes[request.id];
                             const showActionButtons = user && user.role === 'phantom_thief' && location.pathname === '/thieves';
+                            const showVoteButtons = user && user.role === 'fan' && location.pathname === '/requests';
+
                             return (
                                 <tr key={request.id}>
                                     {user && user.role !== 'fan' && (
@@ -177,9 +182,9 @@ export const RequestList = () => {
                                         {request.target}
                                     </td>
                                     <td>
-                                        <button style={{ backgroundColor: userVote === true ? "white" : "transparent", color: userVote === true ? "black" : "white" }} disabled={!user || user?.role !== 'fan'} onClick={() => handleVote(true, request)}>↑</button>
+                                        {showVoteButtons && <button style={{ backgroundColor: userVote === true ? "white" : "transparent", color: userVote === true ? "black" : "white" }} disabled={!user || user?.role !== 'fan'} onClick={() => handleVote(true, request)}>↑</button>}
                                         <span>{result.totalVotes}</span>
-                                        <button style={{ backgroundColor: userVote === false ? "white" : "transparent", color: userVote === false ? "black" : "white" }} disabled={!user || user?.role !== 'fan'} onClick={() => handleVote(false, request)}>↓</button>
+                                        {showVoteButtons && <button style={{ backgroundColor: userVote === false ? "white" : "transparent", color: userVote === false ? "black" : "white" }} disabled={!user || user?.role !== 'fan'} onClick={() => handleVote(false, request)}>↓</button>}
                                     </td>
                                     {showActionButtons && (
                                         <td>{request.thiefComment || 'Sense comentari'}</td>
@@ -187,7 +192,7 @@ export const RequestList = () => {
                                     {showActionButtons && (
                                         <td>
                                             <button disabled={request.status !== 'pending'} onClick={() => handleStatusChange(request.id, "rejected")}>{t("requests.rejected")}</button>
-                                            <button disabled={request.status !== 'pending'} onClick={() => showRequestPopup(request.id, "completed")}>{t("requests.completed")}</button>
+                                            <button disabled={request.status !== 'pending'} onClick={() => handleStatusChange(request.id, "completed")}>{t("requests.completed")}</button>
                                             <button disabled={request.status !== 'pending'} onClick={() => handleReport("request", request.id)}>{t("requests.report")}</button>
                                         </td>
                                     )}

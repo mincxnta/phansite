@@ -80,6 +80,7 @@ export const ReportedComments = () => {
             })
 
             if (response.ok) {
+                setReports((prevReports) => prevReports.filter(r => r.comment.id !== report.comment.id));
                 await response.json()
             }
         } catch (error) {
