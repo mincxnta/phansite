@@ -5,7 +5,7 @@ import { Comment } from '../models/comment.js'
 import { Request } from '../models/request.js'
 
 export class ReportController {
-  static async create (req, res) {
+  static async create(req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthenticated' })
     }
@@ -39,13 +39,20 @@ export class ReportController {
     }
   }
 
-  static async getAll (req, res) {
+
+
+  static async getAll(req, res) {
+
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 5
+    const offset = (page - 1) * limit
+
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }
 
     try {
-      const reports = await Report.findAll({
+      const { count, rows } = await Report.findAndCountAll({
         order: [['id', 'ASC']],
         include: [
           {
@@ -58,24 +65,34 @@ export class ReportController {
             as: 'comment',
             attributes: ['text']
           }
-        ]
+        ],
+        limit,
+        offset
       })
-      res.status(200).json(reports)
+      res.status(200).json({
+        reports: rows,
+        totalReports: count,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      })
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }
   }
 
-  static async getAllByType (req, res) {
+  static async getAllByType(req, res) {
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 5
+    const offset = (page - 1) * limit
+
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }
 
     try {
-      const { type } = req.params
-      const reports = await Report.findAll({
+      const { type } = req.query
+      const { count, rows } = await Report.findAndCountAll({
         where: { reportedType: type },
-        order: [['id', 'ASC']],
         include: [
           {
             model: User,
@@ -92,15 +109,23 @@ export class ReportController {
             as: 'request',
             attributes: ['title', 'id', 'userId']
           }
-        ]
+        ],
+        order: [['id', 'ASC']],
+        limit,
+        offset
       })
-      res.status(200).json(reports)
+      res.status(200).json({
+        reports: rows,
+        totalReports: count,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      })
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }
   }
 
-  static async delete (req, res) {
+  static async delete(req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }

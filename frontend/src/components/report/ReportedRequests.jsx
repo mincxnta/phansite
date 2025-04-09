@@ -12,27 +12,36 @@ export const ReportedRequests = () => {
     const { t } = useTranslation();
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchReports = async () => {
-            try {
-                const response = await fetch(`${API_URL}/reports/request`, {
-                    method: 'GET',
-                    credentials: 'include'
-                })
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [totalReports, setTotalReports] = useState(0);
+    const limit = 5;
 
-                const data = await response.json()
-                if (response.ok) {
-                    setReports(data)
-                } else {
-                    setError(errorHandler(data));
-                }
-            } catch (error) {
-                setError(errorHandler(error));
-
+    const fetchReports = async () => {
+        try {
+            const response = await fetch(`${API_URL}/reports/type?type=request&page=${page}&limit=${limit}`, {
+                method: 'GET',
+                credentials: 'include'
+            })
+            console.log("Response: ", response);
+            const data = await response.json()
+            if (response.ok) {
+                setReports(data.reports);
+                setTotalPages(data.totalPages);
+                setTotalReports(data.totalReports);
+            } else {
+                setError(errorHandler(data));
             }
+        } catch (error) {
+            setError(errorHandler(error));
+
         }
+    }
+
+    useEffect(() => {
+
         fetchReports()
-    }, [navigate])
+    }, [navigate, page])
 
     const handleBan = async (userId) => {
 
@@ -66,6 +75,7 @@ export const ReportedRequests = () => {
             if (response.ok) {
                 await response.json()
                 setReports((prevReports) => prevReports.filter(report => report.id !== id));
+                await fetchReports()
             }
         } catch (error) {
             setError(errorHandler(error));
@@ -81,7 +91,8 @@ export const ReportedRequests = () => {
             })
 
             if (response.ok) {
-                await response.json()
+                await fetchReports()
+
             }
         } catch (error) {
             setError(errorHandler(error));
@@ -125,6 +136,27 @@ export const ReportedRequests = () => {
                 </tbody>
             </table>
 
+            {totalPages > 1 && (
+                <div>
+                    <h4>{t("reports.title")}: ({totalReports})</h4>
+
+                    <button
+                        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                        disabled={page === 1}
+                    >
+                        {t("previous")}
+                    </button>
+                    <span>
+                        {t('pagination', { page, totalPages })}
+                    </span>
+                    <button
+                        onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+                        disabled={page === totalPages}
+                    >
+                        {t("next")}
+                    </button>
+                </div>
+            )}
 
         </div>
     )

@@ -4,46 +4,82 @@ import { RequestVotes } from '../models/request_votes.js'
 import { validateRequestVote } from '../schemas/request_vote.js'
 
 export class RequestController {
-  static async getAllPending (req, res) {
+  static async getAllPending(req, res) {
+
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 5
+    const offset = (page - 1) * limit
+
     try {
-      const requests = await Request.findAll({
+      const { count, rows } = await Request.findAndCountAll({
         where: { status: 'pending' },
-        order: [['submitDate', 'DESC']]
+        order: [['submitDate', 'DESC']],
+        limit,
+        offset
       })
-      res.status(200).json(requests)
+      res.status(200).json({
+        requests: rows,
+        totalRequests: count,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      })
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }
   }
 
-  static async getAll (req, res) {
+  static async getAll(req, res) {
+
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 5
+    const offset = (page - 1) * limit
+
     try {
-      const requests = await Request.findAll({
-        order: [['submitDate', 'DESC']]
+      const { count, rows } = await Request.findAndCountAll({
+        order: [['submitDate', 'DESC']],
+        limit,
+        offset
       })
-      res.status(200).json(requests)
+      res.status(200).json({
+        requests: rows,
+        totalRequests: count,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      })
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }
   }
 
-  static async getAllByUser (req, res) {
+  static async getAllByUser(req, res) {
+
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 5
+    const offset = (page - 1) * limit
+
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }
 
     try {
-      const requests = await Request.findAll({
+      const { count, rows } = await Request.findAndCountAll({
         where: { userId: req.user.id },
-        order: [['submitDate', 'DESC']]
+        order: [['submitDate', 'DESC']],
+        limit,
+        offset
       })
-      res.status(200).json(requests)
+      res.status(200).json({
+        requests: rows,
+        totalRequests: count,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      })
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }
   }
 
-  static async getById (req, res) {
+  static async getById(req, res) {
     try {
       const { id } = req.params
       const request = await Request.findByPk(id)
@@ -58,7 +94,7 @@ export class RequestController {
     }
   }
 
-  static async create (req, res) {
+  static async create(req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }
@@ -85,7 +121,7 @@ export class RequestController {
     }
   }
 
-  static async update (req, res) {
+  static async update(req, res) {
     if (req.user.role !== 'phantom_thief') {
       return res.status(403).json({ code: 'forbidden' })
     }
@@ -115,7 +151,7 @@ export class RequestController {
     }
   }
 
-  static async delete (req, res) {
+  static async delete(req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }
@@ -132,7 +168,7 @@ export class RequestController {
     }
   }
 
-  static async vote (req, res) {
+  static async vote(req, res) {
     const { id } = req.params
 
     if (!req.user || !req.user.id) {
@@ -178,7 +214,7 @@ export class RequestController {
     }
   }
 
-  static async getRequestsVotes (req, res) {
+  static async getRequestsVotes(req, res) {
     try {
       const requests = await Request.findAll({ attributes: ['id'] })
       if (!requests || requests.length === 0) {
@@ -209,7 +245,7 @@ export class RequestController {
     }
   }
 
-  static async getUserRequestsVotes (req, res) {
+  static async getUserRequestsVotes(req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }

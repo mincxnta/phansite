@@ -3,22 +3,35 @@ import { User } from '../models/user.js'
 import bcrypt from 'bcrypt'
 
 export class UserController {
-  static async getAll (req, res) {
+  static async getAll(req, res) {
+
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 5
+    const offset = (page - 1) * limit
+
     if (!req.user || req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }
 
     try {
-      const users = await User.findAll({
-        attributes: { exclude: ['password'] }
+      const { count, rows } = await User.findAndCountAll({
+        attributes: { exclude: ['password'] },
+        limit,
+        offset
       })
-      res.status(200).json(users)
+
+      res.status(200).json({
+        users: rows,
+        totalUsers: count,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      })
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }
   }
 
-  static async getById (req, res) {
+  static async getById(req, res) {
     try {
       const { username } = req.params
       const user = await User.findOne({ where: { username }, attributes: { exclude: ['password'] } })
@@ -32,7 +45,7 @@ export class UserController {
     }
   }
 
-  static async update (req, res) {
+  static async update(req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }
@@ -62,7 +75,7 @@ export class UserController {
   }
 
   // TODO Eliminaremos usuarios?
-  static async delete (req, res) {
+  static async delete(req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }
@@ -80,7 +93,7 @@ export class UserController {
     }
   }
 
-  static async ban (req, res) {
+  static async ban(req, res) {
     if (!req.user || req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }

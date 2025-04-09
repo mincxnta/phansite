@@ -18,6 +18,12 @@ export const RequestList = () => {
     const [userVotes, setUserVotes] = useState({});
     const [error, setError] = useState(null);
 
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [totalRequests, setTotalRequests] = useState(0);
+    const limit = 5;
+
+
     const getUserVotes = async () => {
         try {
             const response = await fetch(`${API_URL}/requests/user-votes`, {
@@ -65,15 +71,15 @@ export const RequestList = () => {
     }
 
     const fetchRequests = async () => {
-        let url = `${API_URL}/requests/pending`;
+        let url = `${API_URL}/requests/pending?page=${page}&limit=${limit}`;
         if (user) {
             if (user.role === 'phantom_thief') {
                 if (location.pathname === '/thieves') {
-                    url = `${API_URL}/requests`;
+                    url = `${API_URL}/requests?page=${page}&limit=${limit}`;
                 }
             } else if (user.role === 'fan') {
                 if (location.pathname === '/profile') {
-                    url = `${API_URL}/requests/user`;
+                    url = `${API_URL}/requests/user?page=${page}&limit=${limit}`;
                 }
             }
         }
@@ -86,7 +92,9 @@ export const RequestList = () => {
 
             const data = await response.json()
             if (response.ok) {
-                setRequests(data)
+                setRequests(data.requests)
+                setTotalPages(data.totalPages);
+                setTotalRequests(data.totalRequests);
                 await getAllRequestResults();
                 if (user) await getUserVotes();
             } else {
@@ -100,7 +108,7 @@ export const RequestList = () => {
     useEffect(() => {
         fetchRequests()
         getAllRequestResults();
-    }, [navigate])
+    }, [navigate, page])
 
     const handleVote = async (vote, request) => {
         if (!user) {
@@ -202,6 +210,28 @@ export const RequestList = () => {
                         })}
                     </tbody>
                 </table>
+
+            )}
+            {totalPages > 1 && (
+                <div>
+                    <h4>{t("requests.title")}: ({totalRequests})</h4>
+
+                    <button
+                        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                        disabled={page === 1}
+                    >
+                        {t("previous")}
+                    </button>
+                    <span>
+                        {t('pagination', { page, totalPages })}
+                    </span>
+                    <button
+                        onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+                        disabled={page === totalPages}
+                    >
+                        {t("next")}
+                    </button>
+                </div>
             )}
         </div>
     )

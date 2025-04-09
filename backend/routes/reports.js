@@ -5,7 +5,7 @@ export const reportsRouter = Router()
 
 reportsRouter.get('/', ReportController.getAll)
 
-reportsRouter.get('/:type', ReportController.getAllByType)
+reportsRouter.get('/type', ReportController.getAllByType)
 
 reportsRouter.post('/', ReportController.create)
 

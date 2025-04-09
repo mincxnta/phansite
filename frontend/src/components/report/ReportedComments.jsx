@@ -11,27 +11,36 @@ export const ReportedComments = () => {
     const { t } = useTranslation();
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchReports = async () => {
-            try {
-                const response = await fetch(`${API_URL}/reports/comment`, {
-                    method: 'GET',
-                    credentials: 'include'
-                })
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [totalReports, setTotalReports] = useState(0);
+    const limit = 5;
 
-                const data = await response.json()
-                if (response.ok) {
-                    setReports(data)
-                } else {
-                    setError(errorHandler(data));
-                }
-            } catch (error) {
-                setError(errorHandler(error));
+    const fetchReports = async () => {
+        try {
+            const response = await fetch(`${API_URL}/reports/type?type=comment&page=${page}&limit=${limit}`, {
+                method: 'GET',
+                credentials: 'include'
+            })
 
+            const data = await response.json()
+            if (response.ok) {
+                setReports(data.reports);
+                setTotalPages(data.totalPages);
+                setTotalReports(data.totalReports);
+            } else {
+                setError(errorHandler(data));
             }
+        } catch (error) {
+            setError(errorHandler(error));
+
         }
+    }
+
+    useEffect(() => {
+
         fetchReports()
-    }, [navigate])
+    }, [navigate, page])
 
     const handleBan = async (userId) => {
 
@@ -65,6 +74,8 @@ export const ReportedComments = () => {
             if (response.ok) {
                 await response.json()
                 setReports((prevReports) => prevReports.filter(report => report.id !== id));
+                setTotalReports(prev => prev - 1);
+                await fetchReports();
             }
         } catch (error) {
             setError(errorHandler(error));
@@ -81,13 +92,15 @@ export const ReportedComments = () => {
 
             if (response.ok) {
                 setReports((prevReports) => prevReports.filter(r => r.comment.id !== report.comment.id));
-                await response.json()
+                setTotalReports(prev => prev - 1);
+                await fetchReports();
             }
         } catch (error) {
             setError(errorHandler(error));
         }
     }
 
+    const shouldShowPagination = totalReports > 0 && totalPages > 1 && reports.length > 0;
     return (
         <div>
             {error && t(error)}
@@ -125,6 +138,27 @@ export const ReportedComments = () => {
                 </tbody>
             </table>
 
+            {shouldShowPagination && (
+                <div>
+                    <h4>{t("reports.title")}: ({totalReports})</h4>
+
+                    <button
+                        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                        disabled={page === 1}
+                    >
+                        {t("previous")}
+                    </button>
+                    <span>
+                        {t('pagination', { page, totalPages })}
+                    </span>
+                    <button
+                        onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+                        disabled={page === totalPages}
+                    >
+                        {t("next")}
+                    </button>
+                </div>
+            )}
 
         </div >
     )

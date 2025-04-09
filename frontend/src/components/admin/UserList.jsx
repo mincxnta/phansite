@@ -13,6 +13,12 @@ export const UserList = () => {
     const { t } = useTranslation();
     const [error, setError] = useState(null);
 
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [totalUsers, setTotalUsers] = useState(0);
+    const limit = 5;
+
+
     useEffect(() => {
         const verifyAdmin = () => {
             if (!user) {
@@ -27,14 +33,17 @@ export const UserList = () => {
 
         const fetchUsers = async () => {
             try {
-                const response = await fetch(`${API_URL}/users`, {
+                const response = await fetch(`${API_URL}/users?page=${page}&limit=${limit}`, {
                     method: 'GET',
                     credentials: 'include'
                 })
 
                 const data = await response.json()
+
                 if (response.ok) {
-                    setUsers(data)
+                    setUsers(data.users)
+                    setTotalPages(data.totalPages);
+                    setTotalUsers(data.totalUsers);
                 } else {
                     setError(errorHandler(data));
                 }
@@ -45,7 +54,7 @@ export const UserList = () => {
         }
         verifyAdmin();
         fetchUsers()
-    }, [navigate, user])
+    }, [navigate, user, page])
 
     const handleBan = async (userId) => {
 
@@ -97,6 +106,27 @@ export const UserList = () => {
                     ))}
                 </tbody>
             </table>
+            {totalPages > 1 && (
+                <div>
+                    <h4>{t("users.title")}: ({totalUsers})</h4>
+
+                    <button
+                        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                        disabled={page === 1}
+                    >
+                        {t("previous")}
+                    </button>
+                    <span>
+                        {t('pagination', { page, totalPages })}
+                    </span>
+                    <button
+                        onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+                        disabled={page === totalPages}
+                    >
+                        {t("next")}
+                    </button>
+                </div>
+            )}
         </div>
     )
 }
