@@ -70,15 +70,16 @@ export class UserController {
       await user.update(updatedUser.data)
 
       if (req.file) {
-        if (user.image) {
-          const oldPath = path.join(process.cwd(), user.image)
+        if (user.profilePicture) {
+          const oldFileName = path.basename(user.profilePicture)
+          const oldPath = path.join(process.cwd(), oldFileName)
           try {
             await fs.unlink(oldPath)
           } catch (error) {
             console.error('Error deleting old profile picture:', error)
           }
         }
-        const newFileName = `${req.user.id}${path.extname(req.file.originalname)}`
+        const newFileName = req.file.filename
         user.profilePicture = `/uploads/${newFileName}`
         await user.save()
       }

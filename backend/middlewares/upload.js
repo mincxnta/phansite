@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
     let filename
 
     if (file.fieldname === 'profilePicture') {
-      filename = `${req.user.id}${path.extname(file.originalname)}`
+      filename = `${req.user.id}.jpg`
     } else if (file.fieldname === 'image') {
       filename = `request-${Date.now()}${path.extname(file.originalname)}`
     }
