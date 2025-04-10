@@ -5,6 +5,7 @@ import { showReportPopup } from '../popups/ReportPopup.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
+import { convertImageToBase64 } from '../../utils/imageUtils.js';
 
 export const CommentSection = ({ pollId }) => {
     const [comments, setComments] = useState([]);
@@ -14,6 +15,8 @@ export const CommentSection = ({ pollId }) => {
     const [totalPages, setTotalPages] = useState(1);
     const [totalComments, setTotalComments] = useState(0);
     const [anonymous, setAnonymous] = useState(false)
+    const [userProfilePicture, setUserProfilePicture] = useState(null)
+    const [commentProfilePictures, setCommentProfilePictures] = useState({});
     const limit = 5;
     const { user } = useAuth()
     const navigate = useNavigate()
@@ -31,6 +34,8 @@ export const CommentSection = ({ pollId }) => {
                 setComments(data.comments);
                 setTotalPages(data.totalPages);
                 setTotalComments(data.totalComments);
+                await loadProfilePictures(data.comments);
+                console.log("Profile pictures",commentProfilePictures)
             } else {
                 setError(errorHandler(data));
             }
@@ -75,9 +80,33 @@ export const CommentSection = ({ pollId }) => {
         }
         showReportPopup(type, postId)
     }
+
+    const loadProfilePictures = async (comments) =>{
+        const newCommentProfilePictures = { ...commentProfilePictures };
+        if (user && user.profilePicture && !userProfilePicture){
+        const base64Image = await convertImageToBase64(user.profilePicture);
+        setUserProfilePicture(base64Image);
+        }
+
+        if (comments){
+            for (const comment of comments){
+                if (comment.user?.profilePicture && !newCommentProfilePictures[comment.user.id]){
+                    const base64Image = await convertImageToBase64(comment.user.profilePicture);
+                    newCommentProfilePictures[comment.user.id]=base64Image;
+                }
+            }
+            setCommentProfilePictures(newCommentProfilePictures)
+        }
+    }
     useEffect(() => {
         fetchComments()
     }, [pollId, page]);
+
+    useEffect(() => {
+        if (user && user.profilePicture) {
+            loadProfilePictures();
+        }
+    }, [user]);
 
     const handleDelete = async (id) => {
         try {
@@ -100,7 +129,7 @@ export const CommentSection = ({ pollId }) => {
             <h4>{t("comments.add")}</h4>
             {error && <p>{t(error)}</p>}
             <div style={{ display: "flex" }}>
-                <img src={user && user.profilePicture ? user.profilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
+                <img src={user && userProfilePicture ? userProfilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
                 <textarea value={newComment} placeholder={t("comments.placeholder")} onChange={(e) => setNewComment(e.target.value)}
                     style={{ maxHeight: "50px", resize: "none", width: "90%" }}
                     required disabled={!user || user?.role !== 'fan'}
@@ -124,7 +153,7 @@ export const CommentSection = ({ pollId }) => {
             ) : (
                 comments.map((comment) => (
                     <div key={comment.id} style={{ display: "flex" }}>
-                        <img src={comment.user?.profilePicture ? comment.user.profilePicture : '/assets/requests/unknownTarget.png'} alt="Profile picture" style={{ maxHeight: '50px' }} />
+                        <img src={comment.user?.profilePicture && commentProfilePictures[comment.user.id] && !comment.anonymous ? commentProfilePictures[comment.user.id] : '/assets/requests/unknownTarget.png'} alt="Profile picture" style={{ maxHeight: '50px' }} />
                         <div style={{ resize: "none", width: "90%", padding: "4px" }}>
                             <div style={{ display: "flex" }}>
                                 <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? t("anonymous") : (<Link to={`/profile/${comment.user.username}`}>{comment.user.username}</Link>)}</p>

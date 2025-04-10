@@ -11,6 +11,7 @@ export const UpdateUser = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
+    const [file, setFile] = useState(null)
     const [aboutMe, setAboutMe] = useState('')
     const [error, setError] = useState(null);
     const navigate = useNavigate()
@@ -29,20 +30,30 @@ export const UpdateUser = () => {
         fetchProfile()
     }, [navigate, user])
 
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
+
     const handleUpdateUser = async (event) => {
         event.preventDefault()
-        const updatedData = { username, email, aboutMe }
+
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('aboutMe', aboutMe);
+
+        if (file) {
+            formData.append('profilePicture', file);
+        }
+
         if (password) {
-            updatedData.password = password
+            formData.append('password', password);
         }
         try {
             const response = await fetch(`${API_URL}/users/update`, {
                 method: 'PATCH',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedData)
+                body: formData
             })
 
             const data = await response.json();
@@ -75,7 +86,7 @@ export const UpdateUser = () => {
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
                 <label>{t("profile.about.me")}</label>
                 <input type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("auth.aboutMe.placeholder")} />
-                <input type="image" />
+                <input type="file" accept="image/*" onChange={handleFileChange} />
                 <input type="submit" value={t("profile.edit")} />
             </form>
         </div>

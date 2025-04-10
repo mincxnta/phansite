@@ -1,10 +1,11 @@
 import { validateUpdatedUser } from '../schemas/users.js'
 import { User } from '../models/user.js'
 import bcrypt from 'bcrypt'
+import path from 'node:path'
+import fs from 'fs/promises'
 
 export class UserController {
-  static async getAll(req, res) {
-
+  static async getAll (req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
     const offset = (page - 1) * limit
@@ -31,7 +32,7 @@ export class UserController {
     }
   }
 
-  static async getById(req, res) {
+  static async getById (req, res) {
     try {
       const { username } = req.params
       const user = await User.findOne({ where: { username }, attributes: { exclude: ['password'] } })
@@ -45,7 +46,7 @@ export class UserController {
     }
   }
 
-  static async update(req, res) {
+  static async update (req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }
@@ -67,15 +68,32 @@ export class UserController {
       }
 
       await user.update(updatedUser.data)
-      const updatedUserData = await User.findByPk(req.user.id, { attributes: { exclude: ['password'] } })
-      res.status(200).json(updatedUserData)
+
+      if (req.file) {
+        if (user.image) {
+          const oldPath = path.join(process.cwd(), user.image)
+          try {
+            await fs.unlink(oldPath)
+          } catch (error) {
+            console.error('Error deleting old profile picture:', error)
+          }
+        }
+        const newFileName = `${req.user.id}${path.extname(req.file.originalname)}`
+        user.profilePicture = `/uploads/${newFileName}`
+        await user.save()
+      }
+
+      const userData = user.toJSON()
+      delete userData.password
+
+      res.status(200).json(userData)
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }
   }
 
   // TODO Eliminaremos usuarios?
-  static async delete(req, res) {
+  static async delete (req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }
@@ -93,7 +111,7 @@ export class UserController {
     }
   }
 
-  static async ban(req, res) {
+  static async ban (req, res) {
     if (!req.user || req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }

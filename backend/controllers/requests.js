@@ -2,10 +2,11 @@ import { validateRequest, validateUpdatedRequest } from '../schemas/requests.js'
 import { Request } from '../models/request.js'
 import { RequestVotes } from '../models/request_votes.js'
 import { validateRequestVote } from '../schemas/request_vote.js'
+import path from 'node:path'
+import fs from 'fs/promises'
 
 export class RequestController {
-  static async getAllPending(req, res) {
-
+  static async getAllPending (req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
     const offset = (page - 1) * limit
@@ -28,8 +29,7 @@ export class RequestController {
     }
   }
 
-  static async getAll(req, res) {
-
+  static async getAll (req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
     const offset = (page - 1) * limit
@@ -51,8 +51,7 @@ export class RequestController {
     }
   }
 
-  static async getAllByUser(req, res) {
-
+  static async getAllByUser (req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
     const offset = (page - 1) * limit
@@ -79,7 +78,7 @@ export class RequestController {
     }
   }
 
-  static async getById(req, res) {
+  static async getById (req, res) {
     try {
       const { id } = req.params
       const request = await Request.findByPk(id)
@@ -94,7 +93,7 @@ export class RequestController {
     }
   }
 
-  static async create(req, res) {
+  static async create (req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }
@@ -115,13 +114,24 @@ export class RequestController {
         userId: req.user.id
       }
       const request = await Request.create(requestData)
+
+      if (req.file) {
+        const tempPath = path.join(process.cwd(), 'uploads', req.file.filename)
+        const newFileName = `request-${request.id}${path.extname(req.file.originalname)}`
+        const newPath = path.join(process.cwd(), 'uploads', newFileName)
+
+        await fs.rename(tempPath, newPath)
+
+        request.image = `/uploads/${newFileName}`
+        await request.save()
+      }
       res.status(201).json(request)
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }
   }
 
-  static async update(req, res) {
+  static async update (req, res) {
     if (req.user.role !== 'phantom_thief') {
       return res.status(403).json({ code: 'forbidden' })
     }
@@ -151,7 +161,7 @@ export class RequestController {
     }
   }
 
-  static async delete(req, res) {
+  static async delete (req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }
@@ -168,7 +178,7 @@ export class RequestController {
     }
   }
 
-  static async vote(req, res) {
+  static async vote (req, res) {
     const { id } = req.params
 
     if (!req.user || !req.user.id) {
@@ -214,7 +224,7 @@ export class RequestController {
     }
   }
 
-  static async getRequestsVotes(req, res) {
+  static async getRequestsVotes (req, res) {
     try {
       const requests = await Request.findAll({ attributes: ['id'] })
       if (!requests || requests.length === 0) {
@@ -245,7 +255,7 @@ export class RequestController {
     }
   }
 
-  static async getUserRequestsVotes(req, res) {
+  static async getUserRequestsVotes (req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }

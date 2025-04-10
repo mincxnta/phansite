@@ -6,6 +6,7 @@ import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next'
 import { showReportPopup } from '../popups/ReportPopup.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { convertImageToBase64 } from '../../utils/imageUtils.js';
 
 let showRequestDetail;
 
@@ -35,6 +36,12 @@ export const RequestDetail = () => {
 
       }
       const data = await response.json()
+
+      if (data.image) {
+        const base64Image = await convertImageToBase64(data.image);
+        data.image = base64Image;
+      }
+
       setRequest(data)
       setLoading(false)
     } catch (error) {
@@ -87,7 +94,7 @@ export const RequestDetail = () => {
                 </td>
                 <td rowSpan="3">
                   <img
-                    src={request.image ? request.image : '/assets/requests/unknownTarget.png'}
+                    src={request.image || '/assets/requests/unknownTarget.png'}
                     alt={request.target}
                     style={{ width: '200px' }}
                   />

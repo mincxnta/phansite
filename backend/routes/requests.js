@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { RequestController } from '../controllers/requests.js'
 import { authenticateToken } from '../middlewares/auth.js'
+import { upload } from '../middlewares/upload.js'
 
 export const requestsRouter = Router()
 
@@ -16,7 +17,7 @@ requestsRouter.get('/votes', RequestController.getRequestsVotes)
 
 requestsRouter.get('/:id', RequestController.getById)
 
-requestsRouter.post('/', authenticateToken, RequestController.create)
+requestsRouter.post('/', authenticateToken, upload.single('image'), RequestController.create)
 
 requestsRouter.patch('/:id', authenticateToken, RequestController.update)
 

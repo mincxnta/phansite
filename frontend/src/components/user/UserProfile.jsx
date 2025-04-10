@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext.jsx'
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { RequestList } from '../request/RequestList.jsx'
+import { convertImageToBase64 } from '../../utils/imageUtils.js'
 
 export const UserProfile = () => {
     const [profileUser, setProfileUser] = useState(null)
@@ -34,6 +35,10 @@ export const UserProfile = () => {
 
                 }
                 const data = await response.json()
+                if (data.profilePicture) {
+                        const base64Image = await convertImageToBase64(data.profilePicture);
+                        data.profilePicture = base64Image;
+                      }
                 setProfileUser(data)
 
                 if (user.username === username) {
@@ -78,19 +83,22 @@ export const UserProfile = () => {
             {authError && t(authError)}
             {error && t(error)}
             <h1>{isOwnProfile ? t("profile.me") : t("profile.user", { username: profileUser.username })}</h1>
+            <img src={profileUser.profilePicture}/>
             <p>{`${profileUser.username}`}</p>
             <p>{`${profileUser.aboutMe}`}</p>
+            
             {isOwnProfile && (
                 <>
+                    
+                    <button onClick={handleLogout}>{t("auth.logout")}</button>
+                    <button><Link to="edit">{t("profile.edit")}</Link></button>
+                    {/* <button onClick={handleDelete}>Eliminar cuenta</button> */}
                     {user.role === 'fan' && (
                         <>
                             <h4>{t("profile.requests")}</h4>
                             <RequestList />
                         </>
                     )}
-                    <button onClick={handleLogout}>{t("auth.logout")}</button>
-                    <button><Link to="edit">{t("profile.edit")}</Link></button>
-                    {/* <button onClick={handleDelete}>Eliminar cuenta</button> */}
                 </>)}
 
         </>

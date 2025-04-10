@@ -9,7 +9,7 @@ export const CreateRequest = () => {
     const [title, setTitle] = useState('')
     const [target, setTarget] = useState('')
     const [description, setDescription] = useState('')
-    const [image, setImage] = useState('')
+    const [file, setFile] = useState(null)
     const navigate = useNavigate()
     const { user } = useAuth()
     const [error, setError] = useState(null);
@@ -20,19 +20,29 @@ export const CreateRequest = () => {
             navigate('/login')
         }
     })
-    
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
+
     const handleNewRequest = async (event) => {
         event.preventDefault()
+
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('target', target);
+        if (file) {
+            formData.append('image', file);
+        }
         try {
             const response = await fetch(`${API_URL}/requests`, {
                 method: 'POST',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ title, target, description })
+                body: formData
             })
 
+            console.log(response)
             const data = await response.json()
             if (!response.ok) {
                 setError(errorHandler(data));
@@ -58,7 +68,7 @@ export const CreateRequest = () => {
                 <input type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t("requests.description.placeholder")} />
                 <br />
                 <label>{t("requests.target.image")}</label>
-                <input type="image" value={image} onChange={(e) => setImage(e.target.value)} />
+                <input type="file" accept="image/*" onChange={handleFileChange} />
                 <input type="submit" value={t("requests.send")} />
             </form>
         </div>

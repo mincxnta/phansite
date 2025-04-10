@@ -6,3 +6,7 @@ node_modules
 
 ## Pruebas de la API ##
 api.http
+
+## Imágenes ##
+uploads/**
+!.gitkeep
