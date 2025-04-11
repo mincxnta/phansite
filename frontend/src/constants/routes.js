@@ -13,5 +13,6 @@ export const ROUTES = {
     ADD_POLL: '/newpoll',
     REPORT_LIST: '/admin/reports',
     THIEVES: '/thieves',
-
+    CHAT_LIST: '/chat',
+    CHAT: '/chat/:id',
 }

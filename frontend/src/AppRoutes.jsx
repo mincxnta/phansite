@@ -16,6 +16,8 @@ import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import { ReportList } from "./components/report/ReportList.jsx";
 import { ThiefPanel } from "./components/thieves/ThievesPanel.jsx";
 import { UserList } from "./components/admin/UserList.jsx";
+import { ChatList } from "./components/chat/ChatList.jsx";
+import { Chat } from "./components/chat/Chat.jsx";
 
 export const AppRoutes = () => {
     return (
@@ -34,8 +36,9 @@ export const AppRoutes = () => {
                 <Route path={ROUTES.EDIT_PROFILE} element={<UpdateUser />} />
                 <Route path={ROUTES.ADD_POLL} element={<ProtectedRoute role="admin"><PollCreateForm /></ProtectedRoute>} />
                 <Route path={ROUTES.REPORT_LIST} element={<ProtectedRoute role="admin"><ReportList /></ProtectedRoute>} />
-
                 <Route path={ROUTES.THIEVES} element={<ProtectedRoute role="phantom_thief"><ThiefPanel /></ProtectedRoute>} />
+                <Route path={ROUTES.CHAT_LIST} element={<ProtectedRoute><ChatList /></ProtectedRoute>} />
+                <Route path={ROUTES.CHAT} element={<ProtectedRoute><Chat /></ProtectedRoute>} />
             </Route>
         </Routes>
     );

@@ -9,26 +9,28 @@ export const Message = sequelize.define('message', {
     autoIncrement: true
   },
   message: {
-    type: DataTypes.STRING(2000),
-    allowNull: false
+    type: DataTypes.STRING(2000)
   },
-  user1Id: {
+  image: {
+    type: DataTypes.STRING(255)
+  },
+  senderId: {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: 'users',
       key: 'id'
     },
-    field: 'user1_id'
+    field: 'sender_id'
   },
-  user2Id: {
+  receiverId: {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: 'users',
       key: 'id'
     },
-    field: 'user2_id'
+    field: 'receiver_id'
   }
 }, {
   tableName: 'messages',
@@ -39,23 +41,23 @@ export const Message = sequelize.define('message', {
 })
 
 Message.belongsTo(User, {
-  foreignKey: 'user1Id',
-  as: 'user1',
+  foreignKey: 'senderId',
+  as: 'sender',
   onDelete: 'CASCADE'
 })
 
 Message.belongsTo(User, {
-  foreignKey: 'user2Id',
-  as: 'user2',
+  foreignKey: 'receiverId',
+  as: 'receiver',
   onDelete: 'CASCADE'
 })
 
 User.hasMany(Message, {
-  foreignKey: 'user1Id',
+  foreignKey: 'senderId',
   as: 'sentMessages'
 })
 
 User.hasMany(Message, {
-  foreignKey: 'user2Id',
+  foreignKey: 'receiverId',
   as: 'receivedMessages'
 })

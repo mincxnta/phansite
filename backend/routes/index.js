@@ -5,5 +5,6 @@ import { adminRouter } from './admin.js'
 import { pollsRouter } from './polls.js'
 import { commentsRouter } from './comments.js'
 import { reportsRouter } from './reports.js'
+import { messagesRouter } from './messages.js'
 
-export { authRouter, usersRouter, requestsRouter, adminRouter, pollsRouter, commentsRouter, reportsRouter }
+export { authRouter, usersRouter, requestsRouter, adminRouter, pollsRouter, commentsRouter, reportsRouter, messagesRouter }

@@ -8,7 +8,7 @@ import { errorHandler } from '../../utils/errorHandler.js';
 import { RequestList } from '../request/RequestList.jsx'
 import { convertImageToBase64 } from '../../utils/imageUtils.js'
 import { format } from 'date-fns';
-import { ca, es, enUS } from 'date-fns/locale';
+import { locales } from '../../utils/dateLocales.js'
 
 export const UserProfile = () => {
     const [profileUser, setProfileUser] = useState(null)
@@ -74,12 +74,6 @@ export const UserProfile = () => {
             setError(errorHandler(error));
         }
     }
-
-    const locales = {
-        ca: ca,
-        es: es,
-        en: enUS,
-    };
     
     if (!profileUser) {
         return <div>Cargando...</div>;
