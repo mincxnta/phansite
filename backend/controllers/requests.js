@@ -122,7 +122,7 @@ export class RequestController {
 
         await fs.rename(tempPath, newPath)
 
-        request.image = `/uploads/${newFileName}`
+        request.targetImage = `/uploads/${newFileName}`
         await request.save()
       }
       res.status(201).json(request)

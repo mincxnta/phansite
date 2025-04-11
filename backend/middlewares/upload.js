@@ -12,8 +12,10 @@ const storage = multer.diskStorage({
 
     if (file.fieldname === 'profilePicture') {
       filename = `${req.user.id}.jpg`
-    } else if (file.fieldname === 'image') {
+    } else if (file.fieldname === 'targetImage') {
       filename = `request-${Date.now()}${path.extname(file.originalname)}`
+    } else if (file.fieldname === 'image') {
+      filename = `message-${Date.now()}${path.extname(file.originalname)}` // Imatges de missatges
     }
     cb(null, filename)
   }

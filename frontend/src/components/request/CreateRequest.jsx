@@ -33,7 +33,7 @@ export const CreateRequest = () => {
         formData.append('description', description);
         formData.append('target', target);
         if (file) {
-            formData.append('image', file);
+            formData.append('targetImage', file);
         }
         try {
             const response = await fetch(`${API_URL}/requests`, {

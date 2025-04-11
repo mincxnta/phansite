@@ -37,9 +37,9 @@ export const RequestDetail = () => {
       }
       const data = await response.json()
 
-      if (data.image) {
-        const base64Image = await convertImageToBase64(data.image);
-        data.image = base64Image;
+      if (data.targetImage) {
+        const base64Image = await convertImageToBase64(data.targetImage);
+        data.targetImage = base64Image;
       }
 
       setRequest(data)
@@ -94,7 +94,7 @@ export const RequestDetail = () => {
                 </td>
                 <td rowSpan="3">
                   <img
-                    src={request.image || '/assets/requests/unknownTarget.png'}
+                    src={request.targetImage || '/assets/requests/unknownTarget.png'}
                     alt={request.target}
                     style={{ width: '200px' }}
                   />

@@ -29,7 +29,7 @@ export const Request = sequelize.define('request', {
       key: 'id'
     }
   },
-  image: {
+  targetImage: {
     type: DataTypes.STRING(255)
     // allowNull: false,
     // defaultValue: 1

@@ -17,7 +17,7 @@ requestsRouter.get('/votes', RequestController.getRequestsVotes)
 
 requestsRouter.get('/:id', RequestController.getById)
 
-requestsRouter.post('/', authenticateToken, upload.single('image'), RequestController.create)
+requestsRouter.post('/', authenticateToken, upload.single('targetImage'), RequestController.create)
 
 requestsRouter.patch('/:id', authenticateToken, RequestController.update)
 
