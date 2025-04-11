@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { errorHandler } from '../../utils/errorHandler.js';
+import { toast } from 'react-toastify';
 
 export const Login = () => {
     const [username, setUsername] = useState('')
@@ -22,6 +23,7 @@ export const Login = () => {
             navigate(from, { replace: true });
         }else{
             console.log(data)
+            toast.error(t(errorHandler(data)))
             setError(errorHandler(data));
         }
     }

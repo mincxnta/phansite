@@ -7,6 +7,7 @@ import { errorHandler } from '../../utils/errorHandler.js';
 export const Register = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState(null);
     const [email, setEmail] = useState('')
     const navigate = useNavigate()
@@ -45,7 +46,8 @@ export const Register = () => {
                 <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder={t("auth.username.placeholder")} />
                 <br />
                 <label>{t("auth.password")}</label>
-                <input type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder={t("auth.password.placeholder")} />
+                <input type={showPassword ? "text" : "password"} value={password} required onChange={(e) => setPassword(e.target.value)} placeholder={t("auth.password.placeholder")} />
+                <button type="button" onClick={() => setShowPassword(!showPassword)}>Hide</button>
                 <br />
                 <label>{t("auth.email")}</label>
                 <input type="email" value={email} required onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
