@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { RequestList } from '../request/RequestList.jsx'
 import { convertImageToBase64 } from '../../utils/imageUtils.js'
+import { format } from 'date-fns';
+import { ca, es, enUS } from 'date-fns/locale';
 
 export const UserProfile = () => {
     const [profileUser, setProfileUser] = useState(null)
@@ -14,7 +16,7 @@ export const UserProfile = () => {
     let { username } = useParams()
     const { user, logout, error: authError } = useAuth()
     const [error, setError] = useState(null);
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -35,6 +37,7 @@ export const UserProfile = () => {
 
                 }
                 const data = await response.json()
+                console.log("Data", data)
                 if (data.profilePicture) {
                         const base64Image = await convertImageToBase64(data.profilePicture);
                         data.profilePicture = base64Image;
@@ -72,6 +75,12 @@ export const UserProfile = () => {
         }
     }
 
+    const locales = {
+        ca: ca,
+        es: es,
+        en: enUS,
+    };
+    
     if (!profileUser) {
         return <div>Cargando...</div>;
     }
@@ -86,7 +95,9 @@ export const UserProfile = () => {
             <img src={profileUser.profilePicture}/>
             <p>{`${profileUser.username}`}</p>
             <p>{`${profileUser.aboutMe}`}</p>
-            
+            <p>Member since: {format(new Date(profileUser.registrationDate), 'dd-MM-yyyy', {
+        locale: locales[i18n.language],
+    })}</p>
             {isOwnProfile && (
                 <>
                     
