@@ -32,7 +32,7 @@ export class UserController {
     }
   }
 
-  static async getById (req, res) {
+  static async getByUsername (req, res) {
     try {
       const { username } = req.params
       const user = await User.findOne({ where: { username }, attributes: { exclude: ['password'] } })

@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx'
 import { useTranslation } from 'react-i18next'
-import { errorHandler } from '../../utils/errorHandler.js';
+// import { errorHandler } from '../../utils/errorHandler.js';
 import { RequestList } from '../request/RequestList.jsx'
 import { convertImageToBase64 } from '../../utils/imageUtils.js'
 import { format } from 'date-fns';
@@ -15,7 +15,6 @@ export const UserProfile = () => {
     const navigate = useNavigate()
     let { username } = useParams()
     const { user, logout, error: authError } = useAuth()
-    const [error, setError] = useState(null);
     const { t, i18n } = useTranslation();
 
     useEffect(() => {
@@ -59,21 +58,21 @@ export const UserProfile = () => {
         await logout();
     }
 
-    const handleDelete = async () => {
-        try {
-            const response = await fetch(`${API_URL}/users/delete`, {
-                method: 'DELETE',
-                credentials: 'include'
-            })
+    // const handleDelete = async () => {
+    //     try {
+    //         const response = await fetch(`${API_URL}/users/delete`, {
+    //             method: 'DELETE',
+    //             credentials: 'include'
+    //         })
 
-            if (response.ok) {
-                await response.json()
-                navigate('/login')
-            }
-        } catch (error) {
-            setError(errorHandler(error));
-        }
-    }
+    //         if (response.ok) {
+    //             await response.json()
+    //             navigate('/login')
+    //         }
+    //     } catch (error) {
+    //         setError(errorHandler(error));
+    //     }
+    // }
     
     if (!profileUser) {
         return <div>Cargando...</div>;
@@ -84,7 +83,6 @@ export const UserProfile = () => {
     return (
         <>
             {authError && t(authError)}
-            {error && t(error)}
             <h1>{isOwnProfile ? t("profile.me") : t("profile.user", { username: profileUser.username })}</h1>
             <img src={profileUser.profilePicture}/>
             <p>{`${profileUser.username}`}</p>
@@ -93,8 +91,7 @@ export const UserProfile = () => {
         locale: locales[i18n.language],
     })}</p>
             {isOwnProfile && (
-                <>
-                    
+                <> 
                     <button onClick={handleLogout}>{t("auth.logout")}</button>
                     <button><Link to="edit">{t("profile.edit")}</Link></button>
                     {/* <button onClick={handleDelete}>Eliminar cuenta</button> */}
@@ -107,7 +104,7 @@ export const UserProfile = () => {
                 </>)}
                 {/* Se puede ver el perfil de phantom thieves / admins ? Y mandarles mensajes? */}
                 {!isOwnProfile && (
-                    <button><Link to={`/chat/${profileUser.id}`}>{t("profile.message")}</Link></button>
+                    <button><Link to={`/chat/${profileUser.username}`}>{t("profile.message")}</Link></button>
                     )}
 
         </>

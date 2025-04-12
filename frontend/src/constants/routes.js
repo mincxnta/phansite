@@ -14,5 +14,5 @@ export const ROUTES = {
     REPORT_LIST: '/admin/reports',
     THIEVES: '/thieves',
     CHAT_LIST: '/chat',
-    CHAT: '/chat/:id',
+    CHAT: '/chat/:username',
 }

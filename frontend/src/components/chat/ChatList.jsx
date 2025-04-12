@@ -7,6 +7,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { errorHandler } from '../../utils/errorHandler.js';
 import { formatDistanceToNow } from 'date-fns';
 import { locales } from '../../utils/dateLocales.js';
+import { toast } from 'react-toastify';
 
 export const ChatList = () => {
   const { user, onlineUsers, socket } = useAuth();
@@ -14,7 +15,6 @@ export const ChatList = () => {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchContacts = async () => {
@@ -24,7 +24,6 @@ export const ChatList = () => {
       }
 
       setIsLoading(true);
-      setError(null);
 
       try {
         const res = await fetch(`${API_URL}/messages/users`, {
@@ -34,7 +33,7 @@ export const ChatList = () => {
 
         if (!res.ok) {
           const errorData = await res.json();
-          throw new Error(errorHandler(errorData));
+          toast.error(t(errorHandler(errorData)))
         }
 
         const users = await res.json();
@@ -44,7 +43,7 @@ export const ChatList = () => {
         setContacts(sortedUsers);
 
       } catch (error) {
-        setError(errorHandler(error));
+        toast.error(t(errorHandler(error)))
       } finally {
         setIsLoading(false);
       }
@@ -83,8 +82,8 @@ export const ChatList = () => {
     };
   }, [socket, user]);
 
-  const handleContactClick = (userId) => {
-    navigate(`/chat/${userId}`);
+  const handleContactClick = (username) => {
+    navigate(`/chat/${username}`);
   };
 
   if (isLoading) {
@@ -93,7 +92,6 @@ export const ChatList = () => {
 
   return (
     <div className="chat-list">
-      {error && <p>{t(error)}</p>}
       <h1>{t('chat.header')}</h1>
       {contacts.length === 0 ? (
         <p>{t('chat.empty.chat')}</p>
@@ -102,7 +100,7 @@ export const ChatList = () => {
           {contacts.map((contact) => (
             <li
               key={contact.id}
-              onClick={() => handleContactClick(contact.id)}
+              onClick={() => handleContactClick(contact.username)}
               className="conversation-item"
             >
               <div className="conversation-info">

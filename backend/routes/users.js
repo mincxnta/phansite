@@ -6,7 +6,7 @@ export const usersRouter = Router()
 
 usersRouter.get('/', UserController.getAll)
 
-usersRouter.get('/:username', UserController.getById)
+usersRouter.get('/:username', UserController.getByUsername)
 
 usersRouter.patch('/update', upload.single('profilePicture'), UserController.update)
 
