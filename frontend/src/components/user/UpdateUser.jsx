@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { convertImageToBase64 } from '../../utils/imageUtils.js';
+import { toast } from 'react-toastify';
 
 export const UpdateUser = () => {
     const { user } = useAuth()
@@ -16,7 +17,6 @@ export const UpdateUser = () => {
     const [email, setEmail] = useState('')
     const [file, setFile] = useState(null)
     const [aboutMe, setAboutMe] = useState('')
-    const [error, setError] = useState(null);
     const navigate = useNavigate()
     const { t } = useTranslation();
 
@@ -31,7 +31,7 @@ export const UpdateUser = () => {
                     const base64Image = await convertImageToBase64(user.profilePicture);
                     setProfilePicture(base64Image)
                 }
-                
+
             } else {
                 navigate('/login')
             }
@@ -41,16 +41,15 @@ export const UpdateUser = () => {
 
     const handleFileChange = async (e) => {
         const selectedFile = e.target.files[0];
-    if (selectedFile) {
-        setFile(selectedFile);
+        if (selectedFile) {
+            setFile(selectedFile);
 
-        // Convertir la nova imatge seleccionada a Base64 per a la previsualització
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setSelectedImage(reader.result); // reader.result és la cadena Base64
-        };
-        reader.readAsDataURL(selectedFile);
-    }
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setSelectedImage(reader.result);
+            };
+            reader.readAsDataURL(selectedFile);
+        }
     };
 
     const handleCancelImage = () => {
@@ -84,10 +83,10 @@ export const UpdateUser = () => {
             if (response.ok) {
                 navigate('/profile')
             } else {
-                setError(errorHandler(data));
+                toast.error(t(errorHandler(data)))
             }
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     }
 
@@ -97,19 +96,18 @@ export const UpdateUser = () => {
 
     return (
         <div>
-            {error && t(error)}
             <h1>{t("profile.edit")}</h1>
             <form onSubmit={handleUpdateUser}>
                 <div>
                     <img src={selectedImage || profilePicture || '/assets/requests/unknownTarget.png'} />
                 </div>
-                
-                    {profilePicture && !selectedImage ? 
+
+                {profilePicture && !selectedImage ?
                     (<label><p>Subir foto</p>
-                    <input type="file" accept="image/*" onChange={handleFileChange}  style={{ display: 'none' }}/></label>):(
+                        <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} /></label>) : (
                         <button type="button" onClick={handleCancelImage}>
-                        Cancelar foto
-                    </button>
+                            Cancelar foto
+                        </button>
                     )}
 
                 <label>{t("auth.username")}</label>

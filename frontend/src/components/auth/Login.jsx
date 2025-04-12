@@ -12,7 +12,6 @@ export const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { login } = useAuth();
-    const [error, setError] = useState(null);
 
     const from = location.state?.from?.pathname || "/";
 
@@ -22,9 +21,7 @@ export const Login = () => {
             if (data === true){
             navigate(from, { replace: true });
         }else{
-            console.log(data)
             toast.error(t(errorHandler(data)))
-            setError(errorHandler(data));
         }
     }
 
@@ -32,7 +29,6 @@ export const Login = () => {
         <div>
             <h1>{t("auth.login")}</h1>
             <form onSubmit={handleLogin}>
-                {error && <p style={{ color: 'red' }}>{t(error)}</p>}
                 <label>{t("auth.username")}</label>
                 <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder={t("auth.username.placeholder")} />
                 <br />

@@ -105,7 +105,7 @@
         "unauthorized": "No tienes permisos para realizar esta acción",
         "unauthenticated": "No estás autenticado",
         "invalid": {
-            "user.data": "Datos de usuario inválidos",
+            "user.data": "Credenciales inválidas",
             "poll.data": "Datos de encuesta inválidos",
             "reported.type": "Tipo de reporte inválido",
             "post.id": "ID de publicación inválido",

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { showReportPopup } from '../popups/ReportPopup.jsx'
 import { showRequestPopup } from '../popups/RequestPopup.jsx'
+import { toast } from 'react-toastify';
 
 export const RequestList = () => {
     const [requests, setRequests] = useState([])
@@ -16,8 +17,6 @@ export const RequestList = () => {
     const { t } = useTranslation();
     const { user } = useAuth()
     const [userVotes, setUserVotes] = useState({});
-    const [error, setError] = useState(null);
-
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [totalRequests, setTotalRequests] = useState(0);
@@ -32,19 +31,17 @@ export const RequestList = () => {
             });
 
             const data = await response.json();
-            console.log('User Votes:', data);
             if (response.ok) {
                 const votesMap = data.reduce((votes, vote) => {
                     votes[vote.requestId] = vote.vote;
                     return votes;
                 }, {});
                 setUserVotes(votesMap);
-                setError(null);
             } else {
-                setError(errorHandler(data));
+                toast.error(t(errorHandler(data)))
             }
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     };
 
@@ -53,17 +50,18 @@ export const RequestList = () => {
             const response = await fetch(`${API_URL}/requests/votes`,
                 { method: 'GET' });
             const data = await response.json();
-            console.log(data);
             if (response.ok) {
                 const results = data.reduce((results, vote) => {
                     results[vote.requestId] = vote;
                     return results;
                 }, {});
-                setResults(results); setError(null);
+                setResults(results);
             } else {
-                setError(errorHandler(data));
+                toast.error(t(errorHandler(data)))
             }
-        } catch (error) { setError(errorHandler(error)); }
+        } catch (error) { 
+            toast.error(t(errorHandler(error))) 
+        }
     };
 
     const handleReport = (type, postId) => {
@@ -98,10 +96,10 @@ export const RequestList = () => {
                 await getAllRequestResults();
                 if (user) await getUserVotes();
             } else {
-                setError(errorHandler(data));
+                toast.error(t(errorHandler(data)))
             }
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     }
 
@@ -130,18 +128,16 @@ export const RequestList = () => {
             if (response.ok) {
                 await fetchRequests()
                 getAllRequestResults();
-                setError(null);
             } else {
-                setError(errorHandler(data));
+                toast.error(t(errorHandler(data)))
             }
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     };
 
     const handleStatusChange = async (id, status) => {
         showRequestPopup(id, status, (updatedRequest) => {
-            console.log('Updated request:', updatedRequest);
             setRequests((prevRequests) => prevRequests.map((request) => request.id === id ? { ...request, ...updatedRequest } : request));
         })
         await fetchRequests();
@@ -149,8 +145,6 @@ export const RequestList = () => {
 
     return (
         <div>
-
-            {error && t(error)}
             {user && user.role === 'fan' && location.pathname === '/requests' &&
                 <>
                     <h1>{t("requests.new")}</h1>
@@ -204,13 +198,11 @@ export const RequestList = () => {
                                             <button disabled={request.status !== 'pending'} onClick={() => handleReport("request", request.id)}>{t("requests.report")}</button>
                                         </td>
                                     )}
-
                                 </tr>
                             );
                         })}
                     </tbody>
                 </table>
-
             )}
             {totalPages > 1 && (
                 <div>

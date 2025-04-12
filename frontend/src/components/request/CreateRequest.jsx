@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
+import { toast } from 'react-toastify';
 
 export const CreateRequest = () => {
     const [title, setTitle] = useState('')
@@ -12,7 +13,6 @@ export const CreateRequest = () => {
     const [file, setFile] = useState(null)
     const navigate = useNavigate()
     const { user } = useAuth()
-    const [error, setError] = useState(null);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -42,21 +42,19 @@ export const CreateRequest = () => {
                 body: formData
             })
 
-            console.log(response)
             const data = await response.json()
             if (!response.ok) {
-                setError(errorHandler(data));
+                toast.error(t(errorHandler(data)))
             }
             navigate('/requests')
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     }
 
     return (
         <div>
             <h1>{t("requests.add")}</h1>
-            {error && t(error)}
             <form onSubmit={handleNewRequest}>
                 <label>{t("title")}</label>
                 <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("requests.title.placeholder")} />

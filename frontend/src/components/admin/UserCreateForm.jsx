@@ -4,6 +4,7 @@ import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
+import { toast } from 'react-toastify';
 
 export const UserCreateForm = () => {
     const [username, setUsername] = useState('')
@@ -13,7 +14,6 @@ export const UserCreateForm = () => {
     const navigate = useNavigate()
     const { user } = useAuth()
     const { t } = useTranslation();
-    const [error, setError] = useState(null)
 
     useEffect(() => {
         const verifyAdmin = () => {
@@ -44,17 +44,16 @@ export const UserCreateForm = () => {
             if (response.ok) {
                 navigate('/admin')
             } else {
-                setError(errorHandler(data))
+                toast.error(t(errorHandler(data)))
             }
         } catch (error) {
-            setError(errorHandler(error))
+            toast.error(t(errorHandler(error)))
         }
     }
 
     return (
         <div>
             <h1>{t("users.create")}</h1>
-            {error && <p style={{ color: "red" }}>{t(`errors.${error}`)}</p>}
             <form onSubmit={handleCreateUser}>
                 <label>{t("auth.username")}</label>
                 <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder={t("auth.username.placeholder")} />

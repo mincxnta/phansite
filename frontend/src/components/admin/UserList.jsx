@@ -5,19 +5,17 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { showPopUp } from '../popups/PopUp.jsx'
+import { toast } from 'react-toastify';
 
 export const UserList = () => {
     const [users, setUsers] = useState([])
     const navigate = useNavigate()
     const { user } = useAuth()
     const { t } = useTranslation();
-    const [error, setError] = useState(null);
-
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [totalUsers, setTotalUsers] = useState(0);
     const limit = 5;
-
 
     useEffect(() => {
         const verifyAdmin = () => {
@@ -45,16 +43,16 @@ export const UserList = () => {
                     setTotalPages(data.totalPages);
                     setTotalUsers(data.totalUsers);
                 } else {
-                    setError(errorHandler(data));
+                    toast.error(t(errorHandler(data)))
                 }
             } catch (error) {
-                setError(errorHandler(error));
+                toast.error(t(errorHandler(error)))
 
             }
         }
         verifyAdmin();
         fetchUsers()
-    }, [navigate, user, page])
+    }, [navigate, user, page, t])
 
     const handleBan = async (userId) => {
 
@@ -70,11 +68,11 @@ export const UserList = () => {
 
             const data = await response.json()
             if (!response.ok) {
-                setError(errorHandler(data));
+                toast.error(t(errorHandler(data)))
             }
             showPopUp("Usuario baneado correctamente");
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     }
 
@@ -83,7 +81,6 @@ export const UserList = () => {
             <h1>{t("users.list")}</h1>
             <h5>{t("users.create")}</h5>
             <button> <Link to="create">{t("users.create")}</Link></button>
-            {error && <p>{t(error)}</p>}
             <table>
                 <thead>
                     <tr>

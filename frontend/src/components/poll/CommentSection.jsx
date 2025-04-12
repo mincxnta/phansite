@@ -6,11 +6,11 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { convertImageToBase64 } from '../../utils/imageUtils.js';
+import { toast } from 'react-toastify';
 
 export const CommentSection = ({ pollId }) => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
-    const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [totalComments, setTotalComments] = useState(0);
@@ -35,12 +35,11 @@ export const CommentSection = ({ pollId }) => {
                 setTotalPages(data.totalPages);
                 setTotalComments(data.totalComments);
                 await loadProfilePictures(data.comments);
-                console.log("Profile pictures",commentProfilePictures)
             } else {
-                setError(errorHandler(data));
+                toast.error(t(errorHandler(data)))
             }
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     };
 
@@ -62,14 +61,12 @@ export const CommentSection = ({ pollId }) => {
             const data = await response.json();
             if (response.ok) {
                 setNewComment('');
-                setError(null);
                 await fetchComments()
             } else {
-                console.log(data.code)
-                setError(errorHandler(data));
+                toast.error(t(errorHandler(data)))
             }
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     };
 
@@ -120,14 +117,13 @@ export const CommentSection = ({ pollId }) => {
                 setComments((prevComments) => prevComments.filter(comment => comment.id !== id));
             }
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     }
     return (
         <div>
             <h1>{t("comments.title")}</h1>
             <h4>{t("comments.add")}</h4>
-            {error && <p>{t(error)}</p>}
             <div style={{ display: "flex" }}>
                 <img src={user && userProfilePicture ? userProfilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
                 <textarea value={newComment} placeholder={t("comments.placeholder")} onChange={(e) => setNewComment(e.target.value)}

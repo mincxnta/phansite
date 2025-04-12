@@ -5,12 +5,12 @@ import { CommentSection } from './CommentSection.jsx'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
+import { toast } from 'react-toastify';
 
 export const Poll = () => {
   const navigate = useNavigate()
   const [poll, setPoll] = useState('')
   const [results, setResults] = useState({ yes: 0, no: 0, total: 0 });
-  const [error, setError] = useState(null);
   const [yesPercentage, setYesPercentage] = useState(0);
   const { user } = useAuth()
   const { t } = useTranslation();
@@ -28,16 +28,16 @@ export const Poll = () => {
           setPoll(data)
           await getPollResults(data.id)
         } else {
-          setError(errorHandler(data));
+          toast.error(t(errorHandler(data)))
         }
 
       } catch (error) {
-        setError(errorHandler(error));
+        toast.error(t(errorHandler(error)))
 
       }
     }
     getActivePoll()
-  }, [navigate])
+  }, [navigate, t])
 
   const getPollResults = async (pollId) => {
     try {
@@ -52,10 +52,10 @@ export const Poll = () => {
         const percentage = data.total > 0 ? (data.yes / data.total) * 100 : 0;
         setYesPercentage(percentage.toFixed(1));
       } else {
-        setError(errorHandler(data));
+        toast.error(t(errorHandler(data)))
       }
     } catch (error) {
-      setError(errorHandler(error));
+      toast.error(t(errorHandler(error)))
     }
   };
 
@@ -78,18 +78,16 @@ export const Poll = () => {
 
       if (response.ok) {
         await getPollResults(poll.id)
-        setError(null);
       } else {
-        setError(errorHandler(data));
+        toast.error(t(errorHandler(data)))
       }
     } catch (error) {
-      setError(errorHandler(error));
+      toast.error(t(errorHandler(error)))
     }
   };
 
   return (
     <div>
-      {error && t(error)}
       <h1>
         {poll.question}
       </h1>

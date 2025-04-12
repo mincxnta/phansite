@@ -4,13 +4,12 @@ import { API_URL } from '../../constants/constants.js'
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { showPopUp } from '../popups/PopUp.jsx';
+import { toast } from 'react-toastify';
 
 export const ReportedComments = () => {
     const [reports, setReports] = useState([])
     const navigate = useNavigate()
     const { t } = useTranslation();
-    const [error, setError] = useState(null);
-
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [totalReports, setTotalReports] = useState(0);
@@ -29,11 +28,10 @@ export const ReportedComments = () => {
                 setTotalPages(data.totalPages);
                 setTotalReports(data.totalReports);
             } else {
-                setError(errorHandler(data));
+                toast.error(t(errorHandler(data)))
             }
         } catch (error) {
-            setError(errorHandler(error));
-
+            toast.error(t(errorHandler(error)))
         }
     }
 
@@ -56,11 +54,11 @@ export const ReportedComments = () => {
 
             const data = await response.json()
             if (!response.ok) {
-                setError(errorHandler(data));
+                toast.error(t(errorHandler(data)))
             }
             showPopUp("Usuario baneado satisfactoriamente");
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     }
 
@@ -78,7 +76,7 @@ export const ReportedComments = () => {
                 await fetchReports();
             }
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     }
 
@@ -96,14 +94,13 @@ export const ReportedComments = () => {
                 await fetchReports();
             }
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     }
 
     const shouldShowPagination = totalReports > 0 && totalPages > 1 && reports.length > 0;
     return (
         <div>
-            {error && t(error)}
             <h1>{t("reports.title.comments")}</h1>
             <table>
                 <thead>

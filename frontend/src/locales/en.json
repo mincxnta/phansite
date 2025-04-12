@@ -105,7 +105,7 @@
         "unauthorized": "You don't have permission to perform this action",
         "unauthenticated": "You're not authenticated",
         "invalid": {
-            "user.data": "Invalid user data",
+            "user.data": "Invalid credentials",
             "poll.data": "Invalid poll data",
             "reported.type": "Invalid report type",
             "post.id": "Invalid post ID",

@@ -5,13 +5,12 @@ import { useTranslation } from 'react-i18next'
 import { showRequestDetail } from '../request/RequestDetail.jsx'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { showPopUp } from '../popups/PopUp.jsx'
+import { toast } from 'react-toastify';
 
 export const ReportedRequests = () => {
     const [reports, setReports] = useState([])
     const navigate = useNavigate()
     const { t } = useTranslation();
-    const [error, setError] = useState(null);
-
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [totalReports, setTotalReports] = useState(0);
@@ -23,18 +22,16 @@ export const ReportedRequests = () => {
                 method: 'GET',
                 credentials: 'include'
             })
-            console.log("Response: ", response);
             const data = await response.json()
             if (response.ok) {
                 setReports(data.reports);
                 setTotalPages(data.totalPages);
                 setTotalReports(data.totalReports);
             } else {
-                setError(errorHandler(data));
+                toast.error(t(errorHandler(data)))
             }
         } catch (error) {
-            setError(errorHandler(error));
-
+            toast.error(t(errorHandler(error)))
         }
     }
 
@@ -57,11 +54,11 @@ export const ReportedRequests = () => {
 
             const data = await response.json()
             if (!response.ok) {
-                setError(errorHandler(data));
+                toast.error(t(errorHandler(data)))
             }
             showPopUp("Usuario baneado satisfactoriamente");
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     }
 
@@ -78,7 +75,7 @@ export const ReportedRequests = () => {
                 await fetchReports()
             }
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     }
 
@@ -92,16 +89,14 @@ export const ReportedRequests = () => {
 
             if (response.ok) {
                 await fetchReports()
-
             }
         } catch (error) {
-            setError(errorHandler(error));
+            toast.error(t(errorHandler(error)))
         }
     }
 
     return (
         <div>
-            {error && t(error)}
             <h1>{t("reports.title.requests")}</h1>
             <table>
                 <thead>
