@@ -1,12 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { API_URL } from "../constants/constants.js";
 import { useNavigate } from 'react-router-dom';
+import { io } from 'socket.io-client'
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [socket, setSocket] = useState(null)
+    const [onlineUsers, setOnlineUsers] = useState([]);
     const navigate = useNavigate();
 
     const fetchUser = async () => {
@@ -53,6 +56,7 @@ export const AuthProvider = ({ children }) => {
             }
 
             setUser(data)
+            connectSocket()
             return true;
         } catch (error) {
             return error;
@@ -71,20 +75,59 @@ export const AuthProvider = ({ children }) => {
                 return data;
             }
 
+            disconnectSocket()
             setUser(null);
+            setOnlineUsers([])
             navigate('/login');
             return true;
         } catch (error) {
             return error;
         }
-    };;
+    };
+
+    const connectSocket = () => {
+        if (!user || socket?.connected) return;
+
+        const newSocket = io(API_URL, {
+            withCredentials: true,
+            query: { userId: user.id }
+        });
+
+        newSocket.on('getOnlineUsers', (userIds) => {
+            setOnlineUsers(userIds);
+          });
+
+        newSocket.connect();
+        setSocket(newSocket);
+    };
+
+    const disconnectSocket = () => {
+        if (socket?.connected) {
+            socket.disconnect();
+            setSocket(null);
+        }
+    };
 
     useEffect(() => {
         fetchUser();
     }, []);
 
+    useEffect(() => {
+        if (user && !socket?.connected) {
+            connectSocket();
+        } else if (!user && socket?.connected) {
+            disconnectSocket();
+        }
+    }, [user]);
+
+    useEffect(() => {
+        return () => {
+            disconnectSocket();
+        };
+    }, []);
+
     return (
-        <AuthContext.Provider value={{ user, loading, setUser, login, logout }}>
+        <AuthContext.Provider value={{ user, loading, setUser, login, logout, socket, onlineUsers }}>
             {children}
         </AuthContext.Provider>
     );

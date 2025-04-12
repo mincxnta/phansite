@@ -1,3 +1,4 @@
+import { getReceiverSocketId, io } from '../config/socket.js'
 import { Message } from '../models/message.js'
 import { User } from '../models/user.js'
 import { Op } from 'sequelize'
@@ -155,6 +156,11 @@ export class MessageController {
           { model: User, as: 'receiver', attributes: ['id', 'username', 'profilePicture'] }
         ]
       })
+
+      const receiverSocketId = getReceiverSocketId(id)
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit('newMessage', messageWithAssociations)
+      }
 
       res.status(201).json(messageWithAssociations)
     } catch (error) {

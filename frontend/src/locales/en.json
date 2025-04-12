@@ -28,7 +28,8 @@
         "edit": "Edit profile",
         "about.me": "About me",
         "requests": "My requests",
-        "user": "{{username}}'s profile"
+        "user": "{{username}}'s profile",
+        "message": "Send message"
     },
     "auth": {
         "register": "Register",
@@ -79,6 +80,15 @@
         "title": "Users",
         "list": "Users list",
         "create": "Create user"
+    },
+    "chat": {
+        "title": "Chat",
+        "header": "Chats",
+        "send": "Send",
+        "type": "Type your message...",
+        "empty.chat": "You have no chats.",
+        "empty.message": "No messages",
+        "loading": "Loading chats..."
     },
     "admin": {
         "title": "Administration panel",

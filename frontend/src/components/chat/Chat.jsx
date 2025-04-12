@@ -9,9 +9,8 @@ import { ChatHeader } from './ChatHeader.jsx'
 import { ChatInput } from './ChatInput.jsx'
 import { ChatMessages } from './ChatMessages.jsx'
 
-
 export const Chat = () => {
-  const { user } = useAuth();
+  const { user, socket } = useAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
@@ -19,6 +18,7 @@ export const Chat = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [targetUser, setTargetUser] = useState(null);
+  
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -72,7 +72,7 @@ export const Chat = () => {
         formData.append('message', message);
       }
       if (image) {
-          formData.append('image', image);
+        formData.append('image', image);
       }
       const res = await fetch(`${API_URL}/messages/${id}`, {
         method: 'POST',
@@ -86,11 +86,30 @@ export const Chat = () => {
       }
 
       const newMessage = await res.json();
-      setMessages([...messages, newMessage]);
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
     } catch (error) {
       setError(errorHandler(error));
     }
   };
+
+  useEffect(() => {
+    if (!user || !id || !socket) {
+      if (!user) navigate('/login');
+      if (!id) navigate('/chat');
+      return;
+    }
+
+    const handleNewMessage = (newMessage) => {
+      if (newMessage.senderId === id || newMessage.receiverId === id) {
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+      }
+    };
+    socket.on('newMessage', handleNewMessage);
+
+    return () => {
+      socket.off('newMessage', handleNewMessage);
+    };
+  }, [socket, id, navigate, user])
 
   return (
     <div className="chat-container">

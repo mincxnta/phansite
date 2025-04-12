@@ -5,11 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { API_URL } from '../../constants/constants.js';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { errorHandler } from '../../utils/errorHandler.js';
-
+import { formatDistanceToNow } from 'date-fns';
+import { locales } from '../../utils/dateLocales.js';
 
 export const ChatList = () => {
-  const { user } = useAuth();
-  const { t } = useTranslation();
+  const { user, onlineUsers, socket } = useAuth();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +38,11 @@ export const ChatList = () => {
         }
 
         const users = await res.json();
-        setContacts(users);
+        const sortedUsers = users.sort((a, b) => {
+          return new Date(b.lastMessage.date) - new Date(a.lastMessage.date);
+        });
+        setContacts(sortedUsers);
+
       } catch (error) {
         setError(errorHandler(error));
       } finally {
@@ -48,20 +53,50 @@ export const ChatList = () => {
     fetchContacts();
   }, [user, navigate, t]);
 
+  useEffect(() => {
+    if (!socket || !user) return;
+
+    socket.on('newMessage', (newMessage) => {
+      if (newMessage.receiverId !== user.id) return;
+
+      setContacts((prevContacts) =>
+        prevContacts
+          .map((contact) =>
+            contact.id === newMessage.senderId
+              ? {
+                  ...contact,
+                  lastMessage: {
+                    message: newMessage.message || (newMessage.image ? '[Imatge]' : ''),
+                    date: newMessage.date,
+                  },
+                }
+              : contact
+          )
+          .sort((a, b) => {
+            return new Date(b.lastMessage.date) - new Date(a.lastMessage.date);
+          })
+      );
+    });
+
+    return () => {
+      socket.off('newMessage');
+    };
+  }, [socket, user]);
+
   const handleContactClick = (userId) => {
     navigate(`/chat/${userId}`);
   };
 
   if (isLoading) {
-    return <div>{t('chat.loadingConversations')}</div>;
+    return <div>{t('chat.loading')}</div>;
   }
 
   return (
     <div className="chat-list">
       {error && <p>{t(error)}</p>}
-      <h1>{t('chat.conversations')}</h1>
+      <h1>{t('chat.header')}</h1>
       {contacts.length === 0 ? (
-        <p>{t('chat.noConversations')}</p>
+        <p>{t('chat.empty.chat')}</p>
       ) : (
         <ul>
           {contacts.map((contact) => (
@@ -80,6 +115,9 @@ export const ChatList = () => {
                   alt={contact.username}
                   className="conversation-avatar"
                 />
+                {onlineUsers.includes(contact.id) && (
+                  <span className="online-indicator"></span>
+                )}
                 <div className="conversation-details">
                   <p className="conversation-username">{contact.username}</p>
                   {contact.lastMessage ? (
@@ -89,12 +127,17 @@ export const ChatList = () => {
                           ? `${contact.lastMessage.message.slice(0, 30)}...`
                           : contact.lastMessage.message}
                       </p>
-                      {/* <p className="last-message-date">
-                        {contact.lastMessage.date}
-                      </p> */}
+                      <p className="last-message-date">
+                        {contact.lastMessage?.date
+                          ? formatDistanceToNow(new Date(contact.lastMessage.date), {
+                            addSuffix: true,
+                            locale: locales[i18n.language],
+                          })
+                          : ''}
+                      </p>
                     </div>
                   ) : (
-                    <p className="last-message">{t('chat.noMessages')}</p>
+                    <p className="last-message">{t('chat.empty.message')}</p>
                   )}
                 </div>
               </div>

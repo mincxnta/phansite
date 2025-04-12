@@ -22,6 +22,15 @@ export const Menu = () => {
                 </Link>
             </button>
 
+            {/* USUARIOS */}
+            {user &&
+                <button>
+                    <Link to="/chat">
+                        {t("chat.title")}
+                    </Link>
+                </button>
+            }
+
             {/* ADMIN */}
             {user && user.role === 'admin' &&
                 <button>

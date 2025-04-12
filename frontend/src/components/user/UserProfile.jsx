@@ -105,6 +105,10 @@ export const UserProfile = () => {
                         </>
                     )}
                 </>)}
+                {/* Se puede ver el perfil de phantom thieves / admins ? Y mandarles mensajes? */}
+                {!isOwnProfile && (
+                    <button><Link to={`/chat/${profileUser.id}`}>{t("profile.message")}</Link></button>
+                    )}
 
         </>
     )

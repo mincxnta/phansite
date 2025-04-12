@@ -6,9 +6,9 @@ import { authenticateToken } from './middlewares/auth.js'
 import dotenv from 'dotenv'
 import './models/index.js'
 import path from 'node:path'
+import { app, server } from './config/socket.js'
 
 // Configuración del servidor
-const app = express()
 app.use(express.json())
 dotenv.config()
 serverConfig(app)
@@ -35,7 +35,16 @@ app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')))
 //     console.log('Error en la conexión con la base de datos:', error)
 //   })
 
+// Servir el frontend en producción
+// if (process.env.ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '../frontend/dist')))
+
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../frontend/dist/index.html'))
+//   })
+// }
+
 // Inicializar servidor
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
   console.log(`Server listening on port ${process.env.PORT}`)
 })

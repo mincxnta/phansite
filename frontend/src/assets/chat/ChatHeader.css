@@ -20,3 +20,13 @@
     color: #ff0000;
     margin: 0;
   }
+
+  .online {
+    width: 12px;
+    height: 12px;
+    background-color: #00ff00;
+    border-radius: 50%;
+    position: absolute;
+    left: 60px;
+    top: 85px;
+  }

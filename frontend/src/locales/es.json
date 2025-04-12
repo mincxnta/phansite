@@ -28,7 +28,8 @@
         "edit": "Editar perfil",
         "about.me": "Sobre mí",
         "requests": "Mis peticiones",
-        "user": "Perfil de {{username}}"
+        "user": "Perfil de {{username}}",
+        "message": "Enviar mensaje"
     },
     "auth": {
         "register": "Registro",
@@ -80,14 +81,23 @@
         "list": "Lista de usuarios",
         "create": "Crear usuario"
     },
+    "chat": {
+        "title": "Chat",
+        "header": "Chats",
+        "send": "Enviar",
+        "type": "Escribe tu mensaje...",
+        "empty.chat": "No tienes chats.",
+        "empty.message": "No tienes mensajes",
+        "loading": "Cargando chats..."
+    },
     "admin": {
         "title": "Panel de administración",
         "actions": "Acciones",
         "ban": "Banear",
-        "reports":"Reportes",
-        "users":"Usuarios"
+        "reports": "Reportes",
+        "users": "Usuarios"
     },
-    "phantom.thief":{
+    "phantom.thief": {
         "title": "Ladrones fantasma"
     },
     "error": {
@@ -143,7 +153,7 @@
         "inactive.poll": "La encuesta está inactiva",
         "internal.server": "Error inesperado"
     },
-    "language":{
+    "language": {
         "en": "Inglés",
         "es": "Español"
     },
