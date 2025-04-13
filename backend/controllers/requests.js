@@ -2,8 +2,7 @@ import { validateRequest, validateUpdatedRequest } from '../schemas/request.js'
 import { Request } from '../models/request.js'
 import { RequestVotes } from '../models/request_votes.js'
 import { validateRequestVote } from '../schemas/request_vote.js'
-import path from 'node:path'
-import fs from 'fs/promises'
+import { uploadToCloudinary } from '../utils/cloudinaryUpload.js'
 
 export class RequestController {
   static async getAllPending (req, res) {
@@ -116,13 +115,8 @@ export class RequestController {
       const request = await Request.create(requestData)
 
       if (req.file) {
-        const tempPath = path.join(process.cwd(), 'uploads', req.file.filename)
-        const newFileName = `request-${request.id}${path.extname(req.file.originalname)}`
-        const newPath = path.join(process.cwd(), 'uploads', newFileName)
-
-        await fs.rename(tempPath, newPath)
-
-        request.targetImage = `/uploads/${newFileName}`
+        const imageUrl = await uploadToCloudinary(req.file, 'requests')
+        request.targetImage = imageUrl
         await request.save()
       }
       res.status(201).json(request)

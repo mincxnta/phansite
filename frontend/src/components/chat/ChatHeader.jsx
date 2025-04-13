@@ -1,12 +1,9 @@
 import React from 'react';
-//import { useTranslation } from 'react-i18next';
-import { API_URL } from '../../constants/constants.js';
 import '../../assets/chat/ChatHeader.css';
 import { useAuth } from '../../context/AuthContext.jsx'
 import { Loading } from '../Loading.jsx';
 
 export const ChatHeader = ({ targetUser }) => {
-  //const { t } = useTranslation();
   const { onlineUsers } = useAuth()
 
   if (!targetUser) {
@@ -18,7 +15,7 @@ export const ChatHeader = ({ targetUser }) => {
       <img
         src={
           targetUser.profilePicture
-            ? `${API_URL}${targetUser.profilePicture}`
+            ? targetUser.profilePicture
             : '/assets/requests/unknownTarget.png'
         }
         alt={targetUser.username}

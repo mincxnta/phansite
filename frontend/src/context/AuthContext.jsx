@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
 
             const data = await response.json();
             if (response.ok) {
-                if (data.banned) {
+                if (data && data.banned) {
                     await logout();
                     navigate('/login')
                 }

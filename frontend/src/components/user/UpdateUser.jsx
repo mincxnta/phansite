@@ -5,14 +5,12 @@ import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
-import { convertImageToBase64 } from '../../utils/imageUtils.js';
 import { toast } from 'react-toastify';
 import {Loading} from '../Loading.jsx'
 
 export const UpdateUser = () => {
     const { user } = useAuth()
     const [username, setUsername] = useState('')
-    const [profilePicture, setProfilePicture] = useState(null)
     const [selectedImage, setSelectedImage] = useState(null)
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -27,12 +25,6 @@ export const UpdateUser = () => {
                 setUsername(user.username)
                 setEmail(user.email)
                 setAboutMe(user.aboutMe)
-
-                if (user.profilePicture) {
-                    const base64Image = await convertImageToBase64(user.profilePicture);
-                    setProfilePicture(base64Image)
-                }
-
             } else {
                 navigate('/login')
             }
@@ -89,7 +81,7 @@ export const UpdateUser = () => {
             }
             const data = await response.json();
             if (response.ok) {
-                toast.success(t("success.edit.profile"))
+                toast.success(t("success.update.profile"))
                 navigate('/profile')
             } else {
                 toast.error(t(errorHandler(data)))
@@ -108,10 +100,10 @@ export const UpdateUser = () => {
             <h1>{t("profile.edit")}</h1>
             <form onSubmit={handleUpdateUser}>
                 <div>
-                    <img src={selectedImage || profilePicture || '/assets/requests/unknownTarget.png'} />
+                    <img src={selectedImage || user.profilePicture || '/assets/requests/unknownTarget.png'} />
                 </div>
 
-                {profilePicture && !selectedImage ?
+                {!selectedImage ?
                     (<label><p>{t("photo.upload")}</p>
                         <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} /></label>) : (
                         <button type="button" onClick={handleCancelImage}>

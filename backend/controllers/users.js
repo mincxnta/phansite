@@ -1,8 +1,7 @@
 import { validateUpdatedUser } from '../schemas/user.js'
 import { User } from '../models/user.js'
+import { uploadToCloudinary, deleteFromCloudinary } from '../utils/cloudinaryUpload.js'
 import bcrypt from 'bcrypt'
-import path from 'node:path'
-import fs from 'fs/promises'
 
 export class UserController {
   static async getAll (req, res) {
@@ -71,16 +70,10 @@ export class UserController {
 
       if (req.file) {
         if (user.profilePicture) {
-          const oldFileName = path.basename(user.profilePicture)
-          const oldPath = path.join(process.cwd(), oldFileName)
-          try {
-            await fs.unlink(oldPath)
-          } catch (error) {
-            console.error('Error deleting old profile picture:', error)
-          }
+          await deleteFromCloudinary(user.profilePicture)
         }
-        const newFileName = req.file.filename
-        user.profilePicture = `/uploads/${newFileName}`
+        const imageUrl = await uploadToCloudinary(req.file, 'profile_pictures')
+        user.profilePicture = imageUrl
         await user.save()
       }
 

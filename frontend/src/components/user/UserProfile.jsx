@@ -5,7 +5,6 @@ import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx'
 import { useTranslation } from 'react-i18next'
 import { RequestList } from '../request/RequestList.jsx'
-import { convertImageToBase64 } from '../../utils/imageUtils.js'
 import { format } from 'date-fns';
 import { locales } from '../../utils/dateLocales.js'
 import { toast } from 'react-toastify';
@@ -38,10 +37,6 @@ export const UserProfile = () => {
 
                 }
                 const data = await response.json()
-                if (data.profilePicture) {
-                        const base64Image = await convertImageToBase64(data.profilePicture);
-                        data.profilePicture = base64Image;
-                      }
                 setProfileUser(data)
 
                 if (user.username === username) {

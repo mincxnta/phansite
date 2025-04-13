@@ -6,23 +6,19 @@ import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next'
 import { showReportPopup } from '../popups/ReportPopup.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
-import { convertImageToBase64 } from '../../utils/imageUtils.js';
 import { toast } from 'react-toastify';
 import { errorHandler } from '../../utils/errorHandler.js';
-//import {Loading} from '../Loading.jsx'
 
 let showRequestDetail;
 
 export const RequestDetail = () => {
   const [request, setRequest] = useState(null)
   const [visible, setVisible] = useState(false);
-  //const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
   const { user } = useAuth();
   const { t } = useTranslation();
 
   showRequestDetail = async (requestId) => {
-    //setLoading(true);
     setVisible(true);
     try {
       const url = `${API_URL}/requests/${requestId}`;
@@ -34,23 +30,14 @@ export const RequestDetail = () => {
 
       if (!response.ok) {
         setRequest(null);
-        //setLoading(false);
         return;
 
       }
       const data = await response.json()
-
-      if (data.targetImage) {
-        const base64Image = await convertImageToBase64(data.targetImage);
-        data.targetImage = base64Image;
-      }
-
       setRequest(data)
-      //setLoading(false)
     } catch (error) {
       toast.error(t(errorHandler(error)))
       setRequest(null);
-      //setLoading(false);
     }
   }
 

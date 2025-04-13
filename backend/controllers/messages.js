@@ -2,6 +2,7 @@ import { getReceiverSocketId, io } from '../config/socket.js'
 import { Message } from '../models/message.js'
 import { User } from '../models/user.js'
 import { Op } from 'sequelize'
+import { uploadToCloudinary } from '../utils/cloudinaryUpload.js'
 
 export class MessageController {
   static async getUsers (req, res) {
@@ -140,7 +141,7 @@ export class MessageController {
     try {
       let imageUrl = null
       if (req.file) {
-        imageUrl = `/uploads/${req.file.filename}`
+        imageUrl = await uploadToCloudinary(req.file, 'messages')
       }
 
       const newMessage = await Message.create({

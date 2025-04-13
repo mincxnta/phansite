@@ -45,7 +45,6 @@ export const UserCreateForm = () => {
                 toast.success(t("success.create.user"))
                 navigate('/admin/users')
             } else {
-                console.log(data)
                 toast.error(t(errorHandler(data)))
             }
         } catch (error) {

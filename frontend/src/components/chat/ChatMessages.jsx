@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { API_URL } from '../../constants/constants.js';
 import '../../assets/chat/ChatMessages.css';
 import { locales } from '../../utils/dateLocales.js'
 import { format } from 'date-fns';
@@ -32,7 +31,7 @@ export const ChatMessages = ({ messages, currentUserId }) => {
           <img
             src={
               message.sender?.profilePicture
-                ? `${API_URL}${message.sender.profilePicture}`
+                ? message.sender.profilePicture
                 : '/assets/requests/unknownTarget.png'
             }
             alt={message.sender?.username || 'Sender'}
@@ -44,7 +43,7 @@ export const ChatMessages = ({ messages, currentUserId }) => {
 
             {message.image &&
               <img
-                src={`${API_URL}${message.image}`}
+                src={message.image}
                 alt='Message image'
                 className="message-image"
               />

@@ -108,7 +108,7 @@ export const ChatList = () => {
                 <img
                   src={
                     contact.profilePicture
-                      ? `${API_URL}${contact.profilePicture}`
+                      ? contact.profilePicture
                       : '/assets/requests/unknownTarget.png'
                   }
                   alt={contact.username}
