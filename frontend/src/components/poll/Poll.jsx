@@ -6,17 +6,20 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
+import { Loading } from '../Loading.jsx';
 
 export const Poll = () => {
   const navigate = useNavigate()
   const [poll, setPoll] = useState('')
   const [results, setResults] = useState({ yes: 0, no: 0, total: 0 });
   const [yesPercentage, setYesPercentage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false)
   const { user } = useAuth()
   const { t } = useTranslation();
 
   useEffect(() => {
     const getActivePoll = async () => {
+      setIsLoading(true)
       try {
         const response = await fetch(`${API_URL}/polls/active`, {
           method: 'GET',
@@ -30,10 +33,12 @@ export const Poll = () => {
         } else {
           toast.error(t(errorHandler(data)))
         }
-
       } catch (error) {
         toast.error(t(errorHandler(error)))
-
+      } finally {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
       }
     }
     getActivePoll()
@@ -77,6 +82,7 @@ export const Poll = () => {
       const data = await response.json();
 
       if (response.ok) {
+        toast.success(t("success.vote.poll"))
         await getPollResults(poll.id)
       } else {
         toast.error(t(errorHandler(data)))
@@ -85,6 +91,10 @@ export const Poll = () => {
       toast.error(t(errorHandler(error)))
     }
   };
+
+  if (isLoading) {
+          return <Loading/>;
+      }
 
   return (
     <div>

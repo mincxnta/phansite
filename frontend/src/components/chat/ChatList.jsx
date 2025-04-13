@@ -8,6 +8,7 @@ import { errorHandler } from '../../utils/errorHandler.js';
 import { formatDistanceToNow } from 'date-fns';
 import { locales } from '../../utils/dateLocales.js';
 import { toast } from 'react-toastify';
+import { Loading } from '../Loading.jsx';
 
 export const ChatList = () => {
   const { user, onlineUsers, socket } = useAuth();
@@ -24,20 +25,18 @@ export const ChatList = () => {
       }
 
       setIsLoading(true);
-
       try {
-        const res = await fetch(`${API_URL}/messages/users`, {
+        const response = await fetch(`${API_URL}/messages/users`, {
           method: 'GET',
           credentials: 'include',
         });
 
-        if (!res.ok) {
-          const errorData = await res.json();
-          toast.error(t(errorHandler(errorData)))
+        const data = await response.json()
+        if (!response.ok) {
+          toast.error(t(errorHandler(data)))
         }
 
-        const users = await res.json();
-        const sortedUsers = users.sort((a, b) => {
+        const sortedUsers = data.sort((a, b) => {
           return new Date(b.lastMessage.date) - new Date(a.lastMessage.date);
         });
         setContacts(sortedUsers);
@@ -45,7 +44,9 @@ export const ChatList = () => {
       } catch (error) {
         toast.error(t(errorHandler(error)))
       } finally {
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
       }
     };
 
@@ -87,7 +88,7 @@ export const ChatList = () => {
   };
 
   if (isLoading) {
-    return <div>{t('chat.loading')}</div>;
+    return <Loading/>;
   }
 
   return (

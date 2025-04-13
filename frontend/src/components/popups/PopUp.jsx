@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import '../../assets/requests/RequestDetail.css'
 import { createPortal } from 'react-dom';
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 
 let showPopUp;
 
 export const PopUp = () => {
   const [text, setText] = useState(null)
   const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { t } = useTranslation();
+  // const [loading, setLoading] = useState(false);
+  // const { t } = useTranslation();
 
   showPopUp = async (text) => {
-    setLoading(true);
+    // setLoading(true);
     setVisible(true);
     setText(text);
   }

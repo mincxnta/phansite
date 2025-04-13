@@ -31,8 +31,6 @@ export const Request = sequelize.define('request', {
   },
   targetImage: {
     type: DataTypes.STRING(255)
-    // allowNull: false,
-    // defaultValue: 1
   },
   status: {
     type: DataTypes.ENUM(...STATUS),

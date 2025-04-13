@@ -4,12 +4,14 @@ import '../../assets/requests/RequestDetail.css'
 import { createPortal } from 'react-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
-import { showPopUp } from './PopUp.jsx';
+// import { showPopUp } from './PopUp.jsx';
+import { toast } from 'react-toastify';
+import { errorHandler } from '../../utils/errorHandler.js';
 
 let showReportPopup;
 
 export const ReportPopup = () => {
-  const [reason, setReason] = useState(null)
+  const [reason, setReason] = useState('')
   const [visible, setVisible] = useState(false);
   const [reportedType, setReportedType] = useState(null);
   const [postId, setPostId] = useState(null);
@@ -31,7 +33,6 @@ export const ReportPopup = () => {
   const handleNewReport = async (event) => {
     event.preventDefault()
 
-
     try {
       const response = await fetch(`${API_URL}/reports`, {
         method: 'POST',
@@ -44,13 +45,16 @@ export const ReportPopup = () => {
 
       const data = await response.json();
       if (!response.ok) {
-        return data;
+        toast.error(t(errorHandler(data)))
+        return;
       }
       setReason(null);
+      toast.success(t(reportedType === "comment" ? "success.report.comment" : "success.report.request"))
       closePopup();
-      showPopUp("Reporte reportado satisfactoriamente");
+      //showPopUp("Reporte reportado satisfactoriamente");
+      
     } catch (error) {
-      return error;
+      toast.error(t(errorHandler(error)))
     }
   }
 

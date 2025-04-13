@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { convertImageToBase64 } from '../../utils/imageUtils.js';
 import { toast } from 'react-toastify';
+import {Loading} from '../Loading.jsx'
 
 export const UpdateUser = () => {
     const { user } = useAuth()
@@ -79,8 +80,16 @@ export const UpdateUser = () => {
                 body: formData
             })
 
+            if (response.status == 500) {
+                const text = await response.text();
+                if (text.includes("Invalid file type")) {
+                    toast.error(t('error.invalid.file.type'));
+                    return;
+                }
+            }
             const data = await response.json();
             if (response.ok) {
+                toast.success(t("success.edit.profile"))
                 navigate('/profile')
             } else {
                 toast.error(t(errorHandler(data)))
@@ -91,7 +100,7 @@ export const UpdateUser = () => {
     }
 
     if (!user) {
-        return <div>Carregant...</div>;
+        return <Loading/>;
     }
 
     return (
@@ -103,10 +112,10 @@ export const UpdateUser = () => {
                 </div>
 
                 {profilePicture && !selectedImage ?
-                    (<label><p>Subir foto</p>
+                    (<label><p>{t("photo.upload")}</p>
                         <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} /></label>) : (
                         <button type="button" onClick={handleCancelImage}>
-                            Cancelar foto
+                            {t("photo.discard")}
                         </button>
                     )}
 

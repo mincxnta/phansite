@@ -42,6 +42,7 @@ export const PollCreateForm = () => {
             if (!response.ok) {
                 toast.error(t(errorHandler(data)))
             }
+            toast.success(t("success.create.poll"))
             navigate('/')
         } catch (error) {
             toast.error(t(errorHandler(error)))

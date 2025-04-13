@@ -2,6 +2,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { API_URL } from "../constants/constants.js";
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client'
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next'
+import { errorHandler } from '../utils/errorHandler.js';
 
 const AuthContext = createContext();
 
@@ -11,6 +14,7 @@ export const AuthProvider = ({ children }) => {
     const [socket, setSocket] = useState(null)
     const [onlineUsers, setOnlineUsers] = useState([]);
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const fetchUser = async () => {
         try {
@@ -21,7 +25,6 @@ export const AuthProvider = ({ children }) => {
 
             const data = await response.json();
             if (response.ok) {
-                console.log(data)
                 if (data.banned) {
                     await logout();
                     navigate('/login')
@@ -32,6 +35,7 @@ export const AuthProvider = ({ children }) => {
             }
             return user;
         } catch (error) {
+            toast.error(t(errorHandler(error)))
             setUser(null);
         } finally {
             setLoading(false);
@@ -95,7 +99,7 @@ export const AuthProvider = ({ children }) => {
 
         newSocket.on('getOnlineUsers', (userIds) => {
             setOnlineUsers(userIds);
-          });
+        });
 
         newSocket.connect();
         setSocket(newSocket);

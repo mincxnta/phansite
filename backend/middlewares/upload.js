@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     } else if (file.fieldname === 'targetImage') {
       filename = `request-${Date.now()}${path.extname(file.originalname)}`
     } else if (file.fieldname === 'image') {
-      filename = `message-${Date.now()}${path.extname(file.originalname)}` // Imatges de missatges
+      filename = `message-${Date.now()}${path.extname(file.originalname)}`
     }
     cb(null, filename)
   }

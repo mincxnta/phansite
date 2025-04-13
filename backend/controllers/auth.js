@@ -1,4 +1,4 @@
-import { validateUser } from '../schemas/users.js'
+import { validateUser } from '../schemas/user.js'
 import { User } from '../models/user.js'
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../utils/jwt.js'
 import bcrypt from 'bcrypt'

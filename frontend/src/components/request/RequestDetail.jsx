@@ -7,19 +7,22 @@ import { useTranslation } from 'react-i18next'
 import { showReportPopup } from '../popups/ReportPopup.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { convertImageToBase64 } from '../../utils/imageUtils.js';
+import { toast } from 'react-toastify';
+import { errorHandler } from '../../utils/errorHandler.js';
+//import {Loading} from '../Loading.jsx'
 
 let showRequestDetail;
 
 export const RequestDetail = () => {
   const [request, setRequest] = useState(null)
   const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
+  //const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
   const { user } = useAuth();
   const { t } = useTranslation();
 
   showRequestDetail = async (requestId) => {
-    setLoading(true);
+    //setLoading(true);
     setVisible(true);
     try {
       const url = `${API_URL}/requests/${requestId}`;
@@ -31,7 +34,7 @@ export const RequestDetail = () => {
 
       if (!response.ok) {
         setRequest(null);
-        setLoading(false);
+        //setLoading(false);
         return;
 
       }
@@ -43,10 +46,11 @@ export const RequestDetail = () => {
       }
 
       setRequest(data)
-      setLoading(false)
+      //setLoading(false)
     } catch (error) {
+      toast.error(t(errorHandler(error)))
       setRequest(null);
-      setLoading(false);
+      //setLoading(false);
     }
   }
 
@@ -66,9 +70,7 @@ export const RequestDetail = () => {
 
   return createPortal(
     <div className="popup-overlay">
-      {loading ? (
-        <div>Carregant...</div>
-      ) : request ? (
+       {request && ( 
         <div className="popup-content">
           <button className="popup-close" onClick={closePopup}>x</button>
           {/* <h2>{request.status}</h2> */}
@@ -113,9 +115,7 @@ export const RequestDetail = () => {
             </tbody>
           </table>
         </div>
-      ) : (
-        <div>No se han podido cargar los detalles</div>
-      )}
+      )}, 
     </div>,
     document.body
   );

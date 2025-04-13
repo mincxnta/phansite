@@ -26,8 +26,8 @@ i18n
       escapeValue: false,
     },
     detection: {
-      order: ['localStorage', 'navigator'], // Prioritza localStorage abans del navegador
-      caches: ['localStorage'], // Desa l'idioma detectat a localStorage
+      order: ['localStorage', 'navigator'],
+      caches: ['localStorage'],
     },
   });
 

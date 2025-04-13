@@ -114,6 +114,7 @@ export const CommentSection = ({ pollId }) => {
 
             if (response.ok) {
                 await response.json()
+                toast.success(t("success.delete.comment"))
                 setComments((prevComments) => prevComments.filter(comment => comment.id !== id));
             }
         } catch (error) {

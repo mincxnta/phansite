@@ -1,4 +1,4 @@
-import { validateRequest, validateUpdatedRequest } from '../schemas/requests.js'
+import { validateRequest, validateUpdatedRequest } from '../schemas/request.js'
 import { Request } from '../models/request.js'
 import { RequestVotes } from '../models/request_votes.js'
 import { validateRequestVote } from '../schemas/request_vote.js'

@@ -9,6 +9,7 @@ import { ChatHeader } from './ChatHeader.jsx'
 import { ChatInput } from './ChatInput.jsx'
 import { ChatMessages } from './ChatMessages.jsx'
 import { toast } from 'react-toastify';
+import { Loading } from '../Loading.jsx';
 
 export const Chat = () => {
   const { user, socket } = useAuth();
@@ -31,33 +32,35 @@ export const Chat = () => {
         return;
       }
 
+      setIsLoading(true);
       try {
-        const userRes = await fetch(`${API_URL}/users/${username}`, {
+        const user = await fetch(`${API_URL}/users/${username}`, {
           credentials: 'include',
         });
-        if (!userRes.ok) {
-          const errorData = await userRes.json();
-          throw new Error(errorHandler(errorData));
+
+        const userData = await user.json()
+        if (!user.ok) {
+          toast.error(errorHandler(userData));
         }
-        const userData = await userRes.json();
         setTargetUser(userData);
 
-        const res = await fetch(`${API_URL}/messages/${userData.id}`, {
+        const message = await fetch(`${API_URL}/messages/${userData.id}`, {
           method: 'GET',
           credentials: 'include',
         });
 
-        if (!res.ok) {
-          const errorData = await res.json();
-          toast.error(t(errorHandler(errorData)))
+        const messageData = await message.json()
+        if (!message.ok) {
+          toast.error(t(errorHandler(messageData)))
         }
-
-        const messages = await res.json();
-        setMessages(messages);
+;
+        setMessages(messageData);
       } catch (error) {
         toast.error(t(errorHandler(error)))
       } finally {
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
       }
     };
 
@@ -67,6 +70,7 @@ export const Chat = () => {
   const handleSendMessage = async (message, image) => {
     if (!message.trim() && !image) return;
 
+    //setIsLoading(true);
     try {
       const formData = new FormData();
       if (message) {
@@ -75,26 +79,33 @@ export const Chat = () => {
       if (image) {
         formData.append('image', image);
       }
-      const res = await fetch(`${API_URL}/messages/${targetUser.id}`, {
+      const response = await fetch(`${API_URL}/messages/${targetUser.id}`, {
         method: 'POST',
         credentials: 'include',
         body: formData,
       });
 
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorHandler(errorData));
+      if (response.status == 500) {
+        const text = await response.text();
+        if (text.includes("Invalid file type")) {
+          toast.error(t('error.invalid.file.type'));
+          return;
+        }
       }
 
-      const newMessage = await res.json();
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      const data = await response.json()
+      if (!response.ok) {
+        toast.error(errorHandler(data));
+      }
+
+      setMessages((prevMessages) => [...prevMessages, data]);
     } catch (error) {
       toast.error(t(errorHandler(error)))
     }
   };
 
   useEffect(() => {
-    if (!user || !targetUser  || !socket) {
+    if (!user || !targetUser || !socket) {
       if (!user) navigate('/login');
       return;
     }
@@ -112,10 +123,16 @@ export const Chat = () => {
   }, [socket, navigate, user, targetUser])
 
   return (
-    <div className="chat-container">
-      <ChatHeader targetUser={targetUser} />
-      <ChatMessages messages={messages} currentUserId={user?.id} />
-      <ChatInput onSendMessage={handleSendMessage} />
+    <div className="chat-wrapper">
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="chat-container">
+          <ChatHeader targetUser={targetUser} />
+          <ChatMessages messages={messages} currentUserId={user?.id} />
+          <ChatInput onSendMessage={handleSendMessage} />
+        </div>
+      )}
     </div>
   )
 }

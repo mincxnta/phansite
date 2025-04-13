@@ -27,6 +27,7 @@ export const Register = () => {
 
             const data = await response.json()
             if (response.ok) {
+                toast.success(t("success.register"))
                 navigate('/login')
             } else {
                 toast.error(t(errorHandler(data)))

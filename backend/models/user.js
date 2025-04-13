@@ -24,8 +24,6 @@ export const User = sequelize.define('user', {
   },
   profilePicture: {
     type: DataTypes.STRING(255)
-    // allowNull: false,
-    // defaultValue: 1
   },
   role: {
     type: DataTypes.ENUM(...ROLES),

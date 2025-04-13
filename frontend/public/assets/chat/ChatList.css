@@ -1,71 +1,97 @@
-.chat-page {
-    padding: 20px;
-    background-color: #000;
-    color: #fff;
-    min-height: 100vh;
-  }
-  
-  .chat-page h1 {
-    font-family: 'Anime Ace', sans-serif;
-    font-size: 2rem;
-    color: #ff0000;
-    margin-bottom: 20px;
-  }
-  
-  .messages-list {
-    max-height: 70vh;
-    overflow-y: auto;
-    margin-bottom: 20px;
-  }
-  
-  .message {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    max-width: 70%;
-  }
-  
-  .message.sent {
-    background-color: #ff0000;
-    margin-left: auto;
-    text-align: right;
-  }
-  
-  .message.received {
-    background-color: #2a2a2a;
-    margin-right: auto;
-  }
-  
-  .message-date {
-    font-size: 0.7rem;
-    color: #999;
-    margin: 5px 0 0;
-  }
-  
-  .message-form {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .message-input {
-    flex: 1;
-    padding: 10px;
-    background-color: #2a2a2a;
-    color: #fff;
-    border: 1px solid #ff0000;
-    border-radius: 5px;
-  }
-  
-  .send-button {
-    padding: 10px 20px;
-    background-color: #ff0000;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Anime Ace', sans-serif;
-  }
-  
-  .send-button:hover {
-    background-color: #cc0000;
-  }
+.chat-list {
+  padding: 20px;
+  background-color: #000;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.chat-list h1 {
+  font-family: 'Anime Ace', sans-serif;
+  font-size: 2rem;
+  color: #ff0000;
+  margin-bottom: 20px;
+}
+
+.chat-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.conversation-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #2a2a2a;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.conversation-item:hover {
+  background-color: #ff0000;
+}
+
+.conversation-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+.conversation-info {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.conversation-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.conversation-username {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  text-align: left;
+}
+
+.last-message-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.last-message {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.last-message-date {
+  font-size: 0.7rem;
+  color: #999;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.online-indicator {
+  width: 12px;
+  height: 12px;
+  background-color: #00ff00;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 1px;
+  left: 40px;
+  border: 2px solid #2a2a2a;
+  z-index: 1;
+}

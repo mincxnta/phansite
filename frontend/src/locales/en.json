@@ -29,6 +29,7 @@
         "about.me": "About me",
         "requests": "My requests",
         "user": "{{username}}'s profile",
+        "date": "Fan since: {{date}}",
         "message": "Send message"
     },
     "auth": {
@@ -108,6 +109,7 @@
             "user.data": "Invalid credentials",
             "poll.data": "Invalid poll data",
             "reported.type": "Invalid report type",
+            "file.type": "Invalid file type. Only PNG, JPG, and JPEG are allowed.",
             "post.id": "Invalid post ID",
             "status.change": "You can't change the status of this request",
             "email": "Invalid email"
@@ -153,9 +155,43 @@
         "inactive.poll": "The poll is inactive",
         "internal.server": "Unexpected error"
     },
+    "success": {
+        "create": {
+            "user": "User created successfully",
+            "poll": "Poll created successfully",
+            "request": "Request created successfully"
+        },
+        "update": {
+            "request": "Request updated successfully",
+            "profile": "Your information has been updated successfully"
+        },
+        "delete": {
+            "comment": "Comment deleted successfully",
+            "request": "Request deleted successfully"
+        },
+        "vote": {
+            "poll": "Poll voted successfully",
+            "request": "Request voted successfully"
+        },
+        "report": {
+            "comment": "Comment reported successfully",
+            "request": "Request reported successfully",
+            "discard": "Report discarded successfully"
+        },
+        "user": {
+            "banned": "User banned successfully"
+        },
+        "login": "Logged in successfully",
+        "logout": "Logged out successfully",
+        "register": "Registered successfully"
+    },
     "language": {
         "en": "English",
         "es": "Spanish"
+    },
+    "photo": {
+        "upload": "Upload photo",
+        "discard": "Discard photo"
     },
     "pagination": "Page {{page}} of {{totalPages}}",
     "previous": "Previous",

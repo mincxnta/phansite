@@ -126,6 +126,7 @@ export const RequestList = () => {
             const data = await response.json();
 
             if (response.ok) {
+                toast.success(t("success.vote.request"))
                 await fetchRequests()
                 getAllRequestResults();
             } else {

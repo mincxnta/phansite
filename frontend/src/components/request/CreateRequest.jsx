@@ -42,10 +42,19 @@ export const CreateRequest = () => {
                 body: formData
             })
 
+            if (response.status == 500) {
+                const text = await response.text();
+                if (text.includes("Invalid file type")) {
+                    toast.error(t('error.invalid.file.type'));
+                    return;
+                }
+            }
+
             const data = await response.json()
             if (!response.ok) {
                 toast.error(t(errorHandler(data)))
             }
+            toast.success(t("success.create.request"))
             navigate('/requests')
         } catch (error) {
             toast.error(t(errorHandler(error)))

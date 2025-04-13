@@ -10,7 +10,7 @@ export const UserCreateForm = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
-    const [role, setRole] = useState('')
+    const [role, setRole] = useState('fan')
     const navigate = useNavigate()
     const { user } = useAuth()
     const { t } = useTranslation();
@@ -42,8 +42,10 @@ export const UserCreateForm = () => {
             })
             const data = await response.json()
             if (response.ok) {
-                navigate('/admin')
+                toast.success(t("success.create.user"))
+                navigate('/admin/users')
             } else {
+                console.log(data)
                 toast.error(t(errorHandler(data)))
             }
         } catch (error) {

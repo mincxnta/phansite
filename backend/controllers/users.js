@@ -1,4 +1,4 @@
-import { validateUpdatedUser } from '../schemas/users.js'
+import { validateUpdatedUser } from '../schemas/user.js'
 import { User } from '../models/user.js'
 import bcrypt from 'bcrypt'
 import path from 'node:path'

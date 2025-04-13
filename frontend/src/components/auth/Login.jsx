@@ -19,6 +19,7 @@ export const Login = () => {
         event.preventDefault();
             const data = await login(username, password);
             if (data === true){
+                toast.success(t("success.login"))
             navigate(from, { replace: true });
         }else{
             toast.error(t(errorHandler(data)))

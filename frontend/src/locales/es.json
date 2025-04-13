@@ -29,6 +29,7 @@
         "about.me": "Sobre mí",
         "requests": "Mis peticiones",
         "user": "Perfil de {{username}}",
+        "date": "Fan desde: {{date}}",
         "message": "Enviar mensaje"
     },
     "auth": {
@@ -108,6 +109,7 @@
             "user.data": "Credenciales inválidas",
             "poll.data": "Datos de encuesta inválidos",
             "reported.type": "Tipo de reporte inválido",
+            "file.type": "Tipo de fichero inválido. Solo se permite PNG, JPG y JPEG.",
             "post.id": "ID de publicación inválido",
             "status.change": "No puedes cambiar el estado de esta petición",
             "email": "Correo electrónico inválido"
@@ -153,9 +155,43 @@
         "inactive.poll": "La encuesta está inactiva",
         "internal.server": "Error inesperado"
     },
+    "success": {
+        "create": {
+            "user": "Usuario creado satisfactoriamente",
+            "poll": "Encuesta creada satisfactoriamente",
+            "request": "Petición creada satisfactoriamente"
+        },
+        "update": {
+            "request": "Petición actualizada satisfactoriamente",
+            "profile": "Tu información ha sido actualizada satisfactoriamente"
+        },
+        "delete": {
+            "comment": "Comentario eliminado satisfactoriamente",
+            "request": "Petición eliminada satisfactoriamente"
+        },
+        "vote": {
+            "poll": "Encuesta votada satisfactoriamente",
+            "request": "Petición votada satisfactoriamente"
+        },
+        "report": {
+            "comment": "Comentario reportado satisfactoriamente",
+            "request": "Petición reportada satisfactoriamente",
+            "discard": "Reporte descartado satisfactoriamente"
+        },
+        "user": {
+            "banned": "Usuario baneado satisfactoriamente"
+        },
+        "login": "Sesión iniciada satisfactoriamente",
+        "logout": "Sesión cerrada satisfactoriamente",
+        "register": "Registro realizado satisfactoriamente"
+    },
     "language": {
         "en": "Inglés",
         "es": "Español"
+    },
+    "photo": {
+        "upload": "Subir foto",
+        "discard": "Descartar foto"
     },
     "pagination": "Página {{page}} de {{totalPages}}",
     "previous": "Anterior",

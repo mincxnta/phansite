@@ -4,11 +4,13 @@ import { Link, useParams } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx'
 import { useTranslation } from 'react-i18next'
-// import { errorHandler } from '../../utils/errorHandler.js';
 import { RequestList } from '../request/RequestList.jsx'
 import { convertImageToBase64 } from '../../utils/imageUtils.js'
 import { format } from 'date-fns';
 import { locales } from '../../utils/dateLocales.js'
+import { toast } from 'react-toastify';
+import { errorHandler } from '../../utils/errorHandler.js';
+import { Loading } from '../Loading.jsx'
 
 export const UserProfile = () => {
     const [profileUser, setProfileUser] = useState(null)
@@ -36,7 +38,6 @@ export const UserProfile = () => {
 
                 }
                 const data = await response.json()
-                console.log("Data", data)
                 if (data.profilePicture) {
                         const base64Image = await convertImageToBase64(data.profilePicture);
                         data.profilePicture = base64Image;
@@ -47,6 +48,7 @@ export const UserProfile = () => {
                     navigate('/profile', { replace: true });
                 }
             } catch (error) {
+                toast.error(t(errorHandler(error)))
                 navigate('/')
 
             }
@@ -56,6 +58,7 @@ export const UserProfile = () => {
 
     const handleLogout = async () => {
         await logout();
+        toast.success(t("success.logout"))
     }
 
     // const handleDelete = async () => {
@@ -75,10 +78,14 @@ export const UserProfile = () => {
     // }
     
     if (!profileUser) {
-        return <div>Cargando...</div>;
+        return <Loading/>;
     }
 
     const isOwnProfile = !username || user.username === username
+
+    const formattedDate = format(new Date(profileUser.registrationDate), 'dd-MM-yyyy', {
+        locale: locales[i18n.language],
+      });
 
     return (
         <>
@@ -87,9 +94,7 @@ export const UserProfile = () => {
             <img src={profileUser.profilePicture}/>
             <p>{`${profileUser.username}`}</p>
             <p>{`${profileUser.aboutMe}`}</p>
-            <p>Member since: {format(new Date(profileUser.registrationDate), 'dd-MM-yyyy', {
-        locale: locales[i18n.language],
-    })}</p>
+            <p>{t("profile.date", { date: formattedDate })}</p>
             {isOwnProfile && (
                 <> 
                     <button onClick={handleLogout}>{t("auth.logout")}</button>
