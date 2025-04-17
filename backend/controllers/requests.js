@@ -222,7 +222,7 @@ export class RequestController {
     try {
       const requests = await Request.findAll({ attributes: ['id'] })
       if (!requests || requests.length === 0) {
-        return res.status(404).json({ code: 'no_requests_found' })
+        return res.status(200).json([])
       }
 
       const results = await Promise.all(

@@ -56,8 +56,10 @@ export const RequestList = () => {
                     return results;
                 }, {});
                 setResults(results);
-            } else {
+            } 
+            else {
                 toast.error(t(errorHandler(data)))
+                
             }
         } catch (error) { 
             toast.error(t(errorHandler(error))) 
@@ -95,7 +97,8 @@ export const RequestList = () => {
                 setTotalRequests(data.totalRequests);
                 await getAllRequestResults();
                 if (user) await getUserVotes();
-            } else {
+            } 
+            else {
                 toast.error(t(errorHandler(data)))
             }
         } catch (error) {
@@ -105,8 +108,7 @@ export const RequestList = () => {
 
     useEffect(() => {
         fetchRequests()
-        getAllRequestResults();
-    }, [navigate, page])
+    }, [])
 
     const handleVote = async (vote, request) => {
         if (!user) {

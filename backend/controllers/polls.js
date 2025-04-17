@@ -2,6 +2,7 @@ import { validatePoll } from '../schemas/poll.js'
 import { validatePollVote } from '../schemas/poll_vote.js'
 import { Poll } from '../models/poll.js'
 import { PollVotes } from '../models/poll_votes.js'
+import { io } from '../config/socket.js'
 
 export class PollController {
   static async getAll (req, res) {
@@ -107,6 +108,8 @@ export class PollController {
       }
 
       const pollVote = await PollVotes.create({ ...newPollVote.data, pollId: id, userId: req.user.id })
+
+      io.emit('pollVoted', { pollId: id })
       res.status(201).json(pollVote)
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
