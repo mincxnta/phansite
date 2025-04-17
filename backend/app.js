@@ -2,7 +2,7 @@ import express from 'express'
 import { serverConfig } from './config/server.js'
 import { authRouter, usersRouter, requestsRouter, adminRouter, pollsRouter, commentsRouter, reportsRouter, messagesRouter } from './routes/index.js'
 import { authenticateToken } from './middlewares/auth.js'
-// import { sequelize } from './config/database.js'
+import { sequelize } from './config/database.js'
 import dotenv from 'dotenv'
 import './models/index.js'
 import path from 'node:path'
@@ -27,22 +27,22 @@ app.use('/messages', authenticateToken, messagesRouter)
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')))
 
 // Sincronizar modelos con la base de datos
-// sequelize.sync({ alter: true })
-//   .then(() => {
-//     console.log('Conexión establecida con la base de datos')
-//   })
-//   .catch(error => {
-//     console.log('Error en la conexión con la base de datos:', error)
-//   })
+sequelize.sync({ alter: true })
+  .then(() => {
+    console.log('Conexión establecida con la base de datos')
+  })
+  .catch(error => {
+    console.log('Error en la conexión con la base de datos:', error)
+  })
 
 // Servir el frontend en producción
-// if (process.env.ENV === 'production') {
-//   app.use(express.static(path.join(__dirname, '../frontend/dist')))
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/dist')))
 
-//   app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../frontend/dist/index.html'))
-//   })
-// }
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'))
+  })
+}
 
 // Inicializar servidor
 server.listen(process.env.PORT, () => {
