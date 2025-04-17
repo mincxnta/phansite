@@ -20,38 +20,18 @@ export const Poll = () => {
   const [pollSocket, setPollSocket] = useState(null);
 
   useEffect(() => {
-    // Connectem a Socket.IO sense credencials
-    const socketUrl = API_URL || 'http://localhost:3000';
-    const newSocket = io(socketUrl, {
-        withCredentials: false, // No necessitem credencials per aquesta funcionalitat
+    const newSocket = io(API_URL, {
+        withCredentials: false,
     });
 
     setPollSocket(newSocket);
 
-    // Escoltem l'esdeveniment pollVoted
     newSocket.on('pollVoted', (data) => {
-        console.log('Rebut pollVoted:', data); // Per depurar
-        console.log(data)
-        console.log(poll.id)
         if (data.pollId == poll.id) {
-          console.log("Igual")
-            // Cridem getPollResults per obtenir els resultats actualitzats
             getPollResults(data.pollId);
         }
     });
 
-    // Escoltem possibles errors de connexió
-    newSocket.on('connect_error', (error) => {
-        console.error('Error de connexió amb Socket.IO:', error);
-        toast.error(t('error.socket_connection'));
-    });
-
-    // Escoltem quan es connecta amb èxit
-    newSocket.on('connect', () => {
-        console.log('Connectat a Socket.IO amb èxit');
-    });
-
-    // Desconnectem quan el component es desmunta
     return () => {
         newSocket.disconnect();
     };

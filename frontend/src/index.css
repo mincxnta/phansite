@@ -70,3 +70,23 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+@font-face {
+  font-family: 'Optima Nova LT Black';
+  src:local("OptimaNovaLTBlack"),
+  url('./assets/fonts/OptimaNovaLTBlack.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Earwig Factory';
+  src:local("EarwigFactory"),
+  url('./assets/fonts/EarwigFactory.otf') format('opentype');
+}
+
+p{
+  font-family: 'Optima Nova LT Black';
+}
+
+h1{
+  font-family: 'Earwig Factory';
+}
