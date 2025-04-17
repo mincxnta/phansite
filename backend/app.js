@@ -5,7 +5,9 @@ import { authenticateToken } from './middlewares/auth.js'
 import { sequelize } from './config/database.js'
 import dotenv from 'dotenv'
 import './models/index.js'
-import path from 'node:path'
+import path, { dirname } from 'node:path'
+import { fileURLToPath } from 'url'
+
 import { app, server } from './config/socket.js'
 
 // Configuración del servidor
@@ -36,6 +38,9 @@ sequelize.sync({ alter: true })
   })
 
 // Servir el frontend en producción
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../frontend/dist')))
 
