@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { API_URL } from '../../constants/constants'
+import { API_URL, SOCKET_URL } from '../../constants/constants'
 import { useNavigate } from 'react-router-dom'
 import { CommentSection } from './CommentSection.jsx'
 import { useAuth } from '../../context/AuthContext.jsx';
@@ -20,7 +20,7 @@ export const Poll = () => {
   const [pollSocket, setPollSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io(API_URL, {
+    const newSocket = io(SOCKET_URL, {
         withCredentials: false,
     });
 

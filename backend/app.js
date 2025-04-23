@@ -7,7 +7,6 @@ import dotenv from 'dotenv'
 import './models/index.js'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'url'
-
 import { app, server } from './config/socket.js'
 
 // Configuración del servidor
@@ -29,7 +28,16 @@ app.use('/api/messages', authenticateToken, messagesRouter)
 app.use('/api/uploads', express.static(path.join(process.cwd(), 'uploads')))
 
 // Sincronizar modelos con la base de datos
-sequelize.sync({ alter: true })
+// sequelize.sync({ alter: true })
+//   .then(() => {
+//     console.log('Conexión establecida con la base de datos')
+//   })
+//   .catch(error => {
+//     console.log('Error en la conexión con la base de datos:', error)
+//   })
+
+// Comprovar la connexió amb la base de dades
+sequelize.authenticate()
   .then(() => {
     console.log('Conexión establecida con la base de datos')
   })

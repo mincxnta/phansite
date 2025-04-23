@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { API_URL } from "../constants/constants.js";
+import { API_URL, SOCKET_URL } from "../constants/constants.js";
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client'
 import { toast } from 'react-toastify';
@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }) => {
     const connectSocket = () => {
         if (!user || socket?.connected) return;
 
-        const newSocket = io(API_URL, {
+        const newSocket = io(SOCKET_URL, {
             withCredentials: true,
             query: { userId: user.id }
         });
