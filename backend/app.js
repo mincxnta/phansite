@@ -16,17 +16,17 @@ dotenv.config()
 serverConfig(app)
 
 // Rutas de la API
-app.use('/auth', authRouter)
-app.use('/users', authenticateToken, usersRouter)
-app.use('/admin', authenticateToken, adminRouter)
-app.use('/requests', requestsRouter)
-app.use('/polls', pollsRouter)
-app.use('/comments', commentsRouter)
-app.use('/reports', authenticateToken, reportsRouter)
-app.use('/messages', authenticateToken, messagesRouter)
+app.use('/api/auth', authRouter)
+app.use('/api/users', authenticateToken, usersRouter)
+app.use('/api/admin', authenticateToken, adminRouter)
+app.use('/api/requests', requestsRouter)
+app.use('/api/polls', pollsRouter)
+app.use('/api/comments', commentsRouter)
+app.use('/api/reports', authenticateToken, reportsRouter)
+app.use('/api/messages', authenticateToken, messagesRouter)
 
 // Ruta para servir archivos estáticos
-app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')))
+app.use('/api/uploads', express.static(path.join(process.cwd(), 'uploads')))
 
 // Sincronizar modelos con la base de datos
 sequelize.sync({ alter: true })
