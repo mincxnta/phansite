@@ -17,7 +17,7 @@ serverConfig(app)
 
 // Rutas de la API
 app.use('/api/auth', authRouter)
-app.use('/api/users', authenticateToken, usersRouter)
+app.use('/api/users', usersRouter)
 app.use('/api/admin', authenticateToken, adminRouter)
 app.use('/api/requests', requestsRouter)
 app.use('/api/polls', pollsRouter)

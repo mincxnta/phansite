@@ -20,7 +20,7 @@ export const UserProfile = () => {
 
     useEffect(() => {
         const fetchProfile = async () => {
-            if (!username) {
+            if (!username && user) {
                 setProfileUser(user)
                 username = user.username
                 return;
@@ -28,7 +28,7 @@ export const UserProfile = () => {
             try {
                 const response = await fetch(`${API_URL}/users/${username}`, {
                     method: 'GET',
-                    credentials: 'include'
+                    // credentials: 'include'
                 })
 
                 if (!response.ok) {
@@ -39,7 +39,7 @@ export const UserProfile = () => {
                 const data = await response.json()
                 setProfileUser(data)
 
-                if (user.username === username) {
+                if (user && user.username === username) {
                     navigate('/profile', { replace: true });
                 }
             } catch (error) {
@@ -71,27 +71,27 @@ export const UserProfile = () => {
     //         setError(errorHandler(error));
     //     }
     // }
-    
+
     if (!profileUser) {
-        return <Loading/>;
+        return <Loading />;
     }
 
-    const isOwnProfile = !username || user.username === username
+    const isOwnProfile = !username || user && user.username === username
 
     const formattedDate = format(new Date(profileUser.registrationDate), 'dd-MM-yyyy', {
         locale: locales[i18n.language],
-      });
+    });
 
     return (
         <>
             {authError && t(authError)}
             <h1>{isOwnProfile ? t("profile.me") : t("profile.user", { username: profileUser.username })}</h1>
-            <img src={profileUser.profilePicture}/>
+            <img src={profileUser.profilePicture} />
             <p>{`${profileUser.username}`}</p>
             <p>{`${profileUser.aboutMe}`}</p>
             <p>{t("profile.date", { date: formattedDate })}</p>
             {isOwnProfile && (
-                <> 
+                <>
                     <button onClick={handleLogout}>{t("auth.logout")}</button>
                     <button><Link to="edit">{t("profile.edit")}</Link></button>
                     {/* <button onClick={handleDelete}>Eliminar cuenta</button> */}
@@ -102,10 +102,10 @@ export const UserProfile = () => {
                         </>
                     )}
                 </>)}
-                {/* Se puede ver el perfil de phantom thieves / admins ? Y mandarles mensajes? */}
-                {!isOwnProfile && (
-                    <button><Link to={`/chat/${profileUser.username}`}>{t("profile.message")}</Link></button>
-                    )}
+            {/* Se puede ver el perfil de phantom thieves / admins ? Y mandarles mensajes? */}
+            {!isOwnProfile && (
+                <button><Link to={`/chat/${profileUser.username}`}>{t("profile.message")}</Link></button>
+            )}
 
         </>
     )

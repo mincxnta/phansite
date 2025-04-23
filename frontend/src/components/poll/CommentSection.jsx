@@ -89,6 +89,8 @@ export const CommentSection = ({ pollId }) => {
                 await response.json()
                 toast.success(t("success.delete.comment"))
                 setComments((prevComments) => prevComments.filter(comment => comment.id !== id));
+                setTotalComments((prevTotal) => prevTotal - 1);
+                fetchComments();
             }
         } catch (error) {
             toast.error(t(errorHandler(error)))
@@ -123,7 +125,10 @@ export const CommentSection = ({ pollId }) => {
             ) : (
                 comments.map((comment) => (
                     <div key={comment.id} style={{ display: "flex" }}>
-                        <img src={comment.user?.profilePicture && !comment.anonymous ? comment.user.profilePicture : '/assets/requests/unknownTarget.png'} alt="Profile picture" style={{ maxHeight: '50px' }} />
+                        {!comment.anonymous ?
+                            (<Link to={`/profile/${comment.user.username}`}><img src={comment.user?.profilePicture && !comment.anonymous ? comment.user.profilePicture : '/assets/requests/unknownTarget.png'} alt="Profile picture" style={{ maxHeight: '50px' }} /></Link>)
+                            : (<img src={comment.user?.profilePicture && !comment.anonymous ? comment.user.profilePicture : '/assets/requests/unknownTarget.png'} alt="Profile picture" style={{ maxHeight: '50px' }} />)}
+
                         <div style={{ resize: "none", width: "90%", padding: "4px" }}>
                             <div style={{ display: "flex" }}>
                                 <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? t("anonymous") : (<Link to={`/profile/${comment.user.username}`}>{comment.user.username}</Link>)}</p>
@@ -132,7 +137,7 @@ export const CommentSection = ({ pollId }) => {
                                 </button>
                                 {user && (user.role === 'admin') &&
                                     <button onClick={() => handleDelete(comment.id)}>
-                                        <img src={'/assets/delete.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
+                                        <img src={'/assets/delete.png'} alt="Delete comment" style={{ maxHeight: '16px' }} />
                                     </button>
                                 }
                             </div>
