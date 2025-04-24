@@ -81,38 +81,20 @@ export const ChatList = () => {
               return new Date(b.lastMessage.date) - new Date(a.lastMessage.date);
             })
         } else {
-          fetch(`${API_URL}/users/${newMessage.senderId}`, {
-            method: 'GET'
-          })
-            .then((response) => response.json())
-            .then((userData) => {
-              if (userData) {
-                const newContact = {
-                  id: newMessage.senderId,
-                  username: userData.username,
-                  profilePicture: userData.profilePicture,
-                  lastMessage: {
-                    message: newMessage.message || (newMessage.image ? '[Imatge]' : ''),
-                    date: newMessage.date,
-                  },
-                };
+          const newContact = {
+            id: newMessage.senderId,
+            username: newMessage.sender.username,
+            profilePicture: newMessage.sender.profilePicture,
+            lastMessage: {
+              message: newMessage.message || (newMessage.image ? '[Imatge]' : ''),
+              date: newMessage.date,
+            },
+          };
+          const updatedContacts = [...prevContacts, newContact];
+          return updatedContacts.sort((a, b) => {
+            return new Date(b.lastMessage.date) - new Date(a.lastMessage.date);
+          });
 
-                setContacts((prev) => {
-                  if (prev.some((contact) => contact.id === newMessage.senderId)) {
-                    return prev;
-                  }
-                  const updatedContacts = [...prev, newContact];
-                  return updatedContacts.sort((a, b) => {
-                    return new Date(b.lastMessage.date) - new Date(a.lastMessage.date);
-                  });
-                });
-              }
-            })
-            .catch((error) => {
-              console.error('Error fetching new user data:', error);
-            });
-
-          return prevContacts;
         }
       });
     });
