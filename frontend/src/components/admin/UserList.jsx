@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 //import { showPopUp } from '../popups/PopUp.jsx'
+import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 import { toast } from 'react-toastify';
 
 export const UserList = () => {
@@ -54,6 +55,14 @@ export const UserList = () => {
         fetchUsers()
     }, [navigate, user, page, t])
 
+    const handleBanClick = (userId) => {
+        showConfirmToast(
+          t('confirmToast.banMessage'),
+          () => handleBan(userId),
+          () => {}
+        );
+      };
+
     const handleBan = async (userId) => {
 
         try {
@@ -98,7 +107,7 @@ export const UserList = () => {
                             </td>
                             <td>{user.email}</td>
                             <td>
-                                <button onClick={() => handleBan(user.id)}>{t("admin.ban")}</button>
+                                <button onClick={() => handleBanClick(user.id)}>{t("admin.ban")}</button>
                             </td>
                         </tr>
                     ))}

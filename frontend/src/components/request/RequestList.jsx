@@ -8,6 +8,7 @@ import { errorHandler } from '../../utils/errorHandler.js';
 import { showReportPopup } from '../popups/ReportPopup.jsx'
 import { showRequestPopup } from '../popups/RequestPopup.jsx'
 import { toast } from 'react-toastify';
+import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 
 export const RequestList = () => {
     const [requests, setRequests] = useState([])
@@ -139,6 +140,14 @@ export const RequestList = () => {
         }
     };
 
+     const handleStatusChangeClick = (requestId, status) => {
+            showConfirmToast(
+                t('confirmToast.banMessage'),
+                () => handleStatusChange(requestId, status),
+                () => { }
+            );
+        };
+
     const handleStatusChange = async (id, status) => {
         showRequestPopup(id, status, (updatedRequest) => {
             setRequests((prevRequests) => prevRequests.map((request) => request.id === id ? { ...request, ...updatedRequest } : request));
@@ -196,8 +205,8 @@ export const RequestList = () => {
                                     )}
                                     {showActionButtons && (
                                         <td>
-                                            <button disabled={request.status !== 'pending'} onClick={() => handleStatusChange(request.id, "rejected")}>{t("requests.rejected")}</button>
-                                            <button disabled={request.status !== 'pending'} onClick={() => handleStatusChange(request.id, "completed")}>{t("requests.completed")}</button>
+                                            <button disabled={request.status !== 'pending'} onClick={() => handleStatusChangeClick(request.id, "rejected")}>{t("requests.rejected")}</button>
+                                            <button disabled={request.status !== 'pending'} onClick={() => handleStatusChangeClick(request.id, "completed")}>{t("requests.completed")}</button>
                                             <button disabled={request.status !== 'pending'} onClick={() => handleReport("request", request.id)}>{t("requests.report")}</button>
                                         </td>
                                     )}

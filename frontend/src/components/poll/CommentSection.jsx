@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
+import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 
 export const CommentSection = ({ pollId }) => {
     const [comments, setComments] = useState([]);
@@ -78,6 +79,15 @@ export const CommentSection = ({ pollId }) => {
         fetchComments()
     }, [pollId, page]);
 
+     const handleDeleteClick = (commentId) => {
+            showConfirmToast(
+                t('confirmToast.banMessage'),
+                () => handleDelete(commentId),
+                () => { }
+            );
+        };
+    
+
     const handleDelete = async (id) => {
         try {
             const response = await fetch(`${API_URL}/comments/${id}`, {
@@ -136,7 +146,7 @@ export const CommentSection = ({ pollId }) => {
                                     <img src={'/assets/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
                                 </button>
                                 {user && (user.role === 'admin') &&
-                                    <button onClick={() => handleDelete(comment.id)}>
+                                    <button onClick={() => handleDeleteClick(comment.id)}>
                                         <img src={'/assets/delete.png'} alt="Delete comment" style={{ maxHeight: '16px' }} />
                                     </button>
                                 }

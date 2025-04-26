@@ -6,6 +6,7 @@ import { showRequestDetail } from '../request/RequestDetail.jsx'
 import { errorHandler } from '../../utils/errorHandler.js';
 // import { showPopUp } from '../popups/PopUp.jsx'
 import { toast } from 'react-toastify';
+import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 
 export const ReportedRequests = () => {
     const [reports, setReports] = useState([])
@@ -39,6 +40,30 @@ export const ReportedRequests = () => {
 
         fetchReports()
     }, [navigate, page])
+
+    const handleBanClick = (userId) => {
+        showConfirmToast(
+            t('confirmToast.banMessage'),
+            () => handleBan(userId),
+            () => { }
+        );
+    };
+
+    const handleDiscardClick = (reportId) => {
+        showConfirmToast(
+            t('confirmToast.banMessage'),
+            () => handleDiscard(reportId),
+            () => { }
+        );
+    };
+
+    const handleDeleteClick = (report) => {
+        showConfirmToast(
+            t('confirmToast.banMessage'),
+            () => handleDelete(report),
+            () => { }
+        );
+    };
 
     const handleBan = async (userId) => {
 
@@ -125,9 +150,9 @@ export const ReportedRequests = () => {
                                 <button onClick={() => showRequestDetail(report.request.id)}>{report.request.title}</button>
                             </td>
                             <td>
-                                <button onClick={() => handleDiscard(report.id)}>{t("discard")}</button>
-                                <button onClick={() => handleDelete(report)}>{t("delete")}</button>
-                                <button onClick={() => handleBan(report.request.userId)}>{t("admin.ban")}</button>
+                                <button onClick={() => handleDiscardClick(report.id)}>{t("discard")}</button>
+                                <button onClick={() => handleDeleteClick(report)}>{t("delete")}</button>
+                                <button onClick={() => handleBanClick(report.request.userId)}>{t("admin.ban")}</button>
                             </td>
                         </tr>
                     ))}

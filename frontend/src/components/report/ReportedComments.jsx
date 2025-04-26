@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 // import { showPopUp } from '../popups/PopUp.jsx';
 import { toast } from 'react-toastify';
+import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 
 export const ReportedComments = () => {
     const [reports, setReports] = useState([])
@@ -39,6 +40,30 @@ export const ReportedComments = () => {
 
         fetchReports()
     }, [navigate, page])
+
+    const handleBanClick = (userId) => {
+        showConfirmToast(
+            t('confirmToast.banMessage'),
+            () => handleBan(userId),
+            () => { }
+        );
+    };
+
+    const handleDiscardClick = (reportId) => {
+        showConfirmToast(
+            t('confirmToast.banMessage'),
+            () => handleDiscard(reportId),
+            () => { }
+        );
+    };
+
+    const handleDeleteClick = (report) => {
+        showConfirmToast(
+            t('confirmToast.banMessage'),
+            () => handleDelete(report),
+            () => { }
+        );
+    };
 
     const handleBan = async (userId) => {
 
@@ -129,9 +154,9 @@ export const ReportedComments = () => {
                                 {report.comment.text}
                             </td>
                             <td>
-                                <button onClick={() => handleDiscard(report.id)}>{t("discard")}</button>
-                                <button onClick={() => handleDelete(report)}>{t("delete")}</button>
-                                <button onClick={() => handleBan(report.comment.userId)}>{t("admin.ban")}</button>
+                                <button onClick={() => handleDiscardClick(report.id)}>{t("discard")}</button>
+                                <button onClick={() => handleDeleteClick(report)}>{t("delete")}</button>
+                                <button onClick={() => handleBanClick(report.comment.userId)}>{t("admin.ban")}</button>
                             </td>
                         </tr>
                     ))}
