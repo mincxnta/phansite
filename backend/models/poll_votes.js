@@ -32,5 +32,18 @@ export const PollVotes = sequelize.define('pollVotes', {
   underscored: true
 })
 
-User.belongsToMany(Poll, { through: PollVotes, foreignKey: 'userId', otherKey: 'pollId', as: 'votedPolls' })
-Poll.belongsToMany(User, { through: PollVotes, foreignKey: 'pollId', otherKey: 'userId', as: 'voters' })
+User.belongsToMany(Poll, {
+  through: PollVotes,
+  foreignKey: 'userId',
+  otherKey: 'pollId',
+  as: 'votedPolls',
+  onDelete: 'CASCADE'
+})
+
+Poll.belongsToMany(User, {
+  through: PollVotes,
+  foreignKey: 'pollId',
+  otherKey: 'userId',
+  as: 'voters',
+  onDelete: 'CASCADE'
+})

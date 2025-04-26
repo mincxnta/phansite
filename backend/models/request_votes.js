@@ -32,5 +32,18 @@ export const RequestVotes = sequelize.define('requestVotes', {
   underscored: true
 })
 
-User.belongsToMany(Request, { through: RequestVotes, foreignKey: 'userId', otherKey: 'requestId', as: 'votedRequests' })
-Request.belongsToMany(User, { through: RequestVotes, foreignKey: 'requestId', otherKey: 'userId', as: 'voters' })
+User.belongsToMany(Request, {
+  through: RequestVotes,
+  foreignKey: 'userId',
+  otherKey: 'requestId',
+  as: 'votedRequests',
+  onDelete: 'CASCADE'
+})
+
+Request.belongsToMany(User, {
+  through: RequestVotes,
+  foreignKey: 'requestId',
+  otherKey: 'userId',
+  as: 'voters',
+  onDelete: 'CASCADE'
+})

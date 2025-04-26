@@ -51,7 +51,8 @@ export const Request = sequelize.define('request', {
 
 Request.belongsTo(User, {
   foreignKey: 'userId',
-  as: 'user'
+  as: 'user',
+  onDelete: 'CASCADE'
 })
 
 User.hasMany(Request, {
