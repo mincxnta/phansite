@@ -13,20 +13,28 @@ const resources = {
     }
 }
 
-const savedLanguage = localStorage.getItem('language') || 'es';
+const getInitialLanguage = () => {
+  const savedLanguage = localStorage.getItem('language');
+  if (savedLanguage) {
+    return savedLanguage;
+  }
+
+  const browserLanguage = navigator.language.split('-')[0]
+  return browserLanguage === 'es' ? 'es' : 'en';
+};
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next) 
   .init({
     resources,
-    lng: savedLanguage,
-    fallbackLng: 'es',
+    lng: getInitialLanguage(),
+    fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
     },
     detection: {
-      order: ['localStorage', 'navigator'],
+      order: ['navigator'],
       caches: ['localStorage'],
     },
   });
