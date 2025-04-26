@@ -1,6 +1,7 @@
 {
     "home": {
-        "title": "Inicio"
+        "title": "Inicio",
+        "poll": "Encuesta"
     },
     "requests": {
         "title": "Peticiones",
@@ -40,6 +41,8 @@
         "username.placeholder": "Introduce tu nombre de usuario",
         "password": "Contraseña",
         "password.placeholder": "Introduce tu contraseña",
+        "confirm.password": "Confirmar contraseña",
+        "confirm.password.placeholder": "Confirma tu contraseña",
         "email": "Correo electrónico"
     },
     "role": {
@@ -73,6 +76,7 @@
         "reporter": "Reportado por",
         "reason": "Razón",
         "comments": "Comentario",
+        "requests": "Petición",
         "send": "Enviar reporte",
         "comment": "¿Qué ocurre con este comentario?",
         "request": "¿Qué ocurre con esta petición?"
@@ -130,7 +134,7 @@
         },
         "empty": {
             "username": "El nombre de usuario no puede estar vacío",
-            "password": "La contraseña no puede estar vacía",
+            "confirm.password": "La confirmación de contraseña no puede estar vacía",
             "email": "El correo electrónico no puede estar vacío",
             "title": "El título no puede estar vacío",
             "description": "La descripción no puede estar vacía",
@@ -138,6 +142,12 @@
             "comment": "El comentario no puede estar vacío",
             "question": "La pregunta no puede estar vacía",
             "reason": "La razón no puede estar vacía"
+        },
+        "password":{
+            "too.short": "La contraseña es demasiado corta",
+            "missing.uppercase": "La contraseña debe contener al menos una letra mayúscula",
+            "missing.number": "La contraseña debe contener al menos un número",
+            "not.match": "La contraseña no coincide con la confirmación"
         },
         "too.long": {
             "username": "El nombre de usuario es demasiado largo",

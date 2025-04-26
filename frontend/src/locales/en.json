@@ -1,6 +1,7 @@
 {
     "home": {
-        "title": "Home"
+        "title": "Home",
+        "poll": "Poll"
     },
     "requests": {
         "title": "Requests",
@@ -40,6 +41,8 @@
         "username.placeholder": "Enter your username",
         "password": "Password",
         "password.placeholder": "Enter your password",
+        "confirm.password": "Confirm password",
+        "confirm.password.placeholder": "Confirm your password",
         "email": "Email"
     },
     "role": {
@@ -73,6 +76,7 @@
         "reporter": "Reporter",
         "reason": "Reason",
         "comments": "Comment",
+        "requests": "Request",
         "send": "Send report",
         "comment": "What's wrong with this comment?",
         "request": "What's wrong with this request?"
@@ -130,7 +134,7 @@
         },
         "empty": {
             "username": "Username cannot be empty",
-            "password": "Password cannot be empty",
+            "confirm.password": "Confirm password cannot be empty",
             "email": "Email cannot be empty",
             "title": "Title cannot be empty",
             "description": "Description cannot be empty",
@@ -138,6 +142,12 @@
             "comment": "Comment cannot be empty",
             "question": "Question cannot be empty",
             "reason": "Reason cannot be empty"
+        },
+        "password":{
+            "too.short": "Password must be at least 8 characters long",
+            "missing.uppercase": "Password must contain at least one uppercase letter",
+            "missing.number": "Password must contain at least one number",
+            "not.match": "Password and confirm password do not match"
         },
         "too.long": {
             "username": "Username is too long",

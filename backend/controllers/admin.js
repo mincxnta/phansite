@@ -13,6 +13,14 @@ export class AdminController {
       return res.status(400).json({ code: newUser.error.issues[0].message })
     }
 
+    const { password, confirmPassword } = req.body
+    if (!confirmPassword) {
+      return res.status(400).json({ code: 'empty_confirm_password' })
+    }
+    if (password !== confirmPassword) {
+      return res.status(400).json({ code: 'passwords_do_not_match' })
+    }
+
     try {
       const hashedPassword = await bcrypt.hash(newUser.data.password, 10)
       const user = await User.create({

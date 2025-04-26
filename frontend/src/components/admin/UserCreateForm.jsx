@@ -9,6 +9,9 @@ import { toast } from 'react-toastify';
 export const UserCreateForm = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [email, setEmail] = useState('')
     const [role, setRole] = useState('fan')
     const navigate = useNavigate()
@@ -38,7 +41,7 @@ export const UserCreateForm = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password, email, role })
+                body: JSON.stringify({ username, password, confirmPassword, email, role })
             })
             const data = await response.json()
             if (response.ok) {
@@ -60,7 +63,12 @@ export const UserCreateForm = () => {
                 <input type="text" value={username} required onChange={(e) => setUsername(e.target.value)} placeholder={t("auth.username.placeholder")} />
                 <br />
                 <label>{t("auth.password")}</label>
-                <input type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder={t("auth.password.placeholder")} />
+                <input type={showPassword ? "text" : "password"} value={password} required onChange={(e) => setPassword(e.target.value)} placeholder={t("auth.password.placeholder")} />
+                <button type="button" onClick={() => setShowPassword(!showPassword)}>Hide</button>
+                <br />
+                <label>{t("auth.confirm.password")}</label>
+                <input type={showConfirmPassword ? "text" : "password"} value={confirmPassword} required onChange={(e) => setConfirmPassword(e.target.value)} placeholder={t("auth.confirm.password.placeholder")} />
+                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>Hide</button>
                 <br />
                 <label>{t("auth.email")}</label>
                 <input type="email" value={email} required onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
