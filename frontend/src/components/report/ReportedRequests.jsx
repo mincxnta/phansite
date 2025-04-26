@@ -106,7 +106,7 @@ export const ReportedRequests = () => {
                     <tr>
                         <th>{t("reports.reporter")}</th>
                         <th>{t("reports.reason")}</th>
-                        <th>{t("reports.comments")}</th>
+                        <th>{t("reports.requests")}</th>
                         <th>{t("admin.actions")}</th>
                     </tr>
                 </thead>

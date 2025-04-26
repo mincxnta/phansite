@@ -86,6 +86,7 @@ export const Poll = () => {
 
   const handleVote = async (vote) => {
     if (!user) {
+      navigate('/login')
       return;
     }
 
@@ -103,7 +104,6 @@ export const Poll = () => {
 
       if (response.ok) {
         toast.success(t("success.vote.poll"))
-        //await getPollResults(poll.id)
       } else {
         toast.error(t(errorHandler(data)))
       }
@@ -118,14 +118,15 @@ export const Poll = () => {
 
   return (
     <div>
+      <h1>{t("home.poll")}</h1>
       <h1>
         {poll.question}
       </h1>
       <div>
         <progress value={yesPercentage} max="100" /> <span>{yesPercentage}%</span>
       </div>
-      <button onClick={() => handleVote(false)} disabled={!user || user?.role !== 'fan'}>{t("no")}</button>
-      <button onClick={() => handleVote(true)} disabled={!user || user?.role !== 'fan'}>{t("yes")}</button>
+      <button onClick={() => handleVote(false)} disabled={user && user?.role !== 'fan'}>{t("no")}</button>
+      <button onClick={() => handleVote(true)} disabled={user && user?.role !== 'fan'}>{t("yes")}</button>
       <p>{t("poll.total.votes")}: {results.total}</p>
       {poll.id && <CommentSection pollId={poll.id} />}
     </div>
