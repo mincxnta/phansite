@@ -33,7 +33,26 @@ export const User = sequelize.define('user', {
   banned: {
     type: DataTypes.BOOLEAN,
     defaultValue: false
-
+  },
+  isVerified: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+  verificationToken: {
+    type: DataTypes.STRING(6),
+    allowNull: true
+  },
+  verificationTokenExpiresAt: {
+    type: DataTypes.DATE,
+    allowNull: true
+  },
+  resetToken: {
+    type: DataTypes.STRING(40),
+    allowNull: true
+  },
+  resetTokenExpiresAt: {
+    type: DataTypes.DATE,
+    allowNull: true
   },
   aboutMe: {
     type: DataTypes.STRING(255),

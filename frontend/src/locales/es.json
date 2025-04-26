@@ -43,7 +43,21 @@
         "password.placeholder": "Introduce tu contraseña",
         "confirm.password": "Confirmar contraseña",
         "confirm.password.placeholder": "Confirma tu contraseña",
-        "email": "Correo electrónico"
+        "confirm.new.password": "Confirmar nueva contraseña",
+        "confirm.new.password.placeholder": "Confirma tu nueva contraseña",
+        "new.password": "Nueva contraseña",
+        "new.password.placeholder": "Introduce tu nueva contraseña",
+        "email": "Correo electrónico",
+        "email.placeholder": "Introduce tu correo electrónico",
+        "reset.password": "Restablecer contraseña",
+        "resetting": "Restableciendo contraseña",
+        "reset.password.instructions": "Introduce tu nueva contraseña",
+        "forgot.password": "¿Olvidaste tu contraseña?",
+        "forgot.password.instructions": "Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña",
+        "sending": "Enviando correo electrónico...",
+        "send.reset.link": "Enviar enlace de restablecimiento",
+        "resending": "Reenviando correo electrónico...",
+        "resend.verification": "Reenviar email de verificación"
     },
     "role": {
         "title": "Rol",
@@ -116,7 +130,9 @@
             "file.type": "Tipo de fichero inválido. Solo se permite PNG, JPG y JPEG.",
             "post.id": "ID de publicación inválido",
             "status.change": "No puedes cambiar el estado de esta petición",
-            "email": "Correo electrónico inválido"
+            "email": "Correo electrónico inválido",
+            "verification.token": "Token de verificación inválido",
+            "link": "Enlace inválido"
         },
         "not.found": {
             "user": "Usuario no encontrado",
@@ -135,6 +151,7 @@
         "empty": {
             "username": "El nombre de usuario no puede estar vacío",
             "confirm.password": "La confirmación de contraseña no puede estar vacía",
+            "new.password": "La nueva contraseña no puede estar vacía",
             "email": "El correo electrónico no puede estar vacío",
             "title": "El título no puede estar vacío",
             "description": "La descripción no puede estar vacía",
@@ -143,11 +160,19 @@
             "question": "La pregunta no puede estar vacía",
             "reason": "La razón no puede estar vacía"
         },
-        "password":{
+        "password": {
             "too.short": "La contraseña es demasiado corta",
             "missing.uppercase": "La contraseña debe contener al menos una letra mayúscula",
             "missing.number": "La contraseña debe contener al menos un número",
             "not.match": "La contraseña no coincide con la confirmación"
+        },
+        "email": {
+            "not.verified": "El correo electrónico no está verificado",
+            "already.verified": "El correo electrónico ya está verificado"
+        },
+        "expired": {
+            "token": "El token ha expirado",
+            "link": "El enlace ha expirado"
         },
         "too.long": {
             "username": "El nombre de usuario es demasiado largo",
@@ -161,7 +186,11 @@
             "reason": "La razón es demasiado larga",
             "about.me": "Sobre mí es demasiado largo"
         },
-        "missing.refresh.token": "Falta de token de refresco",
+        "missing": {
+            "refresh.token": "Falta de token de refresco",
+            "verification.token": "Falta de token de verificación",
+            "token": "Falta de token"
+        },
         "inactive.poll": "La encuesta está inactiva",
         "internal.server": "Error inesperado"
     },
@@ -191,9 +220,26 @@
         "user": {
             "banned": "Usuario baneado satisfactoriamente"
         },
+        "email": {
+            "verified": "Correo electrónico verificado satisfactoriamente",
+            "verification.sent": "Correo electrónico de verificación enviado satisfactoriamente",
+            "resend": "Correo electrónico de verificación reenviado satisfactoriamente"
+        },
+        "password.reset": "Contraseña restablecida satisfactoriamente",
         "login": "Sesión iniciada satisfactoriamente",
         "logout": "Sesión cerrada satisfactoriamente",
         "register": "Registro realizado satisfactoriamente"
+    },
+    "verify.email": {
+        "title": "Verifica tu correo electrónico",
+        "message": "Por favor, introduce el código de verificación que hemos enviado a tu correo electrónico:",
+        "code": "Código de verificación",
+        "code.placeholder": "Introduce el código de verificación",
+        "verifying": "Verificando...",
+        "verify": "Verificar",
+        "expired": "El código de verificación ha expirado. Por favor, introduce tu correo electrónico para obtener uno nuevo.",
+        "sending": "Enviando...",
+        "resend": "Reenviar correo electrónico de verificación"
     },
     "language": {
         "en": "Inglés",

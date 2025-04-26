@@ -22,3 +22,8 @@ export function validateUser (user) {
 export function validateUpdatedUser (user) {
   return userSchema.partial().safeParse(user)
 }
+
+const passwordSchema = userSchema.shape.password
+export function validatePassword (password) {
+  return passwordSchema.safeParse(password)
+}

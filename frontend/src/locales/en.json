@@ -43,7 +43,21 @@
         "password.placeholder": "Enter your password",
         "confirm.password": "Confirm password",
         "confirm.password.placeholder": "Confirm your password",
-        "email": "Email"
+        "confirm.new.password": "Confirm new password",
+        "confirm.new.password.placeholder": "Confirm your new password",
+        "new.password": "New password",
+        "new.password.placeholder": "Enter your new password",
+        "email": "Email",
+        "email.placeholder": "Enter your email",
+        "reset.password": "Reset password",
+        "resetting": "Resetting password...",
+        "reset.password.instructions": "Enter your new password",
+        "forgot.password": "Forgot your password?",
+        "forgot.password.instructions": "Enter your email to receive a password reset link",
+        "sending": "Sending email...",
+        "send.reset.link": "Send reset link",
+        "resending": "Resending email...",
+        "resend.verification": "Resend reset link"
     },
     "role": {
         "title": "Role",
@@ -116,7 +130,9 @@
             "file.type": "Invalid file type. Only PNG, JPG, and JPEG are allowed.",
             "post.id": "Invalid post ID",
             "status.change": "You can't change the status of this request",
-            "email": "Invalid email"
+            "email": "Invalid email",
+            "verification.token": "Invalid verification token",
+            "link": "Invalid link"
         },
         "not.found": {
             "user": "User not found",
@@ -135,6 +151,7 @@
         "empty": {
             "username": "Username cannot be empty",
             "confirm.password": "Confirm password cannot be empty",
+            "new.password": "New password cannot be empty",
             "email": "Email cannot be empty",
             "title": "Title cannot be empty",
             "description": "Description cannot be empty",
@@ -143,11 +160,19 @@
             "question": "Question cannot be empty",
             "reason": "Reason cannot be empty"
         },
-        "password":{
+        "password": {
             "too.short": "Password must be at least 8 characters long",
             "missing.uppercase": "Password must contain at least one uppercase letter",
             "missing.number": "Password must contain at least one number",
             "not.match": "Password and confirm password do not match"
+        },
+        "email": {
+            "not.verified": "Email not verified",
+            "already.verified": "Email already verified"
+        },
+        "expired": {
+            "token": "Expired token",
+            "link": "Expired link"
         },
         "too.long": {
             "username": "Username is too long",
@@ -161,7 +186,11 @@
             "reason": "Reason is too long",
             "about.me": "About me is too long"
         },
-        "missing.refresh.token": "Missing refresh token",
+        "missing": {
+            "refresh.token": "Missing refresh token",
+            "verification.token": "Missing verification code",
+            "token": "Missing token"
+        },
         "inactive.poll": "The poll is inactive",
         "internal.server": "Unexpected error"
     },
@@ -191,9 +220,26 @@
         "user": {
             "banned": "User banned successfully"
         },
+        "email": {
+            "verified": "Email verified successfully",
+            "verification.sent": "Verification email sent successfully",
+            "resend": "Verification email resent successfully"
+        },
+        "password.reset": "Password reset successfully",
         "login": "Logged in successfully",
         "logout": "Logged out successfully",
         "register": "Registered successfully"
+    },
+    "verify.email": {
+        "title": "Verify your email",
+        "message": "Please enter the verification code sent to your email",
+        "code": "Verification code",
+        "code.placeholder": "Enter the verification code",
+        "verifying": "Verifying...",
+        "verify": "Verify",
+        "expired": "Verification code expired. Please enter your email to request a new one.",
+        "sending": "Sending...",
+        "resend": "Resend verification email"
     },
     "language": {
         "en": "English",

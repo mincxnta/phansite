@@ -19,6 +19,7 @@ const errorMessages = {
   'empty_comment': "empty.comment",
   'empty_username': "empty.username",
   'empty_confirm_password': "empty.confirm.password",
+  'empty_new_password': "empty.new.password",
   'empty_email': "empty.email",
   'empty_title': "empty.title",
   'empty_description': "empty.description",
@@ -41,6 +42,12 @@ const errorMessages = {
   'about_me_too_long': "too.long.reason",
   'invalid_email': "invalid.email",
   'invalid_status_change': "invalid.status.change",
+  'email_not_verified': 'email.not.verified',
+  'invalid_verification_token': 'invalid.verification.token',
+  'token_expired': 'expired.token',
+  'invalid_link': 'invalid.link',
+  'link_expired': 'expired.link',
+  'email_already_verified': 'email.already.verified',
   'internal_server_error': 'internal.server'
 };
 

@@ -18,6 +18,9 @@ import { ThiefPanel } from "./components/thieves/ThievesPanel.jsx";
 import { UserList } from "./components/admin/UserList.jsx";
 import { ChatList } from "./components/chat/ChatList.jsx";
 import { Chat } from "./components/chat/Chat.jsx";
+import { VerifyEmail } from "./components/auth/VerifyEmail.jsx";
+import { ForgotPassword } from "./components/auth/ForgotPassword.jsx";
+import { ResetPassword } from "./components/auth/ResetPassword.jsx";
 
 export const AppRoutes = () => {
     return (
@@ -39,6 +42,9 @@ export const AppRoutes = () => {
                 <Route path={ROUTES.THIEVES} element={<ProtectedRoute role="phantom_thief"><ThiefPanel /></ProtectedRoute>} />
                 <Route path={ROUTES.CHAT_LIST} element={<ProtectedRoute><ChatList /></ProtectedRoute>} />
                 <Route path={ROUTES.CHAT} element={<ProtectedRoute><Chat /></ProtectedRoute>} />
+                <Route path={ROUTES.VERIFY_EMAIL} element={<VerifyEmail />} />
+                <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
+                <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
             </Route>
         </Routes>
     );

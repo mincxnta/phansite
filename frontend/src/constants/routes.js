@@ -15,4 +15,7 @@ export const ROUTES = {
     THIEVES: '/thieves',
     CHAT_LIST: '/chat',
     CHAT: '/chat/:username',
+    VERIFY_EMAIL: '/verify-email',
+    FORGOT_PASSWORD: '/forgot-password',
+    RESET_PASSWORD: '/reset-password',
 }
