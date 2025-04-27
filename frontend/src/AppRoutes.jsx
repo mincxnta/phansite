@@ -22,10 +22,10 @@ import { VerifyEmail } from "./components/auth/VerifyEmail.jsx";
 import { ForgotPassword } from "./components/auth/ForgotPassword.jsx";
 import { ResetPassword } from "./components/auth/ResetPassword.jsx";
 
-export const AppRoutes = () => {
+export const AppRoutes = ({ isMuted, toggleMute, volume, setVolume }) => {
     return (
         <Routes>
-            <Route path="/" element={<Layout />}>
+            <Route path="/" element={<Layout isMuted={isMuted} toggleMute={toggleMute} volume={volume} setVolume={setVolume}/>}>
                 <Route index element={<Home />} />
                 <Route path={ROUTES.LOGIN} element={<Login />} />
                 <Route path={ROUTES.PROFILE} element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
