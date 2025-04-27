@@ -86,7 +86,7 @@ export const UserProfile = () => {
         <>
             {authError && t(authError)}
             <h1>{isOwnProfile ? t("profile.me") : t("profile.user", { username: profileUser.username })}</h1>
-            <img src={profileUser.profilePicture} />
+            <img src={profileUser.profilePicture || '/assets/requests/unknownTarget.png'} />
             <p>{`${profileUser.username}`}</p>
             <p>{`${profileUser.aboutMe}`}</p>
             <p>{t("profile.date", { date: formattedDate })}</p>
