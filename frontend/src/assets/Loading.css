@@ -1,38 +1,61 @@
 .loading-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 90vh;
+}
+
+.flip-container {
+  width: 35vw;
+  max-width: 450px;
+  min-width: 300px;
+  perspective: 1000px;
+}
+
+.flip-face {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.flip-face img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+.flip-container.joker {
+  aspect-ratio: 4 / 3;
+}
+
+.flip-container.text {
+  aspect-ratio: 3 / 1;
+}
+
+@media (max-width: 768px) {
+  .flip-container {
+    width: 60vw;
+    max-width: 350px;
+    min-width: 250px;
   }
-  
-  .loading-spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #fff;
-    border-top: 5px solid #ff0000;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+
+  .loading-container {
+    gap: 0.3vh;
   }
-  
-  .loading-container p {
-    color: white;
-    font-size: 1.2rem;
-    margin-top: 10px;
-    font-family: 'Arial', sans-serif;
+}
+
+@media (max-width: 480px) {
+  .flip-container {
+    width: 70vw;
+    max-width: 300px;
+    min-width: 200px;
   }
-  
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
+}
