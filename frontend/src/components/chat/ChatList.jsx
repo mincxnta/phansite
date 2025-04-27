@@ -51,7 +51,7 @@ export const ChatList = () => {
     };
 
     fetchContacts();
-  }, [user, navigate, t]);
+  }, [user, navigate]);
 
   useEffect(() => {
     if (!socket || !user) return;

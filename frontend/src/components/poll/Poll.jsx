@@ -62,7 +62,7 @@ export const Poll = () => {
       }
     }
     getActivePoll()
-  }, [navigate, t])
+  }, [navigate])
 
   const getPollResults = async (pollId) => {
     try {

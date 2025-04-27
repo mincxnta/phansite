@@ -245,6 +245,20 @@
         "en": "English",
         "es": "Spanish"
     },
+    "settings": {
+        "language": "Language",
+        "music": {
+            "title": "Music",
+            "enable": "Enable music",
+            "disable": "Disable music",
+            "volume": "Volume"
+        },
+        "email": {
+            "title": "Contact us",
+            "subject": "Feedback for Phansite"
+        },
+        "about": "About Phansite"
+    },
     "photo": {
         "upload": "Upload photo",
         "discard": "Discard photo"

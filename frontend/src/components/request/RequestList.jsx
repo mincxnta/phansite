@@ -13,7 +13,7 @@ import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 export const RequestList = () => {
     const [requests, setRequests] = useState([])
     const [results, setResults] = useState({})
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const location = useLocation();
     const { t } = useTranslation();
     const { user } = useAuth()

@@ -1,0 +1,27 @@
+.switcher{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #AB0000;
+    border-radius: 4px;
+    overflow: hidden;
+    font-weight: 500;
+}
+.language{
+    padding: "10px";
+    color: 'white';
+    font-size: '14px';
+    flex: '1';
+    text-align: 'center'
+}
+.button {
+    padding: "10px";
+    background-color: transparent;
+    color: 'white';
+    border: 'none';
+    cursor: 'pointer';
+    font-size: '16px';
+    flex: '0 0 20%';
+    text-align: 'center'
+}

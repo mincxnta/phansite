@@ -245,6 +245,20 @@
         "en": "Inglés",
         "es": "Español"
     },
+    "settings": {
+        "language": "Idioma",
+        "music": {
+            "title": "Música",
+            "enable": "Activar música",
+            "disable": "Desactivar música",
+            "volume": "Volumen"
+        },
+        "email": {
+            "title": "Contáctanos",
+            "subject": "Feedback para Phansite"
+        },
+        "about": "Sobre Phansite"
+    },
     "photo": {
         "upload": "Subir foto",
         "discard": "Descartar foto"

@@ -65,7 +65,7 @@ export const Chat = () => {
     };
 
     fetchMessages();
-  }, [user, navigate, t, username]);
+  }, [user, navigate, username]);
 
   const handleSendMessage = async (message, image) => {
     if (!message.trim() && !image) return;
