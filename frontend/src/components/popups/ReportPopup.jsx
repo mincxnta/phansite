@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { API_URL } from '../../constants/constants.js'
-import '../../assets/requests/RequestDetail.css'
+import '../../assets/report/ReportPopup.css'
 import { createPortal } from 'react-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
-// import { showPopUp } from './PopUp.jsx';
 import { toast } from 'react-toastify';
 import { errorHandler } from '../../utils/errorHandler.js';
 
@@ -51,8 +50,7 @@ export const ReportPopup = () => {
       setReason(null);
       toast.success(t(reportedType === "comment" ? "success.report.comment" : "success.report.request"))
       closePopup();
-      //showPopUp("Reporte reportado satisfactoriamente");
-      
+
     } catch (error) {
       toast.error(t(errorHandler(error)))
     }
@@ -65,9 +63,9 @@ export const ReportPopup = () => {
   if (!visible) return null;
 
   return createPortal(
-    <div className="popup-overlay">
-      <div className="popup-content">
-        <button className="popup-close" onClick={closePopup}>X</button>
+    <div className="report-popup-overlay">
+      <div className="report-popup-content">
+        <button className="report-popup-close" onClick={closePopup}>X</button>
         <form onSubmit={handleNewReport}>
           <h4>{t(reportedType === "comment" ? "reports.comment" : "reports.request")}</h4>
           <textarea name="" id="reason" value={reason} onChange={(e) => setReason(e.target.value)}></textarea>

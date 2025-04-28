@@ -8,18 +8,21 @@ import { showReportPopup } from '../popups/ReportPopup.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { toast } from 'react-toastify';
 import { errorHandler } from '../../utils/errorHandler.js';
+import { motion } from 'framer-motion'
 
 let showRequestDetail;
 
 export const RequestDetail = () => {
   const [request, setRequest] = useState(null)
   const [visible, setVisible] = useState(false);
+  const [flip, setFlip] = useState(true);
   const navigate = useNavigate()
   const { user } = useAuth();
   const { t } = useTranslation();
 
   showRequestDetail = async (requestId) => {
     setVisible(true);
+    setFlip(true);
     try {
       const url = `${API_URL}/requests/${requestId}`;
 
@@ -51,58 +54,52 @@ export const RequestDetail = () => {
 
   const closePopup = () => {
     setVisible(false);
+    setFlip(true);
   }
 
   if (!visible) return null;
 
   return createPortal(
-    <div className="popup-overlay">
-       {request && ( 
-        <div className="popup-content">
-          <button className="popup-close" onClick={closePopup}>x</button>
-          {/* <h2>{request.status}</h2> */}
-          {user && user.role === 'fan' && (
-            <button onClick={() => handleReport("request", request.id)}>
-              <img src={'/assets/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
-            </button>
-          )}
-          <h1>{request.title}</h1>
-          <table>
-            <tbody>
-              <tr>
-                <td>
-                  <h3>{t("requests.target")}</h3>
-                </td>
-                <td>
-                  <h3>{t("requests.target.image")}</h3>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>{request.target}</p>
-                </td>
-                <td rowSpan="3">
-                  <img
-                    src={request.targetImage || '/assets/requests/unknownTarget.png'}
-                    alt={request.target}
-                    style={{ width: '200px' }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h3>{t("requests.description")}</h3>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>{request.description}</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      )}, 
+    <div className="popup-overlay" onClick={closePopup}>
+      {request && (
+        <motion.div
+          className="popup-content"
+          onClick={(e) => e.stopPropagation()}
+          
+          transition={{ duration: 0.7 }}
+          animate={{ rotateY: flip ? 0 : 180 }}
+        >
+          <motion.div
+            transition={{ duration: 0.7 }}
+            animate={{ rotateY: flip ? 0 : 180 }}
+            onClick={() => setFlip((prevState) => !prevState)}
+            className="front"
+          >
+            {user && user.role === 'fan' && (
+              <button className="report-button" onClick={(e) => {
+                e.stopPropagation()
+                handleReport("request", request.id)}}>
+                <img src={'/assets/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
+              </button>
+            )}
+            <h1>{request.target}</h1>
+            <p>{request.description}</p>
+          </motion.div>
+          <motion.div
+            initial={{ rotateY: 180 }}
+            animate={{ rotateY: flip ? 180 : 0 }}
+            transition={{ duration: 0.7 }}
+            onClick={() => setFlip((prevState) => !prevState)}
+            className="back"
+          >
+            <img
+              src={request.targetImage || '/assets/requests/unknownTarget.png'}
+              alt={request.target}
+              style={{ width: '200px' }}
+            />
+          </motion.div>
+        </motion.div>
+      )}
     </div>,
     document.body
   );

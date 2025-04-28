@@ -1,0 +1,97 @@
+.report-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+.report-popup-content {
+  width: 40vw;
+  height: 40vh;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: black;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.report-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  z-index: 1;
+}
+
+.report-popup-content h4 {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.report-popup-content textarea {
+  width: 100%;
+  height: 50%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid white;
+  background-color: #333;
+  color: white;
+  resize: none;
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  margin-bottom: 15px;
+}
+
+.report-popup-content input[type="submit"] {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  background-color: #AB0000;
+  color: white;
+  cursor: pointer;
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  transition: background-color 0.3s;
+}
+
+.report-popup-content input[type="submit"]:hover {
+  background-color: #c70000;
+}
+
+@media (max-width: 768px) {
+  .report-popup-content {
+    width: 60vw;
+    height: 50vh;
+    padding: 15px;
+  }
+
+  .report-popup-close {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .report-popup-content {
+    width: 80vw;
+    height: 60vh;
+    padding: 10px;
+  }
+
+  .report-popup-close {
+    font-size: 16px;
+  }
+}
