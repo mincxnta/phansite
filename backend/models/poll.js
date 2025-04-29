@@ -7,7 +7,11 @@ export const Poll = sequelize.define('poll', {
     primaryKey: true,
     autoIncrement: true
   },
-  question: {
+  questionEs: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  questionEn: {
     type: DataTypes.STRING(100),
     allowNull: false
   },

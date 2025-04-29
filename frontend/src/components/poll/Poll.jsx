@@ -16,7 +16,7 @@ export const Poll = () => {
   const [yesPercentage, setYesPercentage] = useState(0);
   const [isLoading, setIsLoading] = useState(false)
   const { user } = useAuth()
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [pollSocket, setPollSocket] = useState(null);
 
   useEffect(() => {
@@ -116,11 +116,13 @@ export const Poll = () => {
           return <Loading/>;
       }
 
+      const displayedQuestion = i18n.language === 'es' ? poll.questionEs : poll.questionEn;
+
   return (
     <div>
       <h1>{t("home.poll")}</h1>
       <h1>
-        {poll.question}
+        {displayedQuestion}
       </h1>
       <div>
         <progress value={yesPercentage} max="100" /> <span>{yesPercentage}%</span>

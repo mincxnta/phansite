@@ -48,10 +48,10 @@ const errorMessages = {
   'invalid_link': 'invalid.link',
   'link_expired': 'expired.link',
   'email_already_verified': 'email.already.verified',
-  'internal_server_error': 'internal.server'
+  'internal_server_error': 'error.internal.server'
 };
 
-let message = 'internal.server';
+let message = 'error.internal.server';
 
 export const errorHandler = (error) => {
   if (error.code) {

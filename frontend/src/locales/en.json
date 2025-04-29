@@ -70,7 +70,8 @@
         "new": "New poll",
         "create": "Create poll",
         "send": "Publish poll",
-        "question": "Question",
+        "question.es": "Question (Spanish)",
+        "question.en": "Question (English)",
         "question.placeholder": "Enter the poll question",
         "total.votes": "Total votes"
     },

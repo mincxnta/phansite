@@ -4,7 +4,6 @@ export const useDisplayUsername = () => {
   const { t } = useTranslation();
 
   const displayUserName = (user) => {
-    console.log(user)
     if (user.banned) {
       return t('users.banned');
     }

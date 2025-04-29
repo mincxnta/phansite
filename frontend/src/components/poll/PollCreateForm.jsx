@@ -7,7 +7,8 @@ import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
 
 export const PollCreateForm = () => {
-    const [question, setQuestion] = useState('')
+    const [questionEs, setQuestionEs] = useState('')
+    const [questionEn, setQuestionEn] = useState('')
     const navigate = useNavigate()
     const { user } = useAuth()
     const { t } = useTranslation();
@@ -35,7 +36,7 @@ export const PollCreateForm = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ question })
+                body: JSON.stringify({ questionEs, questionEn })
             })
 
             const data = await response.json()
@@ -53,8 +54,11 @@ export const PollCreateForm = () => {
         <div>
             <h1>{t("poll.new")}</h1>
             <form onSubmit={handleNewPoll}>
-                <label>{t("poll.question")}</label>
-                <input type="text" required placeholder={t("poll.question.placeholder")} value={question} onChange={(e) => setQuestion(e.target.value)} />
+                <label>{t("poll.question.es")}</label>
+                <input type="text" required placeholder={t("poll.question.placeholder")} value={questionEs} onChange={(e) => setQuestionEs(e.target.value)} />
+                <br />
+                <label>{t("poll.question.en")}</label>
+                <input type="text" required placeholder={t("poll.question.placeholder")} value={questionEn} onChange={(e) => setQuestionEn(e.target.value)} />
                 <br />
                 <input type="submit" value={t("poll.send")} />
             </form>

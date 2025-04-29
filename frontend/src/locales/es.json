@@ -70,7 +70,8 @@
         "new": "Nueva encuesta",
         "create": "Crear encuesta",
         "send": "Publicar encuesta",
-        "question": "Pregunta",
+        "question.es": "Pregunta (español)",
+        "question.en": "Pregunta (inglés)",
         "question.placeholder": "Introduce la pregunta de la encuesta",
         "total.votes": "Votos totales"
     },

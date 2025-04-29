@@ -95,7 +95,7 @@ export const RequestDetail = () => {
             <img
               src={request.targetImage || '/assets/requests/unknownTarget.png'}
               alt={request.target}
-              style={{ width: '200px' }}
+              style={{ width: '200px', transform: 'scaleX(-1)' }}
             />
           </motion.div>
         </motion.div>

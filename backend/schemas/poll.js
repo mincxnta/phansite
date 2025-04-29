@@ -1,7 +1,8 @@
 import z from 'zod'
 
 const pollSchema = z.object({
-  question: z.string().trim().min(1, { message: 'empty_question' }).max(100, { message: 'question_too_long' }),
+  questionEs: z.string().trim().min(1, { message: 'empty_question' }).max(100, { message: 'question_too_long' }),
+  questionEn: z.string().trim().min(1, { message: 'empty_question' }).max(100, { message: 'question_too_long' }),
   isActive: z.boolean().default(true)
 })
 
