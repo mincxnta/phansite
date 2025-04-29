@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import '../assets/settings/LanguageSwitcher.css'
 
@@ -22,10 +22,8 @@ const LanguageSwitcher = () => {
   };
 
   return (
-    <div className="switcher">
-      <button className="button" onClick={() => toggleLanguage('prev')}>←</button>
-    <span className="language">{t(`language.${languages[currentIndex]}`)}</span>
-    <button className="button" onClick={() => toggleLanguage('next')}>→</button>
+    <div onClick={() => toggleLanguage('prev')}>
+      <span >{t(`language.${languages[currentIndex]}`)}</span>
       {/* <select
         value={i18n.language}
         onChange={(e) => changeLanguage(e.target.value)}

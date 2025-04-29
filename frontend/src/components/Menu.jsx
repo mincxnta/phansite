@@ -49,6 +49,13 @@ export const Menu = ({ isMuted, toggleMute, volume, setVolume }) => {
                         </Link>
                     </button>
                 }
+                {user && user.role === 'admin' &&
+                    <button>
+                        <Link to="/admin/poll">
+                            {t("home.poll")}
+                        </Link>
+                    </button>
+                }
                 <button
                     onClick={toggleSettings}
                     title={t('settingsMenu.open')}

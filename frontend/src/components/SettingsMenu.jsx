@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 
 export const SettingsMenu = ({ isMuted, toggleMute, volume, setVolume }) => {
   const { t } = useTranslation();
-//   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  //   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isSoundOpen, setIsSoundOpen] = useState(false);
   const githubUrl = 'https://github.com/mincxnta/phansite';
 
@@ -30,9 +30,8 @@ export const SettingsMenu = ({ isMuted, toggleMute, volume, setVolume }) => {
       }}
     >
 
-<div style={{ position: 'relative' }}>
-        {/* <button
-          onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+      <div style={{ position: 'relative' }}>
+        <button
           style={{
             width: '100%',
             padding: '10px',
@@ -44,32 +43,11 @@ export const SettingsMenu = ({ isMuted, toggleMute, volume, setVolume }) => {
             textAlign: 'center',
           }}
         >
-          {t('settings.language')}
+          <LanguageSwitcher />
         </button>
-        {isLanguageOpen && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '100%',
-              left: 0,
-              width: '100%',
-              backgroundColor: '#1C2526',
-              border: '1px solid #AB0000',
-              borderRadius: '4px',
-              padding: '10px',
-              zIndex: 1001,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '5px',
-            }}
-          >
-            <LanguageSwitcher onLanguageChange={() => setIsLanguageOpen(false)}/>
-          </div>
-        )} */}
-         <LanguageSwitcher/>
       </div>
 
-        {/* Botón toggle mute/desmute + volumen slider */}
+      {/* Botón toggle mute/desmute + volumen slider */}
       {/* <button
         onClick={toggleMute}
         style={{
