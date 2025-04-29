@@ -55,8 +55,8 @@ export class MessageController {
             },
             order: [['date', 'DESC']],
             include: [
-              { model: User, as: 'sender', attributes: ['id', 'username', 'profilePicture'] },
-              { model: User, as: 'receiver', attributes: ['id', 'username', 'profilePicture'] }
+              { model: User, as: 'sender', attributes: ['id', 'username', 'profilePicture', 'banned'] },
+              { model: User, as: 'receiver', attributes: ['id', 'username', 'profilePicture', 'banned'] }
             ]
           })
 
@@ -101,12 +101,12 @@ export class MessageController {
           {
             model: User,
             as: 'sender',
-            attributes: ['id', 'username', 'profilePicture']
+            attributes: ['id', 'username', 'profilePicture', 'banned']
           },
           {
             model: User,
             as: 'receiver',
-            attributes: ['id', 'username', 'profilePicture']
+            attributes: ['id', 'username', 'profilePicture', 'banned']
           }
         ],
         order: [['date', 'ASC']]
@@ -153,8 +153,8 @@ export class MessageController {
 
       const messageWithAssociations = await Message.findByPk(newMessage.id, {
         include: [
-          { model: User, as: 'sender', attributes: ['id', 'username', 'profilePicture'] },
-          { model: User, as: 'receiver', attributes: ['id', 'username', 'profilePicture'] }
+          { model: User, as: 'sender', attributes: ['id', 'username', 'profilePicture', 'banned'] },
+          { model: User, as: 'receiver', attributes: ['id', 'username', 'profilePicture', 'banned'] }
         ]
       })
 

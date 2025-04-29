@@ -8,7 +8,8 @@ import { errorHandler } from '../../utils/errorHandler.js';
 import { formatDistanceToNow } from 'date-fns';
 import { locales } from '../../utils/dateLocales.js';
 import { toast } from 'react-toastify';
-import { Loading } from '../Loading.jsx';
+import { Loading } from '../Loading.jsx'
+import { useDisplayUsername } from '../../utils/displayUsername.js'
 
 export const ChatList = () => {
   const { user, onlineUsers, socket } = useAuth();
@@ -16,7 +17,8 @@ export const ChatList = () => {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const displayUsername = useDisplayUsername();
+  
   useEffect(() => {
     const fetchContacts = async () => {
       if (!user) {
@@ -86,7 +88,7 @@ export const ChatList = () => {
             username: newMessage.sender.username,
             profilePicture: newMessage.sender.profilePicture,
             lastMessage: {
-              message: newMessage.message || (newMessage.image ? '[Imatge]' : ''),
+              message: newMessage.message || (newMessage.image ? `'[${t('image')}]'` : ''),
               date: newMessage.date,
             },
           };
@@ -132,14 +134,14 @@ export const ChatList = () => {
                       ? contact.profilePicture
                       : '/assets/requests/unknownTarget.png'
                   }
-                  alt={contact.username}
+                  alt={displayUsername(contact)}
                   className="conversation-avatar"
                 />
                 {onlineUsers.includes(contact.id) && (
                   <span className="online-indicator"></span>
                 )}
                 <div className="conversation-details">
-                  <p className="conversation-username">{contact.username}</p>
+                  <p className="conversation-username">{displayUsername(contact)}</p>
                   {contact.lastMessage ? (
                     <div className="last-message-container">
                       <p className="last-message">

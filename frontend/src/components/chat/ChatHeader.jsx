@@ -2,9 +2,11 @@ import React from 'react';
 import '../../assets/chat/ChatHeader.css';
 import { useAuth } from '../../context/AuthContext.jsx'
 import { Loading } from '../Loading.jsx';
+import { useDisplayUsername } from '../../utils/displayUsername.js'
 
 export const ChatHeader = ({ targetUser }) => {
   const { onlineUsers } = useAuth()
+const displayUsername = useDisplayUsername();
 
   if (!targetUser) {
     return <Loading/>;
@@ -18,10 +20,10 @@ export const ChatHeader = ({ targetUser }) => {
             ? targetUser.profilePicture
             : '/assets/requests/unknownTarget.png'
         }
-        alt={targetUser.username}
+        alt={displayUsername(targetUser)}
         className="avatar"
       />
-      <h2>{targetUser.username}</h2>
+      <h2>{displayUsername(targetUser)}</h2>
       {onlineUsers.includes(targetUser.id) && (
         <span className="online"></span>
       )}

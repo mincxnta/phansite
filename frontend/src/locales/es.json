@@ -98,7 +98,8 @@
     "users": {
         "title": "Usuarios",
         "list": "Lista de usuarios",
-        "create": "Crear usuario"
+        "create": "Crear usuario",
+        "banned": "Usuario baneado"
     },
     "chat": {
         "title": "Chat",
@@ -271,5 +272,6 @@
     "yes": "Sí",
     "anonymous": "Anónimo",
     "delete": "Eliminar",
-    "discard": "Descartar"
+    "discard": "Descartar",
+    "image": "Imagen"
 }

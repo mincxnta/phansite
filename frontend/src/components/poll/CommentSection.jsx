@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
 import { showConfirmToast } from '../popups/ConfirmToast.jsx'
+import { useDisplayUsername } from '../../utils/displayUsername.js'
 
 export const CommentSection = ({ pollId }) => {
     const [comments, setComments] = useState([]);
@@ -19,6 +20,7 @@ export const CommentSection = ({ pollId }) => {
     const { user } = useAuth()
     const navigate = useNavigate()
     const { t } = useTranslation();
+    const displayUsername = useDisplayUsername();
 
     const fetchComments = async () => {
         try {
@@ -141,7 +143,7 @@ export const CommentSection = ({ pollId }) => {
 
                         <div style={{ resize: "none", width: "90%", padding: "4px" }}>
                             <div style={{ display: "flex" }}>
-                                <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? t("anonymous") : (<Link to={`/profile/${comment.user.username}`}>{comment.user.username}</Link>)}</p>
+                                <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? t("anonymous") : (<Link to={`/profile/${comment.user.username}`}>{displayUsername(comment.user)}</Link>)}</p>
                                 <button onClick={() => handleReport("comment", comment.id)}>
                                     <img src={'/assets/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
                                 </button>

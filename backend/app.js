@@ -29,12 +29,12 @@ app.use('/api/uploads', express.static(path.join(process.cwd(), 'uploads')))
 
 // Sincronizar modelos con la base de datos
 sequelize.sync({ alter: true })
-  .then(() => {
-    console.log('Conexión establecida con la base de datos')
-  })
-  .catch(error => {
-    console.log('Error en la conexión con la base de datos:', error)
-  })
+  // .then(() => {
+  //   console.log('Conexión establecida con la base de datos')
+  // })
+  // .catch(error => {
+  //   console.log('Error en la conexión con la base de datos:', error)
+  // })
 
 // Comprobar la conexión con la base de datos
 sequelize.authenticate()

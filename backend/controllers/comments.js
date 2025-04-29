@@ -21,7 +21,7 @@ export class CommentController {
           {
             model: User,
             as: 'user',
-            attributes: ['id', 'username', 'profilePicture']
+            attributes: ['id', 'username', 'profilePicture', 'banned']
           }
         ],
         order: [['date', 'DESC']],

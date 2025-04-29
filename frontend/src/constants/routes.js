@@ -10,7 +10,7 @@ export const ROUTES = {
     ADD_REQUEST: '/newrequest',
     REQUEST_LIST: '/requests',
     REQUEST_DETAILS: '/requests/:id',
-    ADD_POLL: '/newpoll',
+    ADD_POLL: '/admin/poll',
     REPORT_LIST: '/admin/reports',
     THIEVES: '/thieves',
     CHAT_LIST: '/chat',
