@@ -154,9 +154,9 @@ export const ReportedComments = () => {
                                 {report.comment.text}
                             </td>
                             <td>
-                                <button onClick={() => handleDiscardClick(report.id)}>{t("discard")}</button>
-                                <button onClick={() => handleDeleteClick(report)}>{t("delete")}</button>
-                                <button onClick={() => handleBanClick(report.comment.userId)}>{t("admin.ban")}</button>
+                                <button title={t("discard")} onClick={() => handleDiscardClick(report.id)}>{t("discard")}</button>
+                                <button title={t("delete")} onClick={() => handleDeleteClick(report)}>{t("delete")}</button>
+                                <button title={t("admin.ban")} onClick={() => handleBanClick(report.comment.userId)}>{t("admin.ban")}</button>
                             </td>
                         </tr>
                     ))}

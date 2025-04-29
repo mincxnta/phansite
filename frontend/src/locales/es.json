@@ -21,7 +21,9 @@
         "rejected": "Rechazar",
         "completed": "Completar",
         "report": "Reportar",
-        "votes": "Votos"
+        "votes": "Votos",
+        "upvote": "Voto positivo",
+        "downvote": "Voto negativo"
     },
     "profile": {
         "title": "Perfil",

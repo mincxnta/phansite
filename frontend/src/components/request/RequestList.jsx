@@ -196,18 +196,18 @@ export const RequestList = () => {
                                         {request.target}
                                     </td>
                                     <td>
-                                        {showVoteButtons && <button style={{ backgroundColor: userVote === true ? "white" : "transparent", color: userVote === true ? "black" : "white" }} disabled={!user || user?.role !== 'fan'} onClick={() => handleVote(true, request)}>↑</button>}
+                                        {showVoteButtons && <button title={t("requests.upvote")} style={{ backgroundColor: userVote === true ? "white" : "transparent", color: userVote === true ? "black" : "white" }} disabled={!user || user?.role !== 'fan'} onClick={() => handleVote(true, request)}>↑</button>}
                                         <span>{result.totalVotes}</span>
-                                        {showVoteButtons && <button style={{ backgroundColor: userVote === false ? "white" : "transparent", color: userVote === false ? "black" : "white" }} disabled={!user || user?.role !== 'fan'} onClick={() => handleVote(false, request)}>↓</button>}
+                                        {showVoteButtons && <button title={t("requests.downvote")} style={{ backgroundColor: userVote === false ? "white" : "transparent", color: userVote === false ? "black" : "white" }} disabled={!user || user?.role !== 'fan'} onClick={() => handleVote(false, request)}>↓</button>}
                                     </td>
                                     {showActionButtons && (
                                         <td>{request.thiefComment || 'Sense comentari'}</td>
                                     )}
                                     {showActionButtons && (
                                         <td>
-                                            <button disabled={request.status !== 'pending'} onClick={() => handleStatusChangeClick(request.id, "rejected")}>{t("requests.rejected")}</button>
-                                            <button disabled={request.status !== 'pending'} onClick={() => handleStatusChangeClick(request.id, "completed")}>{t("requests.completed")}</button>
-                                            <button disabled={request.status !== 'pending'} onClick={() => handleReport("request", request.id)}>{t("requests.report")}</button>
+                                            <button disabled={request.status !== 'pending'} title={t("requests.rejected")} onClick={() => handleStatusChangeClick(request.id, "rejected")}>{t("requests.rejected")}</button>
+                                            <button disabled={request.status !== 'pending'} title={t("requests.completed")} onClick={() => handleStatusChangeClick(request.id, "completed")}>{t("requests.completed")}</button>
+                                            <button disabled={request.status !== 'pending'} title={t("requests.report")} onClick={() => handleReport("request", request.id)}>{t("requests.report")}</button>
                                         </td>
                                     )}
                                 </tr>

@@ -107,7 +107,7 @@ export const UserList = () => {
                             </td>
                             <td>{user.email}</td>
                             <td>
-                                <button onClick={() => handleBanClick(user.id)}>{t("admin.ban")}</button>
+                                <button title={t("admin.ban")} onClick={() => handleBanClick(user.id)}>{t("admin.ban")}</button>
                             </td>
                         </tr>
                     ))}

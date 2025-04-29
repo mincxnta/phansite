@@ -21,7 +21,9 @@
         "rejected": "Reject",
         "completed": "Complete",
         "report": "Report",
-        "votes": "Votes"
+        "votes": "Votes",
+        "upvote": "Upvote",
+        "downvote": "Downvote"
     },
     "profile": {
         "title": "Profile",
