@@ -51,7 +51,7 @@ const errorMessages = {
   'internal_server_error': 'error.internal.server'
 };
 
-let message = 'error.internal.server';
+let message = 'internal.server';
 
 export const errorHandler = (error) => {
   if (error.code) {
