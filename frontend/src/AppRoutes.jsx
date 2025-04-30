@@ -21,6 +21,7 @@ import { Chat } from "./components/chat/Chat.jsx";
 import { VerifyEmail } from "./components/auth/VerifyEmail.jsx";
 import { ForgotPassword } from "./components/auth/ForgotPassword.jsx";
 import { ResetPassword } from "./components/auth/ResetPassword.jsx";
+import { Polls } from "./components/poll/Polls.jsx";
 
 export const AppRoutes = ({ isMuted, toggleMute, volume, setVolume }) => {
     return (
@@ -45,6 +46,7 @@ export const AppRoutes = ({ isMuted, toggleMute, volume, setVolume }) => {
                 <Route path={ROUTES.VERIFY_EMAIL} element={<VerifyEmail />} />
                 <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
                 <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
+                <Route path={ROUTES.POLLS} element={<Polls/>} />
             </Route>
         </Routes>
     );
