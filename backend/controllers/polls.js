@@ -133,7 +133,8 @@ export class PollController {
       const totalVotes = yesVotes + noVotes
 
       const results = {
-        question: poll.question,
+        questionEs: poll.questionEs,
+        questionEn: poll.questionEn,
         yes: yesVotes,
         no: noVotes,
         total: totalVotes
