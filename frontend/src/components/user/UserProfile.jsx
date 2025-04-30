@@ -15,7 +15,7 @@ export const UserProfile = () => {
     const [profileUser, setProfileUser] = useState(null)
     const navigate = useNavigate()
     let { username } = useParams()
-    const { user, logout, error: authError } = useAuth()
+    const { user, error: authError } = useAuth()
     const { t, i18n } = useTranslation();
 
     useEffect(() => {
@@ -50,11 +50,6 @@ export const UserProfile = () => {
         }
         fetchProfile()
     }, [navigate, username, user])
-
-    const handleLogout = async () => {
-        await logout();
-        toast.success(t("success.logout"))
-    }
 
     // const handleDelete = async () => {
     //     try {
@@ -92,7 +87,6 @@ export const UserProfile = () => {
             <p>{t("profile.date", { date: formattedDate })}</p>
             {isOwnProfile && (
                 <>
-                    <button onClick={handleLogout}>{t("auth.logout")}</button>
                     <button><Link to="edit">{t("profile.edit")}</Link></button>
                     {/* <button onClick={handleDelete}>Eliminar cuenta</button> */}
                     {user.role === 'fan' && (
