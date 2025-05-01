@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { SettingsMenu } from './SettingsMenu.jsx'
 import { toast } from 'react-toastify'
 
-export const Menu = ({ isMuted, toggleMute, volume, setVolume }) => {
+export const Menu = () => {
     const { user, logout } = useAuth()
     const { t } = useTranslation();
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -186,12 +186,7 @@ export const Menu = ({ isMuted, toggleMute, volume, setVolume }) => {
             </nav >
             {isSettingsOpen && (
                 <div ref={settingsMenuRef}>
-                    <SettingsMenu
-                        isMuted={isMuted}
-                        toggleMute={toggleMute}
-                        volume={volume}
-                        setVolume={setVolume}
-                        closeMenu={closeSettings} />
+                    <SettingsMenu />
                 </div>
             )}
         </>

@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
+import { useMusicPlayer } from '../context/MusicPlayerContext.jsx';
 
-export const SettingsMenu = ({ isMuted, toggleMute, volume, setVolume }) => {
+export const SettingsMenu = () => {
   const { t } = useTranslation();
-  const [isSoundOpen, setIsSoundOpen] = useState(false);
   const githubUrl = 'https://github.com/mincxnta/phansite';
-
-  const handleVolumeChange = (e) => {
-    setVolume(parseFloat(e.target.value));
-  }
+  const { isMuted, toggleMute } = useMusicPlayer();
 
   return (
     <div
@@ -45,38 +42,10 @@ export const SettingsMenu = ({ isMuted, toggleMute, volume, setVolume }) => {
           <LanguageSwitcher />
         </button>
       </div>
-
-      {/* Botón toggle mute/desmute + volumen slider */}
-      {/* <button
-        onClick={toggleMute}
-        style={{
-          padding: '10px',
-          backgroundColor: isMuted ? '#666' : '#AB0000',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-        }}
-      >
-        {isMuted ? t('settings.music.enable') : t('settings.music.disable')}
-      </button>
-      <div>
-        <label style={{ color: 'white', marginBottom: '5px', display: 'block' }}>
-          {t('settings.music.volume')}
-        </label>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          value={volume}
-          onChange={handleVolumeChange}
-          style={{ width: '100%' }}
-        />
-      </div> */}
+      
       <div style={{ position: 'relative' }}>
         <button
-          onClick={() => setIsSoundOpen(!isSoundOpen)}
+          onClick={toggleMute}
           style={{
             width: '100%',
             padding: '10px',
@@ -88,50 +57,8 @@ export const SettingsMenu = ({ isMuted, toggleMute, volume, setVolume }) => {
             textAlign: 'center',
           }}
         >
-          {t('settings.music.title')}
+          {isMuted ? t('settings.music.enable') : t('settings.music.disable')}
         </button>
-        {isSoundOpen && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '100%',
-              left: 0,
-              width: '100%',
-              backgroundColor: '#1C2526',
-              border: '1px solid #AB0000',
-              borderRadius: '4px',
-              padding: '10px',
-              zIndex: 1001,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '10px',
-            }}
-          >
-            <label style={{ color: 'white', display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <input
-                type="checkbox"
-                checked={!isMuted}
-                onChange={toggleMute}
-                style={{ width: '16px', height: '16px' }}
-              />
-              {t('settings.music.enable')}
-            </label>
-            <div>
-              <label style={{ color: 'white', marginBottom: '5px', display: 'block' }}>
-                {t('settings.music.volume')}
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.01"
-                value={volume}
-                onChange={handleVolumeChange}
-                style={{ width: '100%' }}
-              />
-            </div>
-          </div>
-        )}
       </div>
 
       <a href={`mailto:p5phansite@gmail.com?subject=${t('settings.email.subject')}`}

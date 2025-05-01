@@ -23,10 +23,10 @@ import { ForgotPassword } from "./components/auth/ForgotPassword.jsx";
 import { ResetPassword } from "./components/auth/ResetPassword.jsx";
 import { Polls } from "./components/poll/Polls.jsx";
 
-export const AppRoutes = ({ isMuted, toggleMute, volume, setVolume }) => {
+export const AppRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<Layout isMuted={isMuted} toggleMute={toggleMute} volume={volume} setVolume={setVolume}/>}>
+            <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path={ROUTES.LOGIN} element={<Login />} />
                 <Route path={ROUTES.PROFILE} element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
