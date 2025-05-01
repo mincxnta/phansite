@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
-import { useAuth } from '../context/AuthContext.jsx'
-import { toast } from 'react-toastify';
+
 export const SettingsMenu = ({ isMuted, toggleMute, volume, setVolume }) => {
   const { t } = useTranslation();
-  //   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isSoundOpen, setIsSoundOpen] = useState(false);
   const githubUrl = 'https://github.com/mincxnta/phansite';
-  const { logout } = useAuth()
+
   const handleVolumeChange = (e) => {
     setVolume(parseFloat(e.target.value));
   }
-  const handleLogout = async () => {
-    await logout();
-    toast.success(t("success.logout"))
-}
 
   return (
     <div
@@ -170,22 +164,6 @@ export const SettingsMenu = ({ isMuted, toggleMute, volume, setVolume }) => {
       >
         {t('settings.about')}
       </a>
-      <div style={{ position: 'relative' }}>
-        <button
-          style={{
-            width: '100%',
-            padding: '10px',
-            backgroundColor: '#AB0000',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            textAlign: 'center',
-          }}
-          onClick={handleLogout}>
-          {t("auth.logout")}
-        </button>
-      </div>
     </div>
     
   );
