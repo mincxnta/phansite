@@ -77,6 +77,15 @@
         "question.placeholder": "Enter the poll question",
         "total.votes": "Total votes"
     },
+    "polls": {
+        "previous": "Previous polls",
+        "title": "Polls",
+        "question": "Question",
+        "no.polls": "No poll",
+        "results": "Results",
+        "total.votes": "Total votes",
+        "your.vote": "Your vote"
+    },
     "comments": {
         "title": "Comments",
         "add": "Add comment",

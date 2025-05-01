@@ -77,6 +77,15 @@
         "question.placeholder": "Introduce la pregunta de la encuesta",
         "total.votes": "Votos totales"
     },
+    "polls": {
+        "previous": "Encuentas anteriores",
+        "title": "Encuestas",
+        "question": "Pregunta",
+        "no.polls": "No hay encuestas",
+        "results": "Resultados",
+        "total.votes": "Votos totales",
+        "your.vote": "Tu voto"
+    },
     "comments": {
         "title": "Comentarios",
         "add": "Añadir comentario",

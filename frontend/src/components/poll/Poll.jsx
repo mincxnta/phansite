@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { API_URL, SOCKET_URL } from '../../constants/constants'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { CommentSection } from './CommentSection.jsx'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
@@ -130,6 +130,7 @@ export const Poll = () => {
       <button onClick={() => handleVote(false)} disabled={user && user?.role !== 'fan'}>{t("no")}</button>
       <button onClick={() => handleVote(true)} disabled={user && user?.role !== 'fan'}>{t("yes")}</button>
       <p>{t("poll.total.votes")}: {results.total}</p>
+      <Link to="/polls">{t("polls.previous")}</Link>
       {poll.id && <CommentSection pollId={poll.id} />}
     </div>
   )

@@ -6,11 +6,46 @@ import { io } from '../config/socket.js'
 
 export class PollController {
   static async getAll (req, res) {
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 5
+    const offset = (page - 1) * limit
+
     try {
-      const polls = await Poll.findAll({
-        order: [['date', 'DESC']]
+      const { count, rows } = await Poll.findAndCountAll({
+        where: { isActive: false },
+        order: [['date', 'DESC']],
+        limit,
+        offset
       })
-      res.status(200).json(polls)
+
+      const pollsWithResults = await Promise.all(
+        rows.map(async (poll) => {
+          const [yesVotes, noVotes] = await Promise.all([
+            PollVotes.count({ where: { pollId: poll.id, vote: true } }),
+            PollVotes.count({ where: { pollId: poll.id, vote: false } })
+          ])
+
+          const totalVotes = yesVotes + noVotes
+          const yesPercentage = totalVotes > 0 ? ((yesVotes / totalVotes) * 100).toFixed(1) : 0
+
+          return {
+            ...poll.toJSON(),
+            results: {
+              yes: yesVotes,
+              no: noVotes,
+              total: totalVotes,
+              yesPercentage: parseFloat(yesPercentage)
+            }
+          }
+        })
+      )
+
+      res.status(200).json({
+        polls: pollsWithResults,
+        totalPolls: count,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      })
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }
@@ -141,6 +176,32 @@ export class PollController {
       }
 
       res.status(200).json(results)
+    } catch (error) {
+      res.status(500).json({ code: 'internal_server_error' })
+    }
+  }
+
+  static async getUserVote (req, res) {
+    const { id } = req.params
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ code: 'unauthenticated' })
+    }
+
+    try {
+      const poll = await Poll.findByPk(id)
+      if (!poll) {
+        return res.status(404).json({ code: 'poll_not_found' })
+      }
+
+      const userVote = await PollVotes.findOne({
+        where: { pollId: id, userId: req.user.id }
+      })
+
+      if (!userVote) {
+        return res.status(200).json({ vote: null })
+      }
+
+      res.status(200).json({ vote: userVote.vote })
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }
