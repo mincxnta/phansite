@@ -197,7 +197,8 @@
             "comment": "El comentario es demasiado largo",
             "question": "La pregunta es demasiado larga",
             "reason": "La razón es demasiado larga",
-            "about.me": "Sobre mí es demasiado largo"
+            "about.me": "Sobre mí es demasiado largo",
+            "message": "El mensaje es demasiado largo"
         },
         "missing": {
             "refresh.token": "Falta de token de refresco",

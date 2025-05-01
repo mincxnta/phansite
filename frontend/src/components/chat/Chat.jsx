@@ -95,7 +95,8 @@ export const Chat = () => {
 
       const data = await response.json()
       if (!response.ok) {
-        toast.error(errorHandler(data));
+        toast.error(t(errorHandler(data)));
+        return;
       }
 
       setMessages((prevMessages) => [...prevMessages, data]);

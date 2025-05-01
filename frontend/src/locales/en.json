@@ -197,7 +197,8 @@
             "comment": "Comment is too long",
             "question": "Question is too long",
             "reason": "Reason is too long",
-            "about.me": "About me is too long"
+            "about.me": "About me is too long",
+            "message": "Message is too long"
         },
         "missing": {
             "refresh.token": "Missing refresh token",

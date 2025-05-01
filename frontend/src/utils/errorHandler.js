@@ -29,6 +29,7 @@ const errorMessages = {
   'comment_too_long': "too.long.comment",
   'username_too_long': "too.long.username",
   'password_too_long': "too.long.password",
+  'message_too_long': "too.long.message",
   'password_too_short': "password.too.short",
   'password_missing_uppercase': "password.missing.uppercase",
   'password_missing_number': "password.missing.number",

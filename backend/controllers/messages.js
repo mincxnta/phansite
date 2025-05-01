@@ -3,6 +3,7 @@ import { Message } from '../models/message.js'
 import { User } from '../models/user.js'
 import { Op } from 'sequelize'
 import { uploadToCloudinary } from '../utils/cloudinaryUpload.js'
+import { validateMessage } from '../schemas/message.js'
 
 export class MessageController {
   static async getUsers (req, res) {
@@ -133,6 +134,11 @@ export class MessageController {
     const targetUser = await User.findByPk(id)
     if (!targetUser) {
       return res.status(404).json({ code: 'user_not_found' })
+    }
+
+    const newMessage = validateMessage({ message })
+    if (!newMessage.success) {
+      return res.status(400).json({ code: newMessage.error.issues[0].message })
     }
 
     if (!message && !req.file) {
