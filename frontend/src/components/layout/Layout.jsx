@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { Menu } from "./Menu.jsx";
+import { Menu } from "../menu/Menu.jsx";
 
 export const Layout = ({ isMuted, toggleMute }) => {
 

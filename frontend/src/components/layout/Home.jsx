@@ -1,5 +1,5 @@
 import React from 'react'
-import { Poll } from './poll/Poll'
+import { Poll } from '../poll/Poll'
 
 export const Home = () => {
 

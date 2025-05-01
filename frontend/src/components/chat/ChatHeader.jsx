@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../assets/chat/ChatHeader.css';
 import { useAuth } from '../../context/AuthContext.jsx'
-import { Loading } from '../Loading.jsx';
+import { Loading } from '../layout/Loading.jsx';
 import { useDisplayUsername } from '../../utils/displayUsername.js'
 
 export const ChatHeader = ({ targetUser }) => {

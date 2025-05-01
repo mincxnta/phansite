@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx'
 import { showRequestDetail } from './RequestDetail.jsx'
@@ -13,7 +13,6 @@ import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 export const RequestList = () => {
     const [requests, setRequests] = useState([])
     const [results, setResults] = useState({})
-    // const navigate = useNavigate()
     const location = useLocation();
     const { t } = useTranslation();
     const { user } = useAuth()

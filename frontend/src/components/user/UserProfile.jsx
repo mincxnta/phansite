@@ -9,7 +9,7 @@ import { format } from 'date-fns';
 import { locales } from '../../utils/dateLocales.js'
 import { toast } from 'react-toastify';
 import { errorHandler } from '../../utils/errorHandler.js';
-import { Loading } from '../Loading.jsx'
+import { Loading } from '../layout/Loading.jsx'
 
 export const UserProfile = () => {
     const [profileUser, setProfileUser] = useState(null)

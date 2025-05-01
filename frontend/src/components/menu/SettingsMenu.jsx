@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from './LanguageSwitcher';
-import { useMusicPlayer } from '../context/MusicPlayerContext.jsx';
+import LanguageSwitcher from './LanguageSwitcher.jsx';
+import { useMusicPlayer } from '../../context/MusicPlayerContext.jsx';
 
 export const SettingsMenu = () => {
   const { t } = useTranslation();

@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
-// import { showPopUp } from '../popups/PopUp.jsx';
 import { toast } from 'react-toastify';
 import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 
@@ -81,7 +80,6 @@ export const ReportedComments = () => {
             if (!response.ok) {
                 toast.error(t(errorHandler(data)))
             }
-            //showPopUp("Usuario baneado satisfactoriamente");
             toast.success(t("success.user.banned"))
         } catch (error) {
             toast.error(t(errorHandler(error)))

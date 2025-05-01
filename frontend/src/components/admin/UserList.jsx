@@ -4,7 +4,6 @@ import { API_URL } from '../../constants/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
-//import { showPopUp } from '../popups/PopUp.jsx'
 import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 import { toast } from 'react-toastify';
 
@@ -80,7 +79,6 @@ export const UserList = () => {
                 toast.error(t(errorHandler(data)))
             }
             toast.success(t("success.user.banned"))
-            //showPopUp("Usuario baneado correctamente");
         } catch (error) {
             toast.error(t(errorHandler(error)))
         }

@@ -9,12 +9,10 @@ import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'url'
 import { app, server } from './config/socket.js'
 
-// Configuración del servidor
 app.use(express.json())
 dotenv.config()
 serverConfig(app)
 
-// Rutas de la API
 app.use('/api/auth', authRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/admin', authenticateToken, adminRouter)
@@ -24,7 +22,6 @@ app.use('/api/comments', commentsRouter)
 app.use('/api/reports', authenticateToken, reportsRouter)
 app.use('/api/messages', authenticateToken, messagesRouter)
 
-// Ruta para servir archivos estáticos
 app.use('/api/uploads', express.static(path.join(process.cwd(), 'uploads')))
 
 // Sincronizar modelos con la base de datos
@@ -36,7 +33,6 @@ app.use('/api/uploads', express.static(path.join(process.cwd(), 'uploads')))
 //     console.log('Error en la conexión con la base de datos:', error)
 //   })
 
-// Comprobar la conexión con la base de datos
 sequelize.authenticate()
   .then(() => {
     console.log('Conexión establecida con la base de datos')
@@ -45,7 +41,6 @@ sequelize.authenticate()
     console.log('Error en la conexión con la base de datos:', error)
   })
 
-// Servir el frontend en producción
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
@@ -57,7 +52,6 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-// Inicializar servidor
 server.listen(process.env.PORT, () => {
   console.log(`Server listening on port ${process.env.PORT}`)
 })

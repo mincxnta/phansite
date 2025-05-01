@@ -3,7 +3,7 @@ import { API_URL, SOCKET_URL } from '../../constants/constants';
 import { useTranslation } from 'react-i18next';
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
-import { Loading } from '../Loading.jsx';
+import { Loading } from '../layout/Loading.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 
 export const Polls = () => {

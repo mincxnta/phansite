@@ -4,7 +4,6 @@ import '../../assets/requests/RequestDetail.css'
 import { createPortal } from 'react-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
-// import { showPopUp } from './PopUp.jsx';
 import { toast } from 'react-toastify';
 
 let showRequestPopup;
@@ -54,7 +53,6 @@ export const RequestPopup = () => {
                 toast.success(t("success.update.request"))
                 closePopup();
                 
-                //showPopUp("Se ha actualizado la solicitud satisfactoriamente");
                 if (onSuccess) {
                     onSuccess(updatedRequest);
                 }

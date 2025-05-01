@@ -9,7 +9,7 @@ import { ChatHeader } from './ChatHeader.jsx'
 import { ChatInput } from './ChatInput.jsx'
 import { ChatMessages } from './ChatMessages.jsx'
 import { toast } from 'react-toastify';
-import { Loading } from '../Loading.jsx';
+import { Loading } from '../layout/Loading.jsx';
 
 export const Chat = () => {
   const { user, socket } = useAuth();
@@ -70,7 +70,6 @@ export const Chat = () => {
   const handleSendMessage = async (message, image) => {
     if (!message.trim() && !image) return;
 
-    //setIsLoading(true);
     try {
       const formData = new FormData();
       if (message) {

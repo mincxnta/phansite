@@ -84,32 +84,6 @@ export class PollController {
     }
   }
 
-  // static async update (req, res) {
-  //   const { id } = req.params
-
-  //   const poll = await Poll.findByPk(id)
-  //   if (!poll) {
-  //     return res.status(404).json({ code: 'poll_not_found' })
-  //   }
-
-  //   if (req.user.role !== 'admin') {
-  //     return res.status(403).json({ code: 'forbidden' })
-  //   }
-
-  //   const updatedPoll = validateUpdatedPoll(req.body)
-
-  //   if (!updatedPoll.success) {
-  //     return res.status(400).json({ code: 'invalid_poll_data' })
-  //   }
-
-  //   try {
-  //     await poll.update(updatedPoll.data)
-  //     res.status(200).json(poll)
-  //   } catch (error) {
-  //     res.status(500).json({ code: 'internal_server_error' })
-  //   }
-  // }
-
   static async vote (req, res) {
     const { id } = req.params
 

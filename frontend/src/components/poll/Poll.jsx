@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
-import { Loading } from '../Loading.jsx';
+import { Loading } from '../layout/Loading.jsx';
 import { io } from 'socket.io-client';
 
 export const Poll = () => {
