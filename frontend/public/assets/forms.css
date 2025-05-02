@@ -1,0 +1,59 @@
+main{
+  background-image: url('./images/form-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+.form-input-container{
+    border: 6px solid #ffffff;
+    background-color: black;
+}
+
+.form-input-1 {
+  transform: skew(-8deg);
+}
+
+.form-input-1 input {
+    transform: skew(8deg);
+}
+
+.form-input-2 {
+  transform: skew(6deg);
+}
+
+.form-input-2 input {
+    transform: skew(-6deg);
+  }
+
+.form-input-3 {
+  transform: skew(-4deg);
+}
+
+.form-input-3 input {
+    transform: skew(4deg);
+  }
+
+.form-input-4 {
+  transform: skew(2deg);
+}
+
+.form-input-4 input {
+    transform: skew(-2deg);
+  }
+
+  .form-submit-container{
+    background-color: var(--persona-red);
+    border: 7px black solid;
+    outline: 5px white solid;
+  }
+
+.sign-up-title {
+  font-family: 'Earwig Factory';
+  letter-spacing: 0.2em;
+  text-shadow: 
+    2px 2px 0 #000000, 
+    -2px -2px 0 #000000, 
+    2px -2px 0 #000000, 
+    -2px 2px 0 #000000;
+}

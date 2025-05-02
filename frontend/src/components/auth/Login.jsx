@@ -71,20 +71,47 @@ export const Login = () => {
   };
 
   return (
-    <div>
-      <h1>{t("auth.login")}</h1>
-      <form onSubmit={handleLogin}>
-        <label>{t("auth.email")}</label>
-        <input type="text" value={email} required onChange={(e) => setEmail(e.target.value)} placeholder={t("auth.email.placeholder")} />
-        <br />
-        <label>{t("auth.password")}</label>
-        <input type={showPassword ? "text" : "password"} value={password} required onChange={(e) => setPassword(e.target.value)} placeholder={t("auth.password.placeholder")} />
-        <button type="button" onClick={() => setShowPassword(!showPassword)}>Hide</button>
+    <div className="min-h-screen flex items-center justify-center form-background">
+      <div className="w-full max-w-md">
+        <h1 className="mb-8 sign-up-title">{t("auth.login")}</h1>
+        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+          <div className="form-input-container form-input-2">
+            <input
+              type="text" value={email}
+              required
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={t("auth.email.placeholder")}
+              className="p-3 text-lg w-full" />
+          </div>
+          <div className="form-input-container form-input-1 relative">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              required
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder={t('auth.password.placeholder')}
+              className="p-3 text-lg w-full"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2"
+            >
+              <img src={showPassword ? '../../assets/images/show.png' : '../../assets/images/hide.png'}
+                className="h-8 w-auto cursor-pointer" />
+            </button>
+          </div>
 
-        <input type="submit" value={t("auth.login")} />
-        <Link to="/forgot-password">{t("auth.forgot.password")}</Link>
-        <Link to="/register">{t("auth.register")}</Link>
-      </form>
+          <button
+            type="submit"
+            className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-6 self-center"
+          >
+            {t('auth.login')}
+          </button>
+          <Link to="/forgot-password">{t("auth.forgot.password")}</Link>
+          <p>Don't have an account? <Link to="/register" className="text-red-600">{t("auth.register")}</Link></p>
+        </form>
+      </div>
     </div>
   )
 }
