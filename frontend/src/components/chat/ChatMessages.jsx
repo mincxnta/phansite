@@ -1,19 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import '../../assets/chat/ChatMessages.css';
-import { locales } from '../../utils/dateLocales.js'
+import { locales } from '../../utils/dateLocales.js';
 import { format } from 'date-fns';
 
 export const ChatMessages = ({ messages, currentUserId }) => {
   const { t, i18n } = useTranslation();
-  const messageEndRef = useRef(null)
+  const messageEndRef = useRef(null);
 
   useEffect(() => {
     if (messageEndRef.current && messages) {
-      messageEndRef.current.scrollIntoView({ behvior: "smooth" })
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  },
-    [messages])
+  }, [messages]);
 
   if (!messages || messages.length === 0) {
     return <div className="messages-container">{t('chat.empty.message')}</div>;
@@ -24,30 +23,30 @@ export const ChatMessages = ({ messages, currentUserId }) => {
       {messages.map((message) => (
         <div
           key={message.id}
-          className={`message ${message.senderId === currentUserId ? "sent" : "received"
-            }`}
-          ref={messageEndRef}
+          className={`chat ${message.senderId === currentUserId ? 'chat-end' : 'chat-start '}`}
         >
-          <img
-            src={
-              message.sender?.profilePicture
-                ? message.sender.profilePicture
-                : '/assets/requests/unknownTarget.png'
-            }
-            alt={message.sender?.username || 'Sender'}
-            className={`message-avatar ${message.senderId === currentUserId ? 'message-avatar-right' : 'message-avatar-left'
-              }`}
-          />
-          <div className={`message-content ${message.senderId === currentUserId ? 'message-content-right' : 'message-content-left'
-            }`}>
-
-            {message.image &&
+          {message.senderId !== currentUserId && (
+            <div className="chat-image avatar">
+              <div className="rounded-full">
+                <img
+                  src={
+                    message.sender?.profilePicture
+                      ? message.sender.profilePicture
+                      : '/assets/requests/unknownTarget.png'
+                  }
+                  alt={message.sender?.username || 'Sender'}
+                />
+              </div>
+            </div>
+          )}
+          <div className="chat-bubble">
+            {message.image && (
               <img
                 src={message.image}
-                alt='Message image'
+                alt="Message image"
                 className="message-image"
               />
-            }
+            )}
             {message.message && <p className="message-text">{message.message}</p>}
             <p className="message-date">
               {format(new Date(message.date), 'HH:mm', {
@@ -57,6 +56,7 @@ export const ChatMessages = ({ messages, currentUserId }) => {
           </div>
         </div>
       ))}
+      <div ref={messageEndRef} />
     </div>
   );
 };
