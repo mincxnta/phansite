@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../assets/chat/ChatHeader.css';
 import { useAuth } from '../../context/AuthContext.jsx'
 import { Loading } from '../layout/Loading.jsx';
 import { useDisplayUsername } from '../../utils/displayUsername.js'
@@ -13,7 +12,8 @@ const displayUsername = useDisplayUsername();
   }
 
   return (
-    <div className="header">
+    <div className="flex justify-start flex-[1.5] items-end m-5 relative">
+      <div className="flex flex-row items-center px-5 relative">
       <img
         src={
           targetUser.profilePicture
@@ -21,12 +21,13 @@ const displayUsername = useDisplayUsername();
             : '/assets/requests/unknownTarget.png'
         }
         alt={displayUsername(targetUser)}
-        className="avatar"
+        className="w-12 h-12 mr-4 object-cover"
       />
       <h2>{displayUsername(targetUser)}</h2>
       {onlineUsers.includes(targetUser.id) && (
-        <span className="online"></span>
+        <span className="absolute bottom-0 left-15 w-3 h-3 bg-green-500 rounded-full"></span>
       )}
+      </div>
     </div>
   );
 };

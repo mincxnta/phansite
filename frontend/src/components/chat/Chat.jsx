@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { API_URL } from '../../constants/constants.js';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { errorHandler } from '../../utils/errorHandler.js';
-import '../../assets/chat/Chat.css';
 import { ChatHeader } from './ChatHeader.jsx'
 import { ChatInput } from './ChatInput.jsx'
 import { ChatMessages } from './ChatMessages.jsx'
@@ -123,11 +122,11 @@ export const Chat = () => {
   }, [socket, navigate, user, targetUser])
 
   return (
-    <div className="chat-wrapper">
+     <div className="w-full h-screen bg-persona-dark-red">
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="chat-container">
+        <div className="flex flex-col h-full">
           <ChatHeader targetUser={targetUser} />
           <ChatMessages messages={messages} currentUserId={user?.id} />
           <ChatInput onSendMessage={handleSendMessage} />

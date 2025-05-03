@@ -19,14 +19,14 @@ export const ChatMessages = ({ messages, currentUserId }) => {
   }
 
   return (
-    <div className="messages-container">
+    <div className="overflow-y-auto p-5 flex-[8]">
       {messages.map((message) => (
         <div
           key={message.id}
           className={`chat ${message.senderId === currentUserId ? 'chat-end' : 'chat-start '}`}
         >
           {message.senderId !== currentUserId && (
-            <div className="chat-image avatar">
+            <div className="chat-image w-12 h-12 object-cover mr-4">
               <div className="rounded-full">
                 <img
                   src={
@@ -44,11 +44,11 @@ export const ChatMessages = ({ messages, currentUserId }) => {
               <img
                 src={message.image}
                 alt="Message image"
-                className="message-image"
+                className="max-h-[500px] mt-1.5 mb-2"
               />
             )}
-            {message.message && <p className="message-text">{message.message}</p>}
-            <p className="message-date">
+            {message.message && <p className="text-left">{message.message}</p>}
+            <p className="text-xs mt-1.5 text-right text-gray-400">
               {format(new Date(message.date), 'HH:mm', {
                 locale: locales[i18n.language],
               })}

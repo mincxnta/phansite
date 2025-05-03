@@ -4,6 +4,7 @@
 
 @theme {
   --color-transparent-black: rgba(0, 0, 0, 0.25); 
+  --color-persona-dark-red: #AB0000;
 }
 
 :root {

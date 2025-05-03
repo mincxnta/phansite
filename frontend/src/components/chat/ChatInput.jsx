@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import '../../assets/chat/ChatInput.css';
 
 export const ChatInput = ({ onSendMessage }) => {
   const { t } = useTranslation();
@@ -35,27 +34,27 @@ export const ChatInput = ({ onSendMessage }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="input-container">
-      <div className="image-preview">
+    <form onSubmit={handleSubmit} className="py-2.5 px-5 bg-black">
+      <div className="flex mb-3">
         {imagePreview &&
-          <div className="image-wrapper">
+          <div className="relative">
             <img
               src={imagePreview}
               alt="Preview"
-              className="preview-image"
+              className="w-[60px] h-[60px] object-cover"
             />
             <button
               type="button"
               onClick={handleRemoveImage}
-              className="remove-button"
+              className="absolute -top-2 -right-2 bg-red-600 rounded-full w-4 h-4 text-xs"
             >
               ✕
             </button>
           </div>
         }
       </div>
-      <div className="input-wrapper">
-        <label htmlFor="image-upload" className="upload-button">
+      <div className="flex items-center gap-2.5 mb-3">
+        <label htmlFor="image-upload" className="cursor-pointer">
           📷
         </label>
         <input
@@ -63,16 +62,16 @@ export const ChatInput = ({ onSendMessage }) => {
           type="file"
           accept="image/*"
           onChange={handleImageUpload}
-          className="file-input"
+          className="hidden"
         />
         <input
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder={t('chat.type')}
-          className="text-input"
+          className="flex-1 p-2.5 bg-white text-black"
         />
-        <button type="submit" className="send-button">
+        <button type="submit" className="py-2.5 px-5 bg-red-600 ">
           {t('chat.send')}
         </button>
       </div>
