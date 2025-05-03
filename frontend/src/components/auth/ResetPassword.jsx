@@ -51,40 +51,54 @@ export const ResetPassword = () => {
   };
 
   return (
-    <div>
-      <h2>{t('auth.reset.password')}</h2>
-      <p>{t('auth.reset.password.instructions')}</p>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>{t("auth.new.password")}</label>
-          <input
-            type={showNewPassword ? "text" : "password"}
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            placeholder={t('auth.new.password.placeholder')}
+    <div className="min-h-screen flex flex-col items-center justify-center form-background">
+      <h1 className="mb-8 sign-up-title">{t('auth.reset.password')}</h1>
+      <h2 className="text-xl mb-8">{t('auth.reset.password.instructions')}</h2>
+      <div className="w-75 max-w-md">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div className="form-input-container form-input-1 relative">
+            <input
+              type={showNewPassword ? "text" : "password"}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder={t('auth.new.password.placeholder')}
+              disabled={isLoading}
+              className="p-3 text-md w-full"
+            />
+            <button
+              type="button"
+              onClick={() => setShowNewPassword(!showNewPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2">
+              <img src={showNewPassword ? '../../assets/images/show.png' : '../../assets/images/hide.png'}
+                className="h-8 w-auto cursor-pointer" />
+            </button>
+          </div>
+          <div className="form-input-container form-input-2 relative">
+            <input
+              type={showConfirmNewPassword ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder={t('auth.confirm.new.password.placeholder')}
+              disabled={isLoading}
+              className="p-3 text-md w-full"
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirmNewPassword(!showConfirmNewPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2">
+              <img src={showConfirmNewPassword ? '../../assets/images/show.png' : '../../assets/images/hide.png'}
+                className="h-8 w-auto cursor-pointer" />
+            </button>
+          </div>
+          <button
+            type="submit"
             disabled={isLoading}
-          />
-          <button type="button" onClick={() => setShowNewPassword(!showNewPassword)}>Hide</button>
-        </div>
-        <div>
-          <label>{t("auth.confirm.new.password")}</label>
-          <input
-            type={showConfirmNewPassword ? "text" : "password"}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder={t('auth.confirm.new.password.placeholder')}
-            disabled={isLoading}
-          />
-          <button type="button" onClick={() => setShowConfirmNewPassword(!showConfirmNewPassword)}>Hide</button>
-        </div>
-        <button
-          type="submit"
-          disabled={isLoading}
-        >
-          {isLoading ? t('auth.resetting') : t('auth.reset.password')}
-        </button>
-      </form>
+            className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-6 self-center"
+          >
+            {isLoading ? t('auth.resetting') : t('auth.reset.password')}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

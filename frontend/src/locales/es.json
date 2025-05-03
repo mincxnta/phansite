@@ -51,15 +51,17 @@
         "new.password.placeholder": "Introduce tu nueva contraseña",
         "email": "Correo electrónico",
         "email.placeholder": "Introduce tu correo electrónico",
-        "reset.password": "Restablecer contraseña",
-        "resetting": "Restableciendo contraseña",
+        "reset.password": "Restablecer",
+        "resetting": "Restableciendo...",
         "reset.password.instructions": "Introduce tu nueva contraseña",
         "forgot.password": "¿Olvidaste tu contraseña?",
-        "forgot.password.instructions": "Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña",
-        "sending": "Enviando correo electrónico...",
-        "send.reset.link": "Enviar enlace de restablecimiento",
+        "forgot.password.instructions": "Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña:",
+        "sending": "Enviando...",
+        "send.reset.link": "Enviar enlace",
         "resending": "Reenviando correo electrónico...",
-        "resend.verification": "Reenviar email de verificación"
+        "resend.verification": "Reenviar email de verificación",
+        "already.registered": "¿Ya tienes cuenta?",
+        "not.registered": "¿No tienes cuenta?"
     },
     "role": {
         "title": "Rol",
@@ -253,7 +255,7 @@
         "verify": "Verificar",
         "expired": "El código de verificación ha expirado. Por favor, introduce tu correo electrónico para obtener uno nuevo.",
         "sending": "Enviando...",
-        "resend": "Reenviar correo electrónico de verificación"
+        "resend": "Reenviar"
     },
     "language": {
         "en": "Inglés",

@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 export const Layout = ({ isMuted, toggleMute }) => {
   const location = useLocation();
-  const hideMenu = ['/register', '/login'].includes(location.pathname);
+  const hideMenu = ['/register', '/login', '/forgot-password', '/verify-email', '/reset-password'].includes(location.pathname);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-900">

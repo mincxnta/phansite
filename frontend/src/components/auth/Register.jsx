@@ -40,9 +40,9 @@ export const Register = () => {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center form-background">
-            <div className="w-full max-w-md">
-                <h1 className="mb-8 sign-up-title">{t('auth.register')}</h1>
+        <div className="min-h-screen flex flex-col items-center justify-center form-background">
+            <h1 className="mb-8 sign-up-title">{t('auth.register')}</h1>
+            <div className="w-75 max-w-md">
                 <form onSubmit={handleRegister} className="flex flex-col gap-4">
                     <div className="form-input-container form-input-1">
                         <input
@@ -102,12 +102,12 @@ export const Register = () => {
                     </div>
                     <button
                         type="submit"
-                        className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-6 self-center"
+                        className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-6 self-center w-50"
                     >
                         {t('auth.register')}
                     </button>
                 </form>
-                <p>Already have an account? <a href="/login" className="text-red-600">{t('auth.login')}</a></p>
+                <p>{t("auth.already.registered")} <a href="/login" className="text-red-600">{t('auth.login')}</a></p>
             </div>
         </div>
     );

@@ -80,53 +80,60 @@ export const VerifyEmail = () => {
   };
 
   return (
-    <div>
-      <h2>{t("verify.email.title")}</h2>
+    <div className="min-h-screen flex flex-col items-center justify-center form-background">
+      <h1 className="mb-8 sign-up-title">{t("verify.email.title")}</h1>
       {!resend && (
         <>
-          <p>{t("verify.email.message")}</p>
-
-          <form onSubmit={handleSubmit}>
-            <div>
-              <input
-                type="text"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                placeholder={t("verify.email.code.placeholder")}
+          <h2 className="text-xl mb-8">{t("verify.email.message")}</h2>
+          <div className="w-75 max-w-md">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              <div className="form-input-container form-input-1">
+                <input
+                  type="text"
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
+                  placeholder={t("verify.email.code.placeholder")}
+                  disabled={isLoading}
+                  className="p-3 text-lg w-full"
+                />
+              </div>
+              <button
+                type="submit"
                 disabled={isLoading}
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? t("verify.email.verifying") : t("verify.email.verify")}
-            </button>
-          </form>
+                className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-6 self-center"
+              >
+                {isLoading ? t("verify.email.verifying") : t("verify.email.verify")}
+              </button>
+            </form>
+          </div>
         </>
       )}
 
       {resend && (
-        <div>
-          <p>{t("verify.email.expired")}</p>
-          <form onSubmit={handleResend}>
-            <div>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={t("auth.email.placeholder")}
+        <>
+          <h2 className="text-xl mb-8">{t("verify.email.expired")}</h2>
+          <div className="w-75 max-w-md">
+            <form onSubmit={handleResend} className="flex flex-col gap-6">
+              <div className="form-input-container form-input-1">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={t("auth.email.placeholder")}
+                  disabled={isLoading}
+                  className="p-3 text-lg w-full"
+                />
+              </div>
+              <button
+                type="submit"
                 disabled={isLoading}
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? t("verify.email.sending") : t("verify.email.resend")}
-            </button>
-          </form>
-        </div>
+                className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-6 self-center"
+              >
+                {isLoading ? t("verify.email.sending") : t("verify.email.resend")}
+              </button>
+            </form>
+          </div>
+        </>
       )}
     </div>
   );

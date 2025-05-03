@@ -51,15 +51,17 @@
         "new.password.placeholder": "Enter your new password",
         "email": "Email",
         "email.placeholder": "Enter your email",
-        "reset.password": "Reset password",
-        "resetting": "Resetting password...",
+        "reset.password": "Reset",
+        "resetting": "Resetting...",
         "reset.password.instructions": "Enter your new password",
         "forgot.password": "Forgot your password?",
-        "forgot.password.instructions": "Enter your email to receive a password reset link",
-        "sending": "Sending email...",
-        "send.reset.link": "Send reset link",
+        "forgot.password.instructions": "Enter your email to receive a password reset link:",
+        "sending": "Sending...",
+        "send.reset.link": "Send link",
         "resending": "Resending email...",
-        "resend.verification": "Resend reset link"
+        "resend.verification": "Resend reset link",
+        "already.registered": "Already have an account?",
+        "not.registered": "Don't have an account?"
     },
     "role": {
         "title": "Role",
@@ -253,7 +255,7 @@
         "verify": "Verify",
         "expired": "Verification code expired. Please enter your email to request a new one.",
         "sending": "Sending...",
-        "resend": "Resend verification email"
+        "resend": "Resend"
     },
     "language": {
         "en": "English",

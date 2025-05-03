@@ -37,31 +37,32 @@ export const ForgotPassword = () => {
   };
 
   return (
-    <div>
-      <h2>{t('auth.forgot.password')}</h2>
-      <p>{t('auth.forgot.password.instructions')}</p>
-
-      <form onSubmit={handleSubmit}>
-        <label>{t("auth.email")}</label>
-        <div>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder={t('auth.email.placeholder')}
+    <div className="min-h-screen flex flex-col items-center justify-center form-background">
+      <h1 className="mb-4 forgot-password-title ">{t('auth.forgot.password')}</h1>
+      <h2 className="text-xl mb-8">{t('auth.forgot.password.instructions')}</h2>
+      <div className="w-75 max-w-md">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div className="form-input-container form-input-1">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={t('auth.email.placeholder')}
+              disabled={isLoading}
+              className="p-3 text-lg w-full"
+            />
+          </div>
+          <button
+            type="submit"
             disabled={isLoading}
-          />
+            className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-8 self-center"
+          >
+            {isLoading ? t('auth.sending') : t('auth.send.reset.link')}
+          </button>
+        </form>
+        <div>
+          <p>{t("auth.already.registered")} <a href="/login" className="text-red-600">{t('auth.login')}</a></p>
         </div>
-        <button
-          type="submit"
-          disabled={isLoading}
-        >
-          {isLoading ? t('auth.sending') : t('auth.send.reset.link')}
-        </button>
-      </form>
-
-      <div>
-        <Link to="/login">{t('auth.login')}</Link>
       </div>
     </div>
   );

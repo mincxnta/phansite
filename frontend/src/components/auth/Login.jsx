@@ -71,9 +71,9 @@ export const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center form-background">
-      <div className="w-full max-w-md">
-        <h1 className="mb-8 sign-up-title">{t("auth.login")}</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center form-background">
+      <h1 className="mb-8 sign-up-title">{t("auth.login")}</h1>
+      <div className="w-75 max-w-md">
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
           <div className="form-input-container form-input-2">
             <input
@@ -101,15 +101,14 @@ export const Login = () => {
                 className="h-8 w-auto cursor-pointer" />
             </button>
           </div>
-
           <button
             type="submit"
-            className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-6 self-center"
+            className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-6 self-center w-50"
           >
             {t('auth.login')}
           </button>
           <Link to="/forgot-password">{t("auth.forgot.password")}</Link>
-          <p>Don't have an account? <Link to="/register" className="text-red-600">{t("auth.register")}</Link></p>
+          <p>{t("auth.not.registered")} <Link to="/register" className="text-red-600">{t("auth.register")}</Link></p>
         </form>
       </div>
     </div>
