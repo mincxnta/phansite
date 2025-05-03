@@ -8,10 +8,14 @@ export const Layout = ({ isMuted, toggleMute }) => {
   const hideMenu = ['/register', '/login', '/forgot-password', '/verify-email', '/reset-password'].includes(location.pathname);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-900">
-      {!hideMenu && <Menu isMuted={isMuted} toggleMute={toggleMute} />}
-      <main className="flex-1 overflow-auto">
+    <div className="flex flex-col h-screen">
+      {!hideMenu && <div className="fixed top-0 left-0 w-full z-50 bg-black">
+        <Menu isMuted={isMuted} toggleMute={toggleMute} />
+      </div>}
+      <main className="flex-1 overflow-y-auto home">
+      <div className="w-full h-full">
         <Outlet />
+        </div>
       </main>
     </div>
   );

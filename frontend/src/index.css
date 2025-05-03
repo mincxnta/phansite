@@ -2,6 +2,10 @@
 @plugin "daisyui";
 @import './assets/forms.css';
 
+@theme {
+  --color-transparent-black: rgba(0, 0, 0, 0.25); 
+}
+
 :root {
   --persona-red: #FF0000;
   --persona-dark-red: #AB0000;
@@ -33,6 +37,12 @@ h1 {
     url('./assets/fonts/EarwigFactory.otf') format('opentype');
 }
 
+@font-face {
+  font-family: 'Roboto Condensed';
+  src: local("RobotoCondensed"),
+    url('./assets/fonts/RobotoCondensed.ttf') format('truetype');
+}
+
 p {
   font-family: 'Optima Nova LT Black';
 }
@@ -45,3 +55,20 @@ h1 {
 .font-earwig {
   font-family: 'Earwig Factory', cursive;
 }
+
+.home{
+  background-image: url('./assets/images/stars.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.gradient{
+  background: -webkit-linear-gradient(#FFCF24, #E14400);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+

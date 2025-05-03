@@ -68,37 +68,35 @@ export const Menu = () => {
 
   return (
     <>
-      <nav className="bg-black border-b-2 border-white flex items-center justify-between px-4 py-2">
-        {/* Enllaços principals amb espai equitatiu */}
-        <div className="flex-1 flex justify-around">
-          <button className="text-white font-earwig text-2xl hover:underline focus:outline-none">
+      <nav className="bg-black border-b-2 border-white flex items-center justify-between px-4 py-2 ">
+        <ul className="flex-1 flex justify-around list-none font-earwig text-4xl">
+          <li>
             <Link to="/">{t('home.title')}</Link>
-          </button>
-          <button className="text-white font-earwig text-2xl hover:underline focus:outline-none">
+          </li>
+          <li>
             <Link to={user && user.role === 'phantom_thief' ? '/thieves' : '/requests'}>
               {t('requests.title')}
             </Link>
-          </button>
+          </li>
           {user && (
-            <button className="text-white font-earwig text-2xl hover:underline focus:outline-none">
+            <li>
               <Link to="/chat">{t('chat.title')}</Link>
-            </button>
+            </li>
           )}
           {user && user.role === 'admin' && (
             <>
-              <button className="text-white font-earwig text-2xl hover:underline focus:outline-none">
+              <li>
                 <Link to="/admin/users">{t('admin.users')}</Link>
-              </button>
-              <button className="text-white font-earwig text-2xl hover:underline focus:outline-none">
+              </li>
+              <li>
                 <Link to="/admin/reports">{t('admin.reports')}</Link>
-              </button>
-              <button className="text-white font-earwig text-2xl hover:underline focus:outline-none">
+              </li>
+              <li>
                 <Link to="/admin/poll">{t('home.poll')}</Link>
-              </button>
+              </li>
             </>
           )}
-        </div>
-        {/* Elements de la dreta (ajustos i perfil/login) */}
+        </ul>
         <div className="flex items-center space-x-4">
           <button
             onClick={toggleSettings}
@@ -121,9 +119,9 @@ export const Menu = () => {
                   className="w-8 h-8 rounded-full object-cover"
                 />
               ) : (
-                <button className="text-white font-earwig text-2xl hover:underline focus:outline-none">
+                <li className="font-earwig text-4xl list-none">
                   <Link to="/login">{t('auth.login')}</Link>
-                </button>
+                </li>
               )}
             </div>
             {user && isProfileMenuOpen && (
