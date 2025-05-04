@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
-import { Loading } from '../layout/Loading.jsx';
+import { Loading } from '../../components/Loading.jsx';
 import { io } from 'socket.io-client';
 import { motion } from 'framer-motion';
 
@@ -130,14 +130,14 @@ export const Poll = () => {
         </h2>
         <div className="mb-6 w-1/4">
           <div className="gradient">
-            <span class="text-5xl font-medium">YES</span>
-            <span class="text-8xl font-bold">
+            <span className="text-5xl font-medium">YES</span>
+            <span className="text-8xl font-bold">
               {yesPercentage}%
             </span>
           </div>
-          <div className="w-full h-12 bg-transparent-black border-6 border-black outline-white outline-6">
+          <div className="w-full h-12 bg-transparent-black border-6 border-black outline-white outline-6 -skew-x-15">
             <motion.div
-              className="h-full bg-red-600"
+              className="h-full bg-red-600 skew-x-3"
               initial={{ width: '0%' }}
               animate={{ width: `${yesPercentage}%` }}
               transition={{ duration: 1, ease: 'easeInOut' }}

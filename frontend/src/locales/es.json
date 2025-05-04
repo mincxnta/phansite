@@ -86,7 +86,8 @@
         "no.polls": "No hay encuestas",
         "results": "Resultados",
         "total.votes": "Votos totales",
-        "your.vote": "Tu voto"
+        "your.vote": "Tu voto",
+        "no.vote": "-"
     },
     "comments": {
         "title": "Comentarios",

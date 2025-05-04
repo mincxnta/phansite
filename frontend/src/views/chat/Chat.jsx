@@ -8,7 +8,7 @@ import { ChatHeader } from './ChatHeader.jsx'
 import { ChatInput } from './ChatInput.jsx'
 import { ChatMessages } from './ChatMessages.jsx'
 import { toast } from 'react-toastify';
-import { Loading } from '../layout/Loading.jsx';
+import { Loading } from '../../components/Loading.jsx';
 
 export const Chat = () => {
   const { user, socket } = useAuth();

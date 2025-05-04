@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useMusicPlayer } from '../../context/MusicPlayerContext.jsx';
-import playlist from '../../data/playlist.js';
-import '../../assets/MusicPlayer.css';
+import { useMusicPlayer } from '../context/MusicPlayerContext.jsx';
+import playlist from '../data/playlist.js';
+import '../assets/MusicPlayer.css';
 
 export const MusicPlayer = () => {
   const { t } = useTranslation();

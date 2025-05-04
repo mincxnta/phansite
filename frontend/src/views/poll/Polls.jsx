@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { API_URL, SOCKET_URL } from '../../constants/constants';
+import { API_URL } from '../../constants/constants';
 import { useTranslation } from 'react-i18next';
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
-import { Loading } from '../layout/Loading.jsx';
+import { Loading } from '../../components/Loading.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { Table } from '../../components/Table.jsx';
+import { Pagination } from '../../components/Pagination.jsx';
 
 export const Polls = () => {
   const [polls, setPolls] = useState([]);
@@ -66,6 +68,31 @@ export const Polls = () => {
     }
   };
 
+  const headers = [
+    t('polls.question'),
+    t('polls.results'),
+    t('polls.total.votes'),
+    ...(user && user.role === 'fan' ? [t('polls.your.vote')] : []),
+  ];
+
+  const rows = polls.map((poll) => {
+    const row = [
+      i18n.language === 'es' ? poll.questionEs : poll.questionEn,
+      `${poll.results.yesPercentage}%`,
+      poll.results.total,
+    ];
+    if (user && user.role === 'fan') {
+      row.push(
+        userVotes[poll.id] === undefined || userVotes[poll.id] === null
+          ? t('polls.no.vote')
+          : userVotes[poll.id]
+            ? t('yes')
+            : t('no')
+      );
+    }
+    return row;
+  });
+
   useEffect(() => {
     fetchPolls();
   }, [t, user, page]);
@@ -75,59 +102,20 @@ export const Polls = () => {
   }
 
   return (
-    <div>
-      <h1>{t('polls.title')}</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      <h1 className="text-4xl md:text-5xl text-white item- mb-6">{t('polls.title')}</h1>
       {polls.length === 0 ? (
-        <p>{t('polls.no_polls')}</p>
+        <p className="text-white text-lg">{t('polls.no_polls')}</p>
       ) : (
         <>
-          <table>
-            <thead>
-              <tr>
-                <th>{t('polls.question')}</th>
-                <th>{t('polls.results')}</th>
-                <th>{t('polls.total.votes')}</th>
-                {user && user.role === 'fan' && <th>{t('polls.your.vote')}</th>}
-              </tr>
-            </thead>
-            <tbody>
-              {polls.map((poll) => (
-                <tr key={poll.id}>
-                  <td>{i18n.language === 'es' ? poll.questionEs : poll.questionEn}</td>
-                  <td>
-                    {poll.results.yesPercentage}%
-                  </td>
-                  <td>{poll.results.total}</td>
-                  {user && user.role === 'fan' && (
-                    <td>
-                      {userVotes[poll.id] === undefined || userVotes[poll.id] === null
-                        ? t('polls.no.vote')
-                        : userVotes[poll.id]
-                        ? t('yes')
-                        : t('no')}
-                    </td>
-                  )}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
+          <Table headers={headers} rows={rows} />
           {totalPages > 1 && (
-            <div>
-              <button
-                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-                disabled={page === 1}
-              >
-                {t('previous')}
-              </button>
-              <span>{t('pagination', { page, totalPages })}</span>
-              <button
-                onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-                disabled={page === totalPages}
-              >
-                {t('next')}
-              </button>
-            </div>
+            <Pagination
+              page={page}
+              totalPages={totalPages}
+              onPageChange={(newPage) => setPage(newPage)}
+              isLoading={isLoading}
+            />
           )}
         </>
       )}

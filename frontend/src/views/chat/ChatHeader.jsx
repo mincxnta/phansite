@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext.jsx'
-import { Loading } from '../layout/Loading.jsx';
+import { Loading } from '../../components/Loading.jsx';
 import { useDisplayUsername } from '../../utils/displayUsername.js'
 
 export const ChatHeader = ({ targetUser }) => {

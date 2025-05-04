@@ -1,27 +1,27 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Home } from "./components/layout/Home.jsx";
-import { Login } from "./components/auth/Login.jsx";
-import { UserProfile } from "./components/user/UserProfile.jsx";
-import { Register } from "./components/auth/Register.jsx";
-import { CreateRequest } from "./components/request/CreateRequest.jsx";
-import { UserCreateForm } from "./components/admin/UserCreateForm.jsx";
-import { UpdateUser } from "./components/user/UpdateUser.jsx";
+import { Home } from "./views/layout/Home.jsx";
+import { Login } from "./views/auth/Login.jsx";
+import { UserProfile } from "./views/user/UserProfile.jsx";
+import { Register } from "./views/auth/Register.jsx";
+import { CreateRequest } from "./views/request/CreateRequest.jsx";
+import { UserCreateForm } from "./views/admin/UserCreateForm.jsx";
+import { UpdateUser } from "./views/user/UpdateUser.jsx";
 import { ROUTES } from "./constants/routes.js";
-import { RequestList } from "./components/request/RequestList.jsx";
-import { RequestDetail } from "./components/request/RequestDetail.jsx";
-import { Layout } from "./components/layout/Layout.jsx";
-import { PollCreateForm } from "./components/poll/PollCreateForm.jsx";
-import { ProtectedRoute } from "./components/routes/ProtectedRoute.jsx";
-import { ReportList } from "./components/report/ReportList.jsx";
-import { ThiefPanel } from "./components/thieves/ThievesPanel.jsx";
-import { UserList } from "./components/admin/UserList.jsx";
-import { ChatList } from "./components/chat/ChatList.jsx";
-import { Chat } from "./components/chat/Chat.jsx";
-import { VerifyEmail } from "./components/auth/VerifyEmail.jsx";
-import { ForgotPassword } from "./components/auth/ForgotPassword.jsx";
-import { ResetPassword } from "./components/auth/ResetPassword.jsx";
-import { Polls } from "./components/poll/Polls.jsx";
+import { RequestList } from "./views/request/RequestList.jsx";
+import { RequestDetail } from "./views/request/RequestDetail.jsx";
+import { Layout } from "./views/layout/Layout.jsx";
+import { PollCreateForm } from "./views/poll/PollCreateForm.jsx";
+import { ProtectedRoute } from "./views/routes/ProtectedRoute.jsx";
+import { ReportList } from "./views/report/ReportList.jsx";
+import { ThiefPanel } from "./views/thieves/ThievesPanel.jsx";
+import { UserList } from "./views/admin/UserList.jsx";
+import { ChatList } from "./views/chat/ChatList.jsx";
+import { Chat } from "./views/chat/Chat.jsx";
+import { VerifyEmail } from "./views/auth/VerifyEmail.jsx";
+import { ForgotPassword } from "./views/auth/ForgotPassword.jsx";
+import { ResetPassword } from "./views/auth/ResetPassword.jsx";
+import { Polls } from "./views/poll/Polls.jsx";
 
 export const AppRoutes = () => {
     return (

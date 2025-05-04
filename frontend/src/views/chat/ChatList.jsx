@@ -8,7 +8,7 @@ import { errorHandler } from '../../utils/errorHandler.js';
 import { formatDistanceToNow } from 'date-fns';
 import { locales } from '../../utils/dateLocales.js';
 import { toast } from 'react-toastify';
-import { Loading } from '../layout/Loading.jsx'
+import { Loading } from '../../components/Loading.jsx'
 import { useDisplayUsername } from '../../utils/displayUsername.js'
 
 export const ChatList = () => {
