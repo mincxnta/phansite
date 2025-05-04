@@ -51,7 +51,7 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  background-image: url('../requests/card.png');
+  background-image: url('./card.png');
   background-size: cover;
   background-position: center;
   border-radius: 8px;

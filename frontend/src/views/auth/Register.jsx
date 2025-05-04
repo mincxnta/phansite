@@ -78,7 +78,7 @@ export const Register = () => {
                             onClick={() => setShowPassword(!showPassword)}
                             className="absolute right-4 top-1/2 -translate-y-1/2"
                         >
-                            <img src={showPassword ? '../../assets/images/show.png' : '../../assets/images/hide.png'}
+                            <img src={showPassword ? '../../assets/images/icons/show.png' : '../../assets/images/icons/hide.png'}
                                 className="h-8 w-auto cursor-pointer" />
                         </button>
                     </div>
@@ -96,7 +96,7 @@ export const Register = () => {
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                             className="absolute right-4 top-1/2 -translate-y-1/2"
                         >
-                            <img src={showConfirmPassword ? '../../assets/images/show.png' : '../../assets/images/hide.png'}
+                            <img src={showConfirmPassword ? '../../assets/images/icons/show.png' : '../../assets/images/icons/hide.png'}
                                 className="h-8 w-auto cursor-pointer" />
                         </button>
                     </div>

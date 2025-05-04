@@ -8,6 +8,7 @@ import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
 import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 import { useDisplayUsername } from '../../utils/displayUsername.js'
+import { motion } from 'framer-motion';
 
 export const CommentSection = ({ pollId }) => {
     const [comments, setComments] = useState([]);
@@ -81,14 +82,14 @@ export const CommentSection = ({ pollId }) => {
         fetchComments()
     }, [pollId, page]);
 
-     const handleDeleteClick = (commentId) => {
-            showConfirmToast(
-                t('confirmToast.banMessage'),
-                () => handleDelete(commentId),
-                () => { }
-            );
-        };
-    
+    const handleDeleteClick = (commentId) => {
+        showConfirmToast(
+            t('confirmToast.banMessage'),
+            () => handleDelete(commentId),
+            () => { }
+        );
+    };
+
 
     const handleDelete = async (id) => {
         try {
@@ -112,8 +113,22 @@ export const CommentSection = ({ pollId }) => {
         <div>
             <h1>{t("comments.title")}</h1>
             <h4>{t("comments.add")}</h4>
-            <div style={{ display: "flex" }}>
-                <img src={user && user.profilePicture ? user.profilePicture : '/assets/requests/unknownTarget.png'} alt={"Profile picture"} style={{ maxHeight: '50px' }} />
+            <div className="flex items-center gap-2.5">
+                <motion.div
+                    initial={{ rotateY: 0 }}
+                    animate={{ rotateY: anonymous ? 180 : 0 }}
+                    transition={{ duration: 0.7 }}
+                    style={{ perspective: '1000px' }}
+                >
+                    <img src={
+                        anonymous
+                            ? '/assets/anonymous.png'
+                            : user && user.profilePicture
+                                ? user.profilePicture
+                                : '/assets/requests/unknownTarget.png'
+                    }
+                        alt={"Profile picture"} style={{ maxHeight: '50px' }} />
+                </motion.div>
                 <textarea value={newComment} placeholder={t("comments.placeholder")} onChange={(e) => setNewComment(e.target.value)}
                     style={{ maxHeight: "50px", resize: "none", width: "90%" }}
                     required disabled={!user || user?.role !== 'fan'}
@@ -145,11 +160,11 @@ export const CommentSection = ({ pollId }) => {
                             <div style={{ display: "flex" }}>
                                 <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? t("anonymous") : (<Link to={`/profile/${comment.user.username}`}>{displayUsername(comment.user)}</Link>)}</p>
                                 <button onClick={() => handleReport("comment", comment.id)}>
-                                    <img src={'/assets/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
+                                    <img src={'/assets/images/icons/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
                                 </button>
                                 {user && (user.role === 'admin') &&
                                     <button onClick={() => handleDeleteClick(comment.id)}>
-                                        <img src={'/assets/delete.png'} alt="Delete comment" style={{ maxHeight: '16px' }} />
+                                        <img src={'/assets/images/icons/delete.png'} alt="Delete comment" style={{ maxHeight: '16px' }} />
                                     </button>
                                 }
                             </div>

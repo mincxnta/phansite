@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { API_URL } from '../../constants/constants.js'
-import '../../assets/requests/RequestDetail.css'
+import '../../assets/components/request-detail/RequestDetail.css'
 import { useNavigate } from 'react-router-dom'
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next'
@@ -79,7 +79,7 @@ export const RequestDetail = () => {
               <button className="report-button" onClick={(e) => {
                 e.stopPropagation()
                 handleReport("request", request.id)}}>
-                <img src={'/assets/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
+                <img src={'/assets/images/icons/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
               </button>
             )}
             <h1>{request.target}</h1>

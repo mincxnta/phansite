@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import '../../assets/chat/ChatMessages.css';
+import '../../assets/components/chat/ChatMessages.css';
 import { locales } from '../../utils/dateLocales.js';
 import { format } from 'date-fns';
 

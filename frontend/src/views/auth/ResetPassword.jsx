@@ -69,7 +69,7 @@ export const ResetPassword = () => {
               type="button"
               onClick={() => setShowNewPassword(!showNewPassword)}
               className="absolute right-4 top-1/2 -translate-y-1/2">
-              <img src={showNewPassword ? '../../assets/images/show.png' : '../../assets/images/hide.png'}
+              <img src={showNewPassword ? '../../assets/images/icons/show.png' : '../../assets/images/icons/hide.png'}
                 className="h-8 w-auto cursor-pointer" />
             </button>
           </div>
@@ -86,7 +86,7 @@ export const ResetPassword = () => {
               type="button"
               onClick={() => setShowConfirmNewPassword(!showConfirmNewPassword)}
               className="absolute right-4 top-1/2 -translate-y-1/2">
-              <img src={showConfirmNewPassword ? '../../assets/images/show.png' : '../../assets/images/hide.png'}
+              <img src={showConfirmNewPassword ? '../../assets/images/icons/show.png' : '../../assets/images/icons/hide.png'}
                 className="h-8 w-auto cursor-pointer" />
             </button>
           </div>

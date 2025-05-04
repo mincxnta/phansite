@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import joker from '../assets/loading/joker.png';
-import text from '../assets/loading/text.png';
-import '../assets/Loading.css';
+import joker from '../assets/components/loading/images/joker.png';
+import text from '../assets/components/loading/images/text.png';
+import '../assets/components/loading/Loading.css';
 
 export const Loading = () => {
   return (

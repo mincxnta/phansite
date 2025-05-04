@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
-@import './assets/forms.css';
+@import './assets/styles/forms.css';
 
 @theme {
   --color-transparent-black: rgba(0, 0, 0, 0.25); 
@@ -58,7 +58,7 @@ h1 {
 }
 
 .home{
-  background-image: url('./assets/images/stars.png');
+  background-image: url('./assets/images/backgrounds/stars.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
