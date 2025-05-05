@@ -3,7 +3,7 @@
 @import './assets/styles/forms.css';
 
 @theme {
-  --color-transparent-black: rgba(0, 0, 0, 0.25); 
+  --color-transparent-black: rgba(0, 0, 0, 0.25);
   --color-persona-dark-red: #AB0000;
 }
 
@@ -19,6 +19,7 @@ body {
   box-sizing: border-box;
   text-align: center;
   font-family: 'Optima Nova LT Black', sans-serif;
+  color: white;
 }
 
 h1 {
@@ -57,7 +58,7 @@ h1 {
   font-family: 'Earwig Factory', cursive;
 }
 
-.home{
+.home {
   background-image: url('./assets/images/backgrounds/stars.png');
   background-size: cover;
   background-repeat: no-repeat;
@@ -65,11 +66,10 @@ h1 {
   background-attachment: fixed;
 }
 
-.gradient{
+.gradient {
   background: -webkit-linear-gradient(#FFCF24, #E14400);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: 'Roboto Condensed', sans-serif;
 }
-

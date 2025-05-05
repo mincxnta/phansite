@@ -68,7 +68,7 @@ export const CreateRequest = () => {
                 <label>{t("title")}</label>
                 <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("requests.title.placeholder")} />
                 <br />
-                <label>{t("requests.target")}</label>
+                <label>{t("requests.target.person")}</label>
                 <input type="text" required value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("requests.target.placeholder")} />
                 <br />
                 <label>{t("requests.description")}</label>

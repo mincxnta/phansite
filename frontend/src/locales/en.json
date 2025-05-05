@@ -12,6 +12,7 @@
         "status": "Status",
         "title.placeholder": "Enter the request title",
         "target": "Target",
+        "target.person": "Target",
         "target.placeholder": "Enter the target name",
         "description": "Description",
         "description.placeholder": "Enter the request description",

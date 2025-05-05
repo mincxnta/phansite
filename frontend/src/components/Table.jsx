@@ -1,6 +1,12 @@
 
 export const Table = ({ headers, rows }) => {
-    const skewAngles = [15, 20, 10, 25];
+    //const skewAngles = [15, 20, 10, 25];
+
+    const getSkewClass = (index) => {
+        const skewClasses = ['-skew-x-15', '-skew-x-20', '-skew-x-10', '-skew-x-25'];
+        return skewClasses[index] || '';
+    };
+
 
     return (
         <div className="w-full max-w-[90%]">
@@ -8,12 +14,13 @@ export const Table = ({ headers, rows }) => {
                 <thead>
                     <tr>
                         {headers.map((header, index) => (
-                            <th
-                                key={index}
-                                className={`bg-white text-black py-2 text-lg md:text-xl ${`-skew-x-${skewAngles[index % skewAngles.length]
-                                    }`}`}
-                            >
-                                {header}
+                            <th>
+                                <div
+                                    key={index}
+                                    className={`bg-white text-black py-2 text-lg md:text-xl mr-[.5rem] ml-[.5rem] ${getSkewClass(index)}`}
+                                >
+                                    {header}
+                                </div>
                             </th>
                         ))}
                     </tr>
