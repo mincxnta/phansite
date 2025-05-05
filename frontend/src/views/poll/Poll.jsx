@@ -130,7 +130,7 @@ export const Poll = () => {
         </h2>
         <div className="mb-6 w-1/4">
           <div className="gradient">
-            <span className="text-5xl font-medium">YES</span>
+            <span className="text-5xl font-medium uppercase">{t('yes')}</span>
             <span className="text-8xl font-bold">
               {yesPercentage}%
             </span>

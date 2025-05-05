@@ -17,7 +17,8 @@ export const Table = ({ headers, rows }) => {
                             <th>
                                 <div
                                     key={index}
-                                    className={`bg-white text-black py-2 text-lg md:text-xl mr-[.5rem] ml-[.5rem] ${getSkewClass(index)}`}
+                                    className={`bg-white text-black py-2 text-lg md:text-xl ${getSkewClass(index)}
+                                ${index > 0 ? 'ml-[.5rem]' : '' } ${index < headers.length -1 ? 'mr-[.5rem]' : '' }`}
                                 >
                                     {header}
                                 </div>
