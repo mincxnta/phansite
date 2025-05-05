@@ -1,9 +1,12 @@
-.form-background{
-    background-image: url('../images/backgrounds/form-bg.png');
-    background-size: auto 100%;
-    background-position: center;
-    min-height: 100vh;
+.form-background {
+  background-color: black;
+  background-image: url('../images/backgrounds/form-bg.png');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
+
 .form-input-container{
     border: 6px solid #ffffff;
     background-color: black;
@@ -56,4 +59,11 @@
     2px 2px 0 #000000, 
     -2px -2px 0 #000000, 
     2px -2px 0 #000000,
+}
+
+@media (max-width: 1024px) {
+  .form-background {
+    background-size: cover;
+    background-position: center;
+  }
 }

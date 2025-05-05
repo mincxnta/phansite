@@ -1,10 +1,12 @@
-main{
+.form-background {
+  background-color: black;
   background-image: url('../images/backgrounds/form-bg.png');
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-size: 100% 100%;
   background-position: center;
-  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
+
 .form-input-container{
     border: 6px solid #ffffff;
     background-color: black;
@@ -14,7 +16,7 @@ main{
   transform: skew(-8deg);
 }
 
-.form-input-1 input {
+.form-input-1 input, .form-input-1 img {
     transform: skew(8deg);
 }
 
@@ -22,7 +24,7 @@ main{
   transform: skew(6deg);
 }
 
-.form-input-2 input {
+.form-input-2 input, .form-input-2 img {
     transform: skew(-6deg);
   }
 
@@ -30,7 +32,7 @@ main{
   transform: skew(-4deg);
 }
 
-.form-input-3 input {
+.form-input-3 input, .form-input-3 img {
     transform: skew(4deg);
   }
 
@@ -38,7 +40,7 @@ main{
   transform: skew(2deg);
 }
 
-.form-input-4 input {
+.form-input-4 input, .form-input-4 img {
     transform: skew(-2deg);
   }
 
@@ -46,14 +48,22 @@ main{
     background-color: var(--persona-red);
     border: 7px black solid;
     outline: 5px white solid;
+    cursor: pointer;
+    text-transform: uppercase;
   }
 
 .sign-up-title {
-  font-family: 'Earwig Factory';
+  font-family: 'Earwig Factory', cursive;
   letter-spacing: 0.2em;
   text-shadow: 
     2px 2px 0 #000000, 
     -2px -2px 0 #000000, 
-    2px -2px 0 #000000, 
-    -2px 2px 0 #000000;
+    2px -2px 0 #000000,
+}
+
+@media (max-width: 1024px) {
+  .form-background {
+    background-size: cover;
+    background-position: center;
+  }
 }
