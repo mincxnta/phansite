@@ -8,13 +8,26 @@ import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
 import { Loading } from '../../components/Loading.jsx';
 import { io } from 'socket.io-client';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+
+const Counter = ({ from, to, duration }) => {
+  const count = useMotionValue(from);
+  const rounded = useTransform(count, (latest) => Math.round(latest));
+
+  useEffect(() => {
+    const controls = animate(count, to, { duration: duration });
+    return () => controls.stop();
+  }, [to]);
+
+  return <motion.span>{rounded}</motion.span>;
+};
 
 export const Poll = () => {
   const navigate = useNavigate()
   const [poll, setPoll] = useState('')
   const [results, setResults] = useState({ yes: 0, no: 0, total: 0 });
   const [yesPercentage, setYesPercentage] = useState(0);
+  const [previousPercentage, setPreviousPercentage] = useState(0);
   const [isLoading, setIsLoading] = useState(false)
   const { user } = useAuth()
   const { i18n, t } = useTranslation();
@@ -113,8 +126,19 @@ export const Poll = () => {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      setPreviousPercentage(parseFloat(yesPercentage));
+    };
+  }, [yesPercentage]);
+
+  useEffect(() => {
+    setPreviousPercentage(0);
+    setYesPercentage(0);
+  }, [poll]);
+
   if (isLoading) {
-    return <Loading/>;
+    return <Loading />;
   }
 
   const displayedQuestion = i18n.language === 'es' ? poll.questionEs : poll.questionEn;
@@ -132,7 +156,7 @@ export const Poll = () => {
           <div className="gradient">
             <span className="text-5xl font-medium uppercase">{t('yes')}</span>
             <span className="text-8xl font-bold">
-              {yesPercentage}%
+              <Counter from={previousPercentage} to={parseFloat(yesPercentage)} duration={1} />%
             </span>
           </div>
           <div className="w-full h-12 bg-transparent-black border-6 border-black outline-white outline-6 -skew-x-15">
