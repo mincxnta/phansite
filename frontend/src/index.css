@@ -5,6 +5,7 @@
 @theme {
   --color-transparent-black: rgba(0, 0, 0, 0.25);
   --color-persona-dark-red: #AB0000;
+  --color-table-grey: #353535;
 }
 
 :root {
@@ -45,6 +46,12 @@ h1 {
     url('./assets/fonts/RobotoCondensed.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Palanquin Dark';
+  src: local("PalanquinDark"),
+    url('./assets/fonts/PalanquinDark.ttf') format('truetype');
+}
+
 p {
   font-family: 'Optima Nova LT Black';
 }
@@ -56,6 +63,11 @@ h1 {
 
 .font-earwig {
   font-family: 'Earwig Factory', cursive;
+}
+
+.font-header {
+  font-family: 'Palanquin Dark', sans-serif;
+  font-weight: 500;
 }
 
 .home {

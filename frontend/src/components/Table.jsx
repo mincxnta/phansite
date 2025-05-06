@@ -3,7 +3,7 @@ export const Table = ({ headers, rows }) => {
     //const skewAngles = [15, 20, 10, 25];
 
     const getSkewClass = (index) => {
-        const skewClasses = ['-skew-x-15', '-skew-x-20', '-skew-x-10', '-skew-x-25'];
+        const skewClasses = ['-skew-x-15', '-skew-x-20', '-skew-x-10', '-skew-x-15', '-skew-x-20', '-skew-x-10',];
         return skewClasses[index] || '';
     };
 
@@ -17,8 +17,8 @@ export const Table = ({ headers, rows }) => {
                             <th>
                                 <div
                                     key={index}
-                                    className={`bg-white text-black py-2 text-lg md:text-xl ${getSkewClass(index)}
-                                ${index > 0 ? 'ml-[.5rem]' : '' } ${index < headers.length -1 ? 'mr-[.5rem]' : '' }`}
+                                    className={`bg-white text-black py-2 text-lg md:text-xl font-header ${getSkewClass(index)}
+                                ${index > 0 ? 'ml-[.5rem]' : ''} ${index < headers.length - 1 ? 'mr-[.5rem]' : ''}`}
                                 >
                                     {header}
                                 </div>
@@ -30,8 +30,8 @@ export const Table = ({ headers, rows }) => {
                     {rows.map((row, rowIndex) => (
                         <tr
                             key={rowIndex}
-                            className={`${rowIndex % 2 === 0 ? 'bg-black/50' : 'bg-gray-400/50'
-                                } text-white text-base md:text-lg`}
+                            className={`${rowIndex % 2 === 0 ? 'bg-black/70' : 'bg-table-grey/90'
+                                } text-white text-base md:text-xl`}
                         >
                             {row.map((cell, cellIndex) => (
                                 <td
