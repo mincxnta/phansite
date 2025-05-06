@@ -105,7 +105,7 @@ export const Polls = () => {
     <div className="min-h-screen flex flex-col items-center justify-center">
       <h1 className="text-4xl md:text-5xl text-white item- mb-6">{t('polls.title')}</h1>
       {polls.length === 0 ? (
-        <p className="text-white text-lg">{t('polls.no_polls')}</p>
+        <p className="text-white text-lg">{t('polls.no.polls')}</p>
       ) : (
         <>
           <Table headers={headers} rows={rows} />
