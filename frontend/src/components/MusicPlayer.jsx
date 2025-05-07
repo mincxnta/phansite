@@ -12,6 +12,7 @@ export const MusicPlayer = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isVolumeOverlayOpen, setIsVolumeOverlayOpen] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
 
   const currentTrack = playlist[currentTrackIndex];
 
@@ -24,6 +25,11 @@ export const MusicPlayer = () => {
       setIsPlaying(false);
       setCurrentTrackIndex(0);
       setIsVolumeOverlayOpen(false);
+      setCurrentTime(0);
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.pause();
+      }
     }
   }, [isMuted]);
 
@@ -35,25 +41,29 @@ export const MusicPlayer = () => {
     audio.muted = isMuted;
 
     if (isPlaying) {
+      audio.currentTime = currentTime;
       audio.play().catch((error) => {
         console.error('Error playing audio:', error);
       });
     } else {
+      setCurrentTime(audio.currentTime);
       audio.pause();
     }
-  }, [isMuted, isPlaying, volume]);
+  }, [isMuted, isPlaying, volume, currentTime]);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio || isMuted) return;
 
     audio.src = currentTrack.src;
+    audio.currentTime = 0;
+    setCurrentTime(0);
     if (isPlaying) {
       audio.play().catch((error) => {
         console.error('Error playing audio:', error);
       });
     }
-  }, [currentTrackIndex, isMuted, isPlaying]);
+  }, [currentTrackIndex, isMuted]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -87,11 +97,13 @@ export const MusicPlayer = () => {
   const handlePreviousTrack = () => {
     setCurrentTrackIndex((prev) => (prev === 0 ? playlist.length - 1 : prev - 1));
     setIsPlaying(true);
+    setCurrentTime(0);
   };
 
   const handleNextTrack = () => {
     setCurrentTrackIndex((prev) => (prev === playlist.length - 1 ? 0 : prev + 1));
     setIsPlaying(true);
+    setCurrentTime(0);
   };
 
   const handleVolumeChange = (e) => {
