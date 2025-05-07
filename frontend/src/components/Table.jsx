@@ -9,7 +9,7 @@ export const Table = ({ headers, rows }) => {
 
 
     return (
-        <div className="w-full max-w-[90%]">
+        <div className="w-full max-w-[90%] min-h-[33vh]">
             <table className="w-full table-auto border-collapse">
                 <thead>
                     <tr>

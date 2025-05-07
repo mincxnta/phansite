@@ -11,16 +11,15 @@ export const Pagination = ({ page, totalPages, onPageChange, isLoading = false }
           aria-hidden="true"
         ></div>
         <div
-          className="z-10 bg-red-600 px-3 py-1 -rotate-3"
+          className="z-10 bg-red-600 px-3 py-1 -rotate-3 flex items-center"
         >
           <button
             onClick={() => onPageChange(Math.max(page - 1, 1))}
             disabled={page === 1 || isLoading}
-            className={`${
-              page === 1 || isLoading ? 'opacity-40 cursor-not-allowed' : 'hover:opacity-75'
-            }`}
+            className={`${page === 1 || isLoading ? 'opacity-40 cursor-not-allowed' : 'hover:opacity-75'
+              }`}
           >
-            {"←"}
+            <img src='/assets/images/icons/arrow.png' alt="" className='rotate-180 w-12' />
           </button>
           <span className="select-none text-2xl px-2">
             {t('pagination', { page, totalPages })}
@@ -28,11 +27,10 @@ export const Pagination = ({ page, totalPages, onPageChange, isLoading = false }
           <button
             onClick={() => onPageChange(Math.min(page + 1, totalPages))}
             disabled={page === totalPages || isLoading}
-            className={`p-1 ${
-              page === totalPages || isLoading ? 'opacity-40 cursor-not-allowed' : 'hover:opacity-75'
-            }`}
+            className={`p-1 ${page === totalPages || isLoading ? 'opacity-40 cursor-not-allowed' : 'hover:opacity-75'
+              }`}
           >
-            {"→"}
+            <img src='/assets/images/icons/arrow.png' alt="" className='w-12' />
           </button>
         </div>
       </div>

@@ -8,6 +8,10 @@
   --color-table-grey: #353535;
 }
 
+* {
+  cursor: url('./assets/images/icons/cursor.png'), auto;
+}
+
 :root {
   --persona-red: #FF0000;
   --persona-dark-red: #AB0000;
