@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
+import { SubmitButton } from '../../components/SubmitButton.jsx';
 
 export const PollCreateForm = () => {
     const [questionEs, setQuestionEs] = useState('')
@@ -51,17 +52,35 @@ export const PollCreateForm = () => {
     }
 
     return (
-        <div>
-            <h1>{t("poll.new")}</h1>
-            <form onSubmit={handleNewPoll}>
-                <label>{t("poll.question.es")}</label>
-                <input type="text" required placeholder={t("poll.question.placeholder")} value={questionEs} onChange={(e) => setQuestionEs(e.target.value)} />
-                <br />
-                <label>{t("poll.question.en")}</label>
-                <input type="text" required placeholder={t("poll.question.placeholder")} value={questionEn} onChange={(e) => setQuestionEn(e.target.value)} />
-                <br />
-                <input type="submit" value={t("poll.send")} />
-            </form>
+        <div className="min-h-screen flex flex-col items-center justify-center">
+            <h1 className="mb-8 text-border">{t("poll.new")}</h1>
+            <div className="w-75 max-w-md">
+                <form onSubmit={handleNewPoll} className="flex flex-col gap-4">
+                    <label className='text-3xl'>{t("poll.question.es")}</label>
+                    <div className="form-input-container form-input-1">
+                        <input
+                            type="text"
+                            required
+                            placeholder={t("poll.question.placeholder")}
+                            value={questionEs}
+                            onChange={(e) => setQuestionEs(e.target.value)}
+                            className="p-3 text-lg w-full"
+                        />
+                    </div>
+                    <label className='text-3xl'>{t("poll.question.en")}</label>
+                    <div className="form-input-container form-input-2 mb-8">
+                        <input
+                            type="text"
+                            required
+                            placeholder={t("poll.question.placeholder")}
+                            value={questionEn}
+                            onChange={(e) => setQuestionEn(e.target.value)}
+                            className="p-3 text-lg w-full"
+                        />
+                    </div>
+                    <SubmitButton text={t('poll.send')}></SubmitButton>
+                </form>
+            </div>
         </div>
     )
 }

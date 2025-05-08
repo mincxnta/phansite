@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
+import { SubmitButton } from '../../components/SubmitButton.jsx';
 
 export const CreateRequest = () => {
     const [title, setTitle] = useState('')
@@ -62,22 +63,27 @@ export const CreateRequest = () => {
     }
 
     return (
-        <div>
-            <h1>{t("requests.add")}</h1>
-            <form onSubmit={handleNewRequest}>
-                <label>{t("title")}</label>
-                <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("requests.title.placeholder")} />
-                <br />
-                <label>{t("requests.target.person")}</label>
-                <input type="text" required value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("requests.target.placeholder")} />
-                <br />
-                <label>{t("requests.description")}</label>
-                <input type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t("requests.description.placeholder")} />
-                <br />
-                <label>{t("requests.target.image")}</label>
-                <input type="file" accept="image/*" onChange={handleFileChange} />
-                <input type="submit" value={t("requests.send")} />
-            </form>
+        <div className="min-h-screen flex flex-col items-center justify-center">
+            <h1 className="mb-8 text-border">{t("requests.add")}</h1>
+            <div className="w-75 max-w-md">
+                <form onSubmit={handleNewRequest} className="flex flex-col gap-4">
+                    <label className="text-3xl">{t("title")}</label>
+                    <div className="form-input-container form-input-1">
+                        <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("requests.title.placeholder")} className="p-3 text-lg w-full" />
+                    </div>
+                    <label className="text-3xl">{t("requests.target.person")}</label>
+                    <div className="form-input-container form-input-2">
+                        <input type="text" required value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("requests.target.placeholder")} className="p-3 text-lg w-full" />
+                    </div>
+                    <label className="text-3xl">{t("requests.description")}</label>
+                    <div className="form-input-container form-input-3">
+                        <input type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t("requests.description.placeholder")} className="p-3 text-lg w-full" />
+                    </div>
+                    <label className="text-3xl">{t("requests.target.image")}</label>
+                    <input type="file" accept="image/*" onChange={handleFileChange} />
+                    <SubmitButton text={t('requests.send')}></SubmitButton>
+                </form>
+            </div>
         </div>
     )
 }
