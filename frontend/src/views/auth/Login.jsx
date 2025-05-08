@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
 import { API_URL } from '../../constants/constants.js'
+import { SubmitButton } from '../../components/SubmitButton.jsx';
 
 export const Login = () => {
   const [email, setEmail] = useState('')
@@ -101,12 +102,11 @@ export const Login = () => {
                 className="h-8 w-auto cursor-pointer" />
             </button>
           </div>
-          <button
-            type="submit"
-            className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-6 self-center w-50"
-          >
-            {t('auth.login')}
-          </button>
+          <SubmitButton
+            text={t('auth.login')}
+            
+            >
+          </SubmitButton>
           <Link to="/forgot-password">{t("auth.forgot.password")}</Link>
           <p>{t("auth.not.registered")} <Link to="/register" className="text-red-600">{t("auth.register")}</Link></p>
         </form>
