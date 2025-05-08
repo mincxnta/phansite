@@ -10,13 +10,14 @@ import { Loading } from '../../components/Loading.jsx'
 import { SubmitButton } from '../../components/SubmitButton.jsx'
 
 export const UpdateUser = () => {
-    const { user } = useAuth()
+    const { user, setUser } = useAuth()
     const [username, setUsername] = useState('')
     const [selectedImage, setSelectedImage] = useState(null)
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [file, setFile] = useState(null)
     const [aboutMe, setAboutMe] = useState('')
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const { t } = useTranslation();
 
@@ -53,6 +54,7 @@ export const UpdateUser = () => {
 
     const handleUpdateUser = async (event) => {
         event.preventDefault()
+        setLoading(true);
 
         const formData = new FormData();
         formData.append('username', username);
@@ -82,6 +84,7 @@ export const UpdateUser = () => {
             }
             const data = await response.json();
             if (response.ok) {
+                setUser(data)
                 toast.success(t("success.update.profile"))
                 navigate('/profile')
             } else {
@@ -89,6 +92,8 @@ export const UpdateUser = () => {
             }
         } catch (error) {
             toast.error(t(errorHandler(error)))
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -122,7 +127,7 @@ export const UpdateUser = () => {
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
                 <label>{t("profile.about.me")}</label>
                 <input type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("auth.aboutMe.placeholder")} />
-                <SubmitButton text={t("profile.save")}></SubmitButton>
+                <SubmitButton text={loading ? t("profile.saving") : t("profile.save")}></SubmitButton>
             </form>
         </div>
     )

@@ -32,6 +32,7 @@
         "me": "My profile",
         "edit": "Edit profile",
         "save": "Save profile",
+        "saving": "Saving...",
         "about.me": "About me",
         "requests": "My requests",
         "user": "{{username}}'s profile",
