@@ -10,6 +10,7 @@ import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 import { useDisplayUsername } from '../../utils/displayUsername.js'
 import { motion } from 'framer-motion';
 import { Message } from '../../components/Message.jsx';
+import { Pagination } from '../../components/Pagination.jsx';
 
 export const CommentSection = ({ pollId }) => {
     const [comments, setComments] = useState([]);
@@ -63,6 +64,7 @@ export const CommentSection = ({ pollId }) => {
             if (response.ok) {
                 setNewComment('');
                 await fetchComments()
+                setPage(1);
             } else {
                 toast.error(t(errorHandler(data)))
             }
@@ -153,61 +155,49 @@ export const CommentSection = ({ pollId }) => {
             ) : (
                 comments.map((comment) => (
                     <>
-                    <div className="flex items-center gap-2">
-                                {/* Pasar las funciones al componente */}
-                                <button onClick={() => handleReport("comment", comment.id)}>
+                        <div className="flex items-center gap-2">
+                            {/* Pasar las funciones al componente */}
+                            <button onClick={() => handleReport("comment", comment.id)}>
+                                <img
+                                    src="/assets/images/icons/report.png"
+                                    alt="Report comment"
+                                    style={{ maxHeight: "16px" }}
+                                />
+                            </button>
+                            {user && user.role === "admin" && (
+                                <button onClick={() => handleDeleteClick(comment.id)}>
                                     <img
-                                        src="/assets/images/icons/report.png"
-                                        alt="Report comment"
+                                        src="/assets/images/icons/delete.png"
+                                        alt="Delete comment"
                                         style={{ maxHeight: "16px" }}
                                     />
                                 </button>
-                                {user && user.role === "admin" && (
-                                    <button onClick={() => handleDeleteClick(comment.id)}>
-                                        <img
-                                            src="/assets/images/icons/delete.png"
-                                            alt="Delete comment"
-                                            style={{ maxHeight: "16px" }}
-                                        />
-                                    </button>
-                                )}
-                            </div>
-                    
-                    <div className="flex justify-center" key={comment.id}>
-                        <Message
-                            username={comment.anonymous ? t("anonymous") : displayUsername(comment.user)}
-                            text={comment.text}
-                            mode="comment"
-                            profilePicture={
-                                comment.user?.profilePicture && !comment.anonymous
-                                    ? comment.user.profilePicture
-                                    : "/assets/requests/unknownTarget.png"
-                            }
-                        >
-                        </Message>
-                    </div>
+                            )}
+                        </div>
+
+                        <div className="flex justify-center" key={comment.id}>
+                            <Message
+                                username={comment.anonymous ? t("anonymous") : displayUsername(comment.user)}
+                                text={comment.text}
+                                mode="comment"
+                                profilePicture={
+                                    comment.user?.profilePicture && !comment.anonymous
+                                        ? comment.user.profilePicture
+                                        : "/assets/requests/unknownTarget.png"
+                                }
+                            >
+                            </Message>
+                        </div>
                     </>
                 ))
             )}
 
             {totalPages > 1 && (
-                <div>
-                    <button
-                        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-                        disabled={page === 1}
-                    >
-                        {t("previous")}
-                    </button>
-                    <span>
-                        {t('pagination', { page, totalPages })}
-                    </span>
-                    <button
-                        onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-                        disabled={page === totalPages}
-                    >
-                        {t("next")}
-                    </button>
-                </div>
+                <Pagination
+                    page={page}
+                    totalPages={totalPages}
+                    onPageChange={(newPage) => setPage(newPage)}
+                />
             )}
         </div>
     )
