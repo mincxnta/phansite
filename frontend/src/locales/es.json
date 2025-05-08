@@ -111,7 +111,8 @@
         "requests": "Petición",
         "send": "Enviar reporte",
         "comment": "¿Qué ocurre con este comentario?",
-        "request": "¿Qué ocurre con esta petición?"
+        "request": "¿Qué ocurre con esta petición?",
+        "no.reports": "No hay reportes"
     },
     "users": {
         "title": "Usuarios",

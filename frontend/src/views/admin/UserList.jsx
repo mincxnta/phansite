@@ -93,7 +93,6 @@ export const UserList = () => {
         t("admin.actions")
     ];
 
-    // Definir les files de la taula
     const rows = users.map((user) => [
         <button><Link to={`/profile/${user.username}`}>{user.username}</Link></button>,
         user.email,

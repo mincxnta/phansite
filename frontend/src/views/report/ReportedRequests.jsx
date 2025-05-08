@@ -7,6 +7,7 @@ import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
 import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 import { Table } from '../../components/Table.jsx'
+import { Pagination } from '../../components/Pagination.jsx'
 
 export const ReportedRequests = () => {
     const [reports, setReports] = useState([])
@@ -129,7 +130,6 @@ export const ReportedRequests = () => {
         t("admin.actions")
     ];
 
-    // Definir les files de la taula
     const rows = reports.map((report) => [
         report.user.username,
         report.reason,
@@ -150,7 +150,7 @@ export const ReportedRequests = () => {
     ]);
 
     return (
-        <div>
+        <div className="flex flex-col items-start w-full max-w-[85%] mb-8">
             <h1>{t("reports.title.requests")}</h1>
             {reports.length === 0 ? (
                 <p>{t('reports.no.reports')}</p>
@@ -159,25 +159,11 @@ export const ReportedRequests = () => {
             )}
 
             {totalPages > 1 && (
-                <div>
-                    <h4>{t("reports.title")}: ({totalReports})</h4>
-
-                    <button
-                        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-                        disabled={page === 1}
-                    >
-                        {t("previous")}
-                    </button>
-                    <span>
-                        {t('pagination', { page, totalPages })}
-                    </span>
-                    <button
-                        onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-                        disabled={page === totalPages}
-                    >
-                        {t("next")}
-                    </button>
-                </div>
+                <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={(newPage) => setPage(newPage)}
+              />
             )}
 
         </div>

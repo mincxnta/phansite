@@ -111,7 +111,8 @@
         "requests": "Request",
         "send": "Send report",
         "comment": "What's wrong with this comment?",
-        "request": "What's wrong with this request?"
+        "request": "What's wrong with this request?",
+        "no.reports": "No reports"
     },
     "users": {
         "title": "Users",
