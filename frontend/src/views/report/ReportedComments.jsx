@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
 import { showConfirmToast } from '../popups/ConfirmToast.jsx'
-
+import { Table } from '../../components/Table.jsx';
 export const ReportedComments = () => {
     const [reports, setReports] = useState([])
     const navigate = useNavigate()
@@ -124,42 +124,40 @@ export const ReportedComments = () => {
         }
     }
 
+    const headers = [
+        t("reports.reporter"),
+        t("reports.reason"),
+        t("reports.comments"),
+        t("admin.actions")
+    ];
+
+    // Definir les files de la taula
+    const rows = reports.map((report) => [
+        report.user.username,
+        report.reason,
+        report.comment.text,
+        <div>
+            <button title={t("discard")} onClick={() => handleDiscardClick(report.id)}>
+                {t("discard")}
+            </button>
+            <button title={t("delete")} onClick={() => handleDeleteClick(report)}>
+                {t("delete")}
+            </button>
+            <button title={t("admin.ban")} onClick={() => handleBanClick(report.comment.userId)}>
+                {t("admin.ban")}
+            </button>
+        </div>
+    ]);
+
     const shouldShowPagination = totalReports > 0 && totalPages > 1 && reports.length > 0;
     return (
         <div>
             <h1>{t("reports.title.comments")}</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>{t("reports.reporter")}</th>
-                        <th>{t("reports.reason")}</th>
-                        <th>{t("reports.comments")}</th>
-                        <th>{t("admin.actions")}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {reports.map((report) => (
-                        <tr key={report.id}>
-                            <td>
-                                {report.user.username}
-                            </td>
-                            <td>
-                                {report.reason}
-                                {/* <button><Link to={`${report.id}`}>{report.title}</Link></button> */}
-                                {/* <button onClick={() => showReportDetail(report.id)}>{report.title}</button> */}
-                            </td>
-                            <td>
-                                {report.comment.text}
-                            </td>
-                            <td>
-                                <button title={t("discard")} onClick={() => handleDiscardClick(report.id)}>{t("discard")}</button>
-                                <button title={t("delete")} onClick={() => handleDeleteClick(report)}>{t("delete")}</button>
-                                <button title={t("admin.ban")} onClick={() => handleBanClick(report.comment.userId)}>{t("admin.ban")}</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            {reports.length === 0 ? (
+                <p>{t('reports.no.reports')}</p>
+            ) : (
+                <Table headers={headers} rows={rows} />
+            )}
 
             {shouldShowPagination && (
                 <div>

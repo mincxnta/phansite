@@ -6,6 +6,9 @@ import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 import { toast } from 'react-toastify';
+import { Table } from '../../components/Table.jsx';
+import { Pagination } from '../../components/Pagination.jsx';
+import { SubmitButton } from '../../components/SubmitButton.jsx';
 
 export const UserList = () => {
     const [users, setUsers] = useState([])
@@ -84,53 +87,32 @@ export const UserList = () => {
         }
     }
 
-    return (
-        <div>
-            <h1>{t("users.list")}</h1>
-            <h5>{t("users.create")}</h5>
-            <button> <Link to="/admin/create">{t("users.create")}</Link></button>
-            <table>
-                <thead>
-                    <tr>
-                        <th>{t("auth.username")}</th>
-                        <th>{t("auth.email")}</th>
-                        <th>{t("admin.actions")}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map((user) => (
-                        <tr key={user.id}>
-                            <td>
-                                <button><Link to={`/profile/${user.username}`}>{user.username}</Link></button>
-                            </td>
-                            <td>{user.email}</td>
-                            <td>
-                                <button title={t("admin.ban")} onClick={() => handleBanClick(user.id)}>{t("admin.ban")}</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            {totalPages > 1 && (
-                <div>
-                    <h4>{t("users.title")}: ({totalUsers})</h4>
+    const headers = [
+        t("auth.username"),
+        t("auth.email"),
+        t("admin.actions")
+    ];
 
-                    <button
-                        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-                        disabled={page === 1}
-                    >
-                        {t("previous")}
-                    </button>
-                    <span>
-                        {t('pagination', { page, totalPages })}
-                    </span>
-                    <button
-                        onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-                        disabled={page === totalPages}
-                    >
-                        {t("next")}
-                    </button>
-                </div>
+    // Definir les files de la taula
+    const rows = users.map((user) => [
+        <button><Link to={`/profile/${user.username}`}>{user.username}</Link></button>,
+        user.email,
+        <button title={t("admin.ban")} onClick={() => handleBanClick(user.id)}>{t("admin.ban")}</button>
+    ]);
+
+    return (
+        <div className="min-h-screen flex flex-col items-center justify-center">
+            <div class="flex items-center justify-between w-full max-w-[85%] mb-8">
+            <h1>{t("users.list")}</h1>
+            <SubmitButton to="/admin/create" text={t("users.create")} />
+            </div>
+            <Table headers={headers} rows={rows} />
+            {totalPages > 1 && (
+                <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={(newPage) => setPage(newPage)}
+              />
             )}
         </div>
     )

@@ -18,6 +18,7 @@
         "description.placeholder": "Enter the request description",
         "target.image": "Target image",
         "no.requests": "No requests",
+        "no.comment": "No comment",
         "popup": "Do you want to add a comment to this request?",
         "rejected": "Reject",
         "completed": "Complete",

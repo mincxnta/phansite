@@ -18,6 +18,7 @@
         "description.placeholder": "Introduce la descripción de la petición",
         "target.image": "Imagen del sujeto",
         "no.requests": "No hay peticiones",
+        "no.comment": "Sin comentario",
         "popup": "¿Quieres añadir un comentario a esta petición?",
         "rejected": "Rechazar",
         "completed": "Completar",
