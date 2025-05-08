@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 import { useDisplayUsername } from '../../utils/displayUsername.js'
 import { motion } from 'framer-motion';
+import { Message } from '../../components/Message.jsx';
 
 export const CommentSection = ({ pollId }) => {
     const [comments, setComments] = useState([]);
@@ -151,27 +152,38 @@ export const CommentSection = ({ pollId }) => {
                 <p>{t("comments.none")}</p>
             ) : (
                 comments.map((comment) => (
-                    <div key={comment.id} style={{ display: "flex" }}>
-                        {!comment.anonymous ?
-                            (<Link to={`/profile/${comment.user.username}`}><img src={comment.user?.profilePicture && !comment.anonymous ? comment.user.profilePicture : '/assets/requests/unknownTarget.png'} alt="Profile picture" style={{ maxHeight: '50px' }} /></Link>)
-                            : (<img src={comment.user?.profilePicture && !comment.anonymous ? comment.user.profilePicture : '/assets/requests/unknownTarget.png'} alt="Profile picture" style={{ maxHeight: '50px' }} />)}
-
-                        <div style={{ resize: "none", width: "90%", padding: "4px" }}>
-                            <div style={{ display: "flex" }}>
-                                <p style={{ fontWeight: "bolder", margin: "0" }}>{comment.anonymous ? t("anonymous") : (<Link to={`/profile/${comment.user.username}`}>{displayUsername(comment.user)}</Link>)}</p>
-                                <button onClick={() => handleReport("comment", comment.id)}>
-                                    <img src={'/assets/images/icons/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
-                                </button>
-                                {user && (user.role === 'admin') &&
-                                    <button onClick={() => handleDeleteClick(comment.id)}>
-                                        <img src={'/assets/images/icons/delete.png'} alt="Delete comment" style={{ maxHeight: '16px' }} />
-                                    </button>
-                                }
-                            </div>
-
-                            <p style={{ margin: "0" }}>{comment.text}</p>
-                        </div>
-                    </div>
+                    <div key={comment.id}>
+    <Message
+      username={comment.anonymous ? t("anonymous") : displayUsername(comment.user)}
+      text={comment.text}
+      mode="comentario"
+      profilePicture={
+        comment.user?.profilePicture && !comment.anonymous
+          ? comment.user.profilePicture
+          : "/assets/requests/unknownTarget.png"
+      }
+    >
+      <div className="flex items-center gap-2">
+        {/* Botones de reporte y eliminación */}
+        <button onClick={() => handleReport("comment", comment.id)}>
+          <img
+            src="/assets/images/icons/report.png"
+            alt="Report comment"
+            style={{ maxHeight: "16px" }}
+          />
+        </button>
+        {user && user.role === "admin" && (
+          <button onClick={() => handleDeleteClick(comment.id)}>
+            <img
+              src="/assets/images/icons/delete.png"
+              alt="Delete comment"
+              style={{ maxHeight: "16px" }}
+            />
+          </button>
+        )}
+      </div>
+    </Message>
+  </div>
                 ))
             )}
 
