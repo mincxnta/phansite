@@ -4,6 +4,7 @@ import { API_URL } from '../../constants/constants.js';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { errorHandler } from '../../utils/errorHandler.js';
+import { SubmitButton } from '../../components/SubmitButton.jsx';
 
 export const VerifyEmail = () => {
   const [code, setCode] = useState('');
@@ -124,13 +125,7 @@ export const VerifyEmail = () => {
                   className="p-3 text-lg w-full"
                 />
               </div>
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-6 self-center"
-              >
-                {isLoading ? t("verify.email.sending") : t("verify.email.resend")}
-              </button>
+              <SubmitButton text={isLoading ? t("verify.email.sending") : t("verify.email.resend")}></SubmitButton>
             </form>
           </div>
         </>

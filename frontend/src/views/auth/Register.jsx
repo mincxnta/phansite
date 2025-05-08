@@ -4,7 +4,7 @@ import { API_URL } from '../../constants/constants.js'
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
-
+import { SubmitButton } from '../../components/SubmitButton.jsx';
 export const Register = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -100,12 +100,7 @@ export const Register = () => {
                                 className="h-8 w-auto cursor-pointer" />
                         </button>
                     </div>
-                    <button
-                        type="submit"
-                        className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-6 self-center w-50"
-                    >
-                        {t('auth.register')}
-                    </button>
+                    <SubmitButton text={t('auth.register')}></SubmitButton>
                 </form>
                 <p>{t("auth.already.registered")} <a href="/login" className="text-red-600">{t('auth.login')}</a></p>
             </div>

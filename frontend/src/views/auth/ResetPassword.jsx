@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { API_URL } from '../../constants/constants.js';
 import { errorHandler } from '../../utils/errorHandler.js';
+import { SubmitButton } from '../../components/SubmitButton.jsx';
 
 export const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState('');
@@ -90,13 +91,7 @@ export const ResetPassword = () => {
                 className="h-8 w-auto cursor-pointer" />
             </button>
           </div>
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-6 self-center"
-          >
-            {isLoading ? t('auth.resetting') : t('auth.reset.password')}
-          </button>
+          <SubmitButton text={isLoading ? t('auth.resetting') : t('auth.reset.password')}></SubmitButton>
         </form>
       </div>
     </div>

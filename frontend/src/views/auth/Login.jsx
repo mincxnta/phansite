@@ -102,11 +102,7 @@ export const Login = () => {
                 className="h-8 w-auto cursor-pointer" />
             </button>
           </div>
-          <SubmitButton
-            text={t('auth.login')}
-            
-            >
-          </SubmitButton>
+          <SubmitButton text={t('auth.login')}></SubmitButton>
           <Link to="/forgot-password">{t("auth.forgot.password")}</Link>
           <p>{t("auth.not.registered")} <Link to="/register" className="text-red-600">{t("auth.register")}</Link></p>
         </form>

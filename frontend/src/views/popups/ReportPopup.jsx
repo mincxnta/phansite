@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify';
 import { errorHandler } from '../../utils/errorHandler.js';
+import { SubmitButton } from '../../components/SubmitButton.jsx';
 
 let showReportPopup;
 
@@ -69,7 +70,7 @@ export const ReportPopup = () => {
         <form onSubmit={handleNewReport}>
           <h4>{t(reportedType === "comment" ? "reports.comment" : "reports.request")}</h4>
           <textarea name="" id="reason" value={reason} onChange={(e) => setReason(e.target.value)}></textarea>
-          <input type="submit" value={t("reports.send")} />
+          <SubmitButton text={t("reports.send")}></SubmitButton>
         </form>
       </div>
     </div>,

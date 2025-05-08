@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { API_URL } from '../../constants/constants.js';
 import { errorHandler } from '../../utils/errorHandler.js';
+import { SubmitButton } from '../../components/SubmitButton.jsx';
 
 export const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -52,13 +53,7 @@ export const ForgotPassword = () => {
               className="p-3 text-lg w-full"
             />
           </div>
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="form-submit-container form-input-1 py-3 px-6 text-3xl mb-8 self-center"
-          >
-            {isLoading ? t('auth.sending') : t('auth.send.reset.link')}
-          </button>
+          <SubmitButton text={isLoading ? t('auth.sending') : t('auth.send.reset.link')}></SubmitButton>
         </form>
         <div>
           <p>{t("auth.already.registered")} <a href="/login" className="text-red-600">{t('auth.login')}</a></p>

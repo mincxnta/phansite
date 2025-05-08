@@ -6,7 +6,8 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
-import {Loading} from '../../components/Loading.jsx'
+import { Loading } from '../../components/Loading.jsx'
+import { SubmitButton } from '../../components/SubmitButton.jsx'
 
 export const UpdateUser = () => {
     const { user } = useAuth()
@@ -92,7 +93,7 @@ export const UpdateUser = () => {
     }
 
     if (!user) {
-        return <Loading/>;
+        return <Loading />;
     }
 
     return (
@@ -121,8 +122,7 @@ export const UpdateUser = () => {
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
                 <label>{t("profile.about.me")}</label>
                 <input type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("auth.aboutMe.placeholder")} />
-
-                <input type="submit" value={t("profile.edit")} />
+                <SubmitButton text={t("profile.save")}></SubmitButton>
             </form>
         </div>
     )

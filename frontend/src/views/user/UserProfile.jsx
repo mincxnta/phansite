@@ -10,6 +10,7 @@ import { locales } from '../../utils/dateLocales.js'
 import { toast } from 'react-toastify';
 import { errorHandler } from '../../utils/errorHandler.js';
 import { Loading } from '../../components/Loading.jsx'
+import { SubmitButton } from '../../components/SubmitButton.jsx'
 
 export const UserProfile = () => {
     const [profileUser, setProfileUser] = useState(null)
@@ -87,8 +88,7 @@ export const UserProfile = () => {
             <p>{t("profile.date", { date: formattedDate })}</p>
             {isOwnProfile && (
                 <>
-                    <button><Link to="edit">{t("profile.edit")}</Link></button>
-                    {/* <button onClick={handleDelete}>Eliminar cuenta</button> */}
+                    <SubmitButton text={t("profile.edit")} to="edit"></SubmitButton>
                     {user.role === 'fan' && (
                         <>
                             <h4>{t("profile.requests")}</h4>
@@ -96,7 +96,6 @@ export const UserProfile = () => {
                         </>
                     )}
                 </>)}
-            {/* Se puede ver el perfil de phantom thieves / admins ? Y mandarles mensajes? */}
             {!isOwnProfile && (
                 <button><Link to={`/chat/${profileUser.username}`}>{t("profile.message")}</Link></button>
             )}

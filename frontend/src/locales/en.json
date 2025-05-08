@@ -31,6 +31,7 @@
         "title": "Profile",
         "me": "My profile",
         "edit": "Edit profile",
+        "save": "Save profile",
         "about.me": "About me",
         "requests": "My requests",
         "user": "{{username}}'s profile",
