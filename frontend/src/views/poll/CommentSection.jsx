@@ -152,38 +152,41 @@ export const CommentSection = ({ pollId }) => {
                 <p>{t("comments.none")}</p>
             ) : (
                 comments.map((comment) => (
-                    <div key={comment.id}>
-    <Message
-      username={comment.anonymous ? t("anonymous") : displayUsername(comment.user)}
-      text={comment.text}
-      mode="comentario"
-      profilePicture={
-        comment.user?.profilePicture && !comment.anonymous
-          ? comment.user.profilePicture
-          : "/assets/requests/unknownTarget.png"
-      }
-    >
-      <div className="flex items-center gap-2">
-        {/* Botones de reporte y eliminación */}
-        <button onClick={() => handleReport("comment", comment.id)}>
-          <img
-            src="/assets/images/icons/report.png"
-            alt="Report comment"
-            style={{ maxHeight: "16px" }}
-          />
-        </button>
-        {user && user.role === "admin" && (
-          <button onClick={() => handleDeleteClick(comment.id)}>
-            <img
-              src="/assets/images/icons/delete.png"
-              alt="Delete comment"
-              style={{ maxHeight: "16px" }}
-            />
-          </button>
-        )}
-      </div>
-    </Message>
-  </div>
+                    <>
+                    <div className="flex items-center gap-2">
+                                {/* Pasar las funciones al componente */}
+                                <button onClick={() => handleReport("comment", comment.id)}>
+                                    <img
+                                        src="/assets/images/icons/report.png"
+                                        alt="Report comment"
+                                        style={{ maxHeight: "16px" }}
+                                    />
+                                </button>
+                                {user && user.role === "admin" && (
+                                    <button onClick={() => handleDeleteClick(comment.id)}>
+                                        <img
+                                            src="/assets/images/icons/delete.png"
+                                            alt="Delete comment"
+                                            style={{ maxHeight: "16px" }}
+                                        />
+                                    </button>
+                                )}
+                            </div>
+                    
+                    <div className="flex justify-center" key={comment.id}>
+                        <Message
+                            username={comment.anonymous ? t("anonymous") : displayUsername(comment.user)}
+                            text={comment.text}
+                            mode="comment"
+                            profilePicture={
+                                comment.user?.profilePicture && !comment.anonymous
+                                    ? comment.user.profilePicture
+                                    : "/assets/requests/unknownTarget.png"
+                            }
+                        >
+                        </Message>
+                    </div>
+                    </>
                 ))
             )}
 

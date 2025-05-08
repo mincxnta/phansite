@@ -89,3 +89,7 @@ h1 {
   -webkit-text-fill-color: transparent;
   font-family: 'Roboto Condensed', sans-serif;
 }
+
+.text-border {
+  text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000
+}
