@@ -10,6 +10,7 @@ import { locales } from '../../utils/dateLocales.js';
 import { toast } from 'react-toastify';
 import { Loading } from '../../components/Loading.jsx'
 import { useDisplayUsername } from '../../utils/displayUsername.js'
+import { Message } from '../../components/Message.jsx';
 
 export const ChatList = () => {
   const { user, onlineUsers, socket } = useAuth();
@@ -122,49 +123,56 @@ export const ChatList = () => {
       ) : (
         <ul>
           {contacts.map((contact) => (
-            <li
-              key={contact.id}
-              onClick={() => handleContactClick(contact.username)}
-              className="conversation-item"
-            >
-              <div className="conversation-info">
-                <img
-                  src={
-                    contact.profilePicture
-                      ? contact.profilePicture
-                      : '/assets/requests/unknownTarget.png'
-                  }
-                  alt={displayUsername(contact)}
-                  className="conversation-avatar"
-                />
-                {onlineUsers.includes(contact.id) && (
-                  <span className="online-indicator"></span>
-                )}
-                <div className="conversation-details">
-                  <p className="conversation-username">{displayUsername(contact)}</p>
-                  {contact.lastMessage ? (
-                    <div className="last-message-container">
-                      <p className="last-message">
-                        {contact.lastMessage?.message?.length > 30
-                          ? `${contact.lastMessage.message.slice(0, 30)}...`
-                          : contact.lastMessage.message}
-                      </p>
-                      <p className="last-message-date">
-                        {contact.lastMessage?.date
-                          ? formatDistanceToNow(new Date(contact.lastMessage.date), {
-                            addSuffix: true,
-                            locale: locales[i18n.language],
-                          })
-                          : ''}
-                      </p>
-                    </div>
-                  ) : (
-                    <p className="last-message">{t('chat.empty.message')}</p>
-                  )}
-                </div>
-              </div>
-            </li>
-          ))}
+  <li
+    key={contact.id}
+    onClick={() => handleContactClick(contact.username)}
+    className="conversation-item"
+  >
+    <div className="conversation-info">
+      <img
+        src={
+          contact.profilePicture
+            ? contact.profilePicture
+            : '/assets/requests/unknownTarget.png'
+        }
+        alt={displayUsername(contact)}
+        className="conversation-avatar"
+      />
+      {onlineUsers.includes(contact.id) && (
+        <span className="online-indicator"></span>
+      )}
+      <div className="conversation-details">
+        {/* <p className="conversation-username">{displayUsername(contact)}</p> */}
+        {contact.lastMessage ? (
+          <div className="last-message-container">
+            <Message
+              username={displayUsername(contact)}
+              text={
+                contact.lastMessage.message.length > 30
+                  ? `${contact.lastMessage.message.slice(0, 30)}...`
+                  : contact.lastMessage.message
+              }
+              mode="chat"
+              profilePicture={
+                contact.profilePicture || '/assets/requests/unknownTarget.png'
+              }
+            />
+            <p className="last-message-date">
+              {contact.lastMessage?.date
+                ? formatDistanceToNow(new Date(contact.lastMessage.date), {
+                    addSuffix: true,
+                    locale: locales[i18n.language],
+                  })
+                : ''}
+            </p>
+          </div>
+        ) : (
+          <p className="last-message">{t('chat.empty.message')}</p>
+        )}
+      </div>
+    </div>
+  </li>
+))}
         </ul>
       )}
     </div>
