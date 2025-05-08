@@ -9,7 +9,6 @@ import { toast } from 'react-toastify';
 import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 import { useDisplayUsername } from '../../utils/displayUsername.js'
 import { motion } from 'framer-motion';
-import { Message } from '../../components/Message.jsx';
 import { Pagination } from '../../components/Pagination.jsx';
 
 export const CommentSection = ({ pollId }) => {
@@ -153,43 +152,82 @@ export const CommentSection = ({ pollId }) => {
             {comments.length === 0 ? (
                 <p>{t("comments.none")}</p>
             ) : (
-                comments.map((comment) => (
-                    <>
-                        <div className="flex items-center gap-2">
-                            {/* Pasar las funciones al componente */}
-                            <button onClick={() => handleReport("comment", comment.id)}>
-                                <img
-                                    src="/assets/images/icons/report.png"
-                                    alt="Report comment"
-                                    style={{ maxHeight: "16px" }}
-                                />
-                            </button>
-                            {user && user.role === "admin" && (
-                                <button onClick={() => handleDeleteClick(comment.id)}>
-                                    <img
-                                        src="/assets/images/icons/delete.png"
-                                        alt="Delete comment"
-                                        style={{ maxHeight: "16px" }}
-                                    />
-                                </button>
-                            )}
-                        </div>
-
-                        <div className="flex justify-center" key={comment.id}>
-                            <Message
-                                username={comment.anonymous ? t("anonymous") : displayUsername(comment.user)}
-                                text={comment.text}
-                                mode="comment"
-                                profilePicture={
-                                    comment.user?.profilePicture && !comment.anonymous
-                                        ? comment.user.profilePicture
-                                        : "/assets/requests/unknownTarget.png"
-                                }
-                            >
-                            </Message>
-                        </div>
-                    </>
-                ))
+                <div className="flex justify-center flex-col items-center">
+                        {comments.map((comment) => (
+                            <div className="w-full max-w-1/3 mb-6" key={comment.id}>
+                                <div className="relative min-w-3xs">
+                                    <div className="absolute left-0 z-10">
+                                        <div className="w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white transform -skew-x-6">
+                                            {comment.anonymous ? (
+                                                <img
+                                                    src={
+                                                        comment.user?.profilePicture || "/assets/requests/unknownTarget.png"
+                                                    }
+                                                    alt="Profile picture"
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            ) : (
+                                                <Link to={`/profile/${displayUsername(comment.user)}`}>
+                                                    <img
+                                                        src={
+                                                            comment.user?.profilePicture ||
+                                                            "/assets/requests/unknownTarget.png"
+                                                        }
+                                                        alt="Profile picture"
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                </Link>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className="absolute left-24 top-[-2rem] z-20">
+                                        <span className="font-earwig text-4xl w-fit text-white text-border">
+                                            {comment.anonymous ? (
+                                                t("anonymous")
+                                            ) : (
+                                                <Link to={`/profile/${displayUsername(comment.user)}`}>
+                                                    {displayUsername(comment.user)}
+                                                </Link>
+                                            )}
+                                        </span>
+                                    </div>
+                                    <div className="ml-[4rem] mt-[2rem] relative">
+                                        <div
+                                            className="px-6 py-2 transform -skew-x-6 bg-white border-2 border-black relative"
+                                        >
+                                            <div className="skew-x-6 p-[0.5rem] break-words">
+                                                <p className="text-lg font-semibold text-black">{comment.text}</p>
+                                            </div>
+                                            <div className="absolute -top-3 -right-1 z-30">
+                                            <button
+                                                onClick={() => handleReport("comment", comment.id)}
+                                                className="relative bg-white border-2 border-black transform -skew-x-6 px-2 py-1"
+                                            >
+                                                <img
+                                                    src="/assets/images/icons/report.png"
+                                                    alt="Reportar comentari"
+                                                    className="h-4"
+                                                />
+                                            </button>
+                                            {user?.role === "admin" && (
+                                                <button
+                                                    onClick={() => handleDeleteClick(comment.id)}
+                                                    className="relative bg-white border-2 border-black transform -skew-x-6 px-2 py-1 ml-2"
+                                                >
+                                                    <img
+                                                        src="/assets/images/icons/delete.png"
+                                                        alt="Esborrar comentari"
+                                                        className="h-4"
+                                                    />
+                                                </button>
+                                            )}
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
             )}
 
             {totalPages > 1 && (
