@@ -10,6 +10,7 @@ import { SubmitButton } from '../../components/SubmitButton.jsx';
 export const CreateRequest = () => {
     const [title, setTitle] = useState('')
     const [target, setTarget] = useState('')
+    const [selectedImage, setSelectedImage] = useState(null)
     const [description, setDescription] = useState('')
     const [file, setFile] = useState(null)
     const navigate = useNavigate()
@@ -22,8 +23,22 @@ export const CreateRequest = () => {
         }
     })
 
-    const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
+    const handleFileChange = async (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            setFile(selectedFile);
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setSelectedImage(reader.result);
+            };
+            reader.readAsDataURL(selectedFile);
+        }
+    };
+
+    const handleCancelImage = () => {
+        setFile(null);
+        setSelectedImage(null);
     };
 
     const handleNewRequest = async (event) => {
@@ -64,26 +79,56 @@ export const CreateRequest = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
-            <h1 className="mb-8 text-6xl">{t("requests.add")}</h1>
-            <div className="w-75 max-w-md">
-                <form onSubmit={handleNewRequest} className="flex flex-col gap-4">
-                    <label className="text-3xl">{t("title")}</label>
-                    <div className="form-input-container form-input-1">
-                        <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("requests.title.placeholder")} className="p-3 text-lg w-full" />
-                    </div>
-                    <label className="text-3xl">{t("requests.target.person")}</label>
-                    <div className="form-input-container form-input-2">
-                        <input type="text" required value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("requests.target.placeholder")} className="p-3 text-lg w-full" />
-                    </div>
-                    <label className="text-3xl">{t("requests.description")}</label>
-                    <div className="form-input-container form-input-3">
-                        <input type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t("requests.description.placeholder")} className="p-3 text-lg w-full" />
-                    </div>
-                    <label className="text-3xl">{t("requests.target.image")}</label>
-                    <input type="file" accept="image/*" onChange={handleFileChange} />
-                    <SubmitButton text={t('requests.send')}></SubmitButton>
-                </form>
+            <div className="w-full flex flex-col items-center py-20">
+                <h1 className="mb-8 text-6xl">{t("requests.add")}</h1>
+                <div className="w-75 max-w-md">
+                    <form onSubmit={handleNewRequest} className="flex flex-col gap-4">
+                        <label className="text-3xl">{t("title")}</label>
+                        <div className="form-input-container form-input-1">
+                            <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("requests.title.placeholder")} className="p-3 text-lg w-full" />
+                        </div>
+                        <label className="text-3xl">{t("requests.target.person")}</label>
+                        <div className="form-input-container form-input-2">
+                            <input type="text" required value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("requests.target.placeholder")} className="p-3 text-lg w-full" />
+                        </div>
+                        <label className="text-3xl">{t("requests.description")}</label>
+                        <div className="form-input-container form-input-3">
+                            <input type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t("requests.description.placeholder")} className="p-3 text-lg w-full" />
+                        </div>
+                        <label className="text-3xl">{t("requests.target.image")}</label>
+                        {selectedImage &&
+                            <div>
+                                <img src={selectedImage} />
+                            </div>
+                        }
+
+                        {!selectedImage ?
+                            <>
+                                <div className='flex justify-center '>
+                                    <label htmlFor="image-upload" className="cursor-pointer">
+                                        <img
+                                            src="/assets/images/icons/upload.png"
+                                            alt={t("photo.discard")}
+                                            className='h-10'
+                                        />
+                                    </label>
+                                </div>
+                                <input type="file" accept="image/*" id="image-upload"
+                                    onChange={handleFileChange} style={{ display: 'none' }} /> </> : (
+                                <div>
+                                    <button type="button" onClick={handleCancelImage}>
+                                        <img
+                                            src="/assets/images/icons/delete.png"
+                                            alt={t("photo.discard")}
+                                            className='h-8'
+                                        />
+                                    </button>
+                                </div>
+                            )}
+                        <SubmitButton text={t('requests.send')}></SubmitButton>
+                    </form>
+                </div>
             </div>
-        </div>
+        </div >
     )
 }

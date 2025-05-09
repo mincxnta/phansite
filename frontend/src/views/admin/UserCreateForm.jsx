@@ -58,10 +58,10 @@ export const UserCreateForm = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
-            <h1 className="mb-8 text-6xl">{t("users.create")}</h1>
+            <h1 className="mb-12 text-6xl">{t("users.create")}</h1>
             <div className="w-75 max-w-md">
                 <form onSubmit={handleCreateUser} className="flex flex-col gap-4">
-                    <div className="form-input-container form-input-1">
+                    <div className="form-input-container form-input-1 mb-2">
                         <input
                             type="text"
                             value={username}
@@ -70,7 +70,7 @@ export const UserCreateForm = () => {
                             placeholder={t("auth.username.placeholder")}
                             className="p-3 text-lg w-full" />
                     </div>
-                    <div className="form-input-container form-input-3 relative">
+                    <div className="form-input-container form-input-3 relative mb-2">
                         <input
                             type={showPassword ? 'text' : 'password'}
                             value={password}
@@ -88,7 +88,7 @@ export const UserCreateForm = () => {
                                 className="h-8 w-auto cursor-pointer" />
                         </button>
                     </div>
-                    <div className="form-input-container form-input-4 relative">
+                    <div className="form-input-container form-input-4 relative mb-2">
                         <input
                             type={showConfirmPassword ? 'text' : 'password'}
                             value={confirmPassword}
@@ -106,7 +106,7 @@ export const UserCreateForm = () => {
                                 className="h-8 w-auto cursor-pointer" />
                         </button>
                     </div>
-                    <div className="form-input-container form-input-2">
+                    <div className="form-input-container form-input-2 mb-2">
                         <input
                             type="email"
                             value={email}
@@ -116,7 +116,7 @@ export const UserCreateForm = () => {
                             className="p-3 text-lg w-full"
                         />
                     </div>
-                    <select value={role} required onChange={(e) => setRole(e.target.value)} className="p-3 text-lg text-center form-input-container form-input-1">
+                    <select value={role} required onChange={(e) => setRole(e.target.value)} className="p-3 text-lg text-center form-input-container form-input-1 mb-8">
                         <option value="" disabled hidden>{t("role.title")}</option>
                         <option value="fan">{t("role.fan")}</option>
                         <option value="phantom_thief">{t("role.phantom.thief")}</option>

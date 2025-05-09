@@ -149,9 +149,20 @@ export const Poll = () => {
         <h1 className="text-3xl mb-4">
           {t('home.poll')}
         </h1>
-        <h2 className="text-3xl mb-6">
-          {displayedQuestion}
-        </h2>
+        <div className='flex items-center'>
+          <Link to="/polls">
+            <img
+              src="/assets/images/icons/previous.png"
+              title={t('polls.previous')}
+              alt={t('polls.previous')}
+              className="h-10"
+            />
+          </Link>
+          <h2 className='text-7xl ml-3 mr-2'>Q</h2>
+          <h2 className="text-3xl">
+            {displayedQuestion}
+          </h2>
+        </div>
         <div className="mb-6 w-1/4">
           <div className="gradient">
             <span className="text-5xl font-medium uppercase">{t('yes')}</span>
@@ -193,9 +204,6 @@ export const Poll = () => {
             {t('no')}
           </button>
         </div>
-        <Link to="/polls" className="block text-center text-red-500 underline mb-6">
-          {t('polls.previous')}
-        </Link>
       </div>
       {poll.id && (
         <div className="">

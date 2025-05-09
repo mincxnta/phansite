@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 import { Table } from '../../components/Table.jsx'
 import { SubmitButton } from '../../components/SubmitButton.jsx'
+import { Pagination } from '../../components/Pagination.jsx'
 
 export const RequestList = () => {
   const [requests, setRequests] = useState([])
