@@ -107,19 +107,18 @@ export const Menu = () => {
       <nav className="bg-black border-b-2 border-white flex items-center justify-between px-6 py-4 w-full">
         <ul className="flex w-full justify-around list-none font-earwig text-4xl">
           {links.map((link, index) => (
-            <li key={link.to} className={`link-wrapper ${index % 2 === 1 ? 'even' : ''}`}>
+            <li key={link.to} className={`link-wrapper ${index % 2 === 1 ? 'even' : ''} `}>
               <Link to={link.to} className="link-text">
-                <span className="fallback">{link.label}</span>
-                <span className="menu-text">{link.label}</span>
+                <span className="menu-text text-white">{link.label}</span>
                 <div className="shape-wrapper">
                   <div className="shape red-fill jelly">
                     <svg x="0px" y="0px" viewBox="0 0 108.1 47" enableBackground="new 0 0 108.1 47">
-                      <polygon fill="#FF0000" points="29.5,8.5 150.7,0 108.1,32.7 3.1,47 " />
+                      <polygon fill="#0055FF" points="29.5,8.5 150.7,0 108.1,32.7 3.1,47 " />
                     </svg>
                   </div>
                   <div className="shape cyan-fill jelly">
                     <svg x="0px" y="0px" viewBox="0 0 108.1 47" enableBackground="new 0 0 108.1 47">
-                      <polygon fill="#00FFFF" points="0.3,17 125.1,0 68.8,45.6 24.3,39 " />
+                      <polygon fill="#FF0000" points="0.3,17 125.1,0 68.8,45.6 24.3,39 " />
                     </svg>
                   </div>
                 </div>
