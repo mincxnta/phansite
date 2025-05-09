@@ -201,7 +201,7 @@ export const CommentSection = ({ pollId }) => {
                                             <div className="absolute -top-3 -right-1 z-30">
                                             <button
                                                 onClick={() => handleReport("comment", comment.id)}
-                                                className="relative bg-white border-2 border-black transform -skew-x-6 px-2 py-1"
+                                                className="relative bg-white border-2 border-black transform -rotate-6 -skew-x-6 px-2 py-1"
                                             >
                                                 <img
                                                     src="/assets/images/icons/report.png"

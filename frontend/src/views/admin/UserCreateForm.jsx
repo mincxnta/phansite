@@ -58,7 +58,7 @@ export const UserCreateForm = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
-            <h1 className="mb-8 text-border">{t("users.create")}</h1>
+            <h1 className="mb-8 text-6xl">{t("users.create")}</h1>
             <div className="w-75 max-w-md">
                 <form onSubmit={handleCreateUser} className="flex flex-col gap-4">
                     <div className="form-input-container form-input-1">

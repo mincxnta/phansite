@@ -65,7 +65,7 @@ export const RequestDetail = () => {
         <motion.div
           className="popup-content"
           onClick={(e) => e.stopPropagation()}
-          
+
           transition={{ duration: 0.7 }}
           animate={{ rotateY: flip ? 0 : 180 }}
         >
@@ -73,30 +73,43 @@ export const RequestDetail = () => {
             transition={{ duration: 0.7 }}
             animate={{ rotateY: flip ? 0 : 180 }}
             onClick={() => setFlip((prevState) => !prevState)}
-            className="front"
+            className="front flex flex-col items-start justify-start relative h-full"
           >
             {user && user.role === 'fan' && (
-              <button className="report-button" onClick={(e) => {
-                e.stopPropagation()
-                handleReport("request", request.id)}}>
-                <img src={'/assets/images/icons/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
-              </button>
+              <div className="absolute top-2 right-3 z-30">
+                <button className="relative bg-white border-2 border-black transform -skew-x-6 -rotate-6 px-2 py-1" onClick={(e) => {
+                  e.stopPropagation()
+                  handleReport("request", request.id)
+                }}>
+                  <img src={'/assets/images/icons/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
+                </button>
+              </div>
             )}
-            <h1>{request.target}</h1>
-            <p>{request.description}</p>
+            <h1 className="text-6xl text-left text-border mb-4">{request.target}</h1>
+            <div className="flex-grow flex items-center justify-center h-full absolute inset-0">
+              <p className="text-5xl filled-text text-stroke-2 text-stroke-black px-2 font-earwig text-center">{request.description}</p>
+            </div>
           </motion.div>
           <motion.div
             initial={{ rotateY: 180 }}
             animate={{ rotateY: flip ? 180 : 0 }}
             transition={{ duration: 0.7 }}
             onClick={() => setFlip((prevState) => !prevState)}
-            className="back"
+            className={`${request.targetImage ? 'back' : 'back-unknown'}`}
           >
-            <img
-              src={request.targetImage || '/assets/requests/unknownTarget.png'}
-              alt={request.target}
-              style={{ width: '200px', transform: 'scaleX(-1)' }}
-            />
+            {request.targetImage &&
+              <div className="relative w-[20vmax] h-[20vmax] border-12 border-black outline outline-10 outline-white -skew-x-2">
+                <img
+                  src={request.targetImage}
+                  alt={request.target}
+                  className="w-full h-full object-contain transform scale-x-[-1]"
+                />
+                <img
+                  src="/assets/images/icons/sword.png"
+                  alt="Sword"
+                  className="absolute top-[-3vmax] right-[18.5vmax] h-[3vw] scale-x-[-1] z-10"
+                />
+              </div>}
           </motion.div>
         </motion.div>
       )}

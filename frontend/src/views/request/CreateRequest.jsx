@@ -64,7 +64,7 @@ export const CreateRequest = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
-            <h1 className="mb-8 text-border">{t("requests.add")}</h1>
+            <h1 className="mb-8 text-6xl">{t("requests.add")}</h1>
             <div className="w-75 max-w-md">
                 <form onSubmit={handleNewRequest} className="flex flex-col gap-4">
                     <label className="text-3xl">{t("title")}</label>

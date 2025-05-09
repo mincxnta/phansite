@@ -53,7 +53,7 @@ export const PollCreateForm = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
-            <h1 className="mb-8 text-border">{t("poll.new")}</h1>
+            <h1 className="mb-8 text-6xl">{t("poll.new")}</h1>
             <div className="w-75 max-w-md">
                 <form onSubmit={handleNewPoll} className="flex flex-col gap-4">
                     <label className='text-3xl'>{t("poll.question.es")}</label>
