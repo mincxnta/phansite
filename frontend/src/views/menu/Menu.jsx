@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SettingsMenu } from './SettingsMenu.jsx';
 import { toast } from 'react-toastify';
+import '../../assets/components/menu/Menu.css';
 
 export const Menu = () => {
   const { user, logout } = useAuth();
@@ -66,36 +67,65 @@ export const Menu = () => {
     };
   }, []);
 
+  const links = [
+    {
+      to: '/',
+      label: t('home.title'),
+    },
+    {
+      to: user && user.role === 'phantom_thief' ? '/thieves' : '/requests',
+      label: t('requests.title'),
+    },
+    ...(user
+      ? [
+          {
+            to: '/chat',
+            label: t('chat.title'),
+          },
+        ]
+      : []),
+    ...(user && user.role === 'admin'
+      ? [
+          {
+            to: '/admin/users',
+            label: t('admin.users'),
+          },
+          {
+            to: '/admin/reports',
+            label: t('admin.reports'),
+          },
+          {
+            to: '/admin/poll',
+            label: t('home.poll'),
+          },
+        ]
+      : []),
+  ];
+
   return (
     <>
-      <nav className="bg-black border-b-2 border-white flex items-center justify-between px-4 py-2 ">
-        <ul className="flex-1 flex justify-around list-none font-earwig text-4xl">
-          <li>
-            <Link to="/">{t('home.title')}</Link>
-          </li>
-          <li>
-            <Link to={user && user.role === 'phantom_thief' ? '/thieves' : '/requests'}>
-              {t('requests.title')}
-            </Link>
-          </li>
-          {user && (
-            <li>
-              <Link to="/chat">{t('chat.title')}</Link>
+      <nav className="bg-black border-b-2 border-white flex items-center justify-between px-6 py-4 w-full">
+        <ul className="flex w-full justify-around list-none font-earwig text-4xl">
+          {links.map((link, index) => (
+            <li key={link.to} className={`link-wrapper ${index % 2 === 1 ? 'even' : ''}`}>
+              <Link to={link.to} className="link-text">
+                <span className="fallback">{link.label}</span>
+                <span className="menu-text">{link.label}</span>
+                <div className="shape-wrapper">
+                  <div className="shape red-fill jelly">
+                    <svg x="0px" y="0px" viewBox="0 0 108.1 47" enableBackground="new 0 0 108.1 47">
+                      <polygon fill="#FF0000" points="29.5,8.5 150.7,0 108.1,32.7 3.1,47 " />
+                    </svg>
+                  </div>
+                  <div className="shape cyan-fill jelly">
+                    <svg x="0px" y="0px" viewBox="0 0 108.1 47" enableBackground="new 0 0 108.1 47">
+                      <polygon fill="#00FFFF" points="0.3,17 125.1,0 68.8,45.6 24.3,39 " />
+                    </svg>
+                  </div>
+                </div>
+              </Link>
             </li>
-          )}
-          {user && user.role === 'admin' && (
-            <>
-              <li>
-                <Link to="/admin/users">{t('admin.users')}</Link>
-              </li>
-              <li>
-                <Link to="/admin/reports">{t('admin.reports')}</Link>
-              </li>
-              <li>
-                <Link to="/admin/poll">{t('home.poll')}</Link>
-              </li>
-            </>
-          )}
+          ))}
         </ul>
         <div className="flex items-center space-x-4">
           <button
