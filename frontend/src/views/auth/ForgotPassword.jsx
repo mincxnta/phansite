@@ -56,7 +56,7 @@ export const ForgotPassword = () => {
           <SubmitButton text={isLoading ? t('auth.sending') : t('auth.send.reset.link')}></SubmitButton>
         </form>
         <div>
-          <p>{t("auth.already.registered")} <a href="/login" className="text-red-600">{t('auth.login')}</a></p>
+          <p>{t("auth.already.registered")} <Link to="/login" className="text-red-600">{t('auth.login')}</Link></p>
         </div>
       </div>
     </div>

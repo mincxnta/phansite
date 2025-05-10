@@ -2,6 +2,7 @@ import React from 'react';
 import { useAuth } from '../../context/AuthContext.jsx'
 import { Loading } from '../../components/Loading.jsx';
 import { useDisplayUsername } from '../../utils/displayUsername.js'
+import { Link } from 'react-router-dom';
 
 export const ChatHeader = ({ targetUser }) => {
   const { onlineUsers } = useAuth()
@@ -15,8 +16,9 @@ export const ChatHeader = ({ targetUser }) => {
     <div className="flex justify-start flex-[1.5] items-end m-5 relative pt-12">
       <div className="flex flex-row items-center px-5 relative">
         <div className="h-12 w-12  bg-black border-2 border-white mr-10">
-          <a href="/chat">
-            <img src="/assets/images/icons/back.png" /></a>
+          <Link to="/chat">
+            <img src="/assets/images/icons/back.png" />
+          </Link>
         </div>
         <img
           src={

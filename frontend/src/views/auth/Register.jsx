@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../../constants/constants.js'
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
@@ -102,7 +102,7 @@ export const Register = () => {
                     </div>
                     <SubmitButton text={t('auth.register')}></SubmitButton>
                 </form>
-                <p>{t("auth.already.registered")} <a href="/login" className="text-red-600">{t('auth.login')}</a></p>
+                <p>{t("auth.already.registered")} <Link to="/login" className="text-red-600">{t('auth.login')}</Link></p>
             </div>
         </div>
     );
