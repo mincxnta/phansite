@@ -54,7 +54,7 @@ export const PollCreateForm = () => {
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
             <h1 className="mb-8 text-6xl">{t("poll.new")}</h1>
-            <div className="w-75 max-w-md">
+            <div className="w-100 max-w-md">
                 <form onSubmit={handleNewPoll} className="flex flex-col gap-4">
                     <label className='text-3xl'>{t("poll.question.es")}</label>
                     <div className="form-input-container form-input-1">
@@ -64,7 +64,7 @@ export const PollCreateForm = () => {
                             placeholder={t("poll.question.placeholder")}
                             value={questionEs}
                             onChange={(e) => setQuestionEs(e.target.value)}
-                            className="p-3 text-lg w-full"
+                            className="p-3 text-lg w-full text-center"
                         />
                     </div>
                     <label className='text-3xl'>{t("poll.question.en")}</label>
@@ -75,7 +75,7 @@ export const PollCreateForm = () => {
                             placeholder={t("poll.question.placeholder")}
                             value={questionEn}
                             onChange={(e) => setQuestionEn(e.target.value)}
-                            className="p-3 text-lg w-full"
+                            className="p-3 text-lg w-full text-center"
                         />
                     </div>
                     <SubmitButton text={t('poll.send')}></SubmitButton>

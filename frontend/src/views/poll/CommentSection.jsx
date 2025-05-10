@@ -157,7 +157,7 @@ export const CommentSection = ({ pollId }) => {
                             <div className="w-full max-w-1/3 mb-6" key={comment.id}>
                                 <div className="relative min-w-3xs">
                                     <div className="absolute left-0 z-10">
-                                        <div className="w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white transform -skew-x-6">
+                                        <div className="w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white transform -skew-x-4">
                                             {comment.anonymous ? (
                                                 <img
                                                     src={

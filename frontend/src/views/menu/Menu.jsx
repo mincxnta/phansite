@@ -105,7 +105,7 @@ export const Menu = () => {
   return (
     <>
       <nav className="bg-black border-b-2 border-white flex items-center justify-between px-6 py-4 w-full">
-        <ul className="flex w-full justify-around list-none font-earwig text-4xl">
+        <ul className="flex gap-32 list-none font-earwig text-4xl">
           {links.map((link, index) => (
             <li key={link.to} className={`link-wrapper ${index % 2 === 1 ? 'even' : ''} `}>
               <Link to={link.to} className="link-text">
@@ -148,7 +148,7 @@ export const Menu = () => {
                   className="w-8 h-8 rounded-full object-cover"
                 />
               ) : (
-                <li className="font-earwig text-4xl list-none">
+                <li className="font-earwig text-4xl list-none whitespace-nowrap">
                   <Link to="/login">{t('auth.login')}</Link>
                 </li>
               )}

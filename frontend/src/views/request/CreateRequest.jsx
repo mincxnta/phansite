@@ -79,8 +79,8 @@ export const CreateRequest = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
-            <div className="w-full flex flex-col items-center py-20">
-                <h1 className="mb-8 text-6xl">{t("requests.add")}</h1>
+            <div className="w-full flex flex-col items-center pt-20">
+                <h1 className="mt-4 mb-8 text-6xl">{t("requests.add")}</h1>
                 <div className="w-75 max-w-md">
                     <form onSubmit={handleNewRequest} className="flex flex-col gap-4">
                         <label className="text-3xl">{t("title")}</label>
@@ -98,7 +98,7 @@ export const CreateRequest = () => {
                         <label className="text-3xl">{t("requests.target.image")}</label>
                         {selectedImage &&
                             <div>
-                                <img src={selectedImage} />
+                                <img src={selectedImage} className="border-3 border-white" />
                             </div>
                         }
 
