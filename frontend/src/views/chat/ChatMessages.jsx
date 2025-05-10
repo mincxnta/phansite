@@ -14,7 +14,7 @@ export const ChatMessages = ({ messages, currentUserId }) => {
     }
   }, [messages]);
 
-  if (!messages || messages.length === 0) {
+  if (!messages || messages.length === 0 && !messages.image) {
     return <div className="messages-container">{t('chat.empty.message')}</div>;
   }
 
@@ -23,10 +23,10 @@ export const ChatMessages = ({ messages, currentUserId }) => {
       {messages.map((message) => (
         <div
           key={message.id}
-          className={`chat ${message.senderId === currentUserId ? 'chat-end' : 'chat-start '}`}
+          className={`chat mb-4 ${message.senderId === currentUserId ? 'chat-end mr-[25%]' : 'chat-start ml-[25%]'}`}
         >
           {message.senderId !== currentUserId && (
-            <div className="chat-image w-12 h-12 object-cover mr-4">
+            <div className="chat-image w-16 h-16 object-cover mr-6 bg-white outline-6 outline-black border-6 border-white transform -skew-x-4">
               <div className="rounded-full">
                 <img
                   src={
@@ -39,15 +39,15 @@ export const ChatMessages = ({ messages, currentUserId }) => {
               </div>
             </div>
           )}
-          <div className="chat-bubble">
+          <div className="chat-bubble ">
             {message.image && (
               <img
                 src={message.image}
                 alt="Message image"
-                className="max-h-[500px] mt-1.5 mb-2"
+                className="max-h-[20em] mt-1.5 mb-2"
               />
             )}
-            {message.message && <p className="text-left">{message.message}</p>}
+            {message.message && <p className="text-left text-2xl">{message.message}</p>}
             <p className="text-xs mt-1.5 text-right text-gray-400">
               {format(new Date(message.date), 'HH:mm', {
                 locale: locales[i18n.language],

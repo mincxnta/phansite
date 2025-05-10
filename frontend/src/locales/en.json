@@ -128,7 +128,8 @@
         "type": "Type your message...",
         "empty.chat": "You have no chats.",
         "empty.message": "No messages",
-        "loading": "Loading chats..."
+        "loading": "Loading chats...",
+        "you": "You"
     },
     "admin": {
         "title": "Administration panel",

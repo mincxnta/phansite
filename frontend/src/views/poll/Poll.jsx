@@ -158,7 +158,7 @@ export const Poll = () => {
               className="h-10"
             />
           </Link>
-          <h2 className='text-7xl ml-3 mr-2'>Q</h2>
+          <h2 className='text-7xl ml-3 mr-2 text-persona-dark-red text-stroke'>Q</h2>
           <h2 className="text-3xl">
             {displayedQuestion}
           </h2>

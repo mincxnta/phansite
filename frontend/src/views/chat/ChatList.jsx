@@ -72,7 +72,7 @@ export const ChatList = () => {
                 ? {
                   ...contact,
                   lastMessage: {
-                    message: newMessage.message || (newMessage.image ? '[Imatge]' : ''),
+                    message: newMessage.message || (newMessage.image ? `[${t('image')}]` : ''),
                     date: newMessage.date,
                   },
                 }
@@ -114,21 +114,29 @@ export const ChatList = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 pt-20">
         {contacts.length === 0 ? (
           <p className="text-white">{t('chat.empty.chat')}</p>
         ) : (
           <div className="flex justify-center">
             <ul className="w-full max-w-[600px]">
-              {contacts.map((contact) => (
+
+              
+              {contacts.map((contact) => {
+                 const isUserSender = contact.lastMessage?.senderId === user.id;
+                const messageText = contact.lastMessage.image 
+                  ? `[${t('image')}]` 
+                  : contact.lastMessage.message || t('chat.empty.message');
+                const displayText = isUserSender ? `${t("chat.you")}: ${messageText}` : messageText;
+                return (
                 <li
                   key={contact.id}
                   onClick={() => handleContactClick(contact.username)}
                   className="mb-6"
                 >
                   <div className="relative w-full">
-                    <div className="absolute left-0 z-10">
-                      <div className="w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white transform -skew-x-6">
+                    <div className="absolute -top-4 left-0 z-10">
+                      <div className="w-[8em] h-[8em] bg-white outline-6 outline-black border-6 border-white transform -skew-x-6">
                         <img
                           src={
                             contact.profilePicture || "/assets/requests/unknownTarget.png"
@@ -136,40 +144,40 @@ export const ChatList = () => {
                           alt={displayUsername(contact)}
                           className="w-full h-full object-cover"
                         />
+                        {onlineUsers.includes(contact.id) && (
+                        <span className="online-indicator absolute -right-3.5 -bottom-3.5 w-4 h-4 bg-green-500 rounded-full border-2 border-persona-dark-red"></span>
+                      )}
                       </div>
                     </div>
-                    <div className="absolute left-24 top-[-2rem] z-20">
+                    <div className="absolute left-32 top-[-1.5em] z-20">
                       <span className="font-earwig text-4xl w-fit text-white text-border">
                         {displayUsername(contact)}
                       </span>
                     </div>
-                    <div className="ml-[5rem] mt-[2rem] relative">
+                    <div className="ml-[7rem] mt-[3rem] relative">
                       <div
-                        className="px-6 py-2 transform -skew-x-6 bg-black border-2"
+                        className="px-8 py-3 transform -skew-x-6 bg-black border-2"
                       >
-                        <div className="skew-x-6 p-[0.5rem] break-words">
-                          <p className="text-lg font-semibold text-white text-left">
-                            {contact.lastMessage?.message?.length > 40
-                              ? `${contact.lastMessage.message.slice(0, 40)}...`
-                              : contact.lastMessage.message || t('chat.empty.message')}
+                        <div className="skew-x-6 p-[0.75rem] break-words">
+                          <p className="text-2xl font-semibold text-white text-left overflow-hidden text-ellipsis whitespace-nowrap">
+                            {displayText}
                           </p>
                         </div>
                       </div>
                     </div>
                     {contact.lastMessage?.date && (
-                      <p className="text-white ml-[6rem] mt-2 text-right">
+                      <p className="text-white ml-[6rem] mt-2 text-right text-xs">
                         {formatDistanceToNow(new Date(contact.lastMessage.date), {
                           addSuffix: true,
                           locale: locales[i18n.language],
                         })}
                       </p>
                     )}
-                    {onlineUsers.includes(contact.id) && (
-                      <span className="online-indicator absolute left-[90px] top-[70px]"></span>
-                    )}
+                    
                   </div>
                 </li>
-              ))}
+                )  
+            })}
             </ul>
           </div>
         )}

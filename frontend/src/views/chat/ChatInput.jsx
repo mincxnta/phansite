@@ -53,9 +53,9 @@ export const ChatInput = ({ onSendMessage }) => {
           </div>
         }
       </div>
-      <div className="flex items-center gap-2.5 mb-3">
+      <div className="flex items-center gap-6 mb-3">
         <label htmlFor="image-upload" className="cursor-pointer">
-          📷
+          <img src="/assets/images/icons/clip.png" className="h-12 cursor-pointer"/>
         </label>
         <input
           id="image-upload"
@@ -69,10 +69,10 @@ export const ChatInput = ({ onSendMessage }) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder={t('chat.type')}
-          className="flex-1 p-2.5 bg-white text-black"
+          className="flex-1 p-2.5 bg-white text-black -skew-x-3"
         />
-        <button type="submit" className="py-2.5 px-5 bg-red-600 ">
-          {t('chat.send')}
+        <button type="submit" className="py-2.5 px-2 bg-white ">
+          <img src="/assets/images/icons/send.png" className="h-6 cursor-pointer"/>
         </button>
       </div>
     </form>
