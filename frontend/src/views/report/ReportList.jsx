@@ -5,10 +5,10 @@ import { ReportedRequests } from './ReportedRequests.jsx'
 
 export const ReportList = () => {
     const { t } = useTranslation();
-    
+
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
-            <h1>{t("reports.title")}</h1>
+            {/* <h1>{t("reports.title")}</h1> */}
             <ReportedComments />
             <ReportedRequests />
         </div>

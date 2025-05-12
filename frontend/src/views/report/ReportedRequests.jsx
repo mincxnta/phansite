@@ -16,7 +16,7 @@ export const ReportedRequests = () => {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [totalReports, setTotalReports] = useState(0);
-    const limit = 5;
+    const limit = 9;
 
     const fetchReports = async () => {
         try {
@@ -150,7 +150,7 @@ export const ReportedRequests = () => {
     ]);
 
     return (
-        <div className="flex flex-col items-start w-full max-w-[85%] mb-8">
+        <div className="flex flex-col items-center w-full max-w-[85%] mb-8">
             <h1>{t("reports.title.requests")}</h1>
             {reports.length === 0 ? (
                 <p>{t('reports.no.reports')}</p>
@@ -160,10 +160,10 @@ export const ReportedRequests = () => {
 
             {totalPages > 1 && (
                 <Pagination
-                page={page}
-                totalPages={totalPages}
-                onPageChange={(newPage) => setPage(newPage)}
-              />
+                    page={page}
+                    totalPages={totalPages}
+                    onPageChange={(newPage) => setPage(newPage)}
+                />
             )}
 
         </div>
