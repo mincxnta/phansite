@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { API_URL, SOCKET_URL } from '../../constants/constants'
 import { Link, useNavigate } from 'react-router-dom'
 import { CommentSection } from './CommentSection.jsx'
@@ -32,6 +32,7 @@ export const Poll = () => {
   const { user } = useAuth()
   const { i18n, t } = useTranslation();
   const [pollSocket, setPollSocket] = useState(null);
+  const commentsRef = useRef(null);
 
   useEffect(() => {
     const newSocket = io(SOCKET_URL, {
@@ -126,6 +127,12 @@ export const Poll = () => {
     }
   };
 
+  const showComments = () => {
+    if (commentsRef.current) {
+      commentsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
   useEffect(() => {
     return () => {
       setPreviousPercentage(parseFloat(yesPercentage));
@@ -204,11 +211,14 @@ export const Poll = () => {
             {t('no')}
           </button>
         </div>
+        <img
+          className="mt-24 w-14"
+          src="/assets/images/icons/down.png"
+          onClick={() => showComments()}
+        />
       </div>
       {poll.id && (
-        <div className="">
-          <CommentSection pollId={poll.id} />
-        </div>
+        <CommentSection pollId={poll.id} ref={commentsRef} />
       )}
     </div>
   )

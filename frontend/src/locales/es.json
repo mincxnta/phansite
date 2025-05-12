@@ -96,9 +96,9 @@
     "comments": {
         "title": "Comentarios",
         "add": "Añadir comentario",
-        "send": "Enviar comentario",
+        "send": "Enviar",
         "placeholder": "Tu comentario aquí...",
-        "anonymous": "Comentar como anónimo",
+        "anonymous": "Anónimo",
         "none": "No hay comentarios"
     },
     "reports": {

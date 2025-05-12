@@ -10,8 +10,9 @@ import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 import { useDisplayUsername } from '../../utils/displayUsername.js'
 import { motion } from 'framer-motion';
 import { Pagination } from '../../components/Pagination.jsx';
+import { SubmitButton } from '../../components/SubmitButton.jsx';
 
-export const CommentSection = ({ pollId }) => {
+export const CommentSection = ({ pollId, ref }) => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const [page, setPage] = useState(1);
@@ -44,7 +45,8 @@ export const CommentSection = ({ pollId }) => {
         }
     };
 
-    const handleAddComment = async () => {
+    const handleAddComment = async (e) => {
+        e.preventDefault()
         if (!user) {
             return;
         }
@@ -113,92 +115,110 @@ export const CommentSection = ({ pollId }) => {
     }
     return (
         <div>
-            <h1>{t("comments.title")}</h1>
-            <h4>{t("comments.add")}</h4>
-            <div className="flex items-center gap-2.5">
-                <motion.div
-                    initial={{ rotateY: 0 }}
-                    animate={{ rotateY: anonymous ? 180 : 0 }}
-                    transition={{ duration: 0.7 }}
-                    style={{ perspective: '1000px' }}
-                >
-                    <img src={
-                        anonymous
-                            ? '/assets/anonymous.png'
-                            : user && user.profilePicture
-                                ? user.profilePicture
-                                : '/assets/requests/unknownTarget.png'
-                    }
-                        alt={"Profile picture"} style={{ maxHeight: '50px' }} />
-                </motion.div>
-                <textarea value={newComment} placeholder={t("comments.placeholder")} onChange={(e) => setNewComment(e.target.value)}
-                    style={{ maxHeight: "50px", resize: "none", width: "90%" }}
-                    required disabled={!user || user?.role !== 'fan'}
-                > </textarea>
-                <label>
-                    <input
-                        type="checkbox"
-                        checked={anonymous}
-                        disabled={!user || user?.role !== 'fan'}
-                        onChange={(e) => setAnonymous(e.target.checked)}
-                    />
-                    {t("comments.anonymous")}
-                </label>
-                <button onClick={handleAddComment}
-                    disabled={!user || user?.role !== 'fan'}
-                >{t("comments.send")}</button>
+            <h1 ref={ref}>{t("comments.title")}</h1>
+            {/* <h4>{t("comments.add")}</h4> */}
+            <div className="flex justify-center flex-col items-center w-full">
+                <div className="relative w-1/2 mb-6">
+                    <div className="absolute left-0 top-[1em] z-10">
+                        <motion.div
+                            initial={{ rotateY: 0 }}
+                            animate={{ rotateY: anonymous ? 180 : 0 }}
+                            transition={{ duration: 0.7 }}
+                            style={{ perspective: '1000px' }}
+                            className="w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white transform skew-x-6"
+                        >
+                            <img src={
+                                anonymous
+                                    ? '/assets/anonymous.png'
+                                    : user && user.profilePicture
+                                        ? user.profilePicture
+                                        : '/assets/requests/unknownTarget.png'
+                            }
+                                alt={"Profile picture"}
+                                className="w-full h-full object-cover" />
+                        </motion.div>
+                    </div>
+                    <form className="ml-[4rem] mt-[2rem] relative flex gap-[3.5em]" onSubmit={handleAddComment}>
+                        <div className="px-6 py-2 transform -skew-x-6 bg-white border-2 border-black relative w-[90%]">
+                            <div className="skew-x-6 p-[0.5rem] break-words text-black text-xl">
+                                <textarea value={newComment} placeholder={t("comments.placeholder")} onChange={(e) => setNewComment(e.target.value)}
+                                    style={{ maxHeight: "50px", resize: "none", width: "90%" }}
+                                    required disabled={!user || user?.role !== 'fan'}
+                                > </textarea>
+                            </div>
+                        </div>
+                        <div className="mt-2 flex flex-col items-center w-[10%] gap-[1em]">
+                            <div className="flex text-xl gap-[.5em]">
+                                <input
+                                    type="checkbox"
+                                    checked={anonymous}
+                                    disabled={!user || user?.role !== 'fan'}
+                                    onChange={(e) => setAnonymous(e.target.checked)}
+                                />
+                                <label>
+                                    {t("comments.anonymous")}
+                                </label>
+                            </div>
+
+                            <SubmitButton
+                                disabled={!user || user?.role !== 'fan'}
+                                text={t("comments.send")}
+                            />
+                        </div>
+                    </form>
+                </div>
             </div>
             <h4>{t("comments.title")}: ({totalComments})</h4>
             {comments.length === 0 ? (
                 <p>{t("comments.none")}</p>
             ) : (
                 <div className="flex justify-center flex-col items-center">
-                        {comments.map((comment) => (
-                            <div className="w-full max-w-1/3 mb-6" key={comment.id}>
-                                <div className="relative min-w-3xs">
-                                    <div className="absolute left-0 z-10">
-                                        <div className="w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white transform -skew-x-4">
-                                            {comment.anonymous ? (
+                    {comments.map((comment) => (
+                        <div className="w-full max-w-1/3 mb-6" key={comment.id}>
+                            <div className="relative min-w-3xs">
+                                <div className="absolute left-0 z-10">
+                                    <div className="w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white transform -skew-x-4">
+                                        {comment.anonymous ? (
+                                            <img
+                                                src={
+                                                    "/assets/requests/unknownTarget.png"
+                                                }
+                                                alt="Profile picture"
+                                                className="w-full h-full object-cover"
+                                            />
+                                        ) : (
+                                            <Link to={`/profile/${displayUsername(comment.user)}`}>
                                                 <img
                                                     src={
-                                                        comment.user?.profilePicture || "/assets/requests/unknownTarget.png"
+                                                        comment.user?.profilePicture ||
+                                                        "/assets/requests/unknownTarget.png"
                                                     }
                                                     alt="Profile picture"
                                                     className="w-full h-full object-cover"
                                                 />
-                                            ) : (
-                                                <Link to={`/profile/${displayUsername(comment.user)}`}>
-                                                    <img
-                                                        src={
-                                                            comment.user?.profilePicture ||
-                                                            "/assets/requests/unknownTarget.png"
-                                                        }
-                                                        alt="Profile picture"
-                                                        className="w-full h-full object-cover"
-                                                    />
-                                                </Link>
-                                            )}
+                                            </Link>
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="absolute left-24 top-[-2rem] z-20">
+                                    <span className="font-earwig text-4xl w-fit text-white text-border">
+                                        {comment.anonymous ? (
+                                            t("anonymous")
+                                        ) : (
+                                            <Link to={`/profile/${displayUsername(comment.user)}`}>
+                                                {displayUsername(comment.user)}
+                                            </Link>
+                                        )}
+                                    </span>
+                                </div>
+                                <div className="ml-[4rem] mt-[2rem] relative">
+                                    <div
+                                        className="px-6 py-2 transform -skew-x-6 bg-white border-2 border-black relative"
+                                    >
+                                        <div className="skew-x-6 p-[0.5rem] break-words">
+                                            <p className="text-lg font-semibold text-black">{comment.text}</p>
                                         </div>
-                                    </div>
-                                    <div className="absolute left-24 top-[-2rem] z-20">
-                                        <span className="font-earwig text-4xl w-fit text-white text-border">
-                                            {comment.anonymous ? (
-                                                t("anonymous")
-                                            ) : (
-                                                <Link to={`/profile/${displayUsername(comment.user)}`}>
-                                                    {displayUsername(comment.user)}
-                                                </Link>
-                                            )}
-                                        </span>
-                                    </div>
-                                    <div className="ml-[4rem] mt-[2rem] relative">
-                                        <div
-                                            className="px-6 py-2 transform -skew-x-6 bg-white border-2 border-black relative"
-                                        >
-                                            <div className="skew-x-6 p-[0.5rem] break-words">
-                                                <p className="text-lg font-semibold text-black">{comment.text}</p>
-                                            </div>
-                                            <div className="absolute -top-3 -right-1 z-30">
+                                        <div className="absolute -top-3 -right-1 z-30">
                                             <button
                                                 onClick={() => handleReport("comment", comment.id)}
                                                 className="relative bg-white border-2 border-black transform -rotate-6 -skew-x-6 px-2 py-1"
@@ -222,12 +242,12 @@ export const CommentSection = ({ pollId }) => {
                                                 </button>
                                             )}
                                         </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
+                </div>
             )}
 
             {totalPages > 1 && (

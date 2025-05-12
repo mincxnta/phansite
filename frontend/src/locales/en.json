@@ -96,9 +96,9 @@
     "comments": {
         "title": "Comments",
         "add": "Add comment",
-        "send": "Send comment",
+        "send": "Send",
         "placeholder": "Your comment here...",
-        "anonymous": "Comment as anonymous",
+        "anonymous": "Anonymous",
         "none": "No comments"
     },
     "reports": {
