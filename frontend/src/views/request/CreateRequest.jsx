@@ -70,6 +70,12 @@ export const CreateRequest = () => {
             if (!response.ok) {
                 toast.error(t(errorHandler(data)))
             }
+            setTitle('');
+            setTarget('');
+            setDescription('');
+            setFile(null);
+            setSelectedImage(null);
+
             toast.success(t("success.create.request"))
             navigate('/requests')
         } catch (error) {

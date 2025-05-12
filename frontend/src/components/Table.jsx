@@ -36,7 +36,7 @@ export const Table = ({ headers, rows }) => {
                             {row.map((cell, cellIndex) => (
                                 <td
                                     key={cellIndex}
-                                    className="px-4 py-3 text-center max-w-[30vw]"
+                                    className="px-4 py-3 text-center max-w-[25vw] break-words"
                                 >
                                     {cell}
                                 </td>

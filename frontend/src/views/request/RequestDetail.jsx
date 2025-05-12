@@ -85,9 +85,9 @@ export const RequestDetail = () => {
                 </button>
               </div>
             )}
-            <h1 className="text-6xl text-left text-border mb-4">{request.target}</h1>
+            <h1 className="text-6xl text-left text-border mb-4 break-words max-w-full">{request.target}</h1>
             <div className="flex-grow flex items-center justify-center h-full absolute inset-0">
-              <p className="text-5xl filled-text text-stroke-2 text-stroke-black px-2 font-earwig text-center">{request.description}</p>
+              <p className="text-5xl filled-text text-stroke-2 text-stroke-black px-2 font-earwig text-center break-words max-w-full">{request.description}</p>
             </div>
           </motion.div>
           <motion.div

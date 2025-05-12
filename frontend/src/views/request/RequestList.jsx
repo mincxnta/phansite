@@ -111,7 +111,7 @@ export const RequestList = () => {
 
   useEffect(() => {
     fetchRequests()
-  }, [])
+  }, [page])
 
   const handleVote = async (vote, request) => {
     if (!user) {
@@ -183,7 +183,7 @@ export const RequestList = () => {
     }
 
     row.push(
-      <button onClick={() => showRequestDetail(request.id)}>{request.title}</button>
+      <button className="w-100" onClick={() => showRequestDetail(request.id)}>{request.title}</button>
     );
 
     row.push(request.target);

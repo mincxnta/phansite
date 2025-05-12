@@ -133,7 +133,7 @@ export const ReportedRequests = () => {
     const rows = reports.map((report) => [
         report.user.username,
         report.reason,
-        <button onClick={() => showRequestDetail(report.request.id)}>
+        <button className="w-100" onClick={() => showRequestDetail(report.request.id)}>
             {report.request.title}
         </button>,
         <div>
