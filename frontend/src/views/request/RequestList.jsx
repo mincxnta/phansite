@@ -178,7 +178,8 @@ export const RequestList = () => {
     const row = [];
 
     if (user && user.role !== 'fan') {
-      row.push(request.status);
+      if (request.status=="pending")
+      row.push(t(request.status));
     }
 
     row.push(

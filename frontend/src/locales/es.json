@@ -295,5 +295,8 @@
     "anonymous": "Anónimo",
     "delete": "Eliminar",
     "discard": "Descartar",
-    "image": "Imagen"
+    "image": "Imagen",
+    "pending": "Pendiente",
+    "rejected": "Rechazada",
+    "completed": "Completada"
 }

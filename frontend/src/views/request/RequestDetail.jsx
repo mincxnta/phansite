@@ -102,7 +102,7 @@ export const RequestDetail = () => {
                 <img
                   src={request.targetImage}
                   alt={request.target}
-                  className="w-full h-full object-contain transform scale-x-[-1]"
+                  className="w-full h-full object-cover transform scale-x-[-1]"
                 />
                 <img
                   src="/assets/images/icons/sword.png"
