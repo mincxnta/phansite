@@ -49,7 +49,14 @@ export const MusicPlayer = () => {
       setCurrentTime(audio.currentTime);
       audio.pause();
     }
-  }, [isMuted, isPlaying, volume, currentTime]);
+  }, [isMuted, isPlaying, currentTime]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || isMuted) return;
+
+    audio.volume = volume;
+  }, [volume, isMuted]);
 
   useEffect(() => {
     const audio = audioRef.current;
