@@ -26,8 +26,7 @@ export const ChatMessages = ({ messages, currentUserId }) => {
           className={`chat mb-4 ${message.senderId === currentUserId ? 'chat-end mr-[25%]' : 'chat-start ml-[25%]'}`}
         >
           {message.senderId !== currentUserId && (
-            <div className="chat-image w-16 h-16 object-cover mr-6 bg-white outline-6 outline-black border-6 border-white transform -skew-x-4">
-              <div className="rounded-full">
+            <div className="chat-image w-16 h-16 mr-6 bg-white outline-6 outline-black border-6 border-white transform -skew-x-4">
                 <img
                   src={
                     message.sender?.profilePicture
@@ -35,8 +34,8 @@ export const ChatMessages = ({ messages, currentUserId }) => {
                       : '/assets/requests/unknownTarget.png'
                   }
                   alt={message.sender?.username || 'Sender'}
+                  className="object-cover w-full h-full"
                 />
-              </div>
             </div>
           )}
           <div className="chat-bubble ">

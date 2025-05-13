@@ -83,9 +83,11 @@ export const UserProfile = () => {
             {authError && t(authError)}
             <div className="h-[90vh] flex flex-col justify-center">
                 <h1>{isOwnProfile ? t("profile.me") : t("profile.user", { username: profileUser.username })}</h1>
-                <div className="flex items-center justify-center gap-15 mt-3">
-                    <div className="flex items-center flex-col h-[40vh] ">
-                        <img className="border-10 border-black skew-x-4 mb-3" src={profileUser.profilePicture || '/assets/requests/unknownTarget.png'} />
+                <div className="flex items-center justify-center mt-3 gap-15">
+                    <div className="flex items-center flex-col h-[40vh]">
+                        {/* TODO Cambiar a medidas relativas */}
+                        <div className="border-10 border-black skew-x-4 mb-3  w-[350px] h-[350px]">
+                        <img className="w-full h-full object-cover" src={profileUser.profilePicture || '/assets/requests/unknownTarget.png'} /></div>
                         {isOwnProfile && (
                             <>
                                 <Link to="edit">

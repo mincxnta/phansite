@@ -14,6 +14,9 @@ export const UpdateUser = () => {
     const [username, setUsername] = useState('')
     const [selectedImage, setSelectedImage] = useState(null)
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [email, setEmail] = useState('')
     const [file, setFile] = useState(null)
     const [aboutMe, setAboutMe] = useState('')
@@ -102,32 +105,93 @@ export const UpdateUser = () => {
     }
 
     return (
-        <div>
+        <div className="h-[90vh] flex flex-col justify-center">
             <h1>{t("profile.edit")}</h1>
-            <form onSubmit={handleUpdateUser}>
-                <div>
-                    <img src={selectedImage || user.profilePicture || '/assets/requests/unknownTarget.png'} />
+            <form onSubmit={handleUpdateUser} className="flex items-center justify-center mt-3 gap-15">
+                <div className="flex items-center flex-col h-[40vh]">
+                    <div className="border-10 border-black skew-x-4 mb-3  w-[350px] h-[350px]">
+                        <img className="w-full h-full object-cover" src={selectedImage || user.profilePicture || '/assets/requests/unknownTarget.png'} />
+                    </div>
+
+                    {!selectedImage ?
+                        (<><label htmlFor="image-upload" className="cursor-pointer">
+                            <img
+                                src="/assets/images/icons/upload.png"
+                                alt={t("photo.discard")}
+                                className='h-10'
+                            /></label>
+                            <input type="file" accept="image/*" id="image-upload" onChange={handleFileChange} style={{ display: 'none' }} /></>) : (
+                            <button type="button" onClick={handleCancelImage}>
+                                <img
+                                    src="/assets/images/icons/delete.png"
+                                    alt={t("photo.discard")}
+                                    className='h-8'
+                                />
+                            </button>
+                        )}
                 </div>
-
-                {!selectedImage ?
-                    (<label><p>{t("photo.upload")}</p>
-                        <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} /></label>) : (
-                        <button type="button" onClick={handleCancelImage}>
-                            {t("photo.discard")}
+                <div>
+                    <div className="h-[35vh] w-[25vw] bg-white -skew-x-3 box-shadow flex items-center justify-center">
+                        <span className="absolute top-2 left-2">
+                            <img src="/assets/images/icons/star-black.png" alt="Star" className="w-6 h-6" />
+                        </span>
+                        <span className="absolute top-2 right-2">
+                            <img src="/assets/images/icons/star-red.png" alt="Star" className="w-6 h-6" />
+                        </span>
+                        <span className="absolute bottom-2 left-2">
+                            <img src="/assets/images/icons/star-black.png" alt="Star" className="w-6 h-6" />
+                        </span>
+                        <span className="absolute bottom-2 right-2">
+                            <img src="/assets/images/icons/star-red.png" alt="Star" className="w-6 h-6" />
+                        </span>
+                        <input className="text-black text-3xl" type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("auth.aboutMe.placeholder")} />
+                    </div>
+                </div>
+                <div>
+                    <div className="form-input-container form-input-1 mb-2">
+                        <input className="p-3 text-lg w-full" type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder={t("auth.username.placeholder")} />
+                    </div>
+                    <div className="form-input-container form-input-3 relative mb-2">
+                        <input
+                            type={showPassword ? 'text' : 'password'}
+                            value={password}
+                            required
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder={t('auth.password.placeholder')}
+                            className="p-3 text-lg w-full"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-4 top-1/2 -translate-y-1/2"
+                        >
+                            <img src={showPassword ? '../../assets/images/icons/show.png' : '../../assets/images/icons/hide.png'}
+                                className="h-8 w-auto cursor-pointer" />
                         </button>
-                    )}
-
-                <label>{t("auth.username")}</label>
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder={t("auth.username.placeholder")} />
-                <br />
-                <label>{t("auth.password")}</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t("auth.password.placeholder")} />
-                <br />
-                <label>{t("auth.email")}</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
-                <label>{t("profile.about.me")}</label>
-                <input type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("auth.aboutMe.placeholder")} />
-                <SubmitButton text={loading ? t("profile.saving") : t("profile.save")}></SubmitButton>
+                    </div>
+                    <div className="form-input-container form-input-4 relative mb-2">
+                        <input
+                            type={showConfirmPassword ? 'text' : 'password'}
+                            value={confirmPassword}
+                            required
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            placeholder={t('auth.confirm.password.placeholder')}
+                            className="p-3 text-lg w-full"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            className="absolute right-4 top-1/2 -translate-y-1/2"
+                        >
+                            <img src={showConfirmPassword ? '../../assets/images/icons/show.png' : '../../assets/images/icons/hide.png'}
+                                className="h-8 w-auto cursor-pointer" />
+                        </button>
+                    </div>
+                    <div className="form-input-container form-input-3 mb-2">
+                        <input className="p-3 text-lg w-full" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
+                    </div>
+                    <SubmitButton text={loading ? t("profile.saving") : t("profile.save")}></SubmitButton>
+                </div>
             </form>
         </div>
     )
