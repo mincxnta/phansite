@@ -79,27 +79,51 @@ export const UserProfile = () => {
     });
 
     return (
-        <>
+        <div>
             {authError && t(authError)}
-            <h1>{isOwnProfile ? t("profile.me") : t("profile.user", { username: profileUser.username })}</h1>
-            <img src={profileUser.profilePicture || '/assets/requests/unknownTarget.png'} />
-            <p>{`${profileUser.username}`}</p>
-            <p>{`${profileUser.aboutMe}`}</p>
-            <p>{t("profile.date", { date: formattedDate })}</p>
-            {isOwnProfile && (
-                <>
-                    <SubmitButton text={t("profile.edit")} to="edit"></SubmitButton>
-                    {user.role === 'fan' && (
-                        <>
-                            <h4>{t("profile.requests")}</h4>
-                            <RequestList />
-                        </>
-                    )}
-                </>)}
-            {!isOwnProfile && (
-                <button><Link to={`/chat/${profileUser.username}`}>{t("profile.message")}</Link></button>
-            )}
+            <div className="h-[90vh] flex flex-col justify-center">
+                <h1>{isOwnProfile ? t("profile.me") : t("profile.user", { username: profileUser.username })}</h1>
+                <div className="flex items-center justify-center gap-15 mt-3">
+                    <div className="flex items-center flex-col h-[40vh] ">
+                        <img className="border-10 border-black skew-x-4 mb-3" src={profileUser.profilePicture || '/assets/requests/unknownTarget.png'} />
+                        {isOwnProfile && (
+                            <>
+                                <Link to="edit">
+                                    <img className="w-10" src="/assets/images/icons/edit.png" />
+                                </Link>
 
-        </>
+                            </>)}
+                        {!isOwnProfile && (
+                            <Link to={`/chat/${profileUser.username}`}>
+                                <img className="w-10" src="/assets/images/icons/message.png" />
+                            </Link>
+                        )}
+                    </div>
+                    <div>
+                        <div className="h-[35vh] w-[25vw] bg-white -skew-x-3 box-shadow flex items-center justify-center">
+                            <span className="absolute top-2 left-2">
+                                <img src="/assets/images/icons/star-black.png" alt="Star" className="w-6 h-6" />
+                            </span>
+                            <span className="absolute top-2 right-2">
+                                <img src="/assets/images/icons/star-red.png" alt="Star" className="w-6 h-6" />
+                            </span>
+                            <span className="absolute bottom-2 left-2">
+                                <img src="/assets/images/icons/star-black.png" alt="Star" className="w-6 h-6" />
+                            </span>
+                            <span className="absolute bottom-2 right-2">
+                                <img src="/assets/images/icons/star-red.png" alt="Star" className="w-6 h-6" />
+                            </span>
+                            <p className="text-black text-3xl">{`${profileUser.aboutMe}`}</p>
+                        </div>
+                        <p className="mt-6 font-header">{t("profile.date", { date: formattedDate })}</p>
+                    </div>
+                </div>
+            </div>
+            {isOwnProfile && user.role === 'fan' && (
+                <div className="-mt-20">
+                    <RequestList profile />
+                </div>
+            )}
+        </div>
     )
 }

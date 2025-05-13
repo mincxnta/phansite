@@ -36,7 +36,7 @@
         "about.me": "About me",
         "requests": "My requests",
         "user": "{{username}}'s profile",
-        "date": "Fan since: {{date}}",
+        "date": "Fan since {{date}}",
         "message": "Send message"
     },
     "auth": {

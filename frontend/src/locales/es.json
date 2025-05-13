@@ -36,7 +36,7 @@
         "about.me": "Sobre mí",
         "requests": "Mis peticiones",
         "user": "Perfil de {{username}}",
-        "date": "Fan desde: {{date}}",
+        "date": "Fan desde {{date}}",
         "message": "Enviar mensaje"
     },
     "auth": {

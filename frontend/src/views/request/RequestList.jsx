@@ -13,7 +13,7 @@ import { Table } from '../../components/Table.jsx'
 import { SubmitButton } from '../../components/SubmitButton.jsx'
 import { Pagination } from '../../components/Pagination.jsx'
 
-export const RequestList = () => {
+export const RequestList = (profile) => {
   const [requests, setRequests] = useState([])
   const [results, setResults] = useState({})
   const location = useLocation();
@@ -255,7 +255,9 @@ export const RequestList = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="flex items-center justify-between w-full max-w-[85%] mb-8 pt-20">
-        <h1 className="text-4xl md:text-5xl text-white item- mb-6">{t("requests.title")}</h1>
+        <h1 className="text-4xl md:text-5xl text-white item- mb-6">
+          {profile ? t("profile.requests") : t("requests.title")}
+          </h1>
         {user && user.role === 'fan' && location.pathname === '/requests' && <SubmitButton to="/newrequest" text={t("requests.create")} />}
       </div>
       {requests.length === 0 ? (
