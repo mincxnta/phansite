@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }) => {
 
     const fetchUser = async () => {
         setLoading(true);
-
         try {
             const response = await fetch(`${API_URL}/auth/user`, {
                 method: 'GET',

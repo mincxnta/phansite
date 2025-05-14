@@ -10,7 +10,7 @@ import { Loading } from '../../components/Loading.jsx'
 import { SubmitButton } from '../../components/SubmitButton.jsx'
 
 export const UpdateUser = () => {
-    const { user, setUser } = useAuth()
+    const { user, setUser, loading } = useAuth()
     const [username, setUsername] = useState('')
     const [selectedImage, setSelectedImage] = useState(null)
     const [password, setPassword] = useState('')
@@ -20,22 +20,22 @@ export const UpdateUser = () => {
     const [email, setEmail] = useState('')
     const [file, setFile] = useState(null)
     const [aboutMe, setAboutMe] = useState('')
-    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const { t } = useTranslation();
 
     useEffect(() => {
-        const fetchProfile = async () => {
-            if (user) {
-                setUsername(user.username)
-                setEmail(user.email)
-                setAboutMe(user.aboutMe)
-            } else {
-                navigate('/login')
-            }
+        if (user) {
+            setUsername(user.username)
+            setEmail(user.email)
+            setAboutMe(user.aboutMe)
         }
-        fetchProfile()
-    }, [navigate, user])
+    }, [user])
+
+    useEffect(() => {
+        if (!loading && !user) {
+            navigate('/login');
+        }
+    }, [loading, user, navigate]);
 
     const handleFileChange = async (e) => {
         const selectedFile = e.target.files[0];
@@ -57,8 +57,6 @@ export const UpdateUser = () => {
 
     const handleUpdateUser = async (event) => {
         event.preventDefault()
-        setLoading(true);
-
         const formData = new FormData();
         formData.append('username', username);
         formData.append('email', email);
@@ -96,7 +94,7 @@ export const UpdateUser = () => {
         } catch (error) {
             toast.error(t(errorHandler(error)))
         } finally {
-            setLoading(false)
+           //setLoading(false)
         }
     }
 
@@ -132,7 +130,7 @@ export const UpdateUser = () => {
                 </div>
                 <div>
                     <div className="h-[35vh] w-[25vw] bg-white -skew-x-3 box-shadow flex items-center justify-center">
-                        <textarea className="text-black text-3xl vertical-align" type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("auth.aboutMe.placeholder")} style={{ resize: "none", width: "90%", height: "100%" }}
+                        <textarea className="text-black text-3xl text-center pt-[25%]" type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("auth.aboutMe.placeholder")} style={{ resize: "none", width: "90%", height: "100%" }}
                         />
                     </div>
                 </div>
