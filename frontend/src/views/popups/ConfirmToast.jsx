@@ -23,7 +23,7 @@ const ConfirmToast = ({ message, onConfirm, onCancel, closeToast }) => {
             cursor: 'pointer',
           }}
         >
-          {t('confirmToast.accept')}
+          {t('yes')}
         </button>
         <button
           onClick={() => {
@@ -39,7 +39,7 @@ const ConfirmToast = ({ message, onConfirm, onCancel, closeToast }) => {
             cursor: 'pointer',
           }}
         >
-          {t('confirmToast.cancel')}
+          {t('no')}
         </button>
       </div>
     </div>

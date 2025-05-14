@@ -9,7 +9,6 @@
         "new": "Nueva petición",
         "create": "Crear petición",
         "send": "Enviar petición",
-        "status": "Estado",
         "title.placeholder": "Introduce el título de la petición",
         "target": "Objetivo",
         "target.person": "Sujeto",
@@ -20,8 +19,17 @@
         "no.requests": "No hay peticiones",
         "no.comment": "Sin comentario",
         "popup": "¿Quieres añadir un comentario a esta petición?",
-        "rejected": "Rechazar",
-        "completed": "Completar",
+        "status": {
+            "title": "Estado",
+            "pending": "Pendiente",
+            "rejected": "Rechazada",
+            "completed": "Completada"
+        },
+        "pending": "Pendientes",
+        "reject": "Rechazar",
+        "rejected": "Rechazadas",
+        "complete": "Completar",
+        "completed": "Completadas",
         "report": "Reportar",
         "votes": "Votos",
         "upvote": "Voto positivo",
@@ -113,7 +121,8 @@
         "send": "Enviar reporte",
         "comment": "¿Qué ocurre con este comentario?",
         "request": "¿Qué ocurre con esta petición?",
-        "no.reports": "No hay reportes"
+        "no.reports": "No hay reportes",
+        "author": "Autor"
     },
     "users": {
         "title": "Usuarios",
@@ -286,6 +295,18 @@
         "upload": "Subir foto",
         "discard": "Descartar foto"
     },
+    "toast": {
+        "ban": "¿Estás seguro de que quieres banear a este usuario?",
+        "report": {
+            "discard": "¿Estás seguro de que quieres descartar este reporte?",
+            "comment": "¿Estás seguro de que quieres eliminar este comentario?",
+            "request": "¿Estás seguro de que quieres eliminar esta petición?"
+        },
+        "request": {
+            "reject": "¿Estás seguro de que quieres rechazar esta petición?",
+            "complete": "¿Estás seguro de que quieres completar esta petición?"
+        }
+    },
     "pagination": "Página {{page}} de {{totalPages}}",
     "previous": "Anterior",
     "next": "Siguiente",
@@ -295,8 +316,5 @@
     "anonymous": "Anónimo",
     "delete": "Eliminar",
     "discard": "Descartar",
-    "image": "Imagen",
-    "pending": "Pendiente",
-    "rejected": "Rechazada",
-    "completed": "Completada"
+    "image": "Imagen"
 }

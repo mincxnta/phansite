@@ -88,7 +88,7 @@ export const CommentSection = ({ pollId, ref }) => {
 
     const handleDeleteClick = (commentId) => {
         showConfirmToast(
-            t('confirmToast.banMessage'),
+            t('toast.report.comment'),
             () => handleDelete(commentId),
             () => { }
         );

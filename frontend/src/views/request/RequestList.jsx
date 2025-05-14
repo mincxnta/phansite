@@ -13,7 +13,7 @@ import { Table } from '../../components/Table.jsx'
 import { SubmitButton } from '../../components/SubmitButton.jsx'
 import { Pagination } from '../../components/Pagination.jsx'
 
-export const RequestList = (profile) => {
+export const RequestList = ({ profile }) => {
   const [requests, setRequests] = useState([])
   const [results, setResults] = useState({})
   const location = useLocation();
@@ -145,8 +145,8 @@ export const RequestList = (profile) => {
   };
 
   const handleStatusChangeClick = (requestId, status) => {
-    showConfirmToast(
-      t('confirmToast.banMessage'),
+    showConfirmToast(status=="rejected" ? t('toast.request.reject') :
+      t('toast.request.complete'),
       () => handleStatusChange(requestId, status),
       () => { }
     );
@@ -162,6 +162,7 @@ export const RequestList = (profile) => {
   const hasPendingRequests = requests.some((request) => request.status === 'pending')
 
   const headers = [
+    ...(location.pathname === '/profile' ? [t('requests.status.title')] : []),
     t('title'),
     t('requests.target'),
     t('requests.votes'),
@@ -180,6 +181,10 @@ export const RequestList = (profile) => {
       user && user.role === 'fan' && location.pathname === '/requests';
 
     const row = [];
+
+    if (location.pathname === '/profile') {
+      row.push(t(`requests.status.${request.status}`));
+    }
 
     row.push(
       <button className="w-100" onClick={() => showRequestDetail(request.id)}>{request.title}</button>
@@ -230,14 +235,14 @@ export const RequestList = (profile) => {
             title={t('requests.rejected')}
             onClick={() => handleStatusChangeClick(request.id, 'rejected')}
           >
-            {t('requests.rejected')}
+            {t('requests.reject')}
           </button>
           <button
             disabled={request.status !== 'pending'}
             title={t('requests.completed')}
             onClick={() => handleStatusChangeClick(request.id, 'completed')}
           >
-            {t('requests.completed')}
+            {t('requests.complete')}
           </button>
           <button
             disabled={request.status !== 'pending'}

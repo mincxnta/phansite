@@ -20,7 +20,7 @@ export const ReportedRequests = () => {
 
     const fetchReports = async () => {
         try {
-            const response = await fetch(`${API_URL}/reports/type?type=request&page=${page}&limit=${limit}`, {
+            const response = await fetch(`${API_URL}/reports?type=request&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 credentials: 'include'
             })
@@ -44,7 +44,7 @@ export const ReportedRequests = () => {
 
     const handleBanClick = (userId) => {
         showConfirmToast(
-            t('confirmToast.banMessage'),
+            t('toast.ban'),
             () => handleBan(userId),
             () => { }
         );
@@ -52,7 +52,7 @@ export const ReportedRequests = () => {
 
     const handleDiscardClick = (reportId) => {
         showConfirmToast(
-            t('confirmToast.banMessage'),
+            t('toast.report.discard'),
             () => handleDiscard(reportId),
             () => { }
         );
@@ -60,7 +60,7 @@ export const ReportedRequests = () => {
 
     const handleDeleteClick = (report) => {
         showConfirmToast(
-            t('confirmToast.banMessage'),
+            t('toast.report.request'),
             () => handleDelete(report),
             () => { }
         );
@@ -126,6 +126,7 @@ export const ReportedRequests = () => {
     const headers = [
         t("reports.reporter"),
         t("reports.reason"),
+        t('reports.author'),
         t("reports.requests"),
         t("admin.actions")
     ];
@@ -133,6 +134,7 @@ export const ReportedRequests = () => {
     const rows = reports.map((report) => [
         report.user.username,
         report.reason,
+        report.request.user?.username,
         <button className="w-100" onClick={() => showRequestDetail(report.request.id)}>
             {report.request.title}
         </button>,

@@ -3,9 +3,7 @@ import { ReportController } from '../controllers/reports.js'
 
 export const reportsRouter = Router()
 
-reportsRouter.get('/', ReportController.getAll)
-
-reportsRouter.get('/type', ReportController.getAllByType)
+reportsRouter.get('/', ReportController.getAllByType)
 
 reportsRouter.post('/', ReportController.create)
 

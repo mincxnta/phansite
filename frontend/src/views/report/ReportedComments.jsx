@@ -19,7 +19,7 @@ export const ReportedComments = () => {
 
     const fetchReports = async () => {
         try {
-            const response = await fetch(`${API_URL}/reports/type?type=comment&page=${page}&limit=${limit}`, {
+            const response = await fetch(`${API_URL}/reports?type=comment&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 credentials: 'include'
             })
@@ -44,7 +44,7 @@ export const ReportedComments = () => {
 
     const handleBanClick = (userId) => {
         showConfirmToast(
-            t('confirmToast.banMessage'),
+            t('toast.ban'),
             () => handleBan(userId),
             () => { }
         );
@@ -52,7 +52,7 @@ export const ReportedComments = () => {
 
     const handleDiscardClick = (reportId) => {
         showConfirmToast(
-            t('confirmToast.banMessage'),
+            t('toast.report.discard'),
             () => handleDiscard(reportId),
             () => { }
         );
@@ -60,7 +60,7 @@ export const ReportedComments = () => {
 
     const handleDeleteClick = (report) => {
         showConfirmToast(
-            t('confirmToast.banMessage'),
+            t('toast.report.comment'),
             () => handleDelete(report),
             () => { }
         );
@@ -129,6 +129,7 @@ export const ReportedComments = () => {
     const headers = [
         t("reports.reporter"),
         t("reports.reason"),
+        t('reports.author'),
         t("reports.comments"),
         t("admin.actions")
     ];
@@ -136,6 +137,7 @@ export const ReportedComments = () => {
     const rows = reports.map((report) => [
         report.user.username,
         report.reason,
+        report.comment.user?.username,
         report.comment.text,
         <div>
             <button title={t("discard")} onClick={() => handleDiscardClick(report.id)}>

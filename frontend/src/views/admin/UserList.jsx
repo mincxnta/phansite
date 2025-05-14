@@ -59,11 +59,11 @@ export const UserList = () => {
 
     const handleBanClick = (userId) => {
         showConfirmToast(
-          t('confirmToast.banMessage'),
-          () => handleBan(userId),
-          () => {}
+            t('toast.ban'),
+            () => handleBan(userId),
+            () => { }
         );
-      };
+    };
 
     const handleBan = async (userId) => {
 
@@ -94,24 +94,24 @@ export const UserList = () => {
     ];
 
     const rows = users.map((user) => [
-        <button><Link to={`/profile/${user.username}`}>{user.username}</Link></button>,
+        <button><Link to={`/profile/${user.username}`} className={user.banned ? 'line-through text-red-500' : ''}>{user.username}</Link></button>,
         user.email,
-        <button title={t("admin.ban")} onClick={() => handleBanClick(user.id)}>{t("admin.ban")}</button>
+        !user.banned ? (<button title={t("admin.ban")} onClick={() => handleBanClick(user.id)}>{t("admin.ban")}</button>) : ('')
     ]);
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
             <div class="flex items-center justify-between w-full max-w-[85%] mb-8">
-            <h1>{t("users.list")}</h1>
-            <SubmitButton to="/admin/create" text={t("users.create")} />
+                <h1>{t("users.list")}</h1>
+                <SubmitButton to="/admin/create" text={t("users.create")} />
             </div>
             <Table headers={headers} rows={rows} />
             {totalPages > 1 && (
                 <Pagination
-                page={page}
-                totalPages={totalPages}
-                onPageChange={(newPage) => setPage(newPage)}
-              />
+                    page={page}
+                    totalPages={totalPages}
+                    onPageChange={(newPage) => setPage(newPage)}
+                />
             )}
         </div>
     )

@@ -39,44 +39,6 @@ export class ReportController {
     }
   }
 
-  static async getAll (req, res) {
-    const page = parseInt(req.query.page) || 1
-    const limit = parseInt(req.query.limit) || 5
-    const offset = (page - 1) * limit
-
-    if (req.user.role !== 'admin') {
-      return res.status(403).json({ code: 'forbidden' })
-    }
-
-    try {
-      const { count, rows } = await Report.findAndCountAll({
-        order: [['id', 'ASC']],
-        include: [
-          {
-            model: User,
-            as: 'user',
-            attributes: ['username']
-          },
-          {
-            model: Comment,
-            as: 'comment',
-            attributes: ['text']
-          }
-        ],
-        limit,
-        offset
-      })
-      res.status(200).json({
-        reports: rows,
-        totalReports: count,
-        totalPages: Math.ceil(count / limit),
-        currentPage: page
-      })
-    } catch (error) {
-      res.status(500).json({ code: 'internal_server_error' })
-    }
-  }
-
   static async getAllByType (req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
@@ -99,12 +61,26 @@ export class ReportController {
           {
             model: Comment,
             as: 'comment',
-            attributes: ['text', 'id', 'userId']
+            attributes: ['text', 'id', 'userId'],
+            include: [
+              {
+                model: User,
+                as: 'user',
+                attributes: ['username']
+              }
+            ]
           },
           {
             model: Request,
             as: 'request',
-            attributes: ['title', 'id', 'userId']
+            attributes: ['title', 'id', 'userId'],
+            include: [
+              {
+                model: User,
+                as: 'user',
+                attributes: ['username']
+              }
+            ]
           }
         ],
         order: [['id', 'ASC']],
