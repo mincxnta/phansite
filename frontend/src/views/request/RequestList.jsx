@@ -23,6 +23,7 @@ export const RequestList = (profile) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalRequests, setTotalRequests] = useState(0);
+  const [filterStatus, setFilterStatus] = useState('pending');
   const limit = 5;
 
 
@@ -79,6 +80,7 @@ export const RequestList = (profile) => {
       if (user.role === 'phantom_thief') {
         if (location.pathname === '/thieves') {
           url = `${API_URL}/requests?page=${page}&limit=${limit}`;
+          url += filterStatus ? `&status=${filterStatus}` : '';
         }
       } else if (user.role === 'fan') {
         if (location.pathname === '/profile') {
@@ -111,7 +113,7 @@ export const RequestList = (profile) => {
 
   useEffect(() => {
     fetchRequests()
-  }, [page])
+  }, [page, filterStatus])
 
   const handleVote = async (vote, request) => {
     if (!user) {
@@ -157,13 +159,15 @@ export const RequestList = (profile) => {
     await fetchRequests();
   }
 
+  const hasPendingRequests = requests.some((request) => request.status === 'pending')
+
   const headers = [
-    ...(user && user.role !== 'fan' ? [t('requests.status')] : []),
     t('title'),
     t('requests.target'),
     t('requests.votes'),
-    ...(user && user.role === 'phantom_thief' && location.pathname === '/thieves'
-      ? [t('comments.title'), t('admin.actions')]
+    ...(user && user.role === 'phantom_thief' && location.pathname === '/thieves' ? [t('comments.title')] : []),
+    ...(user && user.role === 'phantom_thief' && location.pathname === '/thieves' && hasPendingRequests
+      ? [t('admin.actions')]
       : []),
   ];
 
@@ -171,16 +175,11 @@ export const RequestList = (profile) => {
     const result = results[request.id] || { totalVotes: 0 };
     const userVote = userVotes[request.id];
     const showActionButtons =
-      user && user.role === 'phantom_thief' && location.pathname === '/thieves';
+      user && user.role === 'phantom_thief' && location.pathname === '/thieves' && request.status === 'pending';
     const showVoteButtons =
       user && user.role === 'fan' && location.pathname === '/requests';
 
     const row = [];
-
-    if (user && user.role !== 'fan') {
-      if (request.status=="pending")
-      row.push(t(request.status));
-    }
 
     row.push(
       <button className="w-100" onClick={() => showRequestDetail(request.id)}>{request.title}</button>
@@ -219,9 +218,11 @@ export const RequestList = (profile) => {
         )}
       </div>
     );
+    if (user && user.role === 'phantom_thief' && location.pathname === '/thieves') {
+      row.push(request.thiefComment || t('requests.no.comment'));
+    }
 
     if (showActionButtons) {
-      row.push(request.thiefComment || t('requests.no.comment'));
       row.push(
         <div>
           <button
@@ -257,9 +258,20 @@ export const RequestList = (profile) => {
       <div className="flex items-center justify-between w-full max-w-[85%] mb-8 pt-20">
         <h1 className="text-4xl md:text-5xl text-white item- mb-6">
           {profile ? t("profile.requests") : t("requests.title")}
-          </h1>
+        </h1>
         {user && user.role === 'fan' && location.pathname === '/requests' && <SubmitButton to="/newrequest" text={t("requests.create")} />}
       </div>
+      {user && user.role === 'phantom_thief' && (location.pathname === '/thieves' || location.pathname === '/requests') && (
+        <select
+          value={filterStatus}
+          onChange={(e) => setFilterStatus(e.target.value)}
+          className="p-2 bg-gray-800 text-white border border-gray-600 rounded"
+        >
+          <option value="pending">{t('requests.pending')}</option>
+          <option value="rejected">{t('requests.rejected')}</option>
+          <option value="completed">{t('requests.completed')}</option>
+        </select>
+      )}
       {requests.length === 0 ? (
         <p>{t('requests.no.requests')}</p>
       ) : (

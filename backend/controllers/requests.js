@@ -32,9 +32,12 @@ export class RequestController {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
     const offset = (page - 1) * limit
+    const status = req.query.status
 
     try {
+      const where = status ? { status } : {}
       const { count, rows } = await Request.findAndCountAll({
+        where,
         order: [['submitDate', 'DESC']],
         limit,
         offset
