@@ -71,7 +71,7 @@ export const Register = () => {
                             required
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder={t('auth.password.placeholder')}
-                            className="p-3 text-lg w-full"
+                            className="py-3 pr-13 text-lg w-[90%]"
                         />
                         <button
                             type="button"
@@ -89,7 +89,7 @@ export const Register = () => {
                             required
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             placeholder={t('auth.confirm.password.placeholder')}
-                            className="p-3 text-lg w-full"
+                            className="py-3 pr-13 text-lg w-[90%]"
                         />
                         <button
                             type="button"

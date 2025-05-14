@@ -17,6 +17,8 @@ export const AuthProvider = ({ children }) => {
     const { t } = useTranslation();
 
     const fetchUser = async () => {
+        setLoading(true);
+
         try {
             const response = await fetch(`${API_URL}/auth/user`, {
                 method: 'GET',

@@ -132,19 +132,8 @@ export const UpdateUser = () => {
                 </div>
                 <div>
                     <div className="h-[35vh] w-[25vw] bg-white -skew-x-3 box-shadow flex items-center justify-center">
-                        <span className="absolute top-2 left-2">
-                            <img src="/assets/images/icons/star-black.png" alt="Star" className="w-6 h-6" />
-                        </span>
-                        <span className="absolute top-2 right-2">
-                            <img src="/assets/images/icons/star-red.png" alt="Star" className="w-6 h-6" />
-                        </span>
-                        <span className="absolute bottom-2 left-2">
-                            <img src="/assets/images/icons/star-black.png" alt="Star" className="w-6 h-6" />
-                        </span>
-                        <span className="absolute bottom-2 right-2">
-                            <img src="/assets/images/icons/star-red.png" alt="Star" className="w-6 h-6" />
-                        </span>
-                        <input className="text-black text-3xl" type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("auth.aboutMe.placeholder")} />
+                        <textarea className="text-black text-3xl vertical-align" type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("auth.aboutMe.placeholder")} style={{ resize: "none", width: "90%", height: "100%" }}
+                        />
                     </div>
                 </div>
                 <div>
@@ -155,10 +144,9 @@ export const UpdateUser = () => {
                         <input
                             type={showPassword ? 'text' : 'password'}
                             value={password}
-                            required
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder={t('auth.password.placeholder')}
-                            className="p-3 text-lg w-full"
+                            className="py-3 pr-13 text-lg w-[90%]"
                         />
                         <button
                             type="button"
@@ -173,10 +161,9 @@ export const UpdateUser = () => {
                         <input
                             type={showConfirmPassword ? 'text' : 'password'}
                             value={confirmPassword}
-                            required
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             placeholder={t('auth.confirm.password.placeholder')}
-                            className="p-3 text-lg w-full"
+                            className="py-3 pr-13 text-lg w-[90%]"
                         />
                         <button
                             type="button"

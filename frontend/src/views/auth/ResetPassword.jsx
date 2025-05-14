@@ -64,7 +64,7 @@ export const ResetPassword = () => {
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder={t('auth.new.password.placeholder')}
               disabled={isLoading}
-              className="p-3 text-md w-full"
+              className="py-3 pr-13 text-lg w-[90%]"
             />
             <button
               type="button"
@@ -81,7 +81,7 @@ export const ResetPassword = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder={t('auth.confirm.new.password.placeholder')}
               disabled={isLoading}
-              className="p-3 text-md w-full"
+              className="py-3 pr-13 text-lg w-[90%]"
             />
             <button
               type="button"

@@ -140,9 +140,9 @@ export const CommentSection = ({ pollId, ref }) => {
                     </div>
                     <form className="ml-[4rem] mt-[2rem] relative flex gap-[3.5em]" onSubmit={handleAddComment}>
                         <div className="px-6 py-2 transform -skew-x-6 bg-white border-2 border-black relative w-[90%]">
-                            <div className="skew-x-6 p-[0.5rem] break-words text-black text-xl">
+                            <div className="skew-x-6 p-[0.5rem] break-words text-black text-xl h-full">
                                 <textarea value={newComment} placeholder={t("comments.placeholder")} onChange={(e) => setNewComment(e.target.value)}
-                                    style={{ maxHeight: "50px", resize: "none", width: "90%" }}
+                                    style={{ resize: "none", width: "90%", height: "100%" }}
                                     required disabled={!user || user?.role !== 'fan'}
                                 > </textarea>
                             </div>

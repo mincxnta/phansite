@@ -88,7 +88,7 @@ export const CreateRequest = () => {
             <div className="w-full flex flex-col items-center pt-20">
                 <h1 className="mt-4 mb-8 text-6xl">{t("requests.add")}</h1>
                 <div className="w-75 max-w-md">
-                    <form onSubmit={handleNewRequest} className="flex flex-col gap-4">
+                    <form onSubmit={handleNewRequest} className="flex flex-col gap-4 ">
                         <label className="text-3xl">{t("title")}</label>
                         <div className="form-input-container form-input-1">
                             <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("requests.title.placeholder")} className="p-3 text-lg w-full" />
@@ -98,8 +98,8 @@ export const CreateRequest = () => {
                             <input type="text" required value={target} onChange={(e) => setTarget(e.target.value)} placeholder={t("requests.target.placeholder")} className="p-3 text-lg w-full" />
                         </div>
                         <label className="text-3xl">{t("requests.description")}</label>
-                        <div className="form-input-container form-input-3">
-                            <input type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t("requests.description.placeholder")} className="p-3 text-lg w-full" />
+                        <div className="form-input-container form-input-3 h-[10rem]">
+                            <textarea type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t("requests.description.placeholder")} className="p-3 text-lg w-full" style={{ resize: "none", width: "90%", height: "100%" }} />
                         </div>
                         <label className="text-3xl">{t("requests.target.image")}</label>
                         {selectedImage &&

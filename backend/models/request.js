@@ -18,7 +18,7 @@ export const Request = sequelize.define('request', {
     allowNull: false
   },
   description: {
-    type: DataTypes.STRING(500),
+    type: DataTypes.STRING(255),
     allowNull: false
   },
   userId: {

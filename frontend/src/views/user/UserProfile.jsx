@@ -87,7 +87,7 @@ export const UserProfile = () => {
                     <div className="flex items-center flex-col h-[40vh]">
                         {/* TODO Cambiar a medidas relativas */}
                         <div className="border-10 border-black skew-x-4 mb-3  w-[350px] h-[350px]">
-                        <img className="w-full h-full object-cover" src={profileUser.profilePicture || '/assets/requests/unknownTarget.png'} /></div>
+                            <img className="w-full h-full object-cover" src={profileUser.profilePicture || '/assets/requests/unknownTarget.png'} /></div>
                         {isOwnProfile && (
                             <>
                                 <Link to="edit">
@@ -103,17 +103,11 @@ export const UserProfile = () => {
                     </div>
                     <div>
                         <div className="h-[35vh] w-[25vw] bg-white -skew-x-3 box-shadow flex items-center justify-center">
-                            <span className="absolute top-2 left-2">
-                                <img src="/assets/images/icons/star-black.png" alt="Star" className="w-6 h-6" />
+                            <span className="absolute -top-6 -left-12">
+                                <img src="/assets/images/icons/stars1.png" alt="Star" className="w-[6rem] h-auto" />
                             </span>
-                            <span className="absolute top-2 right-2">
-                                <img src="/assets/images/icons/star-red.png" alt="Star" className="w-6 h-6" />
-                            </span>
-                            <span className="absolute bottom-2 left-2">
-                                <img src="/assets/images/icons/star-black.png" alt="Star" className="w-6 h-6" />
-                            </span>
-                            <span className="absolute bottom-2 right-2">
-                                <img src="/assets/images/icons/star-red.png" alt="Star" className="w-6 h-6" />
+                            <span className="absolute -bottom-10 -right-14">
+                                <img src="/assets/images/icons/stars2.png" alt="Star" className="w-[8rem] h-auto" />
                             </span>
                             <p className="text-black text-3xl">{`${profileUser.aboutMe}`}</p>
                         </div>
