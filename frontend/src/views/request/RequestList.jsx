@@ -12,6 +12,8 @@ import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 import { Table } from '../../components/Table.jsx'
 import { SubmitButton } from '../../components/SubmitButton.jsx'
 import { Pagination } from '../../components/Pagination.jsx'
+import '../../assets/styles/hover.css'
+
 
 export const RequestList = ({ profile }) => {
   const [requests, setRequests] = useState([])
@@ -187,7 +189,7 @@ export const RequestList = ({ profile }) => {
     }
 
     row.push(
-      <button className="w-100" onClick={() => showRequestDetail(request.id)}>{request.title}</button>
+      <button className="w-full table-text" onClick={() => showRequestDetail(request.id)}>{request.title}</button>
     );
 
     row.push(request.target);
