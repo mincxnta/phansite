@@ -6,22 +6,15 @@ const ConfirmToast = ({ message, onConfirm, onCancel, closeToast }) => {
   const { t } = useTranslation();
 
   return (
-    <div style={{ padding: '10px', textAlign: 'center' }}>
+    <div className="text-xl">
       <p>{message}</p>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '10px' }}>
+      <div className="flex gap-4 justify-center mt-2">
         <button
           onClick={() => {
             onConfirm();
             closeToast();
           }}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#AB0000',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
+          className="text-white py-2 px-4 bg-black border-3 border-white"
         >
           {t('yes')}
         </button>
@@ -30,14 +23,7 @@ const ConfirmToast = ({ message, onConfirm, onCancel, closeToast }) => {
             onCancel();
             closeToast();
           }}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#666',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
+          className="text-black py-2 px-4 bg-white border-3 border-black"
         >
           {t('no')}
         </button>

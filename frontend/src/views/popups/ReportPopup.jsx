@@ -65,11 +65,11 @@ export const ReportPopup = () => {
 
   return createPortal(
     <div className="report-popup-overlay">
-      <div className="report-popup-content">
+      <div className="report-popup-content bg-persona-dark-red -skew-x-4">
         <button className="report-popup-close" onClick={closePopup}>X</button>
         <form onSubmit={handleNewReport}>
-          <h4>{t(reportedType === "comment" ? "reports.comment" : "reports.request")}</h4>
-          <textarea name="" id="reason" value={reason} onChange={(e) => setReason(e.target.value)}></textarea>
+          <h4 className="text-4xl mb-[.5em]">{t(reportedType === "comment" ? "reports.comment" : "reports.request")}</h4>
+          <textarea className="form-input-container form-input-1" name="" id="reason" value={reason} onChange={(e) => setReason(e.target.value)}></textarea>
           <SubmitButton text={t("reports.send")}></SubmitButton>
         </form>
       </div>
