@@ -28,7 +28,7 @@ export const Login = () => {
     } else {
       toast.error(t(errorHandler(data)))
       if (data.code === 'email_not_verified') {
-        const toastId = toast.info(
+        const toastId = toast.error(
           <div>
             {t('error.email.not.verified')}
             <br />

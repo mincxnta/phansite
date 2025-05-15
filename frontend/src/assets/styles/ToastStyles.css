@@ -1,0 +1,44 @@
+.Toastify__toast {
+  border-radius: 0;
+  transform: skewX(-10deg);
+  box-shadow: 6px 4px 0 white,
+  10px 8px 6px rgba(0, 0, 0, 0.3);
+  font-family: 'Optima Nova LT Black', sans-serif;
+   color: #ffffff;
+   margin-right: 1em;
+}
+
+.Toastify__toast--success {
+  background-color: black;
+}
+
+.Toastify__toast--error {
+  background-color: red;
+  color: #ffffff;
+}
+
+.Toastify__close-button {
+  color: #ffffff;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
+}
+
+.Toastify__toast-icon {
+    width: 3em;
+}
+
+.Toastify__progress-bar--error {
+    background-color: black;
+}
+
+.Toastify__progress-bar--success {
+    background-color: white;
+}
+
+.Toastify__toast-theme--light{
+    background-color: #ab0000;
+}

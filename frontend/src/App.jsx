@@ -9,13 +9,25 @@ import { RequestPopup } from './views/popups/RequestPopup.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MusicPlayer } from './components/MusicPlayer.jsx'
+import './assets/styles/ToastStyles.css'
 import { MusicPlayerProvider } from './context/MusicPlayerContext.jsx'
 
 function App() {
   return (
     <Router>
       <MusicPlayerProvider>
-        <ToastContainer position="top-center" />
+        <ToastContainer position="bottom-right" 
+        icon={({ type }) => {
+          switch (type) {
+            case 'error':
+              return <img src='./assets/images/icons/error.png'/>
+            case 'success':
+              return <img src='./assets/images/icons/success.png'/>;
+            default:
+              return null;
+          }
+        }}
+        />
         <AuthProvider>
           <AppRoutes/>
           <MusicPlayer/>
