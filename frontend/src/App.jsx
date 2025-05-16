@@ -16,7 +16,7 @@ function App() {
   return (
     <Router>
       <MusicPlayerProvider>
-        <ToastContainer position="bottom-right" 
+        <ToastContainer position="bottom-left" 
         icon={({ type }) => {
           switch (type) {
             case 'error':
