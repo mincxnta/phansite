@@ -145,7 +145,7 @@ export const RequestList = ({ profile }) => {
   };
 
   const handleStatusChangeClick = (requestId, status) => {
-    showConfirmToast(status=="rejected" ? t('toast.request.reject') :
+    showConfirmToast(status == "rejected" ? t('toast.request.reject') :
       t('toast.request.complete'),
       () => handleStatusChange(requestId, status),
       () => { }
@@ -193,33 +193,25 @@ export const RequestList = ({ profile }) => {
     row.push(request.target);
 
     row.push(
-      <div>
+      <div className='flex items-center gap-2 justify-center'>
         {showVoteButtons && (
-          <button
+          <img
+            src={userVote === true ? '/assets/images/icons/voted.png' : '/assets/images/icons/vote.png'}
             title={t('requests.upvote')}
-            style={{
-              backgroundColor: userVote === true ? 'white' : 'transparent',
-              color: userVote === true ? 'black' : 'white',
-            }}
+            className='h-[2rem]'
             disabled={!user || user?.role !== 'fan'}
             onClick={() => handleVote(true, request)}
-          >
-            ↑
-          </button>
+          />
         )}
         <span>{result.totalVotes}</span>
         {showVoteButtons && (
-          <button
+          <img
+            src={userVote === false ? '/assets/images/icons/voted.png' : '/assets/images/icons/vote.png'}
             title={t('requests.downvote')}
-            style={{
-              backgroundColor: userVote === false ? 'white' : 'transparent',
-              color: userVote === false ? 'black' : 'white',
-            }}
+            className='scale-y-[-1] h-[2rem]'
             disabled={!user || user?.role !== 'fan'}
             onClick={() => handleVote(false, request)}
-          >
-            ↓
-          </button>
+          />
         )}
       </div>
     );
@@ -235,21 +227,21 @@ export const RequestList = ({ profile }) => {
             title={t('requests.rejected')}
             onClick={() => handleStatusChangeClick(request.id, 'rejected')}
           >
-            <img className="w-8 mr-2" src="/assets/images/icons/reject.png"/>
+            <img className="w-8 mr-2" src="/assets/images/icons/reject.png" />
           </button>
           <button
             disabled={request.status !== 'pending'}
             title={t('requests.completed')}
             onClick={() => handleStatusChangeClick(request.id, 'completed')}
           >
-            <img className="w-8 mr-2" src="/assets/images/icons/complete.png"/>
+            <img className="w-8 mr-2" src="/assets/images/icons/complete.png" />
           </button>
           <button
             disabled={request.status !== 'pending'}
             title={t('requests.report')}
             onClick={() => handleReport('request', request.id)}
           >
-            <img className="w-8" src="/assets/images/icons/report-white.png"/>
+            <img className="w-8" src="/assets/images/icons/report-white.png" />
           </button>
         </div>
       );
@@ -268,15 +260,15 @@ export const RequestList = ({ profile }) => {
       </div>
       {user && user.role === 'phantom_thief' && (location.pathname === '/thieves' || location.pathname === '/requests') && (
         <div className="flex justify-start w-[90%]">
-        <select
-          value={filterStatus}
-          onChange={(e) => setFilterStatus(e.target.value)}
-          className="p-3 text-lg text-center form-input-container form-input-1 mb-8"
-        >
-          <option value="pending">{t('requests.pending')}</option>
-          <option value="rejected">{t('requests.rejected')}</option>
-          <option value="completed">{t('requests.completed')}</option>
-        </select>
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className="p-3 text-lg text-center form-input-container form-input-1 mb-8"
+          >
+            <option value="pending">{t('requests.pending')}</option>
+            <option value="rejected">{t('requests.rejected')}</option>
+            <option value="completed">{t('requests.completed')}</option>
+          </select>
         </div>
       )}
       {requests.length === 0 ? (

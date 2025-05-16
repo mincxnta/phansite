@@ -11,6 +11,7 @@ import { useDisplayUsername } from '../../utils/displayUsername.js'
 import { motion } from 'framer-motion';
 import { Pagination } from '../../components/Pagination.jsx';
 import { SubmitButton } from '../../components/SubmitButton.jsx';
+import { useMotionValue, animate } from 'framer-motion';
 
 export const CommentSection = ({ pollId, ref }) => {
     const [comments, setComments] = useState([]);
@@ -24,6 +25,12 @@ export const CommentSection = ({ pollId, ref }) => {
     const navigate = useNavigate()
     const { t } = useTranslation();
     const displayUsername = useDisplayUsername();
+    const rotateY = useMotionValue(0);
+    const [displayedImage, setDisplayedImage] = useState(
+        anonymous
+            ? '/assets/images/icons/anonymous.png'
+            : user?.profilePicture || '/assets/requests/unknownTarget.png'
+    );
 
     const fetchComments = async () => {
         try {
@@ -113,29 +120,43 @@ export const CommentSection = ({ pollId, ref }) => {
             toast.error(t(errorHandler(error)))
         }
     }
+
+    useEffect(() => {
+        const from = rotateY.get();
+        const to = anonymous ? 180 : 0;
+
+        const controls = animate(from, to, {
+            duration: 0.7,
+            onUpdate: (latest) => {
+                rotateY.set(latest);
+                if ((from < to && latest >= 90) || (from > to && latest <= 90)) {
+                    setDisplayedImage(
+                        anonymous
+                            ? '/assets/requests/unknownTarget.png'
+                            : user?.profilePicture || '/assets/requests/unknownTarget.png'
+                    );
+                }
+            }
+        });
+
+        return () => controls.stop();
+    }, [anonymous, user]);
+
     return (
         <div>
             <h1 ref={ref}>{t("comments.title")}</h1>
-            {/* <h4>{t("comments.add")}</h4> */}
             <div className="flex justify-center flex-col items-center w-full">
                 <div className="relative w-1/2 mb-6">
                     <div className="absolute left-0 top-[1em] z-10">
                         <motion.div
-                            initial={{ rotateY: 0 }}
-                            animate={{ rotateY: anonymous ? 180 : 0 }}
-                            transition={{ duration: 0.7 }}
-                            style={{ perspective: '1000px' }}
+                            style={{ rotateY, perspective: '1000px' }}
                             className="w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white transform skew-x-6"
                         >
-                            <img src={
-                                anonymous
-                                    ? '/assets/anonymous.png'
-                                    : user && user.profilePicture
-                                        ? user.profilePicture
-                                        : '/assets/requests/unknownTarget.png'
-                            }
-                                alt={"Profile picture"}
-                                className="w-full h-full object-cover" />
+                            <img
+                                src={displayedImage}
+                                alt="Profile picture"
+                                className="w-full h-full object-cover"
+                            />
                         </motion.div>
                     </div>
                     <form className="ml-[4rem] mt-[2rem] relative flex gap-[3.5em]" onSubmit={handleAddComment}>
@@ -177,7 +198,7 @@ export const CommentSection = ({ pollId, ref }) => {
                         <div className="w-full max-w-1/3 mb-6" key={comment.id}>
                             <div className="relative min-w-3xs">
                                 <div className="absolute left-0 z-10">
-                                    <div className="w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white transform -skew-x-4">
+                                    <div className={`w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white ${comment.anonymous ? "" : "hover:border-[#FF0000]"} transform -skew-x-4`}>
                                         {comment.anonymous ? (
                                             <img
                                                 src={
@@ -201,7 +222,7 @@ export const CommentSection = ({ pollId, ref }) => {
                                     </div>
                                 </div>
                                 <div className="absolute left-24 top-[-2rem] z-20">
-                                    <span className="font-earwig text-4xl w-fit text-white text-border">
+                                    <span className={`font-earwig text-4xl w-fit text-white text-border ${comment.anonymous ? "" : "hover:text-[#FF0000]"}`}>
                                         {comment.anonymous ? (
                                             t("anonymous")
                                         ) : (
@@ -219,18 +240,18 @@ export const CommentSection = ({ pollId, ref }) => {
                                             <p className="text-lg font-semibold text-black">{comment.text}</p>
                                         </div>
                                         <div className="absolute -top-3 -right-1 z-30">
-                                        {user?.role === "fan" && (
-                                            <button
-                                                onClick={() => handleReport("comment", comment.id)}
-                                                className="relative bg-white border-2 border-black transform -rotate-6 -skew-x-6 px-2 py-1"
-                                            >
-                                                <img
-                                                    src="/assets/images/icons/report.png"
-                                                    alt="Reportar comentari"
-                                                    className="h-4"
-                                                />
-                                            </button>
-                                        )}
+                                            {user?.role === "fan" && (
+                                                <button
+                                                    onClick={() => handleReport("comment", comment.id)}
+                                                    className="relative bg-white border-2 border-black transform -rotate-6 -skew-x-6 px-2 py-1"
+                                                >
+                                                    <img
+                                                        src="/assets/images/icons/report.png"
+                                                        alt="Reportar comentari"
+                                                        className="h-4"
+                                                    />
+                                                </button>
+                                            )}
                                             {user?.role === "admin" && (
                                                 <button
                                                     onClick={() => handleDeleteClick(comment.id)}
@@ -250,15 +271,18 @@ export const CommentSection = ({ pollId, ref }) => {
                         </div>
                     ))}
                 </div>
-            )}
+            )
+            }
 
-            {totalPages > 1 && (
-                <Pagination
-                    page={page}
-                    totalPages={totalPages}
-                    onPageChange={(newPage) => setPage(newPage)}
-                />
-            )}
-        </div>
+            {
+                totalPages > 1 && (
+                    <Pagination
+                        page={page}
+                        totalPages={totalPages}
+                        onPageChange={(newPage) => setPage(newPage)}
+                    />
+                )
+            }
+        </div >
     )
 }
