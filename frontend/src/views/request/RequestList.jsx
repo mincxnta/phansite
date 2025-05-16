@@ -198,7 +198,7 @@ export const RequestList = ({ profile }) => {
           <img
             src={userVote === true ? '/assets/images/icons/voted.png' : '/assets/images/icons/vote.png'}
             title={t('requests.upvote')}
-            className='h-[2rem]'
+            className='h-[2rem] button-hover'
             disabled={!user || user?.role !== 'fan'}
             onClick={() => handleVote(true, request)}
           />
@@ -208,7 +208,7 @@ export const RequestList = ({ profile }) => {
           <img
             src={userVote === false ? '/assets/images/icons/voted.png' : '/assets/images/icons/vote.png'}
             title={t('requests.downvote')}
-            className='scale-y-[-1] h-[2rem]'
+            className='scale-y-[-1] h-[2rem] button-hover'
             disabled={!user || user?.role !== 'fan'}
             onClick={() => handleVote(false, request)}
           />

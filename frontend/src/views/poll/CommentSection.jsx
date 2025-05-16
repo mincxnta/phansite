@@ -8,10 +8,9 @@ import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
 import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 import { useDisplayUsername } from '../../utils/displayUsername.js'
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, animate } from 'framer-motion';
 import { Pagination } from '../../components/Pagination.jsx';
 import { SubmitButton } from '../../components/SubmitButton.jsx';
-import { useMotionValue, animate } from 'framer-motion';
 
 export const CommentSection = ({ pollId, ref }) => {
     const [comments, setComments] = useState([]);
@@ -28,7 +27,7 @@ export const CommentSection = ({ pollId, ref }) => {
     const rotateY = useMotionValue(0);
     const [displayedImage, setDisplayedImage] = useState(
         anonymous
-            ? '/assets/images/icons/anonymous.png'
+            ? '/assets/requests/unknownTarget.png'
             : user?.profilePicture || '/assets/requests/unknownTarget.png'
     );
 
@@ -130,11 +129,7 @@ export const CommentSection = ({ pollId, ref }) => {
             onUpdate: (latest) => {
                 rotateY.set(latest);
                 if ((from < to && latest >= 90) || (from > to && latest <= 90)) {
-                    setDisplayedImage(
-                        anonymous
-                            ? '/assets/requests/unknownTarget.png'
-                            : user?.profilePicture || '/assets/requests/unknownTarget.png'
-                    );
+                    setDisplayedImage(anonymous ? '/assets/requests/unknownTarget.png' : user?.profilePicture || '/assets/requests/unknownTarget.png');
                 }
             }
         });

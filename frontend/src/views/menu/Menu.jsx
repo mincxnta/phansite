@@ -78,27 +78,27 @@ export const Menu = () => {
     },
     ...(user
       ? [
-          {
-            to: '/chat',
-            label: t('chat.title'),
-          },
-        ]
+        {
+          to: '/chat',
+          label: t('chat.title'),
+        },
+      ]
       : []),
     ...(user && user.role === 'admin'
       ? [
-          {
-            to: '/admin/users',
-            label: t('admin.users'),
-          },
-          {
-            to: '/admin/reports',
-            label: t('admin.reports'),
-          },
-          {
-            to: '/admin/poll',
-            label: t('home.poll'),
-          },
-        ]
+        {
+          to: '/admin/users',
+          label: t('admin.users'),
+        },
+        {
+          to: '/admin/reports',
+          label: t('admin.reports'),
+        },
+        {
+          to: '/admin/poll',
+          label: t('home.poll'),
+        },
+      ]
       : []),
   ];
 
@@ -132,7 +132,7 @@ export const Menu = () => {
             title={t('settingsMenu.open')}
             className="text-white text-2xl focus:outline-none"
           >
-            ⚙️
+            <img className="w-6 h-auto" src="/assets/images/icons/settings.png" />
           </button>
           <div className="relative">
             <div
@@ -156,19 +156,23 @@ export const Menu = () => {
             {user && isProfileMenuOpen && (
               <div
                 ref={profileMenuRef}
-                className="fixed top-12 right-4 bg-gray-800 border-2 border-red-600 rounded-lg z-50 flex flex-col gap-2 p-2 min-w-[150px]"
+                className="bg-black fixed top-17 right-5 py-5 -skew-x-6 flex flex-col gap-5 text-xl"
+                style={{
+                  boxShadow: "6px 4px 0 white",
+                }}
               >
                 <Link
                   to="/profile"
                   onClick={closeProfileMenu}
-                  className="block p-2 bg-red-600 text-white rounded text-center"
+                  className="table-text px-8"
                 >
                   {t('profile.title')}
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="w-full p-2 bg-red-600 text-white rounded text-center"
+                  className="table-text px-8"
                 >
+                  
                   {t('auth.logout')}
                 </button>
               </div>

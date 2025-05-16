@@ -9,89 +9,48 @@ export const SettingsMenu = () => {
   const { isMuted, toggleMute } = useMusicPlayer();
 
   return (
-    <div
+    <div className="bg-black fixed top-17 right-20 py-5 -skew-x-6 flex flex-col gap-5 text-xl"
       style={{
-        position: 'fixed',
-        top: '60px',
-        right: '20px',
-        backgroundColor: '#1C2526',
-        padding: '20px',
-        border: '2px solid #AB0000',
-        borderRadius: '8px',
-        zIndex: 1000,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '15px',
-        minWidth: '200px',
+        boxShadow: "6px 4px 0 white",
       }}
     >
-
-      <div style={{ position: 'relative' }}>
-        <button
-          style={{
-            width: '100%',
-            padding: '10px',
-            backgroundColor: '#AB0000',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            textAlign: 'center',
-          }}
+      <div className="table-text">
+        <button className="flex items-center justify-start gap-2 px-8"
         >
+          <img className="w-5 h-auto" src="/assets/images/icons/language.png" />
           <LanguageSwitcher />
         </button>
       </div>
-      
-      <div style={{ position: 'relative' }}>
-        <button
+
+      <div className="table-text w-full">
+        <button className="flex items-center justify-start gap-2 px-8"
           onClick={toggleMute}
-          style={{
-            width: '100%',
-            padding: '10px',
-            backgroundColor: '#AB0000',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            textAlign: 'center',
-          }}
         >
+          <img className="w-5 h-auto" src="/assets/images/icons/sound.png" />
           {isMuted ? t('settings.music.enable') : t('settings.music.disable')}
         </button>
       </div>
+      <div className="table-text w-full">
+        <a className="flex items-center justify-start gap-2 px-8"
+          href={`mailto:p5phansite@gmail.com?subject=${t('settings.email.subject')}`}
+        >
+          <img className="w-5 h-auto" src="/assets/images/icons/contact.png" />
+          {t('settings.email.title')}
+        </a>
+      </div>
 
-      <a href={`mailto:p5phansite@gmail.com?subject=${t('settings.email.subject')}`}
-        style={{
-          display: 'block',
-          padding: '10px',
-          backgroundColor: '#AB0000',
-          color: 'white',
-          textDecoration: 'none',
-          borderRadius: '4px',
-          textAlign: 'center',
-        }}
-      >
-        {t('settings.email.title')}
-      </a>
-
-      <a
-        href={githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{
-          display: 'block',
-          padding: '10px',
-          backgroundColor: '#AB0000',
-          color: 'white',
-          textDecoration: 'none',
-          borderRadius: '4px',
-          textAlign: 'center',
-        }}
-      >
-        {t('settings.about')}
-      </a>
+      <div className="table-text w-full">
+        <a
+          className="flex items-center justify-start gap-2 px-8"
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img className="w-5 h-auto" src="/assets/images/icons/github.png" />
+          {t('settings.about')}
+        </a>
+      </div>
     </div>
-    
+
   );
 };
