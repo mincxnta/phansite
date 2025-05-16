@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { Loading } from '../../components/Loading.jsx';
 import { io } from 'socket.io-client';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import '../../assets/styles/hover.css'
 
 const Counter = ({ from, to, duration }) => {
   const count = useMotionValue(from);
@@ -199,20 +200,20 @@ export const Poll = () => {
           <button
             onClick={() => handleVote(true)}
             disabled={user && user?.role !== 'fan'}
-            className="form-input-container form-input-3 px-4 py-2 text-4xl cursor-pointer"
+            className="form-input-container form-input-3 px-4 py-2 text-4xl cursor-pointer button-hover"
           >
             {t('yes')}
           </button>
           <button
             onClick={() => handleVote(false)}
             disabled={user && user?.role !== 'fan'}
-            className="form-input-container form-input-4 px-4 py-2 text-4xl cursor-pointer"
+            className="form-input-container form-input-4 px-4 py-2 text-4xl cursor-pointer button-hover"
           >
             {t('no')}
           </button>
         </div>
         <img
-          className="mt-24 w-14"
+          className="mt-24 w-14 button-hover"
           src="/assets/images/icons/down.png"
           onClick={() => showComments()}
         />

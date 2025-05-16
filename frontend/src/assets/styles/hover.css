@@ -9,7 +9,8 @@
   content: "";
   opacity: 0;
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: red;
@@ -24,9 +25,31 @@
 }
 
 @keyframes tilt {
-  0%   { transform: rotate(0deg); }
-  25%  { transform: rotate(1.5deg); }
-  50%  { transform: rotate(-1.5deg); }
-  75%  { transform: rotate(1deg); }
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(1.5deg);
+  }
+
+  50% {
+    transform: rotate(-1.5deg);
+  }
+
+  75% {
+    transform: rotate(1deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.button-hover {
+  transition: transform 0.2s ease-in;
+}
+
+.button-hover:hover {
+  transform: scale(1.2);
 }

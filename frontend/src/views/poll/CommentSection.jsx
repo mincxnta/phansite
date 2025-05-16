@@ -219,6 +219,7 @@ export const CommentSection = ({ pollId, ref }) => {
                                             <p className="text-lg font-semibold text-black">{comment.text}</p>
                                         </div>
                                         <div className="absolute -top-3 -right-1 z-30">
+                                        {user?.role === "fan" && (
                                             <button
                                                 onClick={() => handleReport("comment", comment.id)}
                                                 className="relative bg-white border-2 border-black transform -rotate-6 -skew-x-6 px-2 py-1"
@@ -229,6 +230,7 @@ export const CommentSection = ({ pollId, ref }) => {
                                                     className="h-4"
                                                 />
                                             </button>
+                                        )}
                                             {user?.role === "admin" && (
                                                 <button
                                                     onClick={() => handleDeleteClick(comment.id)}

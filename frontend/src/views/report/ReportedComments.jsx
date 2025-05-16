@@ -141,13 +141,13 @@ export const ReportedComments = () => {
         report.comment.text,
         <div>
             <button title={t("discard")} onClick={() => handleDiscardClick(report.id)}>
-                <img className="w-8" src="/assets/images/icons/discard.png"/>
+                <img className="w-8 button-hover" src="/assets/images/icons/discard.png"/>
             </button>
             <button title={t("delete")} onClick={() => handleDeleteClick(report)}>
-            <img className="w-8" src="/assets/images/icons/delete-white.png"/>
+            <img className="w-8 button-hover" src="/assets/images/icons/delete-white.png"/>
             </button>
             <button title={t("admin.ban")} onClick={() => handleBanClick(report.comment.userId)}>
-            <img className="w-8" src="/assets/images/icons/ban.png"/>
+            <img className="w-8 button-hover" src="/assets/images/icons/ban.png"/>
             </button>
         </div>
     ]);

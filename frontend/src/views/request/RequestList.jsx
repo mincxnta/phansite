@@ -12,8 +12,6 @@ import { showConfirmToast } from '../popups/ConfirmToast.jsx'
 import { Table } from '../../components/Table.jsx'
 import { SubmitButton } from '../../components/SubmitButton.jsx'
 import { Pagination } from '../../components/Pagination.jsx'
-import '../../assets/styles/hover.css'
-
 
 export const RequestList = ({ profile }) => {
   const [requests, setRequests] = useState([])

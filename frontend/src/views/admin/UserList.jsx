@@ -99,9 +99,9 @@ export const UserList = () => {
     ];
 
     const rows = users.map((user) => [
-        <button><Link to={`/profile/${user.username}`} className={user.banned ? 'line-through text-red-500' : ''}>{user.username}</Link></button>,
+        <button className="w-full table-text"><Link to={`/profile/${user.username}`} className={user.banned ? 'line-through text-red-500' : ''}>{user.username}</Link></button>,
         user.email,
-        !user.banned ? (<button title={t("admin.ban")} onClick={() => handleBanClick(user.id)}><img className="w-8" src="/assets/images/icons/ban.png"/></button>) : ('')
+        !user.banned ? (<button title={t("admin.ban")} onClick={() => handleBanClick(user.id)}><img className="w-8 button-hover" src="/assets/images/icons/ban.png"/></button>) : ('')
     ]);
 
     return (
