@@ -66,7 +66,6 @@ export const UserList = () => {
     };
 
     const handleBan = async (userId) => {
-
         try {
             const response = await fetch(`${API_URL}/users/ban/${userId}`, {
                 method: 'PATCH',
@@ -80,8 +79,14 @@ export const UserList = () => {
             const data = await response.json()
             if (!response.ok) {
                 toast.error(t(errorHandler(data)))
+                return;
             }
             toast.success(t("success.user.banned"))
+            setUsers((prevUsers) =>
+                prevUsers.map((u) =>
+                  u.id === userId ? { ...u, banned: true } : u
+                )
+              );
         } catch (error) {
             toast.error(t(errorHandler(error)))
         }
@@ -96,7 +101,7 @@ export const UserList = () => {
     const rows = users.map((user) => [
         <button><Link to={`/profile/${user.username}`} className={user.banned ? 'line-through text-red-500' : ''}>{user.username}</Link></button>,
         user.email,
-        !user.banned ? (<button title={t("admin.ban")} onClick={() => handleBanClick(user.id)}>{t("admin.ban")}</button>) : ('')
+        !user.banned ? (<button title={t("admin.ban")} onClick={() => handleBanClick(user.id)}><img className="w-8" src="/assets/images/icons/ban.png"/></button>) : ('')
     ]);
 
     return (

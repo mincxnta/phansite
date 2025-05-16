@@ -237,21 +237,21 @@ export const RequestList = ({ profile }) => {
             title={t('requests.rejected')}
             onClick={() => handleStatusChangeClick(request.id, 'rejected')}
           >
-            {t('requests.reject')}
+            <img className="w-8 mr-2" src="/assets/images/icons/reject.png"/>
           </button>
           <button
             disabled={request.status !== 'pending'}
             title={t('requests.completed')}
             onClick={() => handleStatusChangeClick(request.id, 'completed')}
           >
-            {t('requests.complete')}
+            <img className="w-8 mr-2" src="/assets/images/icons/complete.png"/>
           </button>
           <button
             disabled={request.status !== 'pending'}
             title={t('requests.report')}
             onClick={() => handleReport('request', request.id)}
           >
-            {t('requests.report')}
+            <img className="w-8" src="/assets/images/icons/report-white.png"/>
           </button>
         </div>
       );
@@ -269,15 +269,17 @@ export const RequestList = ({ profile }) => {
         {user && user.role === 'fan' && location.pathname === '/requests' && <SubmitButton to="/newrequest" text={t("requests.create")} />}
       </div>
       {user && user.role === 'phantom_thief' && (location.pathname === '/thieves' || location.pathname === '/requests') && (
+        <div className="flex justify-start w-[90%]">
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="p-2 bg-gray-800 text-white border border-gray-600 rounded"
+          className="p-3 text-lg text-center form-input-container form-input-1 mb-8"
         >
           <option value="pending">{t('requests.pending')}</option>
           <option value="rejected">{t('requests.rejected')}</option>
           <option value="completed">{t('requests.completed')}</option>
         </select>
+        </div>
       )}
       {requests.length === 0 ? (
         <p>{t('requests.no.requests')}</p>

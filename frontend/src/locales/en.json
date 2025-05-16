@@ -20,8 +20,9 @@
         "no.requests": "No requests",
         "no.comment": "No comment",
         "popup": "Do you want to add a comment to this request?",
-        "rejected": "Reject",
-        "completed": "Complete",
+        "rejected": "Rejected",
+        "completed": "Completed",
+        "pending": "Pending",
         "report": "Report",
         "votes": "Votes",
         "upvote": "Upvote",
@@ -289,16 +290,15 @@
     },
     "toast": {
         "ban": "Are you sure you want to ban this user?",
-        "report":{
+        "report": {
             "discard": "Are you sure you want to discard this report?",
             "comment": "Are you sure you want to delete this comment?",
             "request": "Are you sure you want to delete this request?"
         },
-        "request":{
+        "request": {
             "reject": "Are you sure you want to reject this request?",
             "complete": "Are you sure you want to complete this request?"
         }
-
     },
     "pagination": "Page {{page}} of {{totalPages}}",
     "previous": "Previous",

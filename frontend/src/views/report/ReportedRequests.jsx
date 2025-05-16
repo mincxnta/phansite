@@ -140,13 +140,13 @@ export const ReportedRequests = () => {
         </button>,
         <div>
             <button title={t("discard")} onClick={() => handleDiscardClick(report.id)}>
-                {t("discard")}
+            <img className="w-8" src="/assets/images/icons/discard.png"/>
             </button>
             <button title={t("delete")} onClick={() => handleDeleteClick(report)}>
-                {t("delete")}
+            <img className="w-8" src="/assets/images/icons/delete-white.png"/>
             </button>
             <button title={t("admin.ban")} onClick={() => handleBanClick(report.request.userId)}>
-                {t("admin.ban")}
+            <img className="w-8" src="/assets/images/icons/ban.png"/>
             </button>
         </div>
     ]);

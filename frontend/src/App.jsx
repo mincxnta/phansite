@@ -20,9 +20,9 @@ function App() {
         icon={({ type }) => {
           switch (type) {
             case 'error':
-              return <img src='./assets/images/icons/error.png'/>
+              return <img src='/assets/images/icons/error.png'/>
             case 'success':
-              return <img src='./assets/images/icons/success.png'/>;
+              return <img src='/assets/images/icons/success.png'/>;
             default:
               return null;
           }
