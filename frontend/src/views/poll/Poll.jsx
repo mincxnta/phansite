@@ -200,14 +200,14 @@ export const Poll = () => {
           <button
             onClick={() => handleVote(true)}
             disabled={user && user?.role !== 'fan'}
-            className="form-input-container form-input-3 px-4 py-2 text-4xl cursor-pointer button-hover"
+            className={`form-input-container form-input-3 px-4 py-2 text-4xl cursor-pointer ${user && user?.role == 'fan' ? "button-hover" : "bg-gray"}`}
           >
             {t('yes')}
           </button>
           <button
             onClick={() => handleVote(false)}
             disabled={user && user?.role !== 'fan'}
-            className="form-input-container form-input-4 px-4 py-2 text-4xl cursor-pointer button-hover"
+            className={`form-input-container form-input-4 px-4 py-2 text-4xl cursor-pointer ${user && user?.role == 'fan' ? "button-hover" : "bg-gray"}`}
           >
             {t('no')}
           </button>

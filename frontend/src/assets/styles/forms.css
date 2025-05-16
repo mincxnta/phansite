@@ -7,57 +7,71 @@
   min-height: 100vh;
 }
 
-.form-input-container{
-    border: 6px solid #ffffff;
-    background-color: black;
+.form-input-container {
+  border: 6px solid #ffffff;
+  background-color: black;
 }
 
 .form-input-1 {
   transform: skew(-8deg);
 }
 
-.form-input-1 input, .form-input-1 img {
-    transform: skew(8deg);
+.form-input-1 input,
+.form-input-1 img {
+  transform: skew(8deg);
 }
 
 .form-input-2 {
   transform: skew(6deg);
 }
 
-.form-input-2 input, .form-input-2 img {
-    transform: skew(-6deg);
-  }
+.form-input-2 input,
+.form-input-2 img {
+  transform: skew(-6deg);
+}
 
 .form-input-3 {
   transform: skew(-4deg);
 }
 
-.form-input-3 input, .form-input-3 img {
-    transform: skew(4deg);
-  }
+.form-input-3 input,
+.form-input-3 img {
+  transform: skew(4deg);
+}
 
 .form-input-4 {
   transform: skew(2deg);
 }
 
-.form-input-4 input, .form-input-4 img {
-    transform: skew(-2deg);
-  }
+.form-input-4 input,
+.form-input-4 img {
+  transform: skew(-2deg);
+}
 
-  .form-submit-container{
-    background-color: var(--persona-red);
-    border: 7px black solid;
-    outline: 5px white solid;
-    cursor: pointer;
-    text-transform: uppercase;
-  }
+.form-submit-container {
+  background-color: var(--persona-red);
+  border: 7px black solid;
+  outline: 5px white solid;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease;
+}
+
+.form-submit-container:not(.button-disabled):hover {
+  background-color: var(--persona-dark-red);
+}
+
+.button-disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
 
 .sign-up-title {
   font-family: 'Earwig Factory', cursive;
   letter-spacing: 0.2em;
-  text-shadow: 
-    2px 2px 0 #000000, 
-    -2px -2px 0 #000000, 
+  text-shadow:
+    2px 2px 0 #000000,
+    -2px -2px 0 #000000,
     2px -2px 0 #000000,
 }
 
