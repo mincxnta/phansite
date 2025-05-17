@@ -99,7 +99,7 @@ export const CreateRequest = () => {
                         </div>
                         <label className="text-3xl">{t("requests.description")}</label>
                         <div className="form-input-container form-input-3 h-[10rem]">
-                            <textarea type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t("requests.description.placeholder")} className="p-3 text-lg w-full" style={{ resize: "none", width: "90%", height: "100%" }} />
+                            <textarea type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t("requests.description.placeholder")} className="p-3 text-lg w-[90%] resize-none h-full" />
                         </div>
                         <label className="text-3xl">{t("requests.target.image")}</label>
                         {selectedImage &&
@@ -120,7 +120,7 @@ export const CreateRequest = () => {
                                     </label>
                                 </div>
                                 <input type="file" accept="image/*" id="image-upload"
-                                    onChange={handleFileChange} style={{ display: 'none' }} /> </> : (
+                                    onChange={handleFileChange} className="hidden" /> </> : (
                                 <div>
                                     <button type="button" onClick={handleCancelImage}>
                                         <img
@@ -131,7 +131,7 @@ export const CreateRequest = () => {
                                     </button>
                                 </div>
                             )}
-                        <SubmitButton text={t('requests.send')}></SubmitButton>
+                        <SubmitButton text={t('send')}></SubmitButton>
                     </form>
                 </div>
             </div>

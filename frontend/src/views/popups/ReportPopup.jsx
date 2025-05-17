@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { API_URL } from '../../constants/constants.js'
-import '../../assets/report/ReportPopup.css'
+import '../../assets/styles/ReportPopup.css'
 import { createPortal } from 'react-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'

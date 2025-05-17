@@ -140,10 +140,10 @@ export const ReportedRequests = () => {
         </button>,
         <div>
             <button title={t("discard")} onClick={() => handleDiscardClick(report.id)}>
-            <img className="w-8 button-hover" src="/assets/images/icons/discard.png"/>
+            <img className="w-8 mr-2 button-hover" src="/assets/images/icons/discard.png"/>
             </button>
             <button title={t("delete")} onClick={() => handleDeleteClick(report)}>
-            <img className="w-8 button-hover" src="/assets/images/icons/delete-white.png"/>
+            <img className="w-8 mr-2 button-hover" src="/assets/images/icons/delete-white.png"/>
             </button>
             <button title={t("admin.ban")} onClick={() => handleBanClick(report.request.userId)}>
             <img className="w-8 button-hover" src="/assets/images/icons/ban.png"/>
@@ -153,7 +153,7 @@ export const ReportedRequests = () => {
 
     return (
         <div className="flex flex-col items-center w-full max-w-[85%] mb-8">
-            <h1>{t("reports.title.requests")}</h1>
+            <h1 className="mb-4">{t("reports.title.requests")}</h1>
             {reports.length === 0 ? (
                 <p>{t('reports.no.reports')}</p>
             ) : (

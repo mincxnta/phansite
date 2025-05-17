@@ -9,6 +9,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { toast } from 'react-toastify';
 import { errorHandler } from '../../utils/errorHandler.js';
 import { motion } from 'framer-motion'
+import { Loading } from '../../components/Loading.jsx';
 
 let showRequestDetail;
 
@@ -21,8 +22,7 @@ export const RequestDetail = () => {
   const { t } = useTranslation();
 
   showRequestDetail = async (requestId) => {
-    setVisible(true);
-    setFlip(true);
+
     try {
       const url = `${API_URL}/requests/${requestId}`;
 
@@ -38,6 +38,8 @@ export const RequestDetail = () => {
       }
       const data = await response.json()
       setRequest(data)
+      setVisible(true);
+      setFlip(true);
     } catch (error) {
       toast.error(t(errorHandler(error)))
       setRequest(null);
@@ -81,7 +83,7 @@ export const RequestDetail = () => {
                   e.stopPropagation()
                   handleReport("request", request.id)
                 }}>
-                  <img src={'/assets/images/icons/report.png'} alt="Report comment" style={{ maxHeight: '16px' }} />
+                  <img src={'/assets/images/icons/report.png'} alt="Report comment" className="max-h-4" />
                 </button>
               </div>
             )}

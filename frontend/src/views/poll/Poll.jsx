@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { Loading } from '../../components/Loading.jsx';
 import { io } from 'socket.io-client';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import '../../assets/styles/hover.css'
+import '../../assets/styles/Hover.css'
 
 const Counter = ({ from, to, duration }) => {
   const count = useMotionValue(from);
@@ -154,7 +154,7 @@ export const Poll = () => {
   return (
     <div className="w-full min-h-screen flex flex-col">
       <div className="w-full flex h-screen flex-col items-center justify-center">
-        <h1 className="text-3xl mb-4">
+        <h1 className="text-3xl mb-4 pt-20">
           {t('home.poll')}
         </h1>
         <div className='flex items-center'>
@@ -163,7 +163,7 @@ export const Poll = () => {
               src="/assets/images/icons/previous.png"
               title={t('polls.previous')}
               alt={t('polls.previous')}
-              className="h-10"
+              className="h-10 transition-transform hover:scale-110"
             />
           </Link>
           <h2 className='text-7xl ml-3 mr-2 text-persona-dark-red text-stroke'>Q</h2>
@@ -186,7 +186,7 @@ export const Poll = () => {
               transition={{ duration: 1, ease: 'easeInOut' }}
             />
           </div>
-          <div className="flex w-full justify-between">
+          <div className="flex w-full justify-between mt-[1em]">
             <span className="px-6 py-2 text-white uppercase text-4xl">
               {t('yes')}
             </span>
@@ -195,6 +195,7 @@ export const Poll = () => {
             </span>
           </div>
         </div>
+        {/* //TODO Lo dejamos? */}
         <p className="text-center text-lg mb-6">{t('poll.total.votes')}: {results.total}</p>
         <div className="flex justify-center gap-8">
           <button

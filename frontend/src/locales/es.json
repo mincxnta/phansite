@@ -8,7 +8,6 @@
         "add": "Añadir petición",
         "new": "Nueva petición",
         "create": "Crear petición",
-        "send": "Enviar petición",
         "title.placeholder": "Introduce el título de la petición",
         "target": "Objetivo",
         "target.person": "Sujeto",
@@ -104,7 +103,6 @@
     "comments": {
         "title": "Comentarios",
         "add": "Añadir comentario",
-        "send": "Enviar",
         "placeholder": "Tu comentario aquí...",
         "anonymous": "Anónimo",
         "none": "No hay comentarios"
@@ -133,7 +131,6 @@
     "chat": {
         "title": "Chat",
         "header": "Chats",
-        "send": "Enviar",
         "type": "Escribe tu mensaje...",
         "empty.chat": "No tienes chats.",
         "empty.message": "No tienes mensajes",
@@ -316,5 +313,6 @@
     "anonymous": "Anónimo",
     "delete": "Eliminar",
     "discard": "Descartar",
-    "image": "Imagen"
+    "image": "Imagen",
+    "send": "Enviar"
 }

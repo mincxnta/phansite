@@ -97,10 +97,6 @@ export const Polls = () => {
     fetchPolls();
   }, [t, user, page]);
 
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <h1 className="text-4xl md:text-5xl text-white item- mb-6">{t('polls.title')}</h1>

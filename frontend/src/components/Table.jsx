@@ -1,7 +1,5 @@
 
 export const Table = ({ headers, rows }) => {
-    //const skewAngles = [15, 20, 10, 25];
-
     const getSkewClass = (index) => {
         const skewClasses = ['-skew-x-15', '-skew-x-20', '-skew-x-10', '-skew-x-15', '-skew-x-20', '-skew-x-10',];
         return skewClasses[index] || '';

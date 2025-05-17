@@ -15,7 +15,7 @@ export const ChatHeader = ({ targetUser }) => {
   return (
     <div className="flex justify-start flex-[1.5] items-end m-5 relative pt-12">
       <div className="flex flex-row items-center px-5 relative">
-        <div className="h-12 w-12  bg-black border-2 border-white mr-10">
+        <div className="h-12 w-12  bg-black border-2 border-white mr-10 transition-transform hover:scale-110">
           <Link to="/chat">
             <img src="/assets/images/icons/back.png" />
           </Link>
@@ -24,15 +24,12 @@ export const ChatHeader = ({ targetUser }) => {
           src={
             targetUser.profilePicture
               ? targetUser.profilePicture
-              : '/assets/requests/unknownTarget.png'
+              : '/assets/images/unknownTarget.png'
           }
           alt={displayUsername(targetUser)}
           className="w-18 h-18 mr-4 object-cover bg-white outline-6 outline-black border-6 border-white transform skew-x-2"
         />
         <h2 className="font-earwig text-4xl text-black white-border">{displayUsername(targetUser)}</h2>
-        {onlineUsers.includes(targetUser.id) && (
-          <span className="online-indicator absolute right-33 -bottom-2 w-4 h-4 bg-green-500 rounded-full border-2 border-persona-dark-red"></span>
-        )}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMusicPlayer } from '../context/MusicPlayerContext.jsx';
 import playlist from '../data/playlist.js';
-import '../assets/components/music-player/MusicPlayer.css'
+import '../assets/styles/MusicPlayer.css'
 
 export const MusicPlayer = () => {
   const { t } = useTranslation();
@@ -134,9 +134,7 @@ export const MusicPlayer = () => {
         <img
           src="/assets/music/overlay/CD.png"
           alt={t('music.player.open')}
-          style={{
-            height: '70px'
-          }}
+          className="h-16"
         />
       </div>
 

@@ -86,25 +86,6 @@ export class UserController {
     }
   }
 
-  // TODO Eliminaremos usuarios?
-  static async delete (req, res) {
-    if (!req.user || !req.user.id) {
-      return res.status(401).json({ code: 'unauthorized' })
-    }
-
-    try {
-      const user = await User.findByPk(req.user.id)
-
-      if (!user) {
-        return res.status(404).json({ code: 'user_not_found' })
-      }
-      await user.destroy()
-      res.status(200).json({ success: true })
-    } catch (error) {
-      res.status(500).json({ code: 'internal_server_error' })
-    }
-  }
-
   static async ban (req, res) {
     if (!req.user || req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })

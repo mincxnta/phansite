@@ -120,8 +120,6 @@ export const ChatList = () => {
         ) : (
           <div className="flex justify-center">
             <ul className="w-full max-w-[600px]">
-
-              
               {contacts.map((contact) => {
                  const isUserSender = contact.lastMessage?.senderId === user.id;
                 const messageText = contact.lastMessage.image 
@@ -134,12 +132,12 @@ export const ChatList = () => {
                   onClick={() => handleContactClick(contact.username)}
                   className="mb-6"
                 >
-                  <div className="relative w-full">
+                  <div className="relative w-full transition-transform hover:scale-110">
                     <div className="absolute -top-4 left-0 z-10">
                       <div className="w-[8em] h-[8em] bg-white outline-6 outline-black border-6 border-white transform -skew-x-6">
                         <img
                           src={
-                            contact.profilePicture || "/assets/requests/unknownTarget.png"
+                            contact.profilePicture || "/assets/images/unknownTarget.png"
                           }
                           alt={displayUsername(contact)}
                           className="w-full h-full object-cover"

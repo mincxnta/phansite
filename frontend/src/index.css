@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
 @plugin "@designbycode/tailwindcss-text-stroke";
-@import './assets/styles/forms.css';
+@import './assets/styles/Forms.css';
 
 @theme {
   --color-transparent-black: rgba(0, 0, 0, 0.25);

@@ -27,8 +27,8 @@ export const CommentSection = ({ pollId, ref }) => {
     const rotateY = useMotionValue(0);
     const [displayedImage, setDisplayedImage] = useState(
         anonymous
-            ? '/assets/requests/unknownTarget.png'
-            : user?.profilePicture || '/assets/requests/unknownTarget.png'
+            ? '/assets/images/unknownTarget.png'
+            : user?.profilePicture || '/assets/images/unknownTarget.png'
     );
 
     const fetchComments = async () => {
@@ -129,7 +129,7 @@ export const CommentSection = ({ pollId, ref }) => {
             onUpdate: (latest) => {
                 rotateY.set(latest);
                 if ((from < to && latest >= 90) || (from > to && latest <= 90)) {
-                    setDisplayedImage(anonymous ? '/assets/requests/unknownTarget.png' : user?.profilePicture || '/assets/requests/unknownTarget.png');
+                    setDisplayedImage(anonymous ? '/assets/images/unknownTarget.png' : user?.profilePicture || '/assets/images/unknownTarget.png');
                 }
             }
         });
@@ -157,8 +157,7 @@ export const CommentSection = ({ pollId, ref }) => {
                     <form className="ml-[4rem] mt-[2rem] relative flex gap-[3.5em]" onSubmit={handleAddComment}>
                         <div className="px-6 py-2 transform -skew-x-6 bg-white border-2 border-black relative w-[90%]">
                             <div className="skew-x-6 p-[0.5rem] break-words text-black text-xl h-full">
-                                <textarea value={newComment} placeholder={t("comments.placeholder")} onChange={(e) => setNewComment(e.target.value)}
-                                    style={{ resize: "none", width: "90%", height: "100%" }}
+                                <textarea className="resize-none h-full w-[90%]" value={newComment} placeholder={t("comments.placeholder")} onChange={(e) => setNewComment(e.target.value)}
                                     required disabled={!user || user?.role !== 'fan'}
                                 > </textarea>
                             </div>
@@ -178,12 +177,13 @@ export const CommentSection = ({ pollId, ref }) => {
 
                             <SubmitButton
                                 disabled={!user || user?.role !== 'fan'}
-                                text={t("comments.send")}
+                                text={t("send")}
                             />
                         </div>
                     </form>
                 </div>
             </div>
+            {/* //TODO Lo dejamos? */}
             <h4>{t("comments.title")}: ({totalComments})</h4>
             {comments.length === 0 ? (
                 <p>{t("comments.none")}</p>
@@ -193,11 +193,11 @@ export const CommentSection = ({ pollId, ref }) => {
                         <div className="w-full max-w-1/3 mb-6" key={comment.id}>
                             <div className="relative min-w-3xs">
                                 <div className="absolute left-0 z-10">
-                                    <div className={`w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white ${comment.anonymous ? "" : "hover:border-[#FF0000]"} transform -skew-x-4`}>
+                                    <div className={`w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white ${comment.anonymous ? "" : "transition-transform hover:scale-[1.1]"} transform -skew-x-4`}>
                                         {comment.anonymous ? (
                                             <img
                                                 src={
-                                                    "/assets/requests/unknownTarget.png"
+                                                    "/assets/images/unknownTarget.png"
                                                 }
                                                 alt="Profile picture"
                                                 className="w-full h-full object-cover"
@@ -207,7 +207,7 @@ export const CommentSection = ({ pollId, ref }) => {
                                                 <img
                                                     src={
                                                         comment.user?.profilePicture ||
-                                                        "/assets/requests/unknownTarget.png"
+                                                        "/assets/images/unknownTarget.png"
                                                     }
                                                     alt="Profile picture"
                                                     className="w-full h-full object-cover"
@@ -217,7 +217,7 @@ export const CommentSection = ({ pollId, ref }) => {
                                     </div>
                                 </div>
                                 <div className="absolute left-24 top-[-2rem] z-20">
-                                    <span className={`font-earwig text-4xl w-fit text-white text-border ${comment.anonymous ? "" : "hover:text-[#FF0000]"}`}>
+                                    <span className={`font-earwig text-4xl w-fit text-white text-border ${comment.anonymous ? "" : "transition-[color] hover:text-[#FF0000]"}`}>
                                         {comment.anonymous ? (
                                             t("anonymous")
                                         ) : (
@@ -238,7 +238,7 @@ export const CommentSection = ({ pollId, ref }) => {
                                             {user?.role === "fan" && (
                                                 <button
                                                     onClick={() => handleReport("comment", comment.id)}
-                                                    className="relative bg-white border-2 border-black transform -rotate-6 -skew-x-6 px-2 py-1"
+                                                    className="relative bg-white border-2 border-black transform -rotate-6 -skew-x-6 px-2 py-1 transition-transform hover:rotate-6"
                                                 >
                                                     <img
                                                         src="/assets/images/icons/report.png"

@@ -93,8 +93,6 @@ export const UpdateUser = () => {
             }
         } catch (error) {
             toast.error(t(errorHandler(error)))
-        } finally {
-           //setLoading(false)
         }
     }
 
@@ -108,7 +106,7 @@ export const UpdateUser = () => {
             <form onSubmit={handleUpdateUser} className="flex items-center justify-center mt-3 gap-15">
                 <div className="flex items-center flex-col h-[40vh]">
                     <div className="border-10 border-black skew-x-4 mb-3  w-[350px] h-[350px]">
-                        <img className="w-full h-full object-cover" src={selectedImage || user.profilePicture || '/assets/requests/unknownTarget.png'} />
+                        <img className="w-full h-full object-cover" src={selectedImage || user.profilePicture || '/assets/images/unknownTarget.png'} />
                     </div>
 
                     {!selectedImage ?
@@ -116,29 +114,29 @@ export const UpdateUser = () => {
                             <img
                                 src="/assets/images/icons/upload.png"
                                 alt={t("photo.discard")}
-                                className='h-10'
+                                className='h-10 transition-transform hover:scale-110'
                             /></label>
-                            <input type="file" accept="image/*" id="image-upload" onChange={handleFileChange} style={{ display: 'none' }} /></>) : (
+                            <input type="file" accept="image/*" id="image-upload" onChange={handleFileChange} className="hidden" /></>) : (
                             <button type="button" onClick={handleCancelImage}>
                                 <img
-                                    src="/assets/images/icons/delete.png"
+                                    src="/assets/images/icons/delete-white.png"
                                     alt={t("photo.discard")}
-                                    className='h-8'
+                                    className='h-8 transition-transform hover:scale-110'
                                 />
                             </button>
                         )}
                 </div>
                 <div>
                     <div className="h-[35vh] w-[25vw] bg-white -skew-x-3 box-shadow flex items-center justify-center">
-                        <textarea className="text-black text-3xl text-center pt-[25%]" type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("auth.aboutMe.placeholder")} style={{ resize: "none", width: "90%", height: "100%" }}
+                        <textarea className="text-black text-3xl text-center pt-[25%] resize-none h-full w-[90%]" type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("profile.about.me")}
                         />
                     </div>
                 </div>
                 <div>
-                    <div className="form-input-container form-input-1 mb-2">
+                    <div className="form-input-container form-input-1 mb-4">
                         <input className="p-3 text-lg w-full" type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder={t("auth.username.placeholder")} />
                     </div>
-                    <div className="form-input-container form-input-3 relative mb-2">
+                    <div className="form-input-container form-input-3 relative mb-4">
                         <input
                             type={showPassword ? 'text' : 'password'}
                             value={password}
@@ -155,7 +153,7 @@ export const UpdateUser = () => {
                                 className="h-8 w-auto cursor-pointer" />
                         </button>
                     </div>
-                    <div className="form-input-container form-input-4 relative mb-2">
+                    <div className="form-input-container form-input-4 relative mb-4">
                         <input
                             type={showConfirmPassword ? 'text' : 'password'}
                             value={confirmPassword}
@@ -172,7 +170,7 @@ export const UpdateUser = () => {
                                 className="h-8 w-auto cursor-pointer" />
                         </button>
                     </div>
-                    <div className="form-input-container form-input-3 mb-2">
+                    <div className="form-input-container form-input-3 mb-6">
                         <input className="p-3 text-lg w-full" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
                     </div>
                     <SubmitButton text={loading ? t("profile.saving") : t("profile.save")}></SubmitButton>

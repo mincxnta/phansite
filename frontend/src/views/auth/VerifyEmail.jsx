@@ -82,7 +82,7 @@ export const VerifyEmail = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center form-background">
-      <h1 className="mb-8 sign-up-title">{t("verify.email.title")}</h1>
+      <h1 className="mb-8">{t("verify.email.title")}</h1>
       {!resend && (
         <>
           <h2 className="text-xl mb-8">{t("verify.email.message")}</h2>

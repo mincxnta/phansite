@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SettingsMenu } from './SettingsMenu.jsx';
 import { toast } from 'react-toastify';
-import '../../assets/components/menu/Menu.css';
+import '../../assets/styles/Menu.css';
 
 export const Menu = () => {
   const { user, logout } = useAuth();
@@ -143,7 +143,7 @@ export const Menu = () => {
             >
               {user ? (
                 <img
-                  src={user.profilePicture || '/assets/requests/unknownTarget.png'}
+                  src={user.profilePicture || '/assets/images/unknownTarget.png'}
                   alt={t('profile.title')}
                   className="w-8 h-8 rounded-full object-cover"
                 />

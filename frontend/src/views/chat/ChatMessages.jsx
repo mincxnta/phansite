@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import '../../assets/components/chat/ChatMessages.css';
+import '../../assets/styles/ChatMessages.css';
 import { locales } from '../../utils/dateLocales.js';
 import { format } from 'date-fns';
 
@@ -31,14 +31,14 @@ export const ChatMessages = ({ messages, currentUserId }) => {
                   src={
                     message.sender?.profilePicture
                       ? message.sender.profilePicture
-                      : '/assets/requests/unknownTarget.png'
+                      : '/assets/images/unknownTarget.png'
                   }
                   alt={message.sender?.username || 'Sender'}
                   className="object-cover w-full h-full"
                 />
             </div>
           )}
-          <div className="chat-bubble ">
+          <div className="chat-bubble max-w-[40em] ">
             {message.image && (
               <img
                 src={message.image}
@@ -46,7 +46,7 @@ export const ChatMessages = ({ messages, currentUserId }) => {
                 className="max-h-[20em] mt-1.5 mb-2"
               />
             )}
-            {message.message && <p className="text-left text-2xl">{message.message}</p>}
+            {message.message && <p className="text-left text-md break-words">{message.message}</p>}
             <p className="text-xs mt-1.5 text-right text-gray-400">
               {format(new Date(message.date), 'HH:mm', {
                 locale: locales[i18n.language],

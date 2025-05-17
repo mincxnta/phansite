@@ -46,7 +46,7 @@ export const ChatInput = ({ onSendMessage }) => {
             <button
               type="button"
               onClick={handleRemoveImage}
-              className="absolute -top-2 -right-2 bg-red-600 rounded-full w-4 h-4 text-xs"
+              className="absolute -top-2 -right-2 bg-red-600 rounded-full w-4 h-4 text-xs transition-transform hover:scale-110"
             >
               ✕
             </button>
@@ -55,7 +55,7 @@ export const ChatInput = ({ onSendMessage }) => {
       </div>
       <div className="flex items-center gap-6 mb-3">
         <label htmlFor="image-upload" className="cursor-pointer">
-          <img src="/assets/images/icons/clip.png" className="h-12 cursor-pointer"/>
+          <img src="/assets/images/icons/clip.png" className="h-12 transition-transform hover:scale-110"/>
         </label>
         <input
           id="image-upload"
@@ -72,7 +72,7 @@ export const ChatInput = ({ onSendMessage }) => {
           className="flex-1 p-2.5 bg-white text-black -skew-x-3"
         />
         <button type="submit" className="py-2.5 px-2 bg-white ">
-          <img src="/assets/images/icons/send.png" className="h-6 cursor-pointer"/>
+          <img src="/assets/images/icons/send.png" className="h-6 transition-transform hover:scale-110"/>
         </button>
       </div>
     </form>

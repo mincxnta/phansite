@@ -1,0 +1,75 @@
+/*Received chats*/
+.chat-start .chat-bubble {
+  background-color: #000000;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.chat-start .chat-bubble::after {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-right: 18px solid #ffffff;
+  z-index: 1;
+}
+
+.chat-start .chat-bubble::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 16px solid #000;
+  z-index: 2;
+}
+
+/* Sent chats */
+.chat-end .chat-bubble {
+  background-color: #ffffff;
+  color: #000000;
+  border: 3px solid #000000;
+  margin-left: auto;
+}
+
+.chat-end .chat-bubble::after {
+  content: '';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-35%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-left: 20px solid #000000;
+  z-index: 1;
+}
+
+.chat-end .chat-bubble::before {
+  content: '';
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  transform: translateY(-50%) scaleX(-1);
+  width: 0;
+  height: 0;
+  border-top: 2px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 11px solid #ffffff;
+  z-index: 2;
+}
+
+.message-image {
+  max-height: 500px;
+  margin-bottom: 0.5rem;
+  margin-top: 5px;
+}

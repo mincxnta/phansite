@@ -12,5 +12,3 @@ usersRouter.get('/:username', UserController.getByUsername)
 usersRouter.patch('/update', authenticateToken, upload.single('profilePicture'), UserController.update)
 
 usersRouter.patch('/ban/:id', authenticateToken, UserController.ban)
-
-usersRouter.delete('/delete', authenticateToken, UserController.delete)

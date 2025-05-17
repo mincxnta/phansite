@@ -53,7 +53,7 @@ export const ResetPassword = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center form-background">
-      <h1 className="mb-8 sign-up-title">{t('auth.reset.password')}</h1>
+      <h1 className="mb-8">{t('auth.reset.password')}</h1>
       <h2 className="text-xl mb-8">{t('auth.reset.password.instructions')}</h2>
       <div className="w-75 max-w-md">
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">

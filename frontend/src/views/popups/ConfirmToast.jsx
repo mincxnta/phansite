@@ -14,7 +14,7 @@ const ConfirmToast = ({ message, onConfirm, onCancel, closeToast }) => {
             onConfirm();
             closeToast();
           }}
-          className="text-white py-2 px-4 bg-black border-3 border-white"
+          className="text-white py-2 px-4 bg-black border-3 border-white button-hover"
         >
           {t('yes')}
         </button>
@@ -23,7 +23,7 @@ const ConfirmToast = ({ message, onConfirm, onCancel, closeToast }) => {
             onCancel();
             closeToast();
           }}
-          className="text-black py-2 px-4 bg-white border-3 border-black"
+          className="text-black py-2 px-4 bg-white border-3 border-black button-hover"
         >
           {t('no')}
         </button>

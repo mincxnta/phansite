@@ -8,7 +8,6 @@
         "add": "Add request",
         "new": "New request",
         "create": "Create request",
-        "send": "Send request",
         "status": "Status",
         "title.placeholder": "Enter the request title",
         "target": "Target",
@@ -97,7 +96,6 @@
     "comments": {
         "title": "Comments",
         "add": "Add comment",
-        "send": "Send",
         "placeholder": "Your comment here...",
         "anonymous": "Anonymous",
         "none": "No comments"
@@ -126,7 +124,6 @@
     "chat": {
         "title": "Chat",
         "header": "Chats",
-        "send": "Send",
         "type": "Type your message...",
         "empty.chat": "You have no chats.",
         "empty.message": "No messages",
@@ -312,5 +309,6 @@
     "image": "Image",
     "pending": "Pending",
     "rejected": "Rejected",
-    "completed": "Completed"
+    "completed": "Completed",
+    "send": "Send"
 }

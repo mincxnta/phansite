@@ -8,7 +8,6 @@ export const ReportList = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
-            {/* <h1>{t("reports.title")}</h1> */}
             <ReportedComments />
             <ReportedRequests />
         </div>

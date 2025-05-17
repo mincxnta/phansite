@@ -28,8 +28,7 @@ export const UserProfile = () => {
             }
             try {
                 const response = await fetch(`${API_URL}/users/${username}`, {
-                    method: 'GET',
-                    // credentials: 'include'
+                    method: 'GET'
                 })
 
                 if (!response.ok) {
@@ -52,22 +51,6 @@ export const UserProfile = () => {
         fetchProfile()
     }, [navigate, username, user])
 
-    // const handleDelete = async () => {
-    //     try {
-    //         const response = await fetch(`${API_URL}/users/delete`, {
-    //             method: 'DELETE',
-    //             credentials: 'include'
-    //         })
-
-    //         if (response.ok) {
-    //             await response.json()
-    //             navigate('/login')
-    //         }
-    //     } catch (error) {
-    //         setError(errorHandler(error));
-    //     }
-    // }
-
     if (!profileUser) {
         return <Loading />;
     }
@@ -85,13 +68,12 @@ export const UserProfile = () => {
                 <h1>{isOwnProfile ? t("profile.me") : t("profile.user", { username: profileUser.username })}</h1>
                 <div className="flex items-center justify-center mt-3 gap-15">
                     <div className="flex items-center flex-col h-[40vh]">
-                        {/* TODO Cambiar a medidas relativas */}
-                        <div className="border-10 border-black skew-x-4 mb-3  w-[350px] h-[350px]">
-                            <img className="w-full h-full object-cover" src={profileUser.profilePicture || '/assets/requests/unknownTarget.png'} /></div>
+                        <div className="border-10 border-black skew-x-4 mb-3  w-[20em] h-[20em]">
+                            <img className="w-full h-full object-cover" src={profileUser.profilePicture || '/assets/images/unknownTarget.png'} /></div>
                         {isOwnProfile && (
                             <>
                                 <Link to="edit">
-                                    <img className="w-10" src="/assets/images/icons/edit.png" />
+                                    <img className="w-10 transition-transform hover:scale-110" src="/assets/images/icons/edit.png" />
                                 </Link>
 
                             </>)}

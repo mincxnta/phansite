@@ -203,7 +203,7 @@ export const RequestList = ({ profile }) => {
             onClick={() => handleVote(true, request)}
           />
         )}
-        <span>{result.totalVotes}</span>
+        <span className="min-w-4">{result.totalVotes}</span>
         {showVoteButtons && (
           <img
             src={userVote === false ? '/assets/images/icons/voted.png' : '/assets/images/icons/vote.png'}
@@ -227,21 +227,21 @@ export const RequestList = ({ profile }) => {
             title={t('requests.rejected')}
             onClick={() => handleStatusChangeClick(request.id, 'rejected')}
           >
-            <img className="w-8 mr-2" src="/assets/images/icons/reject.png" />
+            <img className="w-8 mr-2 button-hover" src="/assets/images/icons/reject.png" />
           </button>
           <button
             disabled={request.status !== 'pending'}
             title={t('requests.completed')}
             onClick={() => handleStatusChangeClick(request.id, 'completed')}
           >
-            <img className="w-8 mr-2" src="/assets/images/icons/complete.png" />
+            <img className="w-8 mr-2 button-hover" src="/assets/images/icons/complete.png" />
           </button>
           <button
             disabled={request.status !== 'pending'}
             title={t('requests.report')}
             onClick={() => handleReport('request', request.id)}
           >
-            <img className="w-8" src="/assets/images/icons/report-white.png" />
+            <img className="w-8 button-hover" src="/assets/images/icons/report-white.png" />
           </button>
         </div>
       );
@@ -272,7 +272,7 @@ export const RequestList = ({ profile }) => {
         </div>
       )}
       {requests.length === 0 ? (
-        <p>{t('requests.no.requests')}</p>
+        <p className="min-h-[60vh]">{t('requests.no.requests')}</p>
       ) : (
         <Table headers={headers} rows={rows} />
       )}
