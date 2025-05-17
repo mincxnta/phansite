@@ -2,14 +2,16 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher.jsx';
 import { useMusicPlayer } from '../../context/MusicPlayerContext.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export const SettingsMenu = () => {
+  const { user } = useAuth()
   const { t } = useTranslation();
   const githubUrl = 'https://github.com/mincxnta/phansite';
   const { isMuted, toggleMute } = useMusicPlayer();
 
   return (
-    <div className="bg-black fixed top-17 right-20 py-5 -skew-x-6 flex flex-col gap-5 text-xl"
+    <div className={`bg-black fixed top-17 ${user ? "right-20" : "right-75"} py-5 -skew-x-6 flex flex-col gap-5 text-xl`}
       style={{
         boxShadow: "6px 4px 0 white",
       }}

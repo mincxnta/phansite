@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMusicPlayer } from '../context/MusicPlayerContext.jsx';
 import playlist from '../data/playlist.js';
+import '../assets/components/music-player/MusicPlayer.css'
 
 export const MusicPlayer = () => {
   const { t } = useTranslation();
@@ -127,14 +128,7 @@ export const MusicPlayer = () => {
 
   return (
     <>
-      <div
-        style={{
-          position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-          zIndex: 1001,
-          cursor: 'pointer',
-        }}
+      <div className="fixed bottom-2 right-0 z-[1001] cursor-pointer"
         onClick={() => toggleOpen()}
       >
         <img
@@ -147,119 +141,48 @@ export const MusicPlayer = () => {
       </div>
 
       {isPlayerOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            bottom: '20px',
-            right: '20px',
-            backgroundColor: '#1C2526',
-            border: '2px solid #AB0000',
-            borderRadius: '8px',
-            padding: '20px',
-            zIndex: 1000,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: '15px',
-            color: 'white',
-          }}
+        <div className="-skew-x-3 fixed bottom-8 right-10 bg-white p-4 border-8 border-black text-black flex items-center gap-2 min-w-[35em]"
         >
-          <img
+          <img className="skew-x-2 h-[10em] w-[10em] object-cover"
             src={currentTrack.albumCover}
             alt={currentTrack.title}
-            style={{
-              height: '150px',
-              objectFit: 'cover',
-              borderRadius: '4px',
-            }}
           />
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div style={{ textAlign: 'center', fontSize: '18px', fontWeight: 'bold' }}>
+          <div className="flex flex-col items-center w-full">
+            <div className="italic text-center font-bold text-lg" >
               {currentTrack.title}
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
-              <button
-                onClick={handlePreviousTrack}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'white',
-                  cursor: 'pointer',
-                  fontSize: '24px',
-                }}
-              >
-                ⏮
+            <div className="flex justify-center gap-5">
+              <button onClick={handlePreviousTrack}>
+                <img src="/assets/images/icons/rewind.png" />
+              </button>
+              <button onClick={togglePlayPause}>
+                <img src={`/assets/images/icons/${isPlaying ? "pause.png" : "play.png"}`} />
               </button>
               <button
-                onClick={togglePlayPause}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'white',
-                  cursor: 'pointer',
-                  fontSize: '24px',
-                }}
-              >
-                {isPlaying ? '⏸' : '▶'}
-              </button>
-              <button
-                onClick={handleNextTrack}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'white',
-                  cursor: 'pointer',
-                  fontSize: '24px',
-                }}
-              >
-                ⏭
+                onClick={handleNextTrack}>
+                <img src="/assets/images/icons/next-song.png" />
               </button>
               <button
                 ref={volumeButtonRef}
-                onClick={toggleVolumeOverlay}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'white',
-                  cursor: 'pointer',
-                  fontSize: '24px',
-                }}
-              >
-                📢
+                onClick={toggleVolumeOverlay}>
+                <img src="/assets/images/icons/volume.png" />
               </button>
             </div>
 
             {isVolumeOverlayOpen && (
-              <div
+              <div className="absolute bottom-8 flex w-[12em]" id="range"
                 ref={volumeOverlayRef}
-                style={{
-                  position: 'absolute',
-                  bottom: '100%',
-                  right: 0,
-                  backgroundColor: '#1C2526',
-                  border: '1px solid #AB0000',
-                  borderRadius: '4px',
-                  padding: '10px',
-                  zIndex: 1002,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '5px',
-                  width: '150px',
-                }}
               >
-                <label style={{ color: 'white', marginBottom: '5px', display: 'block' }}>
-                  {t('settings.music.volume')}
-                </label>
                 <input
+                  className="range-input"
                   type="range"
                   min="0"
                   max="1"
                   step="0.01"
                   value={volume}
                   onChange={handleVolumeChange}
-                  style={{ width: '100%' }}
                 />
               </div>
             )}
