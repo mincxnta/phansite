@@ -1,3 +1,8 @@
+/**
+ * Configura y exporta la instancia de Sequelize para conectar con la base de datos.
+ * Soporta configuración para PostgreSQL y otros dialectos SQL.
+ */
+
 import { Sequelize } from 'sequelize'
 import dotenv from 'dotenv'
 
@@ -5,6 +10,12 @@ dotenv.config()
 
 const dialect = process.env.DB_DIALECT
 
+/**
+ * Instancia de Sequelize para interactuar con la base de datos.
+ * Se configura dinámicamente en función del dialecto.
+ * @type {Sequelize}
+ * @property {string} dialect - Dialecto de la base de datos ('postgres', 'mysql', etc.).
+ */
 export const sequelize = dialect === 'postgres'
   ? new Sequelize(process.env.DB_URI, {
     dialect,

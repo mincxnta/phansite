@@ -1,12 +1,24 @@
 import { validatePassword, validateUser } from '../schemas/user.js'
 import { User } from '../models/user.js'
 import { Op } from 'sequelize'
-import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../utils/jwt.js'
+import { generateAccessToken } from '../utils/jwt.js'
 import { sendVerificationEmail, sendResetPasswordEmail } from '../utils/email/sendEmail.js'
 import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 
+/**
+ * Controlador de autenticación y gestión de usuarios.
+ */
 export class AuthController {
+  /**
+   * Realiza login de usuario.
+   * Valida credenciales y devuelve token de acceso en cookie.
+   *
+   * @throws {404} Si no se encuentra el usuario.
+   * @throws {403} Si el usuario está baneado o no ha verificado el email.
+   * @throws {401} Si la contraseña es incorrecta.
+   * @throws {500} Error interno del servidor.
+   */
   static async login (req, res) {
     try {
       const { email, password } = req.body
@@ -31,10 +43,8 @@ export class AuthController {
 
       const { password: _, ...userData } = user.toJSON()
       const accessToken = generateAccessToken(user)
-      const refreshToken = generateRefreshToken(user)
 
       res.cookie('access_token', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 })
-      res.cookie('refresh_token', refreshToken, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 })
 
       res.status(200).json(userData)
     } catch (error) {
@@ -42,6 +52,13 @@ export class AuthController {
     }
   }
 
+  /**
+   * Devuelve los datos del usuario autenticado.
+   * Requiere token válido para identificar usuario.
+   *
+   * @throws {404} Si el usuario no existe.
+   * @throws {500} Error interno del servidor.
+   */
   static async getUser (req, res) {
     try {
       if (!req.user) {
@@ -58,6 +75,15 @@ export class AuthController {
     }
   }
 
+  /**
+   * Registra un nuevo usuario.
+   * Valida datos, comprueba contraseñas, verifica existencia y crea usuario.
+   *
+   * @throws {400} Datos inválidos o contraseñas no coinciden.
+   * @throws {403} Email baneado.
+   * @throws {409} Email o username ya registrados.
+   * @throws {500} Error interno del servidor o al enviar email.
+   */
   static async register (req, res) {
     const newUser = validateUser(req.body)
 
@@ -112,35 +138,20 @@ export class AuthController {
     }
   }
 
+  /**
+   * Cierra sesión limpiando cookie de token.
+   */
   static async logout (req, res) {
     res.clearCookie('access_token')
-    res.clearCookie('refresh_token')
     res.status(200).json({ code: 'logout_success', success: true })
   }
 
-  static async refresh (req, res) {
-    const refreshToken = req.cookies.refresh_token
-
-    if (!refreshToken) {
-      return res.status(403).json({ code: 'missing_refresh_token' })
-    }
-
-    try {
-      const data = verifyRefreshToken(refreshToken)
-      const user = await User.findByPk(data.id)
-
-      if (!user) {
-        return res.status(403).json({ code: 'forbidden' })
-      }
-
-      const newAccessToken = generateAccessToken(user)
-      res.cookie('access_token', newAccessToken, { httpOnly: true, maxAge: 1000 * 60 * 60 })
-      res.status(200).json({ code: 'token_refreshed', success: true })
-    } catch (error) {
-      res.status(403).json({ code: 'forbidden' })
-    }
-  }
-
+  /**
+   * Verifica email mediante token de verificación.
+   *
+   * @throws {400} Token inválido o expirado.
+   * @throws {500} Error interno del servidor.
+   */
   static async verifyEmail (req, res) {
     const { verificationToken } = req.body
 
@@ -172,6 +183,13 @@ export class AuthController {
     }
   }
 
+  /**
+   * Reenvía email de verificación.
+   *
+   * @throws {400} Email vacío o ya verificado.
+   * @throws {404} Usuario no encontrado.
+   * @throws {500} Error interno del servidor.
+   */
   static async resendVerificationEmail (req, res) {
     try {
       const { email } = req.body
@@ -206,6 +224,13 @@ export class AuthController {
     }
   }
 
+  /**
+   * Solicita recuperación de contraseña enviando email con token.
+   *
+   * @throws {400} Email vacío.
+   * @throws {404} Usuario no encontrado.
+   * @throws {500} Error interno del servidor.
+   */
   static async forgotPassword (req, res) {
     try {
       const { email } = req.body
@@ -232,6 +257,13 @@ export class AuthController {
     }
   }
 
+  /**
+   * Resetea la contraseña con token y nueva contraseña.
+   * Valida contraseña y token, actualiza la contraseña.
+   *
+   * @throws {400} Token o nueva contraseña inválidos o expirados.
+   * @throws {500} Error interno del servidor.
+   */
   static async resetPassword (req, res) {
     try {
       const { token, newPassword } = req.body

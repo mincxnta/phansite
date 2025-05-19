@@ -1,3 +1,9 @@
+/**
+ * Configuración y inicialización de i18next para la internacionalización.
+ * 
+ * Detecta el idioma preferido del usuario, carga los recursos de traducción y maneja el almacenamiento
+ * en localStorage para persistencia.
+ */
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -13,6 +19,11 @@ const resources = {
     }
 }
 
+/**
+ * Obtiene el idioma inicial a partir del localStorage o del idioma del navegador.
+ * 
+ * @returns {string} Código del idioma ('es' o 'en').
+ */
 const getInitialLanguage = () => {
   const savedLanguage = localStorage.getItem('language');
   if (savedLanguage) {

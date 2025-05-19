@@ -209,7 +209,6 @@
             "message": "Message is too long"
         },
         "missing": {
-            "refresh.token": "Missing refresh token",
             "verification.token": "Missing verification code",
             "token": "Missing token"
         },

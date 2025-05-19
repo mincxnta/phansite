@@ -6,8 +6,17 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../utils/errorHandler.js';
 
+/**
+ * Contexto para la autenticación y gestión de la conexión WebSocket.
+ * 
+ * Proporciona el estado del usuario, funciones de autenticación y manejo
+ * de conexión/desconexión con el servidor de sockets.
+ */
 const AuthContext = createContext();
 
+/**
+ * Proveedor del contexto de autenticación.
+ */
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -138,6 +147,9 @@ export const AuthProvider = ({ children }) => {
     );
 };
 
+/**
+ * Hook para usar el contexto de autenticación.
+ */
 export const useAuth = () => {
     return useContext(AuthContext);
 };

@@ -5,7 +5,20 @@ import { Op } from 'sequelize'
 import { uploadToCloudinary } from '../utils/cloudinaryUpload.js'
 import { validateMessage } from '../schemas/message.js'
 
+/**
+ * Controlador para la gestión de mensajes privados entre usuarios.
+ *
+ * Usa sockets para emitir eventos en tiempo real cuando se envía un nuevo mensaje,
+ * notificando al receptor conectado (si está en línea) mediante su socket ID.
+ */
 export class MessageController {
+  /**
+   * Obtiene la lista de contactos con los que el usuario ha intercambiado mensajes,
+   * junto con el último mensaje enviado o recibido.
+   *
+   * @throws {401} Si el usuario no está autenticado.
+   * @throws {500} Error interno del servidor.
+   */
   static async getUsers (req, res) {
     try {
       if (!req.user || !req.user.id) {
@@ -74,6 +87,16 @@ export class MessageController {
     }
   }
 
+  /**
+   * Obtiene todos los mensajes entre el usuario autenticado y otro usuario dado por ID.
+   *
+   * @param {string} id - ID del usuario con quien se intercambian mensajes.
+   *
+   * @throws {401} Si no está autenticado.
+   * @throws {400} Si falta el ID del usuario destino.
+   * @throws {404} Si el usuario destino no existe.
+   * @throws {500} Error interno del servidor.
+   */
   static async getMessages (req, res) {
     const { id } = req.params
 
@@ -119,6 +142,22 @@ export class MessageController {
     }
   }
 
+  /**
+   * Envía un mensaje (texto y/o imagen) a otro usuario.
+   *
+   * Si el receptor está conectado vía WebSocket, se envía en tiempo real
+   * el nuevo mensaje utilizando su socket ID, permitiendo una experiencia de chat instantánea.
+   *
+   * @param {string} id - ID del receptor del mensaje.
+   * @param {string} message - Texto del mensaje opcional.
+   * @param {file} [req.file] - Imagen adjunta opcional.
+   *
+   * @throws {401} Si no está autenticado.
+   * @throws {400} Si falta el ID o no hay mensaje ni imagen.
+   * @throws {404} Si el usuario receptor no existe.
+   * @throws {400} Si el mensaje no es válido según el esquema.
+   * @throws {500} Error interno del servidor.
+   */
   static async sendMessage (req, res) {
     const { message } = req.body
     const { id } = req.params

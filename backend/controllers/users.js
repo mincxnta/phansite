@@ -3,7 +3,19 @@ import { User } from '../models/user.js'
 import { uploadToCloudinary, deleteFromCloudinary } from '../utils/cloudinaryUpload.js'
 import bcrypt from 'bcrypt'
 
+/**
+ * Controlador para la gestión de usuarios.
+ */
 export class UserController {
+  /**
+   * Obtiene una lista paginada de todos los usuarios (solo admin).
+   *
+   * @param {number} page Número de página.
+   * @param {number} limit Cantidad por página.
+   *
+   * @throws {403} Si el usuario no es admin.
+   * @throws {500} Error interno del servidor.
+   */
   static async getAll (req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
@@ -31,6 +43,14 @@ export class UserController {
     }
   }
 
+  /**
+   * Obtiene un usuario por su nombre de usuario.
+   *
+   * @param {string} username Nombre de usuario a buscar.
+   *
+   * @throws {404} Si no se encuentra el usuario.
+   * @throws {500} Error interno del servidor.
+   */
   static async getByUsername (req, res) {
     try {
       const { username } = req.params
@@ -45,6 +65,14 @@ export class UserController {
     }
   }
 
+  /**
+   * Actualiza los datos del usuario autenticado.
+   *
+   * @throws {401} Si el usuario no está autenticado.
+   * @throws {404} Si no se encuentra el usuario.
+   * @throws {400} Si los datos actualizados no son válidos.
+   * @throws {500} Error interno del servidor.
+   */
   static async update (req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
@@ -86,6 +114,15 @@ export class UserController {
     }
   }
 
+  /**
+   * Banea a un usuario por ID.
+   *
+   * @param {number} id ID del usuario a banear.
+   *
+   * @throws {403} Si el usuario no es administrador.
+   * @throws {404} Si no se encuentra el usuario.
+   * @throws {500} Error interno del servidor.
+   */
   static async ban (req, res) {
     if (!req.user || req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })

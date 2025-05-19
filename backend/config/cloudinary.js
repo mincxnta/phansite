@@ -1,3 +1,8 @@
+/**
+ * Configuración del servicio Cloudinary para almacenamiento de archivos.
+ * Las credenciales se cargan desde variables de entorno.
+ */
+
 import { v2 as cloudinary } from 'cloudinary'
 import dotenv from 'dotenv'
 

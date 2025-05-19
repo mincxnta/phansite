@@ -1,5 +1,15 @@
 import cloudinary from '../config/cloudinary.js'
 
+/**
+ * Sube un archivo de imagen a Cloudinary en la carpeta especificada.
+ *
+ * @param {Express.Multer.File} file - Archivo a subir.
+ * @param {string} folder - Carpeta destino en Cloudinary.
+ *
+ * @returns {Promise<string>} URL segura de la imagen subida.
+ *
+ * @throws {Error} Lanza error si la subida falla.
+ */
 export const uploadToCloudinary = async (file, folder) => {
   try {
     const result = await new Promise((resolve, reject) => {
@@ -27,6 +37,13 @@ export const uploadToCloudinary = async (file, folder) => {
   }
 }
 
+/**
+ * Elimina una imagen de Cloudinary a partir de su URL.
+ *
+ * @param {string} imageUrl - URL completa de la imagen en Cloudinary.
+ *
+ * @throws {Error} Lanza error si la eliminación falla.
+ */
 export const deleteFromCloudinary = async (imageUrl) => {
   if (!imageUrl || typeof imageUrl !== 'string') {
     return

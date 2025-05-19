@@ -4,7 +4,18 @@ import { RequestVotes } from '../models/request_votes.js'
 import { validateRequestVote } from '../schemas/request_vote.js'
 import { uploadToCloudinary } from '../utils/cloudinaryUpload.js'
 
+/**
+ * Controlador para la gestión de peticiones.
+ */
 export class RequestController {
+  /**
+   * Obtiene una lista paginada de peticiones pendientes.
+   *
+   * @param {number} page Número de página.
+   * @param {number} limit Cantidad por página.
+   *
+   * @throws {500} Error interno del servidor.
+   */
   static async getAllPending (req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
@@ -28,6 +39,16 @@ export class RequestController {
     }
   }
 
+  // TODO Añadir rol phantom_thief
+  /**
+   * Obtiene todas las peticiones, opcionalmente filtradas por estado.
+   *
+   * @param {string} status Estado de la petición para filtrar.
+   * @param {number} page Número de página.
+   * @param {number} limit Cantidad por página.
+   *
+   * @throws {500} Error interno del servidor.
+   */
   static async getAll (req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
@@ -53,6 +74,12 @@ export class RequestController {
     }
   }
 
+  /**
+   * Obtiene todas las peticiones creadas por el usuario autenticado.
+   *
+   * @throws {401} Si el usuario no está autenticado.
+   * @throws {500} Error interno del servidor.
+   */
   static async getAllByUser (req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
@@ -80,6 +107,14 @@ export class RequestController {
     }
   }
 
+  /**
+   * Obtiene una petición por su ID.
+   *
+   * @param {number} id ID de la petición.
+   *
+   * @throws {404} Si no se encuentra la petición.
+   * @throws {500} Error interno del servidor.
+   */
   static async getById (req, res) {
     try {
       const { id } = req.params
@@ -95,6 +130,14 @@ export class RequestController {
     }
   }
 
+  /**
+   * Crea una nueva petición asociada al usuario autenticado.
+   *
+   * @throws {401} Si el usuario no está autenticado.
+   * @throws {403} Si el rol del usuario está prohibido.
+   * @throws {400} Si la petición no es válida.
+   * @throws {500} Error interno del servidor.
+   */
   static async create (req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
@@ -128,6 +171,16 @@ export class RequestController {
     }
   }
 
+  /**
+   * Actualiza una petición, solo permitido para rol 'phantom_thief'.
+   *
+   * @param {number} id ID de la petición a actualizar.
+   *
+   * @throws {403} Si el rol del usuario no tiene permiso.
+   * @throws {404} Si no se encuentra la petición.
+   * @throws {400} Si el cambio de estado no es válido o datos no válidos.
+   * @throws {500} Error interno del servidor.
+   */
   static async update (req, res) {
     if (req.user.role !== 'phantom_thief') {
       return res.status(403).json({ code: 'forbidden' })
@@ -158,6 +211,15 @@ export class RequestController {
     }
   }
 
+  /**
+   * Elimina una petición, solo para usuarios con rol 'admin'.
+   *
+   * @param {number} id ID de la petición a eliminar.
+   *
+   * @throws {403} Si el usuario no es admin.
+   * @throws {404} Si no se encuentra la petición.
+   * @throws {500} Error interno del servidor.
+   */
   static async delete (req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
@@ -175,6 +237,17 @@ export class RequestController {
     }
   }
 
+  /**
+   * Permite votar en una petición.
+   *
+   * @param {number} id ID de la petición.
+   *
+   * @throws {401} Si el usuario no está autenticado.
+   * @throws {403} Si el rol del usuario está prohibido.
+   * @throws {404} Si no se encuentra la petición.
+   * @throws {400} Si los datos del voto no son válidos.
+   * @throws {500} Error interno del servidor.
+   */
   static async vote (req, res) {
     const { id } = req.params
 
@@ -221,6 +294,11 @@ export class RequestController {
     }
   }
 
+  /**
+   * Obtiene el recuento de votos para todas las peticiones.
+   *
+   * @throws {500} Error interno del servidor.
+   */
   static async getRequestsVotes (req, res) {
     try {
       const requests = await Request.findAll({ attributes: ['id'] })
@@ -252,6 +330,12 @@ export class RequestController {
     }
   }
 
+  /**
+   * Obtiene los votos del usuario autenticado para peticiones.
+   *
+   * @throws {401} Si el usuario no está autenticado.
+   * @throws {500} Error interno del servidor.
+   */
   static async getUserRequestsVotes (req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })

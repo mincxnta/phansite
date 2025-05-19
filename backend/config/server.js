@@ -1,3 +1,10 @@
+/**
+ * Configura middlewares esenciales del servidor Express.
+ * - CORS para permitir orígenes autorizados.
+ * - Cookies HTTP.
+ * @param {Express} app - Instancia de la aplicación Express.
+ */
+
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv'

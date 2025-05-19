@@ -216,7 +216,6 @@
             "message": "El mensaje es demasiado largo"
         },
         "missing": {
-            "refresh.token": "Falta de token de refresco",
             "verification.token": "Falta de token de verificación",
             "token": "Falta de token"
         },

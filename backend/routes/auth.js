@@ -4,15 +4,13 @@ import { loadUserFromToken } from '../middlewares/auth.js'
 
 export const authRouter = Router()
 
-authRouter.post('/register', AuthController.register)
-
 authRouter.post('/login', AuthController.login)
 
 authRouter.get('/user', loadUserFromToken, AuthController.getUser)
 
-authRouter.post('/logout', AuthController.logout)
+authRouter.post('/register', AuthController.register)
 
-authRouter.post('/refresh', AuthController.refresh)
+authRouter.post('/logout', AuthController.logout)
 
 authRouter.post('/verify', AuthController.verifyEmail)
 

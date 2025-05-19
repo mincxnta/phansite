@@ -4,7 +4,20 @@ import { User } from '../models/user.js'
 import { Comment } from '../models/comment.js'
 import { Request } from '../models/request.js'
 
+/**
+ * Controlador para la gestión de reportes.
+ */
 export class ReportController {
+  /**
+   * Crea un nuevo reporte de un comentario o una petición.
+   *
+   * @param {string} reportedType - Tipo del contenido reportado ('comment' o 'request').
+   * @param {number} postId - ID del comentario o petición reportada.
+   *
+   * @throws {401} Si el usuario no está autenticado.
+   * @throws {400} Si los datos no son válidos.
+   * @throws {500} Error interno del servidor.
+   */
   static async create (req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthenticated' })
@@ -39,6 +52,16 @@ export class ReportController {
     }
   }
 
+  /**
+   * Obtiene todos los reportes filtrados por tipo paginados.
+   *
+   * @param {string} type - Tipo de reporte ('comment' o 'request').
+   * @param {number} page - Número de página.
+   * @param {number} limit - Número de reportes por página.
+   *
+   * @throws {403} Si el usuario no es administrador.
+   * @throws {500} Error interno del servidor.
+   */
   static async getAllByType (req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
@@ -98,6 +121,15 @@ export class ReportController {
     }
   }
 
+  /**
+   * Elimina un reporte por su ID.
+   *
+   * @param {number} id - ID del reporte a eliminar.
+   *
+   * @throws {403} Si el usuario no es administrador.
+   * @throws {404} Si el reporte no existe.
+   * @throws {500} Error interno del servidor.
+   */
   static async delete (req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })

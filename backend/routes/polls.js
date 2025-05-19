@@ -10,8 +10,8 @@ pollsRouter.get('/active', PollController.getActivePoll)
 
 pollsRouter.post('/', authenticateToken, PollController.create)
 
-pollsRouter.get('/:id/user-vote', authenticateToken, PollController.getUserVote)
-
 pollsRouter.post('/:id/vote', authenticateToken, PollController.vote)
 
 pollsRouter.get('/:id/results', PollController.getPollResults)
+
+pollsRouter.get('/:id/user-vote', authenticateToken, PollController.getUserVote)

@@ -17,6 +17,15 @@ const transporter = nodemailer.createTransport({
   }
 })
 
+/**
+ * Envía un correo electrónico de verificación de cuenta al usuario.
+ *
+ * @param {string} to - Dirección de correo electrónico del destinatario.
+ * @param {string} code - Código de verificación que se incluirá en el correo.
+ * @param {string | undefined} acceptLanguageHeader - Header 'Accept-Language' para determinar idioma.
+ *
+ * @throws {Error} Lanza error si falla el envío del correo.
+ */
 export const sendVerificationEmail = async (to, code, acceptLanguageHeader) => {
   try {
     const language = getPreferredLanguage(acceptLanguageHeader)
@@ -36,6 +45,15 @@ export const sendVerificationEmail = async (to, code, acceptLanguageHeader) => {
   }
 }
 
+/**
+ * Envía un correo electrónico para restablecer la contraseña.
+ *
+ * @param {string} to - Dirección de correo electrónico del destinatario.
+ * @param {string} resetToken - Token de restablecimiento de contraseña.
+ * @param {string | undefined} acceptLanguageHeader - Header 'Accept-Language' para determinar idioma.
+ *
+ * @throws {Error} Lanza error si falla el envío del correo.
+ */
 export const sendResetPasswordEmail = async (to, resetToken, acceptLanguageHeader) => {
   try {
     const language = getPreferredLanguage(acceptLanguageHeader)

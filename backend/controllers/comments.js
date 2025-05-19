@@ -3,7 +3,20 @@ import { Comment } from '../models/comment.js'
 import { User } from '../models/user.js'
 import { validateComment } from '../schemas/comment.js'
 
+/**
+ * Controlador para la gestión de comentarios en encuestas.
+ */
 export class CommentController {
+  /**
+   * Obtiene todos los comentarios de una encuesta paginados.
+   *
+   * @param {string} pollId - ID de la encuesta.
+   * @param {number} page - Número de página.
+   * @param {number} limit - Comentarios por página.
+   *
+   * @throws {404} Si la encuesta no existe.
+   * @throws {500} Error interno del servidor.
+   */
   static async getAll (req, res) {
     const { pollId } = req.params
     const page = parseInt(req.query.page) || 1
@@ -40,6 +53,17 @@ export class CommentController {
     }
   }
 
+  /**
+   * Crea un nuevo comentario en una encuesta.
+   *
+   * @param {string} pollId - ID de la encuesta.
+   *
+   * @throws {401} Si no está autenticado.
+   * @throws {403} Si el rol es 'phantom_thief' o 'admin'.
+   * @throws {400} Datos inválidos.
+   * @throws {404} Encuesta no encontrada.
+   * @throws {500} Error interno del servidor.
+   */
   static async create (req, res) {
     const { pollId } = req.params
 
@@ -75,6 +99,13 @@ export class CommentController {
     }
   }
 
+  /**
+   * Elimina un comentario por ID.
+   *
+   * @throws {403} Si no tiene rol de administrador.
+   * @throws {404} Comentario no encontrado.
+   * @throws {500} Error interno del servidor.
+   */
   static async delete (req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })

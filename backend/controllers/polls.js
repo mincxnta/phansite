@@ -4,7 +4,21 @@ import { Poll } from '../models/poll.js'
 import { PollVotes } from '../models/poll_votes.js'
 import { io } from '../config/socket.js'
 
+/**
+ * Controlador para la gestión de encuestas.
+ *
+ * Usa WebSockets para emitir eventos en tiempo real cuando un usuario vota,
+ * de modo que los clientes conectados puedan actualizar la información inmediatamente.
+ */
 export class PollController {
+  /**
+   * Obtiene una lista paginada de encuestas inactivas con sus resultados.
+   *
+   * @param {number} page - Número de página.
+   * @param {number} limit - Cantidad de encuestas por página.
+   *
+   * @throws {500} Error interno del servidor.
+   */
   static async getAll (req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
@@ -51,6 +65,12 @@ export class PollController {
     }
   }
 
+  /**
+   * Obtiene la encuesta activa actual.
+   *
+   * @throws {404} Si no hay encuesta activa.
+   * @throws {500} Error interno del servidor.
+   */
   static async getActivePoll (req, res) {
     try {
       const poll = await Poll.findOne({ where: { isActive: true } })
@@ -63,6 +83,13 @@ export class PollController {
     }
   }
 
+  /**
+   * Crea una nueva encuesta y desactiva las encuestas activas existentes.
+   *
+   * @throws {403} Si el usuario no es administrador.
+   * @throws {400} Si la encuesta no es válida.
+   * @throws {500} Error interno del servidor.
+   */
   static async create (req, res) {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
@@ -84,6 +111,18 @@ export class PollController {
     }
   }
 
+  /**
+   * Permite votar en una encuesta activa.
+   * Emite evento vía WebSocket para notificar el nuevo voto en tiempo real.
+   *
+   * @param {number} id - ID de la encuesta.
+   *
+   * @throws {401} Si el usuario no está autenticado.
+   * @throws {403} Si el usuario tiene rol prohibido o encuesta inactiva.
+   * @throws {404} Si la encuesta no existe.
+   * @throws {400} Si ya ha votado o los datos no son válidos.
+   * @throws {500} Error interno del servidor.
+   */
   static async vote (req, res) {
     const { id } = req.params
 
@@ -125,6 +164,14 @@ export class PollController {
     }
   }
 
+  /**
+   * Obtiene los resultados totales de una encuesta específica.
+   *
+   * @param {number} id - ID de la encuesta.
+   *
+   * @throws {404} Si la encuesta no existe.
+   * @throws {500} Error interno del servidor.
+   */
   static async getPollResults (req, res) {
     const { id } = req.params
 
@@ -155,6 +202,16 @@ export class PollController {
     }
   }
 
+  /**
+   * Obtiene el voto del usuario autenticado en una encuesta específica.
+   * Retorna null si no ha votado aún.
+   *
+   * @param {number} id - ID de la encuesta.
+   *
+   * @throws {401} Si el usuario no está autenticado.
+   * @throws {404} Si la encuesta no existe.
+   * @throws {500} Error interno del servidor.
+   */
   static async getUserVote (req, res) {
     const { id } = req.params
     if (!req.user || !req.user.id) {

@@ -1,3 +1,8 @@
+/**
+ * Mapeo de códigos de error a claves de traducción.
+ * 
+ * Utilizado para transformar códigos de error internos a mensajes traducibles.
+ */
 const errorMessages = {
   'already_voted': 'already.voted',
   'invalid_user_data': 'invalid.user.data',
@@ -14,7 +19,6 @@ const errorMessages = {
   'email_banned': 'banned.email',
   'email_already_registered': 'already.registered',
   'username_already_exists': 'already.exists',
-  'missing_refresh_token': 'missing.refresh.token',
   'unauthenticated': 'unauthenticated',
   'empty_comment': "empty.comment",
   'empty_username': "empty.username",
@@ -54,6 +58,13 @@ const errorMessages = {
 
 let message = 'internal.server';
 
+/**
+ * Función para manejar errores y devolver la clave de traducción correspondiente.
+ * 
+ * @param {{ code?: string }} error Objeto error que puede contener un código identificativo.
+ * 
+ * @returns {string} Clave para la traducción del mensaje de error.
+ */
 export const errorHandler = (error) => {
   if (error.code) {
     message = `error.${errorMessages[error.code]}`;
