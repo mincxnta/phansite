@@ -18,7 +18,7 @@
         "target.image": "Target image",
         "no.requests": "No requests",
         "no.comment": "No comment",
-        "popup": "Do you want to add a comment to this request?",
+        "popup": "Do you want to add a comment?",
         "rejected": "Rejected",
         "completed": "Completed",
         "pending": "Pending",

@@ -17,7 +17,7 @@
         "target.image": "Imagen del sujeto",
         "no.requests": "No hay peticiones",
         "no.comment": "Sin comentario",
-        "popup": "¿Quieres añadir un comentario a esta petición?",
+        "popup": "¿Quieres añadir un comentario?",
         "status": {
             "title": "Estado",
             "pending": "Pendiente",

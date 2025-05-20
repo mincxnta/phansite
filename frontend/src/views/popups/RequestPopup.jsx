@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify';
+import { SubmitButton } from '../../components/SubmitButton.jsx';
 
 let showRequestPopup;
 
@@ -52,7 +53,7 @@ export const RequestPopup = () => {
                 const updatedRequest = await response.json();
                 toast.success(t("success.update.request"))
                 closePopup();
-                
+
                 if (onSuccess) {
                     onSuccess(updatedRequest);
                 }
@@ -72,12 +73,12 @@ export const RequestPopup = () => {
 
     return createPortal(
         <div className="popup-overlay">
-            <div className="popup-content">
-                <button className="popup-close" onClick={closePopup}>X</button>
+            <div className="report-popup-content bg-persona-dark-red -skew-x-4">
+                <button className="report-popup-close" onClick={closePopup}>X</button>
                 <form onSubmit={handleUpdateRequest}>
-                    <h4>{t("requests.popup")}</h4>
-                    <textarea name="" id="message" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
-                    <input type="submit" value={t(status === "rejected" ? "requests.rejected" : "requests.completed")} />
+                    <h4 className="text-4xl mb-[.5em]">{t("requests.popup")}</h4>
+                    <textarea className="form-input-container form-input-1" name="" id="message" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+                    <SubmitButton text={t(status === "rejected" ? "requests.reject" : "requests.complete")}></SubmitButton>
                 </form>
             </div>
         </div>,
