@@ -115,6 +115,12 @@ export const RequestList = ({ profile }) => {
     fetchRequests()
   }, [page, filterStatus])
 
+  useEffect(() => {
+    if (user) {
+      getUserVotes();
+    }
+  }, [user]);
+
   const handleVote = async (vote, request) => {
     if (!user) {
       return;
@@ -134,8 +140,11 @@ export const RequestList = ({ profile }) => {
 
       if (response.ok) {
         toast.success(t("success.vote.request"))
+        setUserVotes((prev) => ({
+          ...prev,
+          [request.id]: vote,
+        }));
         await fetchRequests()
-        getAllRequestResults();
       } else {
         toast.error(t(errorHandler(data)))
       }

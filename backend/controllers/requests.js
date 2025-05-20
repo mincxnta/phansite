@@ -9,21 +9,28 @@ import { uploadToCloudinary } from '../utils/cloudinaryUpload.js'
  */
 export class RequestController {
   /**
-   * Obtiene una lista paginada de peticiones pendientes.
+   * Obtiene todas las peticiones, opcionalmente filtradas por estado.
    *
+   * @param {string} status Estado de la petición para filtrar.
    * @param {number} page Número de página.
    * @param {number} limit Cantidad por página.
    *
    * @throws {500} Error interno del servidor.
    */
-  static async getAllPending (req, res) {
+  static async getAll (req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
     const offset = (page - 1) * limit
+    const status = req.query.status
+
+    if (req.user.role !== 'phantom_thief') {
+      return res.status(403).json({ code: 'forbidden' })
+    }
 
     try {
+      const where = status ? { status } : {}
       const { count, rows } = await Request.findAndCountAll({
-        where: { status: 'pending' },
+        where,
         order: [['submitDate', 'DESC']],
         limit,
         offset
@@ -39,26 +46,22 @@ export class RequestController {
     }
   }
 
-  // TODO Añadir rol phantom_thief
   /**
-   * Obtiene todas las peticiones, opcionalmente filtradas por estado.
+   * Obtiene una lista paginada de peticiones pendientes.
    *
-   * @param {string} status Estado de la petición para filtrar.
    * @param {number} page Número de página.
    * @param {number} limit Cantidad por página.
    *
    * @throws {500} Error interno del servidor.
    */
-  static async getAll (req, res) {
+  static async getAllPending (req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
     const offset = (page - 1) * limit
-    const status = req.query.status
 
     try {
-      const where = status ? { status } : {}
       const { count, rows } = await Request.findAndCountAll({
-        where,
+        where: { status: 'pending' },
         order: [['submitDate', 'DESC']],
         limit,
         offset
@@ -102,6 +105,65 @@ export class RequestController {
         totalPages: Math.ceil(count / limit),
         currentPage: page
       })
+    } catch (error) {
+      res.status(500).json({ code: 'internal_server_error' })
+    }
+  }
+
+  /**
+   * Obtiene los votos del usuario autenticado para peticiones.
+   *
+   * @throws {401} Si el usuario no está autenticado.
+   * @throws {500} Error interno del servidor.
+   */
+  static async getUserRequestsVotes (req, res) {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ code: 'unauthorized' })
+    }
+
+    try {
+      const requestsVotes = await RequestVotes.findAll({
+        attributes: ['requestId', 'vote', 'userId'],
+        where: { userId: req.user.id }
+      })
+
+      res.status(200).json(requestsVotes)
+    } catch (error) {
+      res.status(500).json({ code: 'internal_server_error' })
+    }
+  }
+
+  /**
+   * Obtiene el recuento de votos para todas las peticiones.
+   *
+   * @throws {500} Error interno del servidor.
+   */
+  static async getRequestsVotes (req, res) {
+    try {
+      const requests = await Request.findAll({ attributes: ['id'] })
+      if (!requests || requests.length === 0) {
+        return res.status(200).json([])
+      }
+
+      const results = await Promise.all(
+        requests.map(async (request) => {
+          const [upvotes, downvotes] = await Promise.all([
+            RequestVotes.count({ where: { requestId: request.id, vote: true } }),
+            RequestVotes.count({ where: { requestId: request.id, vote: false } })
+          ])
+
+          const totalVotes = upvotes - downvotes
+
+          return {
+            requestId: request.id,
+            upvotes,
+            downvotes,
+            totalVotes
+          }
+        })
+      )
+
+      res.status(200).json(results)
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }
@@ -289,65 +351,6 @@ export class RequestController {
       await request.update({ totalVotes: request.totalVotes + (newRequestVote.data.vote ? 1 : -1) })
 
       res.status(200).json(requestVote)
-    } catch (error) {
-      res.status(500).json({ code: 'internal_server_error' })
-    }
-  }
-
-  /**
-   * Obtiene el recuento de votos para todas las peticiones.
-   *
-   * @throws {500} Error interno del servidor.
-   */
-  static async getRequestsVotes (req, res) {
-    try {
-      const requests = await Request.findAll({ attributes: ['id'] })
-      if (!requests || requests.length === 0) {
-        return res.status(200).json([])
-      }
-
-      const results = await Promise.all(
-        requests.map(async (request) => {
-          const [upvotes, downvotes] = await Promise.all([
-            RequestVotes.count({ where: { requestId: request.id, vote: true } }),
-            RequestVotes.count({ where: { requestId: request.id, vote: false } })
-          ])
-
-          const totalVotes = upvotes - downvotes
-
-          return {
-            requestId: request.id,
-            upvotes,
-            downvotes,
-            totalVotes
-          }
-        })
-      )
-
-      res.status(200).json(results)
-    } catch (error) {
-      res.status(500).json({ code: 'internal_server_error' })
-    }
-  }
-
-  /**
-   * Obtiene los votos del usuario autenticado para peticiones.
-   *
-   * @throws {401} Si el usuario no está autenticado.
-   * @throws {500} Error interno del servidor.
-   */
-  static async getUserRequestsVotes (req, res) {
-    if (!req.user || !req.user.id) {
-      return res.status(401).json({ code: 'unauthorized' })
-    }
-
-    try {
-      const requestsVotes = await RequestVotes.findAll({
-        attributes: ['requestId', 'vote', 'userId'],
-        where: { userId: req.user.id }
-      })
-
-      res.status(200).json(requestsVotes)
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }

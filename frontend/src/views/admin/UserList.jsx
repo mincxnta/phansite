@@ -106,7 +106,7 @@ export const UserList = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
-            <div class="flex items-center justify-between w-full max-w-[85%] mb-8">
+            <div className="flex items-center justify-between w-full max-w-[85%] mb-8">
                 <h1>{t("users.list")}</h1>
                 <SubmitButton to="/admin/create" text={t("users.create")} />
             </div>
