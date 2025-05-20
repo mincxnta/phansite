@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next'
 import { errorHandler } from '../../utils/errorHandler.js';
 import { toast } from 'react-toastify';
 import { showConfirmToast } from '../popups/ConfirmToast.jsx'
-import { useDisplayUsername } from '../../utils/displayUsername.js'
 import { motion, useMotionValue, animate } from 'framer-motion';
 import { Pagination } from '../../components/Pagination.jsx';
 import { SubmitButton } from '../../components/SubmitButton.jsx';
@@ -23,7 +22,6 @@ export const CommentSection = ({ pollId, ref }) => {
     const { user } = useAuth()
     const navigate = useNavigate()
     const { t } = useTranslation();
-    const displayUsername = useDisplayUsername();
     const rotateY = useMotionValue(0);
     const [displayedImage, setDisplayedImage] = useState(
         anonymous
@@ -193,7 +191,7 @@ export const CommentSection = ({ pollId, ref }) => {
                         <div className="w-full max-w-1/3 mb-6" key={comment.id}>
                             <div className="relative min-w-3xs">
                                 <div className="absolute left-0 z-10">
-                                    <div className={`w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white ${comment.anonymous ? "" : "transition-transform hover:scale-[1.1]"} transform -skew-x-4`}>
+                                    <div className={`w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white ${comment.anonymous || comment.user?.banned ? "" : "transition-transform hover:scale-[1.1]"} transform -skew-x-4`}>
                                         {comment.anonymous ? (
                                             <img
                                                 src={
@@ -202,8 +200,15 @@ export const CommentSection = ({ pollId, ref }) => {
                                                 alt="Profile picture"
                                                 className="w-full h-full object-cover"
                                             />
+                                            // TODO: Si el comentario es de un usuario baneado, mostrar foto de perfil o unknown?
+                                        ) : comment.user?.banned ? (
+                                            <img
+                                                src={comment.user?.profilePicture || "/assets/images/unknownTarget.png"}
+                                                alt="Profile picture"
+                                                className="w-full h-full object-cover"
+                                            />
                                         ) : (
-                                            <Link to={`/profile/${displayUsername(comment.user)}`}>
+                                            <Link to={`/profile/${comment.user.username}`}>
                                                 <img
                                                     src={
                                                         comment.user?.profilePicture ||
@@ -217,12 +222,14 @@ export const CommentSection = ({ pollId, ref }) => {
                                     </div>
                                 </div>
                                 <div className="absolute left-24 top-[-2rem] z-20">
-                                    <span className={`font-earwig text-4xl w-fit text-white text-border ${comment.anonymous ? "" : "transition-[color] hover:text-[#FF0000]"}`}>
+                                    <span className={`font-earwig text-4xl w-fit text-white text-border ${comment.anonymous || comment.user?.banned ? "" : "transition-[color] hover:text-[#FF0000]"}`}>
                                         {comment.anonymous ? (
                                             t("anonymous")
+                                        ) : comment.user?.banned ? (
+                                            t('users.banned')
                                         ) : (
-                                            <Link to={`/profile/${displayUsername(comment.user)}`}>
-                                                {displayUsername(comment.user)}
+                                            <Link to={`/profile/${comment.user.username}`}>
+                                                {comment.user.username}
                                             </Link>
                                         )}
                                     </span>

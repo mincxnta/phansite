@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { errorHandler } from '../../utils/errorHandler.js';
+import { toast } from 'react-toastify';
 
-export const ChatInput = ({ onSendMessage }) => {
+export const ChatInput = ({ onSendMessage, isTargetBanned }) => {
   const { t } = useTranslation();
   const [message, setMessage] = useState('');
   const [image, setImage] = useState(null);
@@ -9,7 +11,7 @@ export const ChatInput = ({ onSendMessage }) => {
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    if (file){
+    if (file) {
       setImage(file)
 
       const reader = new FileReader();
@@ -27,10 +29,14 @@ export const ChatInput = ({ onSendMessage }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSendMessage(message, image);
-    setMessage('');
-    setImage(null);
-    setImagePreview(null)
+    try {
+      onSendMessage(message, image);
+      setMessage('');
+      setImage(null);
+      setImagePreview(null)
+    } catch (error) {
+      toast.error(t(errorHandler(error)))
+    }
   };
 
   return (
@@ -45,6 +51,7 @@ export const ChatInput = ({ onSendMessage }) => {
             />
             <button
               type="button"
+              disabled={isTargetBanned}
               onClick={handleRemoveImage}
               className="absolute -top-2 -right-2 bg-red-600 rounded-full w-4 h-4 text-xs transition-transform hover:scale-110"
             >
@@ -55,10 +62,11 @@ export const ChatInput = ({ onSendMessage }) => {
       </div>
       <div className="flex items-center gap-6 mb-3">
         <label htmlFor="image-upload" className="cursor-pointer">
-          <img src="/assets/images/icons/clip.png" className="h-12 transition-transform hover:scale-110"/>
+          <img src="/assets/images/icons/clip.png" className="h-12 transition-transform hover:scale-110" />
         </label>
         <input
           id="image-upload"
+          disabled={isTargetBanned}
           type="file"
           accept="image/*"
           onChange={handleImageUpload}
@@ -66,13 +74,14 @@ export const ChatInput = ({ onSendMessage }) => {
         />
         <input
           type="text"
+          disabled={isTargetBanned}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder={t('chat.type')}
-          className="flex-1 p-2.5 bg-white text-black -skew-x-3"
+          placeholder={isTargetBanned ? t('error.banned.user') : t('chat.type')}
+          className={`flex-1 p-2.5  text-black -skew-x-3 ${isTargetBanned ? 'bg-[#b5b5b5] cursor-not-allowed' : 'bg-white'}`}
         />
         <button type="submit" className="py-2.5 px-2 bg-white ">
-          <img src="/assets/images/icons/send.png" className="h-6 transition-transform hover:scale-110"/>
+          <img src="/assets/images/icons/send.png" className="h-6 transition-transform hover:scale-110" />
         </button>
       </div>
     </form>

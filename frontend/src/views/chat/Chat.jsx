@@ -38,6 +38,7 @@ export const Chat = () => {
         });
 
         const userData = await user.json()
+        console.log("Data", userData)
         if (!user.ok) {
           toast.error(errorHandler(userData));
         }
@@ -52,7 +53,7 @@ export const Chat = () => {
         if (!message.ok) {
           toast.error(t(errorHandler(messageData)))
         }
-;
+        ;
         setMessages(messageData);
       } catch (error) {
         toast.error(t(errorHandler(error)))
@@ -122,14 +123,14 @@ export const Chat = () => {
   }, [socket, navigate, user, targetUser])
 
   return (
-     <div className="w-full h-screen bg-persona-dark-red">
+    <div className="w-full h-screen bg-persona-dark-red">
       {isLoading ? (
         <Loading />
       ) : (
         <div className="flex flex-col h-full">
           <ChatHeader targetUser={targetUser} />
           <ChatMessages messages={messages} currentUserId={user?.id} />
-          <ChatInput onSendMessage={handleSendMessage} />
+          <ChatInput onSendMessage={handleSendMessage} isTargetBanned={targetUser?.banned ?? false} />
         </div>
       )}
     </div>

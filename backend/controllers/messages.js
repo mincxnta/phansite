@@ -154,6 +154,7 @@ export class MessageController {
    *
    * @throws {401} Si no está autenticado.
    * @throws {400} Si falta el ID o no hay mensaje ni imagen.
+   * @throws {403} Si el receptor está baneado.
    * @throws {404} Si el usuario receptor no existe.
    * @throws {400} Si el mensaje no es válido según el esquema.
    * @throws {500} Error interno del servidor.
@@ -173,6 +174,9 @@ export class MessageController {
     const targetUser = await User.findByPk(id)
     if (!targetUser) {
       return res.status(404).json({ code: 'user_not_found' })
+    }
+    if (targetUser.banned) {
+      return res.status(403).json({ code: 'receiver_banned' })
     }
 
     const newMessage = validateMessage({ message })
