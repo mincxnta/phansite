@@ -12,18 +12,18 @@ const userSchema = z.object({
     .regex(/[0-9]/, { message: 'password_missing_number' }),
   role: z.enum(ROLES).default(ROLES[2]),
   banned: z.boolean().default(false),
-  aboutMe: z.string().trim().max(2000, { message: 'about_me_too_long' }).optional().nullable()
+  aboutMe: z.string().trim().max(255, { message: 'about_me_too_long' }).optional().nullable()
 })
 
-export function validateUser (user) {
+export function validateUser(user) {
   return userSchema.safeParse(user)
 }
 
-export function validateUpdatedUser (user) {
+export function validateUpdatedUser(user) {
   return userSchema.partial().safeParse(user)
 }
 
 const passwordSchema = userSchema.shape.password
-export function validatePassword (password) {
+export function validatePassword(password) {
   return passwordSchema.safeParse(password)
 }

@@ -189,7 +189,7 @@
             "reason": "La razón no puede estar vacía"
         },
         "password": {
-            "too.short": "La contraseña es demasiado corta",
+            "too.short": "La contraseña no cumple el mínimo de 8 caracteres",
             "missing.uppercase": "La contraseña debe contener al menos una letra mayúscula",
             "missing.number": "La contraseña debe contener al menos un número",
             "not.match": "La contraseña no coincide con la confirmación"
@@ -203,17 +203,17 @@
             "link": "El enlace ha expirado"
         },
         "too.long": {
-            "username": "El nombre de usuario es demasiado largo",
-            "password": "La contraseña es demasiado larga",
-            "email": "El correo electrónico es demasiado largo",
-            "title": "El título es demasiado largo",
-            "description": "La descripción es demasiado larga",
-            "target": "El objetivo es demasiado largo",
-            "comment": "El comentario es demasiado largo",
-            "question": "La pregunta es demasiado larga",
-            "reason": "La razón es demasiado larga",
-            "about.me": "Sobre mí es demasiado largo",
-            "message": "El mensaje es demasiado largo"
+            "username": "El nombre de usuario excede el límite de 50 caracteres",
+            "password": "La contraseña excede el límite de 255 caracteres",
+            "email": "El correo electrónico excede el límite de 255 caracteres",
+            "title": "El título excede el límite de 100 caracteres",
+            "description": "La descripción excede el límite de 255 caracteres",
+            "target": "El objetivo excede el límite de 40 caracteres",
+            "comment": "El comentario excede el límite de 2000 caracteres",
+            "question": "La pregunta excede el límite de 100 caracteres",
+            "reason": "La razón excede el límite de 500 caracteres",
+            "about.me": "El campo 'Sobre mí' excede el límite de 255 caracteres",
+            "message": "El mensaje excede el límite de 2000 caracteres"
         },
         "missing": {
             "verification.token": "Falta de token de verificación",

@@ -10,11 +10,11 @@ export const Request = sequelize.define('request', {
     autoIncrement: true
   },
   title: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING(100),
     allowNull: false
   },
   target: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING(40),
     allowNull: false
   },
   description: {

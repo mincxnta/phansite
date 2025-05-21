@@ -196,17 +196,17 @@
             "link": "Expired link"
         },
         "too.long": {
-            "username": "Username is too long",
-            "password": "Password is too long",
-            "email": "Email is too long",
-            "title": "Title is too long",
-            "description": "Description is too long",
-            "target": "Target is too long",
-            "comment": "Comment is too long",
-            "question": "Question is too long",
-            "reason": "Reason is too long",
-            "about.me": "About me is too long",
-            "message": "Message is too long"
+            "username": "Username cannot exceed 50 characters",
+            "password": "Password cannot exceed 255 characters",
+            "email": "Email cannot exceed 255 characters",
+            "title": "Title cannot exceed 100 characters",
+            "description": "Description cannot exceed 255 characters",
+            "target": "Target cannot exceed 40 characters",
+            "comment": "Comment cannot exceed 2000 characters",
+            "question": "Question cannot exceed 100 characters",
+            "reason": "Reason cannot exceed 500 characters",
+            "about.me": "About me cannot exceed 255 characters",
+            "message": "Message cannot exceed 2000 characters"
         },
         "missing": {
             "verification.token": "Missing verification code",
