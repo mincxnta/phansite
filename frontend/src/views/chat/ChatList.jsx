@@ -17,7 +17,7 @@ export const ChatList = () => {
   const [contacts, setContacts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const displayUsername = useDisplayUsername();
- 
+
   useEffect(() => {
     const fetchContacts = async () => {
       if (!user) {
@@ -121,61 +121,63 @@ export const ChatList = () => {
           <div className="flex justify-center">
             <ul className="w-full max-w-[600px]">
               {contacts.map((contact) => {
-                 const isUserSender = contact.lastMessage?.senderId === user.id;
-                const messageText = contact.lastMessage.image 
-                  ? `[${t('image')}]` 
+                const isUserSender = contact.lastMessage?.senderId === user.id;
+                const messageText = contact.lastMessage.image
+                  ? `[${t('image')}]`
                   : contact.lastMessage.message || t('chat.empty.message');
                 const displayText = isUserSender ? `${t("chat.you")}: ${messageText}` : messageText;
                 return (
-                <li
-                  key={contact.id}
-                  onClick={() => handleContactClick(contact.username)}
-                  className="mb-6"
-                >
-                  <div className="relative w-full transition-transform hover:scale-110">
-                    <div className="absolute -top-4 left-0 z-10">
-                      <div className="w-[8em] h-[8em] bg-white outline-6 outline-black border-6 border-white transform -skew-x-6">
-                        <img
-                          src={
-                            contact.profilePicture || "/assets/images/unknownTarget.png"
-                          }
-                          alt={displayUsername(contact)}
-                          className="w-full h-full object-cover"
-                        />
-                        {onlineUsers.includes(contact.id) && (
-                        <span className="online-indicator absolute -right-3.5 -bottom-3.5 w-4 h-4 bg-green-500 rounded-full border-2 border-persona-dark-red"></span>
-                      )}
-                      </div>
-                    </div>
-                    <div className="absolute left-32 top-[-1.5em] z-20">
-                      <span className="font-earwig text-4xl w-fit text-white text-border">
-                        {displayUsername(contact)}
-                      </span>
-                    </div>
-                    <div className="ml-[7rem] mt-[3rem] relative">
-                      <div
-                        className="px-8 py-3 transform -skew-x-6 bg-black border-2"
-                      >
-                        <div className="skew-x-6 p-[0.75rem] break-words">
-                          <p className="text-2xl font-semibold text-white text-left overflow-hidden text-ellipsis whitespace-nowrap">
-                            {displayText}
-                          </p>
+                  <li
+                    key={contact.id}
+                    onClick={() => handleContactClick(contact.username)}
+                    className="mb-6"
+                  >
+                    <div className="relative w-full transition-transform hover:scale-110">
+                      <div className="absolute -top-4 left-0 z-10">
+                        <div className="w-[8em] h-[8em] bg-white outline-6 outline-black border-6 border-white transform -skew-x-6">
+                          <img
+                            src={
+                              contact.profilePicture || !contact.banned
+                                ? contact.profilePicture
+                                : '/assets/images/unknownTarget.png'
+                            }
+                            alt={displayUsername(contact)}
+                            className="w-full h-full object-cover"
+                          />
+                          {onlineUsers.includes(contact.id) && (
+                            <span className="online-indicator absolute -right-3.5 -bottom-3.5 w-4 h-4 bg-green-500 rounded-full border-2 border-persona-dark-red"></span>
+                          )}
                         </div>
                       </div>
+                      <div className="absolute left-32 top-[-1.5em] z-20">
+                        <span className="font-earwig text-4xl w-fit text-white text-border">
+                          {displayUsername(contact)}
+                        </span>
+                      </div>
+                      <div className="ml-[7rem] mt-[3rem] relative">
+                        <div
+                          className="px-8 py-3 transform -skew-x-6 bg-black border-2"
+                        >
+                          <div className="skew-x-6 p-[0.75rem] break-words">
+                            <p className="text-2xl font-semibold text-white text-left overflow-hidden text-ellipsis whitespace-nowrap">
+                              {displayText}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      {contact.lastMessage?.date && (
+                        <p className="text-white ml-[6rem] mt-2 text-right text-xs">
+                          {formatDistanceToNow(new Date(contact.lastMessage.date), {
+                            addSuffix: true,
+                            locale: locales[i18n.language],
+                          })}
+                        </p>
+                      )}
+
                     </div>
-                    {contact.lastMessage?.date && (
-                      <p className="text-white ml-[6rem] mt-2 text-right text-xs">
-                        {formatDistanceToNow(new Date(contact.lastMessage.date), {
-                          addSuffix: true,
-                          locale: locales[i18n.language],
-                        })}
-                      </p>
-                    )}
-                    
-                  </div>
-                </li>
-                )  
-            })}
+                  </li>
+                )
+              })}
             </ul>
           </div>
         )}

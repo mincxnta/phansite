@@ -195,8 +195,6 @@ export const Poll = () => {
             </span>
           </div>
         </div>
-        {/* //TODO Lo dejamos? */}
-        <p className="text-center text-lg mb-6">{t('poll.total.votes')}: {results.total}</p>
         <div className="flex justify-center gap-8">
           <button
             onClick={() => handleVote(true)}

@@ -38,7 +38,6 @@ export const UserProfile = () => {
                 }
                 const data = await response.json()
                 setProfileUser(data)
-
                 if (user && user.username === username) {
                     navigate('/profile', { replace: true });
                 }
@@ -70,18 +69,18 @@ export const UserProfile = () => {
                     <div className="flex items-center flex-col h-[40vh]">
                         <div className="border-10 border-black skew-x-4 mb-3  w-[20em] h-[20em]">
                             <img className="w-full h-full object-cover" src={profileUser.profilePicture || '/assets/images/unknownTarget.png'} /></div>
-                        {isOwnProfile && (
-                            <>
-                                <Link to="edit">
-                                    <img className="w-10 transition-transform hover:scale-110" src="/assets/images/icons/edit.png" />
-                                </Link>
-
-                            </>)}
-                        {!isOwnProfile && (
-                            <Link to={`/chat/${profileUser.username}`}>
-                                <img className="w-10" src="/assets/images/icons/message.png" />
+                        {isOwnProfile ? (
+                            <Link to="edit">
+                                <img className="w-10 transition-transform hover:scale-110" src="/assets/images/icons/edit.png" />
                             </Link>
+                        ) : (
+                            (user && user.role !== "fan") || (user && user.role === "fan" && profileUser.role === "fan") ? (
+                                <Link to={`/chat/${profileUser.username}`}>
+                                    <img className="w-10" src="/assets/images/icons/message.png" />
+                                </Link>
+                            ) : null
                         )}
+
                     </div>
                     <div>
                         <div className="h-[35vh] w-[25vw] bg-white -skew-x-3 box-shadow flex items-center justify-center">

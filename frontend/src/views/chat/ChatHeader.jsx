@@ -22,7 +22,7 @@ export const ChatHeader = ({ targetUser }) => {
         </div>
         <img
           src={
-            targetUser.profilePicture
+            targetUser.profilePicture || !targetUser.banned
               ? targetUser.profilePicture
               : '/assets/images/unknownTarget.png'
           }

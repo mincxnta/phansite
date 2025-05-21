@@ -38,7 +38,6 @@ export const Chat = () => {
         });
 
         const userData = await user.json()
-        console.log("Data", userData)
         if (!user.ok) {
           toast.error(errorHandler(userData));
         }

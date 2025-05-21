@@ -69,6 +69,7 @@ export const CreateRequest = () => {
             const data = await response.json()
             if (!response.ok) {
                 toast.error(t(errorHandler(data)))
+                return;
             }
             setTitle('');
             setTarget('');

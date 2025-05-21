@@ -66,7 +66,6 @@ export const VerifyEmail = () => {
 
       if (!response.ok) {
         const data = await response.json();
-        console.log(data)
         toast.error(t(errorHandler(data)));
       } else {
         toast.success(t('success.email.verification.sent'));

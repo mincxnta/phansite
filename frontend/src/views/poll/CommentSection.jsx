@@ -181,8 +181,6 @@ export const CommentSection = ({ pollId, ref }) => {
                     </form>
                 </div>
             </div>
-            {/* //TODO Lo dejamos? */}
-            <h4>{t("comments.title")}: ({totalComments})</h4>
             {comments.length === 0 ? (
                 <p>{t("comments.none")}</p>
             ) : (
@@ -200,10 +198,9 @@ export const CommentSection = ({ pollId, ref }) => {
                                                 alt="Profile picture"
                                                 className="w-full h-full object-cover"
                                             />
-                                            // TODO: Si el comentario es de un usuario baneado, mostrar foto de perfil o unknown?
                                         ) : comment.user?.banned ? (
                                             <img
-                                                src={comment.user?.profilePicture || "/assets/images/unknownTarget.png"}
+                                                src="/assets/images/unknownTarget.png"
                                                 alt="Profile picture"
                                                 className="w-full h-full object-cover"
                                             />
