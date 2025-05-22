@@ -23,7 +23,7 @@ export const ChatMessages = ({ messages, currentUserId }) => {
       {messages.map((message) => (
         <div
           key={message.id}
-          className={`chat mb-4 ${message.senderId === currentUserId ? 'chat-end mr-[25%]' : 'chat-start ml-[25%]'}`}
+          className={`chat mb-4 ${message.senderId === currentUserId ? 'chat-end sm:mr-[25%]' : 'chat-start sm:ml-[25%]'}`}
         >
           {message.senderId !== currentUserId && (
             <div className="chat-image w-16 h-16 mr-6 bg-white outline-6 outline-black border-6 border-white transform -skew-x-4">
@@ -38,7 +38,7 @@ export const ChatMessages = ({ messages, currentUserId }) => {
                 />
             </div>
           )}
-          <div className="chat-bubble max-w-[40em] ">
+          <div className="chat-bubble md:max-w-[40em] ">
             {message.image && (
               <img
                 src={message.image}

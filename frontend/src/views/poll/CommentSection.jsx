@@ -16,7 +16,6 @@ export const CommentSection = ({ pollId, ref }) => {
     const [newComment, setNewComment] = useState('');
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [totalComments, setTotalComments] = useState(0);
     const [anonymous, setAnonymous] = useState(false)
     const limit = 5;
     const { user } = useAuth()
@@ -40,7 +39,6 @@ export const CommentSection = ({ pollId, ref }) => {
             if (response.ok) {
                 setComments(data.comments);
                 setTotalPages(data.totalPages);
-                setTotalComments(data.totalComments);
             } else {
                 toast.error(t(errorHandler(data)))
             }
@@ -110,7 +108,6 @@ export const CommentSection = ({ pollId, ref }) => {
                 await response.json()
                 toast.success(t("success.delete.comment"))
                 setComments((prevComments) => prevComments.filter(comment => comment.id !== id));
-                setTotalComments((prevTotal) => prevTotal - 1);
                 fetchComments();
             }
         } catch (error) {
@@ -160,7 +157,7 @@ export const CommentSection = ({ pollId, ref }) => {
                                 > </textarea>
                             </div>
                         </div>
-                        <div className="mt-2 flex flex-col items-center w-[10%] gap-[1em]">
+                        <div className="ml-0 sm:ml-4 mt-2 flex flex-col items-center w-[10%] gap-[1em]">
                             <div className="flex text-xl gap-[.5em]">
                                 <input
                                     type="checkbox"

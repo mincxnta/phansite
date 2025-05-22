@@ -22,7 +22,6 @@ export const RequestList = ({ profile }) => {
   const [userVotes, setUserVotes] = useState({});
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [totalRequests, setTotalRequests] = useState(0);
   const [filterStatus, setFilterStatus] = useState('pending');
   const limit = 5;
 
@@ -99,7 +98,6 @@ export const RequestList = ({ profile }) => {
       if (response.ok) {
         setRequests(data.requests)
         setTotalPages(data.totalPages);
-        setTotalRequests(data.totalRequests);
         await getAllRequestResults();
         if (user) await getUserVotes();
       }
@@ -202,7 +200,7 @@ export const RequestList = ({ profile }) => {
     row.push(request.target);
 
     row.push(
-      <div className='flex items-center gap-2 justify-center'>
+      <div className='flex items-center sm:gap-2 justify-center'>
         {showVoteButtons && (
           <img
             src={userVote === true ? '/assets/images/icons/voted.png' : '/assets/images/icons/vote.png'}
@@ -230,13 +228,13 @@ export const RequestList = ({ profile }) => {
 
     if (showActionButtons) {
       row.push(
-        <div>
+        <div className="flex">
           <button
             disabled={request.status !== 'pending'}
             title={t('requests.rejected')}
             onClick={() => handleStatusChangeClick(request.id, 'rejected')}
           >
-            <img className="w-8 mr-2 button-hover" src="/assets/images/icons/reject.png" />
+            <img className=":w-8 mr-2 button-hover" src="/assets/images/icons/reject.png" />
           </button>
           <button
             disabled={request.status !== 'pending'}
@@ -261,7 +259,7 @@ export const RequestList = ({ profile }) => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <div className="flex items-center justify-between w-full max-w-[85%] mb-8 pt-20">
+      <div className="flex items-center flex-col sm:flex-row justify-between w-full max-w-[85%] mb-8 pt-20">
         <h1 className="text-[4rem] sm:text-[5rem] text-white item- mb-6 ">
           {profile ? t("profile.requests") : t("requests.title")}
         </h1>

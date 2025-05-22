@@ -17,7 +17,6 @@ export const UserList = () => {
     const { t } = useTranslation();
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [totalUsers, setTotalUsers] = useState(0);
     const limit = 5;
 
     useEffect(() => {
@@ -44,7 +43,6 @@ export const UserList = () => {
                 if (response.ok) {
                     setUsers(data.users)
                     setTotalPages(data.totalPages);
-                    setTotalUsers(data.totalUsers);
                 } else {
                     toast.error(t(errorHandler(data)))
                 }
@@ -106,8 +104,8 @@ export const UserList = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
-            <div className="flex items-center justify-between w-full max-w-[85%] mb-8">
-                <h1 className='text-[4rem] sm:text-[5rem] '>{t("users.list")}</h1>
+            <div className="flex items-center flex-col sm:flex-row justify-between w-full max-w-[85%] mb-8">
+                <h1 className='text-[4rem] sm:text-[5rem] mb-3 sm:mb-0'>{t("users.title")}</h1>
                 <SubmitButton to="/admin/create" text={t("users.create")} />
             </div>
             <Table headers={headers} rows={rows} />

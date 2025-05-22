@@ -70,7 +70,7 @@ export const ReportPopup = () => {
         <form onSubmit={handleNewReport}>
           <h4 className="text-4xl mb-[.5em]">{t(reportedType === "comment" ? "reports.comment" : "reports.request")}</h4>
           <textarea className="form-input-container form-input-1" name="" id="reason" value={reason} onChange={(e) => setReason(e.target.value)}></textarea>
-          <SubmitButton text={t("reports.send")}></SubmitButton>
+          <SubmitButton className="w-[90%]" text={t("reports.send")}></SubmitButton>
         </form>
       </div>
     </div>,

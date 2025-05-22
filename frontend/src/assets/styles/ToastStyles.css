@@ -2,10 +2,10 @@
   border-radius: 0;
   transform: skewX(-10deg);
   box-shadow: 6px 4px 0 white,
-  10px 8px 6px rgba(0, 0, 0, 0.3);
+    10px 8px 6px rgba(0, 0, 0, 0.3);
   font-family: 'Optima Nova LT Black', sans-serif;
-   color: #ffffff;
-   margin-right: 1em;
+  color: #ffffff;
+  margin-right: 1em;
 }
 
 .Toastify__toast--success {
@@ -28,17 +28,29 @@
 }
 
 .Toastify__toast-icon {
-    width: 3em;
+  width: 3em;
 }
 
 .Toastify__progress-bar--error {
-    background-color: black;
+  background-color: black;
 }
 
 .Toastify__progress-bar--success {
-    background-color: white;
+  background-color: white;
 }
 
-.Toastify__toast-theme--light{
-    background-color: #ab0000;
+.Toastify__toast-theme--light {
+  background-color: #ab0000;
+}
+
+@media only screen and (max-width: 480px) {
+  .Toastify__toast-container {
+    width: 90vw;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .Toastify__toast {
+    margin-bottom: 1em;
+}
 }

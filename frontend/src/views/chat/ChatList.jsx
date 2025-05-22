@@ -137,7 +137,7 @@ export const ChatList = () => {
                         <div className="w-[8em] h-[8em] bg-white outline-6 outline-black border-6 border-white transform -skew-x-6">
                           <img
                             src={
-                              contact.profilePicture || !contact.banned
+                              contact.profilePicture && !contact.banned
                                 ? contact.profilePicture
                                 : '/assets/images/unknownTarget.png'
                             }
@@ -150,7 +150,7 @@ export const ChatList = () => {
                         </div>
                       </div>
                       <div className="absolute left-32 top-[-1.5em] z-20">
-                        <span className="font-earwig text-4xl w-fit text-white text-border">
+                        <span className="font-earwig text-2xl sm:text-4xl w-fit text-white text-border">
                           {displayUsername(contact)}
                         </span>
                       </div>
@@ -159,7 +159,7 @@ export const ChatList = () => {
                           className="px-8 py-3 transform -skew-x-6 bg-black border-2"
                         >
                           <div className="skew-x-6 p-[0.75rem] break-words">
-                            <p className="text-2xl font-semibold text-white text-left overflow-hidden text-ellipsis whitespace-nowrap">
+                            <p className="text-lg sm:text-2xl font-semibold text-white text-left overflow-hidden text-ellipsis whitespace-nowrap">
                               {displayText}
                             </p>
                           </div>

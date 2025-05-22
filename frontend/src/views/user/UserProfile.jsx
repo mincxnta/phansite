@@ -63,9 +63,9 @@ export const UserProfile = () => {
     return (
         <div>
             {authError && t(authError)}
-            <div className="h-[90vh] flex flex-col justify-center">
+            <div className="h-[120vh] sm:h-[90vh] flex flex-col justify-center">
                 <h1 className='text-[4rem] sm:text-[5rem]'>{isOwnProfile ? t("profile.me") : t("profile.user", { username: profileUser.username })}</h1>
-                <div className="flex items-center justify-center mt-3 gap-15">
+                <div className="flex items-center flex-col sm:flex-row justify-center mt-3 gap-5 sm:gap-15">
                     <div className="flex items-center flex-col h-[40vh]">
                         <div className="border-10 border-black skew-x-4 mb-3  w-[20em] h-[20em]">
                             <img className="w-full h-full object-cover" src={profileUser.profilePicture || '/assets/images/unknownTarget.png'} /></div>
@@ -83,7 +83,7 @@ export const UserProfile = () => {
 
                     </div>
                     <div>
-                        <div className="h-[35vh] w-[25vw] bg-white -skew-x-3 box-shadow flex items-center justify-center">
+                        <div className="mt-[2em] sm:mt-0 h-[35vh] w-[80vw] sm:w-[25vw] bg-white -skew-x-3 box-shadow flex items-center justify-center">
                             <span className="absolute -top-6 -left-12">
                                 <img src="/assets/images/icons/stars1.png" alt="Star" className="w-[6rem] h-auto" />
                             </span>

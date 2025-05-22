@@ -16,7 +16,6 @@ export const Polls = () => {
   const { user } = useAuth();
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [totalPolls, setTotalPolls] = useState(0);
   const limit = 5;
 
   const fetchPolls = async () => {
@@ -31,7 +30,6 @@ export const Polls = () => {
       if (response.ok) {
         setPolls(data.polls);
         setTotalPages(data.totalPages);
-        setTotalPolls(data.totalPolls);
 
         if (user && user.role === 'fan' && data.polls.length > 0) {
           const votes = await Promise.all(
@@ -99,7 +97,7 @@ export const Polls = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <h1 className="text-4xl md:text-5xl text-white item- mb-6">{t('polls.title')}</h1>
+      <h1 className="text-[4rem] sm:text-[5rem] text-white item- mb-6">{t('polls.title')}</h1>
       {polls.length === 0 ? (
         <p className="text-white text-lg">{t('polls.no.polls')}</p>
       ) : (

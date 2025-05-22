@@ -15,7 +15,6 @@ export const ReportedRequests = () => {
     const { t } = useTranslation();
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [totalReports, setTotalReports] = useState(0);
     const limit = 9;
 
     const fetchReports = async () => {
@@ -28,7 +27,6 @@ export const ReportedRequests = () => {
             if (response.ok) {
                 setReports(data.reports);
                 setTotalPages(data.totalPages);
-                setTotalReports(data.totalReports);
             } else {
                 toast.error(t(errorHandler(data)))
             }
@@ -138,7 +136,7 @@ export const ReportedRequests = () => {
         <button className="w-full table-text" onClick={() => showRequestDetail(report.request.id)}>
             {report.request.title}
         </button>,
-        <div>
+        <div className='flex'>
             <button title={t("discard")} onClick={() => handleDiscardClick(report.id)}>
             <img className="w-8 mr-2 button-hover" src="/assets/images/icons/discard.png"/>
             </button>
@@ -152,7 +150,7 @@ export const ReportedRequests = () => {
     ]);
 
     return (
-        <div className="flex flex-col items-center w-full max-w-[85%] mb-8">
+        <div className="flex flex-col items-center w-full max-w-[95%] sm:max-w-[85%] mb-8">
             <h1 className="mb-4 text-[4rem] sm:text-[5rem]">{t("reports.title.requests")}</h1>
             {reports.length === 0 ? (
                 <p>{t('reports.no.reports')}</p>

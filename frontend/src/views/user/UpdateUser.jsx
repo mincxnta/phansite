@@ -101,11 +101,11 @@ export const UpdateUser = () => {
     }
 
     return (
-        <div className="h-[90vh] flex flex-col justify-center">
-            <h1 className='text-[4rem] sm:text-[5rem]'>{t("profile.edit")}</h1>
-            <form onSubmit={handleUpdateUser} className="flex items-center justify-center mt-3 gap-15">
-                <div className="flex items-center flex-col h-[40vh]">
-                    <div className="border-10 border-black skew-x-4 mb-3  w-[350px] h-[350px]">
+        <div className="h-[150vh] md:h-[90vh] flex flex-col justify-center">
+            <h1 className='text-[3rem] sm:text-[5rem]'>{t("profile.edit")}</h1>
+            <form onSubmit={handleUpdateUser} className="flex items-center flex-col md:flex-row justify-center mt-3 gap-5 sm:gap-15">
+                <div className="flex items-center flex-col sm:h-[40vh]">
+                    <div className="border-10 border-black skew-x-4 mb-3  w-[250px] h-[250px] sm:w-[350px] sm:h-[350px]">
                         <img className="w-full h-full object-cover" src={selectedImage || user.profilePicture || '/assets/images/unknownTarget.png'} />
                     </div>
 
@@ -127,7 +127,7 @@ export const UpdateUser = () => {
                         )}
                 </div>
                 <div>
-                    <div className="h-[35vh] w-[25vw] bg-white -skew-x-3 box-shadow flex items-center justify-center">
+                    <div className="h-[35vh] w-[80vw] md:w-[25vw] bg-white -skew-x-3 box-shadow flex items-center justify-center">
                         <textarea className="text-black text-3xl text-center pt-[25%] resize-none h-full w-[90%]" type="text" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder={t("profile.about.me")}
                         />
                     </div>

@@ -139,7 +139,7 @@ export const ReportedComments = () => {
         report.reason,
         report.comment.user?.username,
         report.comment.text,
-        <div>
+        <div className="flex">
             <button title={t("discard")} onClick={() => handleDiscardClick(report.id)}>
                 <img className="w-8 mr-2 button-hover" src="/assets/images/icons/discard.png"/>
             </button>
@@ -154,7 +154,7 @@ export const ReportedComments = () => {
 
     const shouldShowPagination = totalReports > 0 && totalPages > 1 && reports.length > 0;
     return (
-        <div className="flex flex-col items-center w-full max-w-[85%] mb-8 pt-20">
+        <div className="flex flex-col items-center w-full max-w-[95%] sm:max-w-[85%] mb-8 pt-20">
             <h1 className="mb-4 text-[4rem] sm:text-[5rem]">{t("reports.title.comments")}</h1>
             {reports.length === 0 ? (
                 <p>{t('reports.no.reports')}</p>

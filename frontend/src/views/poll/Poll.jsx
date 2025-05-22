@@ -26,21 +26,17 @@ const Counter = ({ from, to, duration }) => {
 export const Poll = () => {
   const navigate = useNavigate()
   const [poll, setPoll] = useState('')
-  const [results, setResults] = useState({ yes: 0, no: 0, total: 0 });
   const [yesPercentage, setYesPercentage] = useState(0);
   const [previousPercentage, setPreviousPercentage] = useState(0);
   const [isLoading, setIsLoading] = useState(false)
   const { user } = useAuth()
   const { i18n, t } = useTranslation();
-  const [pollSocket, setPollSocket] = useState(null);
   const commentsRef = useRef(null);
 
   useEffect(() => {
     const newSocket = io(SOCKET_URL, {
       withCredentials: false,
     });
-
-    setPollSocket(newSocket);
 
     newSocket.on('pollVoted', (data) => {
       if (data.pollId == poll.id) {
@@ -89,7 +85,6 @@ export const Poll = () => {
 
       const data = await response.json();
       if (response.ok) {
-        setResults(data);
         const percentage = data.total > 0 ? (data.yes / data.total) * 100 : 0;
         setYesPercentage(percentage.toFixed(1));
       } else {
@@ -186,6 +181,7 @@ export const Poll = () => {
               transition={{ duration: 1, ease: 'easeInOut' }}
             />
           </div>
+          //TODO Añadirías que se quede marcado con color el botón votado?
           <div className="flex w-full justify-between mt-[1em]">
             <span className="px-6 py-2 text-white uppercase text-4xl">
               {t('yes')}
