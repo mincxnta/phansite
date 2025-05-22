@@ -154,7 +154,7 @@ export const Poll = () => {
   return (
     <div className="w-full min-h-screen flex flex-col">
       <div className="w-full flex h-screen flex-col items-center justify-center">
-        <h1 className="text-3xl mb-4 pt-20">
+        <h1 className="text-3xl mb-4 pt-20 text-[4rem] sm:text-[5rem]">
           {t('home.poll')}
         </h1>
         <div className='flex items-center'>
@@ -171,7 +171,7 @@ export const Poll = () => {
             {displayedQuestion}
           </h2>
         </div>
-        <div className="mb-6 w-1/4">
+        <div className="mb-6 w-[80%] sm:w-1/2 lg:w-2/4 xl:w-1/4">
           <div className="gradient">
             <span className="text-5xl font-medium uppercase">{t('yes')}</span>
             <span className="text-8xl font-bold">

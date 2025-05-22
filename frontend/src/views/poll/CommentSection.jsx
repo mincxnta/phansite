@@ -137,9 +137,9 @@ export const CommentSection = ({ pollId, ref }) => {
 
     return (
         <div>
-            <h1 ref={ref}>{t("comments.title")}</h1>
+            <h1 ref={ref} className='text-[4rem] sm:text-[5rem]'>{t("comments.title")}</h1>
             <div className="flex justify-center flex-col items-center w-full">
-                <div className="relative w-1/2 mb-6">
+                <div className="relative w-[80%] lg:w-1/2 mb-6">
                     <div className="absolute left-0 top-[1em] z-10">
                         <motion.div
                             style={{ rotateY, perspective: '1000px' }}
@@ -152,8 +152,8 @@ export const CommentSection = ({ pollId, ref }) => {
                             />
                         </motion.div>
                     </div>
-                    <form className="ml-[4rem] mt-[2rem] relative flex gap-[3.5em]" onSubmit={handleAddComment}>
-                        <div className="px-6 py-2 transform -skew-x-6 bg-white border-2 border-black relative w-[90%]">
+                    <form className="mt-[2rem] relative flex flex-col items-center sm:flex-row sm:gap-[3.5em]" onSubmit={handleAddComment}>
+                        <div className="ml-[4rem] px-6 py-2 transform -skew-x-6 bg-white border-2 border-black relative w-[90%]">
                             <div className="skew-x-6 p-[0.5rem] break-words text-black text-xl h-full">
                                 <textarea className="resize-none h-full w-[90%]" value={newComment} placeholder={t("comments.placeholder")} onChange={(e) => setNewComment(e.target.value)}
                                     required disabled={!user || user?.role !== 'fan'}
@@ -186,7 +186,7 @@ export const CommentSection = ({ pollId, ref }) => {
             ) : (
                 <div className="flex justify-center flex-col items-center">
                     {comments.map((comment) => (
-                        <div className="w-full max-w-1/3 mb-6" key={comment.id}>
+                        <div className="w-full max-w-[90%] mb-6 lg:max-w-1/2 2xl:max-w-1/3" key={comment.id}>
                             <div className="relative min-w-3xs">
                                 <div className="absolute left-0 z-10">
                                     <div className={`w-[80px] h-[80px] bg-white outline-6 outline-black border-6 border-white ${comment.anonymous || comment.user?.banned ? "" : "transition-transform hover:scale-[1.1]"} transform -skew-x-4`}>
@@ -233,9 +233,9 @@ export const CommentSection = ({ pollId, ref }) => {
                                 </div>
                                 <div className="ml-[4rem] mt-[2rem] relative">
                                     <div
-                                        className="px-6 py-2 transform -skew-x-6 bg-white border-2 border-black relative"
+                                        className="px-6 py-2 transform bg-white border-2 border-black relative -skew-x-1 lg:-skew-x-6"
                                     >
-                                        <div className="skew-x-6 p-[0.5rem] break-words">
+                                        <div className="p-[0.5rem] break-words skew-x-1" >
                                             <p className="text-lg font-semibold text-black">{comment.text}</p>
                                         </div>
                                         <div className="absolute -top-3 -right-1 z-30">

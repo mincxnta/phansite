@@ -153,7 +153,7 @@ export const ReportedRequests = () => {
 
     return (
         <div className="flex flex-col items-center w-full max-w-[85%] mb-8">
-            <h1 className="mb-4">{t("reports.title.requests")}</h1>
+            <h1 className="mb-4 text-[4rem] sm:text-[5rem]">{t("reports.title.requests")}</h1>
             {reports.length === 0 ? (
                 <p>{t('reports.no.reports')}</p>
             ) : (

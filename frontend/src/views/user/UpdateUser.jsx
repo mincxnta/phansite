@@ -102,7 +102,7 @@ export const UpdateUser = () => {
 
     return (
         <div className="h-[90vh] flex flex-col justify-center">
-            <h1>{t("profile.edit")}</h1>
+            <h1 className='text-[4rem] sm:text-[5rem]'>{t("profile.edit")}</h1>
             <form onSubmit={handleUpdateUser} className="flex items-center justify-center mt-3 gap-15">
                 <div className="flex items-center flex-col h-[40vh]">
                     <div className="border-10 border-black skew-x-4 mb-3  w-[350px] h-[350px]">

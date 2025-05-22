@@ -63,8 +63,14 @@
 @media (max-width: 480px) {
   .report-popup-content {
     width: 80vw;
-    height: 60vh;
+    height: 80vh;
     padding: 10px;
+  }
+
+
+  .report-popup-content textarea {
+    width: 90%;
+    height: 100%;
   }
 
   .report-popup-close {

@@ -155,7 +155,7 @@ export const ReportedComments = () => {
     const shouldShowPagination = totalReports > 0 && totalPages > 1 && reports.length > 0;
     return (
         <div className="flex flex-col items-center w-full max-w-[85%] mb-8 pt-20">
-            <h1 className="mb-4">{t("reports.title.comments")}</h1>
+            <h1 className="mb-4 text-[4rem] sm:text-[5rem]">{t("reports.title.comments")}</h1>
             {reports.length === 0 ? (
                 <p>{t('reports.no.reports')}</p>
             ) : (

@@ -262,7 +262,7 @@ export const RequestList = ({ profile }) => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="flex items-center justify-between w-full max-w-[85%] mb-8 pt-20">
-        <h1 className="text-4xl md:text-5xl text-white item- mb-6">
+        <h1 className="text-[4rem] sm:text-[5rem] text-white item- mb-6 ">
           {profile ? t("profile.requests") : t("requests.title")}
         </h1>
         {user && user.role === 'fan' && location.pathname === '/requests' && <SubmitButton to="/newrequest" text={t("requests.create")} />}

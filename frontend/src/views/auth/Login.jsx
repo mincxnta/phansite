@@ -73,7 +73,7 @@ export const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center form-background">
-      <h1 className="mb-8">{t("auth.login")}</h1>
+      <h1 className="mb-8 text-[4rem] sm:text-[5rem]">{t("auth.login")}</h1>
       <div className="w-75 max-w-md">
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
           <div className="form-input-container form-input-2">
@@ -92,7 +92,7 @@ export const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder={t('auth.password.placeholder')}
               className="py-3 pr-13 text-lg w-[90%]"
-              />
+            />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}

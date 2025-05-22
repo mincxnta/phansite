@@ -64,7 +64,7 @@ export const UserProfile = () => {
         <div>
             {authError && t(authError)}
             <div className="h-[90vh] flex flex-col justify-center">
-                <h1>{isOwnProfile ? t("profile.me") : t("profile.user", { username: profileUser.username })}</h1>
+                <h1 className='text-[4rem] sm:text-[5rem]'>{isOwnProfile ? t("profile.me") : t("profile.user", { username: profileUser.username })}</h1>
                 <div className="flex items-center justify-center mt-3 gap-15">
                     <div className="flex items-center flex-col h-[40vh]">
                         <div className="border-10 border-black skew-x-4 mb-3  w-[20em] h-[20em]">

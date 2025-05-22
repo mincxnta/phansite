@@ -202,7 +202,7 @@
             "title": "Title cannot exceed 100 characters",
             "description": "Description cannot exceed 255 characters",
             "target": "Target cannot exceed 40 characters",
-            "comment": "Comment cannot exceed 2000 characters",
+            "comment": "Comment cannot exceed 1000 characters",
             "question": "Question cannot exceed 100 characters",
             "reason": "Reason cannot exceed 500 characters",
             "about.me": "About me cannot exceed 255 characters",

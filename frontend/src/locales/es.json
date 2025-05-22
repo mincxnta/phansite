@@ -209,7 +209,7 @@
             "title": "El título excede el límite de 100 caracteres",
             "description": "La descripción excede el límite de 255 caracteres",
             "target": "El objetivo excede el límite de 40 caracteres",
-            "comment": "El comentario excede el límite de 2000 caracteres",
+            "comment": "El comentario excede el límite de 1000 caracteres",
             "question": "La pregunta excede el límite de 100 caracteres",
             "reason": "La razón excede el límite de 500 caracteres",
             "about.me": "El campo 'Sobre mí' excede el límite de 255 caracteres",
