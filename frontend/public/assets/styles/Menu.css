@@ -135,3 +135,11 @@
     transform: scale(1.25, 1) skewX(20deg) translateY(3px) rotateX(-40deg) rotateY(-10deg) rotateZ(-15deg);
   }
 }
+
+@media (max-width: 768px) {
+  .link-wrapper .shape-wrapper {
+    top: 20%;
+    left: 40%;
+    width: 80%;
+  }
+}

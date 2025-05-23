@@ -9,7 +9,7 @@
   content: '';
   position: absolute;
   left: -20px;
-  top: 50%;
+  top: 92%;
   transform: translateY(-50%);
   width: 0;
   height: 0;
@@ -22,7 +22,7 @@
 .chat-start .chat-bubble::before {
   content: '';
   position: absolute;
-  top: 50%;
+  top: 92%;
   transform: translateY(-50%);
   width: 0;
   height: 0;
@@ -44,7 +44,7 @@
   content: '';
   position: absolute;
   right: -20px;
-  top: 50%;
+  top: 92%;
   transform: translateY(-35%);
   width: 0;
   height: 0;
@@ -58,7 +58,7 @@
   content: '';
   position: absolute;
   right: -16px;
-  top: 50%;
+  top: 92%;
   transform: translateY(-50%) scaleX(-1);
   width: 0;
   height: 0;
