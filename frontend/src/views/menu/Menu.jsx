@@ -6,6 +6,7 @@ import { SettingsMenu } from "./SettingsMenu.jsx";
 import { toast } from "react-toastify";
 import "../../assets/styles/Menu.css";
 
+
 export const Menu = () => {
   const { user, logout } = useAuth();
   const { t } = useTranslation();
@@ -15,15 +16,19 @@ export const Menu = () => {
   const profileMenuRef = useRef(null);
   const profileButtonRef = useRef(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const settingsButtonRef = useRef(null);
+
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
   };
 
+
   const toggleSettings = () => {
     setIsSettingsOpen((prev) => !prev);
     setIsProfileMenuOpen(false);
   };
+
 
   const toggleProfileMenu = () => {
     if (user) {
@@ -32,13 +37,16 @@ export const Menu = () => {
     }
   };
 
+
   const closeSettings = () => {
     setIsSettingsOpen(false);
   };
 
+
   const closeProfileMenu = () => {
     setIsProfileMenuOpen(false);
   };
+
 
   const handleLogout = async () => {
     await logout();
@@ -46,15 +54,18 @@ export const Menu = () => {
     closeProfileMenu();
   };
 
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
         settingsMenuRef.current &&
         !settingsMenuRef.current.contains(event.target) &&
-        !event.target.closest('button[title="settingsMenu.open"]')
+        settingsButtonRef.current &&
+        !settingsButtonRef.current.contains(event.target)
       ) {
         closeSettings();
       }
+
 
       if (
         profileMenuRef.current &&
@@ -66,11 +77,13 @@ export const Menu = () => {
       }
     };
 
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
 
   const links = [
     {
@@ -83,50 +96,50 @@ export const Menu = () => {
     },
     ...(user
       ? [
-          {
-            to: "/chat",
-            label: t("chat.title"),
-          },
-        ]
+        {
+          to: "/chat",
+          label: t("chat.title"),
+        },
+      ]
       : []),
     ...(user && user.role === "admin"
       ? [
-          {
-            to: "/admin/users",
-            label: t("admin.users"),
-          },
-          {
-            to: "/admin/reports",
-            label: t("admin.reports"),
-          },
-          {
-            to: "/admin/poll",
-            label: t("home.poll"),
-          },
-        ]
+        {
+          to: "/admin/users",
+          label: t("admin.users"),
+        },
+        {
+          to: "/admin/reports",
+          label: t("admin.reports"),
+        },
+        {
+          to: "/admin/poll",
+          label: t("home.poll"),
+        },
+      ]
       : []),
   ];
+
 
   return (
     <>
       <nav className="bg-black border-b-2 border-white flex items-center justify-between px-6 py-4 w-full">
-          <button
-    className="text-white text-3xl md:hidden focus:outline-none"
-    onClick={toggleMobileMenu}
-    title={t("menu.toggle")}
-  >
-    ☰
-  </button>
+        <button
+          className="text-white text-3xl md:hidden focus:outline-none"
+          onClick={toggleMobileMenu}
+          title={t("menu.toggle")}
+        >
+          ☰
+        </button>
         <ul
           className={`
-    list-none font-earwig text-[3em] md:text-[1.25em] lg:text-[2em]
-    ${
-      isMobileMenuOpen
-        ? "fixed top-0 left-0 w-full h-full bg-black z-50 flex flex-col items-center justify-center gap-10"
-        : "hidden"
-    }
-    md:flex md:flex-row xl:gap-8 md:static md:h-auto md:w-auto
-  `}
+   list-none font-earwig text-[3em] md:text-[1.25em] lg:text-[2em]
+   ${isMobileMenuOpen
+              ? "fixed top-0 left-0 w-full h-full bg-black z-50 flex flex-col items-center justify-center gap-10"
+              : "hidden"
+            }
+   md:flex md:flex-row xl:gap-8 md:static md:h-auto md:w-auto
+ `}
         >
           {links.map((link, index) => (
             <li
@@ -162,10 +175,12 @@ export const Menu = () => {
           ))}
         </ul>
 
+
         <div className="flex items-center space-x-4">
           <button
             onClick={toggleSettings}
-            title={t("settingsMenu.open")}
+            ref={settingsButtonRef}
+            title={t("settings.title")}
             className="text-white text-2xl focus:outline-none"
           >
             <img
@@ -177,7 +192,7 @@ export const Menu = () => {
             <div
               onClick={toggleProfileMenu}
               ref={profileButtonRef}
-              title={t("profileMenu.open")}
+              title={t("profile.title")}
               className="cursor-pointer"
             >
               {user ? (
@@ -226,3 +241,6 @@ export const Menu = () => {
     </>
   );
 };
+
+
+

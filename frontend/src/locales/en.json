@@ -267,6 +267,7 @@
         "es": "Spanish"
     },
     "settings": {
+        "title": "Settings",
         "language": "Language",
         "music": {
             "title": "Music",

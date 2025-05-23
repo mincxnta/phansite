@@ -161,9 +161,16 @@ export const RequestList = ({ profile }) => {
 
   const handleStatusChange = async (id, status) => {
     showRequestPopup(id, status, (updatedRequest) => {
-      setRequests((prevRequests) => prevRequests.map((request) => request.id === id ? { ...request, ...updatedRequest } : request));
-    })
-    await fetchRequests();
+      setRequests((prevRequests) =>
+        prevRequests
+          .map((request) =>
+            request.id === id ? { ...request, ...updatedRequest } : request
+          )
+          .filter((request) =>
+            filterStatus === '' || request.status === filterStatus
+          )
+      );
+    });
   }
 
   const hasPendingRequests = requests.some((request) => request.status === 'pending')

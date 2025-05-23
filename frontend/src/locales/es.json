@@ -274,6 +274,7 @@
         "es": "Español"
     },
     "settings": {
+        "title": "Ajustes",
         "language": "Idioma",
         "music": {
             "title": "Música",
