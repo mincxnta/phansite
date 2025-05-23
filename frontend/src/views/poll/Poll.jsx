@@ -112,7 +112,6 @@ export const Poll = () => {
       });
 
       const data = await response.json();
-
       if (response.ok) {
         toast.success(t("success.vote.poll"))
       } else {
@@ -181,7 +180,6 @@ export const Poll = () => {
               transition={{ duration: 1, ease: 'easeInOut' }}
             />
           </div>
-          //TODO Añadirías que se quede marcado con color el botón votado?
           <div className="flex w-full justify-between mt-[1em]">
             <span className="px-6 py-2 text-white uppercase text-4xl">
               {t('yes')}

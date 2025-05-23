@@ -153,6 +153,9 @@ export const ChatList = () => {
                         <span className="font-earwig text-2xl sm:text-4xl w-fit text-white text-border">
                           {displayUsername(contact)}
                         </span>
+                        {contact.role === "phantom_thief" ?
+                          <img src="/assets/images/icons/mask.png" alt="" className='' />
+                          : <img src="/assets/images/icons/mask.png" alt="" className='hidden' />}
                       </div>
                       <div className="ml-[7rem] mt-[3rem] relative">
                         <div

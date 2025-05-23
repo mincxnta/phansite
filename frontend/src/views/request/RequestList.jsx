@@ -228,7 +228,7 @@ export const RequestList = ({ profile }) => {
 
     if (showActionButtons) {
       row.push(
-        <div className="flex">
+        <div>
           <button
             disabled={request.status !== 'pending'}
             title={t('requests.rejected')}

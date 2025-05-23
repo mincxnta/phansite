@@ -136,15 +136,15 @@ export const ReportedRequests = () => {
         <button className="w-full table-text" onClick={() => showRequestDetail(report.request.id)}>
             {report.request.title}
         </button>,
-        <div className='flex'>
+        <div>
             <button title={t("discard")} onClick={() => handleDiscardClick(report.id)}>
-            <img className="w-8 mr-2 button-hover" src="/assets/images/icons/discard.png"/>
+                <img className="w-8 mr-2 button-hover" src="/assets/images/icons/discard.png" />
             </button>
             <button title={t("delete")} onClick={() => handleDeleteClick(report)}>
-            <img className="w-8 mr-2 button-hover" src="/assets/images/icons/delete-white.png"/>
+                <img className="w-8 mr-2 button-hover" src="/assets/images/icons/delete-white.png" />
             </button>
             <button title={t("admin.ban")} onClick={() => handleBanClick(report.request.userId)}>
-            <img className="w-8 button-hover" src="/assets/images/icons/ban.png"/>
+                <img className="w-8 button-hover" src="/assets/images/icons/ban.png" />
             </button>
         </div>
     ]);

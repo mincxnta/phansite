@@ -15,7 +15,7 @@ export const ChatMessages = ({ messages, currentUserId }) => {
   }, [messages]);
 
   if (!messages || messages.length === 0 && !messages.image) {
-    return <div className="messages-container">{t('chat.empty.message')}</div>;
+    return <div className="overflow-y-auto p-5 flex-[8]">{t('chat.empty.message')}</div>;
   }
 
   return (
