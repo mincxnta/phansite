@@ -27,10 +27,9 @@ export const ChatHeader = ({ targetUser }) => {
           alt={displayUsername(targetUser)}
           className="w-18 h-18 mr-4 object-cover bg-white outline-6 outline-black border-6 border-white transform skew-x-2"
         />
-        <h2 className="font-earwig text-2xl sm:text-4xl text-black white-border">{displayUsername(targetUser)}</h2>
-        {targetUser.role === "phantom_thief" ?
-          <img src="/assets/images/icons/mask.png" alt="" className='' />
-          : <img src="/assets/images/icons/mask.png" alt="" className='hidden' />}
+        <h2 className="font-earwig text-2xl sm:text-4xl text-black white-border mr-3">{displayUsername(targetUser)}</h2>
+        {targetUser.role === "phantom_thief" &&
+          <img src="/assets/images/icons/mask.png" alt="" className='h-10' />}
       </div>
     </div>
   );

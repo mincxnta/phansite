@@ -32,6 +32,7 @@ export const Poll = () => {
   const { user } = useAuth()
   const { i18n, t } = useTranslation();
   const commentsRef = useRef(null);
+  const [userVote, setUserVote] = useState();
 
   useEffect(() => {
     const newSocket = io(SOCKET_URL, {
@@ -74,6 +75,7 @@ export const Poll = () => {
       }
     }
     getActivePoll()
+    getUserVote()
   }, [navigate])
 
   const getPollResults = async (pollId) => {
@@ -143,6 +145,26 @@ export const Poll = () => {
     return <Loading />;
   }
 
+  const getUserVote = async () => {
+    if (poll && user && user.role === 'fan') {
+      try {
+        const response = await fetch(`${API_URL}/polls/${poll.id}/user-vote`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setUserVote(data.vote);
+        }
+        return { pollId: poll.id, vote: null };
+      } catch (error) {
+        toast.error(t(errorHandler(error)));
+        return { pollId: poll.id, vote: null };
+      }
+
+    }
+  }
+
   const displayedQuestion = i18n.language === 'es' ? poll.questionEs : poll.questionEn;
 
   return (
@@ -193,14 +215,14 @@ export const Poll = () => {
           <button
             onClick={() => handleVote(true)}
             disabled={user && user?.role !== 'fan'}
-            className={`form-input-container form-input-3 px-4 py-2 text-4xl cursor-pointer ${user && user?.role == 'fan' ? "button-hover" : "bg-gray"}`}
+            className={`form-input-container form-input-3 px-4 py-2 text-4xl cursor-pointer ${userVote && userVote == true ? "voted" : ""} ${user && user?.role == 'fan' ? "" : "disabled"} ${user && user?.role == 'fan' && !userVote ? "button-hover" : "bg-gray"}`}
           >
             {t('yes')}
           </button>
           <button
             onClick={() => handleVote(false)}
             disabled={user && user?.role !== 'fan'}
-            className={`form-input-container form-input-4 px-4 py-2 text-4xl cursor-pointer ${user && user?.role == 'fan' ? "button-hover" : "bg-gray"}`}
+            className={`form-input-container form-input-4 px-4 py-2 text-4xl cursor-pointer ${userVote && userVote == false ? "voted" : ""} ${user && user?.role == 'fan' ? "" : "disabled"} ${user && user?.role == 'fan' && !userVote ? "button-hover" : "bg-gray"}`}
           >
             {t('no')}
           </button>

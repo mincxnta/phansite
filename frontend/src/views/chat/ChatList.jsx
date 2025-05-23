@@ -150,12 +150,13 @@ export const ChatList = () => {
                         </div>
                       </div>
                       <div className="absolute left-32 top-[-1.5em] z-20">
+                        <div className="flex items-center">
                         <span className="font-earwig text-2xl sm:text-4xl w-fit text-white text-border">
                           {displayUsername(contact)}
                         </span>
-                        {contact.role === "phantom_thief" ?
-                          <img src="/assets/images/icons/mask.png" alt="" className='' />
-                          : <img src="/assets/images/icons/mask.png" alt="" className='hidden' />}
+                        {contact.role === "phantom_thief" &&
+                          <img src="/assets/images/icons/mask.png" alt="" className='ml-2 h-12' />}
+                          </div>
                       </div>
                       <div className="ml-[7rem] mt-[3rem] relative">
                         <div

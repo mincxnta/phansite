@@ -75,6 +75,14 @@
     2px -2px 0 #000000,
 }
 
+.form-input-container.voted {
+  background-color: red;
+}
+
+.form-input-container.disabled {
+  background-color: gray;
+}
+
 @media (max-width: 1024px) {
   .form-background {
     background-size: cover;
