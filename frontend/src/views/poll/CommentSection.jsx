@@ -124,7 +124,7 @@ export const CommentSection = ({ pollId, ref }) => {
             onUpdate: (latest) => {
                 rotateY.set(latest);
                 if ((from < to && latest >= 90) || (from > to && latest <= 90)) {
-                    setDisplayedImage(anonymous ? '/assets/images/unknownTarget.png' : user?.profilePicture || '/assets/images/unknownTarget.png');
+                    setDisplayedImage(anonymous ? '/assets/images/anonymous.png' : user?.profilePicture || '/assets/images/unknownTarget.png');
                 }
             }
         });
@@ -134,7 +134,7 @@ export const CommentSection = ({ pollId, ref }) => {
 
     return (
         <div>
-            <h1 ref={ref} className='text-[4rem] sm:text-[5rem]'>{t("comments.title")}</h1>
+            <h1 ref={ref} className='text-[3.5rem] sm:text-[5rem]'>{t("comments.title")}</h1>
             <div className="flex justify-center flex-col items-center w-full">
                 <div className="relative w-[80%] lg:w-1/2 mb-6">
                     <div className="absolute left-0 top-[1em] z-10">
@@ -190,7 +190,7 @@ export const CommentSection = ({ pollId, ref }) => {
                                         {comment.anonymous ? (
                                             <img
                                                 src={
-                                                    "/assets/images/unknownTarget.png"
+                                                    "/assets/images/anonymous.png"
                                                 }
                                                 alt="Profile picture"
                                                 className="w-full h-full object-cover"
@@ -215,8 +215,8 @@ export const CommentSection = ({ pollId, ref }) => {
                                         )}
                                     </div>
                                 </div>
-                                <div className="absolute left-24 top-[-2rem] z-20">
-                                    <span className={`font-earwig text-4xl w-fit text-white text-border ${comment.anonymous || comment.user?.banned ? "" : "transition-[color] hover:text-[#FF0000]"}`}>
+                                <div className="absolute left-20 sm:left-24 top-[-1.5rem] sm:top-[-2rem] z-20 max-w-[150px] ">
+                                    <span className={`font-earwig text-3xl sm:text-4xl  text-white text-border ${comment.anonymous || comment.user?.banned ? "" : "transition-[color] hover:text-[#FF0000]"}`}>
                                         {comment.anonymous ? (
                                             t("anonymous")
                                         ) : comment.user?.banned ? (

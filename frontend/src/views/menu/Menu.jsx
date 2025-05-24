@@ -177,17 +177,25 @@ export const Menu = () => {
 
 
         <div className="flex items-center space-x-4">
-          <button
-            onClick={toggleSettings}
-            ref={settingsButtonRef}
-            title={t("settings.title")}
-            className="text-white text-2xl focus:outline-none"
-          >
-            <img
-              className="w-6 h-auto"
-              src="/assets/images/icons/settings.png"
-            />
-          </button>
+          <div className="relative flex">
+            <button
+              onClick={toggleSettings}
+              ref={settingsButtonRef}
+              title={t("settings.title")}
+              className="text-white text-2xl focus:outline-none"
+            >
+              <img
+                className="w-6 h-auto"
+                src="/assets/images/icons/settings.png"
+              />
+            </button>
+            {isSettingsOpen && (
+              <div ref={settingsMenuRef}>
+                <SettingsMenu />
+              </div>
+            )}
+          </div>
+
           <div className="relative">
             <div
               onClick={toggleProfileMenu}
@@ -205,14 +213,17 @@ export const Menu = () => {
                 />
               ) : (
                 <li className="font-earwig text-4xl list-none whitespace-nowrap">
-                  <Link to="/login">{t("auth.login")}</Link>
+                  <Link to="/login"><img
+                    className="w-8 h-auto"
+                    src="/assets/images/icons/login.png"
+                  /></Link>
                 </li>
               )}
             </div>
             {user && isProfileMenuOpen && (
               <div
                 ref={profileMenuRef}
-                className="bg-black fixed top-17 right-5 py-5 -skew-x-6 flex flex-col gap-5 text-xl"
+                className="bg-black absolute top-11 lg:top-13 right-5 py-5 w-50 -skew-x-6 flex flex-col gap-5 text-xl"
                 style={{
                   boxShadow: "6px 4px 0 white",
                 }}
@@ -232,11 +243,7 @@ export const Menu = () => {
           </div>
         </div>
       </nav>
-      {isSettingsOpen && (
-        <div ref={settingsMenuRef}>
-          <SettingsMenu />
-        </div>
-      )}
+
       {!user && <Link to="/login" className="hidden" />}
     </>
   );

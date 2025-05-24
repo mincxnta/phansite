@@ -102,7 +102,7 @@ export const Register = () => {
                     </div>
                     <SubmitButton text={t('auth.register')}></SubmitButton>
                 </form>
-                <p>{t("auth.already.registered")} <Link to="/login" className="text-red-600">{t('auth.login')}</Link></p>
+                <p>{t("auth.already.registered")} <Link to="/login" className="link-hover underline">{t('auth.login')}</Link></p>
             </div>
         </div>
     );

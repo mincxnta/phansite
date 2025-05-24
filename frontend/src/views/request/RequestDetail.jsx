@@ -100,7 +100,7 @@ export const RequestDetail = () => {
             className={`${request.targetImage ? 'back' : 'back-unknown'}`}
           >
             {request.targetImage &&
-              <div className="relative w-[20vmax] h-[20vmax] border-12 border-black outline outline-10 outline-white -skew-x-2">
+              <div className="relative w-[25vmax] h-[25vmax] md:w-[20vmax] md:h-[20vmax] border-12 border-black outline-10 outline-white -skew-x-2">
                 <img
                   src={request.targetImage}
                   alt={request.target}
@@ -109,7 +109,7 @@ export const RequestDetail = () => {
                 <img
                   src="/assets/images/icons/sword.png"
                   alt="Sword"
-                  className="absolute top-[-3vmax] right-[18.5vmax] h-[3vw] scale-x-[-1] z-10"
+                  className="absolute  top-[-4vmax] right-[22.5vmax] h-[8vw] sm:top-[-5vmax] sm:right-[22.5vmax] sm:h-[6vw] md:top-[-3vmax] md:right-[18.5vmax] md:h-[3vw] scale-x-[-1] z-10"
                 />
               </div>}
           </motion.div>

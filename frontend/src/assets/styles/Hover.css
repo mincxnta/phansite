@@ -53,3 +53,12 @@
 .button-hover:hover {
   transform: scale(1.2);
 }
+
+.link-hover {
+  transition: all 0.2s ease-in;
+  color: white;
+}
+
+.link-hover:hover {
+  color: red;
+}

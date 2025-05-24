@@ -26,8 +26,9 @@ export const Login = () => {
       toast.success(t("success.login"))
       navigate(from, { replace: true });
     } else {
+      if (data.code !== 'email_not_verified'){
       toast.error(t(errorHandler(data)))
-      if (data.code === 'email_not_verified') {
+      }else{
         const toastId = toast.error(
           <div>
             {t('error.email.not.verified')}
@@ -35,6 +36,7 @@ export const Login = () => {
             <button
               onClick={() => handleResendVerification(toastId)}
               disabled={isResending}
+              className="underline"
             >
               {isResending ? t('auth.resending') : t('auth.resend.verification')}
             </button>
@@ -103,8 +105,8 @@ export const Login = () => {
             </button>
           </div>
           <SubmitButton text={t('auth.login')}></SubmitButton>
-          <Link to="/forgot-password">{t("auth.forgot.password")}</Link>
-          <p>{t("auth.not.registered")} <Link to="/register" className="text-red-600">{t("auth.register")}</Link></p>
+          <Link to="/forgot-password" className=" underline link-hover">{t("auth.forgot.password")}</Link>
+          <p>{t("auth.not.registered")} <Link to="/register" className="underline link-hover">{t("auth.register")}</Link></p>
         </form>
       </div>
     </div>

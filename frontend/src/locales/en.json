@@ -285,6 +285,10 @@
         "upload": "Upload photo",
         "discard": "Discard photo"
     },
+    "search": {
+        "title": "Search...",
+        "user": "Start a new chat..."
+    },
     "toast": {
         "ban": "Are you sure you want to ban this user?",
         "report": {

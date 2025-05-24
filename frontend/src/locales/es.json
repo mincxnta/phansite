@@ -292,6 +292,10 @@
         "upload": "Subir foto",
         "discard": "Descartar foto"
     },
+    "search": {
+        "title": "Buscar...",
+        "user": "Inicia un nuevo chat..."
+    },
     "toast": {
         "ban": "¿Estás seguro de que quieres banear a este usuario?",
         "report": {

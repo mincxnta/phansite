@@ -7,7 +7,6 @@ export const Table = ({ headers, rows }) => {
 
 
     return (
-        //TODO Si añadimos el scroll, se recortan los headers
         <div className="w-[90%] sm:w-full sm:max-w-[90%] min-h-[33vh] overflow-x-auto sm:overflow-x-hidden">
             <table className="w-full table-auto border-collapse ">
                 <thead>
@@ -16,7 +15,7 @@ export const Table = ({ headers, rows }) => {
                             <th>
                                 <div
                                     key={index}
-                                    className={`bg-white text-black py-2 text-lg md:text-xl font-header ${getSkewClass(index)}
+                                    className={`flex justify-center bg-white text-black py-2 text-lg md:text-xl font-header ${getSkewClass(index)}
                                 ${index > 0 ? 'ml-[.5rem]' : ''} ${index < headers.length - 1 ? 'mr-[.5rem]' : ''}`}
                                 >
                                     {header}

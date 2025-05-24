@@ -139,7 +139,7 @@ export const MusicPlayer = () => {
       </div>
 
       {isPlayerOpen && (
-        <div className="-skew-x-3 fixed bottom-8 right-10 bg-white p-4 border-8 border-black text-black flex flex-col sm:flex-row items-center gap-2 sm:min-w-[35em]"
+        <div className="-skew-x-3 fixed bottom-8 right-5 md:right-10 z-100 bg-white p-4 border-8 border-black text-black flex flex-col sm:flex-row items-center gap-2 sm:min-w-[35em]"
         >
           <img className="skew-x-2 h-[10em] w-[10em] object-cover"
             src={currentTrack.albumCover}

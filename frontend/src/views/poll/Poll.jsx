@@ -42,6 +42,7 @@ export const Poll = () => {
     newSocket.on('pollVoted', (data) => {
       if (data.pollId == poll.id) {
         getPollResults(data.pollId);
+        getUserVote()
       }
     });
 
@@ -49,6 +50,26 @@ export const Poll = () => {
       newSocket.disconnect();
     };
   }, [poll.id]);
+
+    const getUserVote = async () => {
+    if (poll && user && user.role === 'fan') {
+      try {
+        const response = await fetch(`${API_URL}/polls/${poll.id}/user-vote`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setUserVote(data.vote);
+        }
+        return { pollId: poll.id, vote: null };
+      } catch (error) {
+        toast.error(t(errorHandler(error)));
+        return { pollId: poll.id, vote: null };
+      }
+
+    }
+  }
 
   useEffect(() => {
     const getActivePoll = async () => {
@@ -63,6 +84,7 @@ export const Poll = () => {
         if (response.ok) {
           setPoll(data)
           await getPollResults(data.id)
+          await getUserVote()
         } else {
           toast.error(t(errorHandler(data)))
         }
@@ -75,8 +97,13 @@ export const Poll = () => {
       }
     }
     getActivePoll()
-    getUserVote()
   }, [navigate])
+
+  useEffect(() => {
+  if (poll && user && user.role === 'fan') {
+    getUserVote();
+  }
+}, [poll, user]);
 
   const getPollResults = async (pollId) => {
     try {
@@ -116,6 +143,7 @@ export const Poll = () => {
       const data = await response.json();
       if (response.ok) {
         toast.success(t("success.vote.poll"))
+        setUserVote(vote);
       } else {
         toast.error(t(errorHandler(data)))
       }
@@ -143,26 +171,6 @@ export const Poll = () => {
 
   if (isLoading) {
     return <Loading />;
-  }
-
-  const getUserVote = async () => {
-    if (poll && user && user.role === 'fan') {
-      try {
-        const response = await fetch(`${API_URL}/polls/${poll.id}/user-vote`, {
-          method: 'GET',
-          credentials: 'include',
-        });
-        const data = await response.json();
-        if (response.ok) {
-          setUserVote(data.vote);
-        }
-        return { pollId: poll.id, vote: null };
-      } catch (error) {
-        toast.error(t(errorHandler(error)));
-        return { pollId: poll.id, vote: null };
-      }
-
-    }
   }
 
   const displayedQuestion = i18n.language === 'es' ? poll.questionEs : poll.questionEn;
@@ -215,14 +223,14 @@ export const Poll = () => {
           <button
             onClick={() => handleVote(true)}
             disabled={user && user?.role !== 'fan'}
-            className={`form-input-container form-input-3 px-4 py-2 text-4xl cursor-pointer ${userVote && userVote == true ? "voted" : ""} ${user && user?.role == 'fan' ? "" : "disabled"} ${user && user?.role == 'fan' && !userVote ? "button-hover" : "bg-gray"}`}
+            className={`form-input-container form-input-3 px-4 py-2 text-4xl cursor-pointer ${userVote == true ? "voted" : ""} ${user && user?.role == 'fan' ? "" : "disabled"} ${user && user?.role == 'fan' && !userVote ? "button-hover" : "bg-gray"}`}
           >
             {t('yes')}
           </button>
           <button
             onClick={() => handleVote(false)}
             disabled={user && user?.role !== 'fan'}
-            className={`form-input-container form-input-4 px-4 py-2 text-4xl cursor-pointer ${userVote && userVote == false ? "voted" : ""} ${user && user?.role == 'fan' ? "" : "disabled"} ${user && user?.role == 'fan' && !userVote ? "button-hover" : "bg-gray"}`}
+            className={`form-input-container form-input-4 px-4 py-2 text-4xl cursor-pointer ${userVote == false ? "voted" : ""} ${user && user?.role == 'fan' ? "" : "disabled"} ${user && user?.role == 'fan' && !userVote ? "button-hover" : "bg-gray"}`}
           >
             {t('no')}
           </button>

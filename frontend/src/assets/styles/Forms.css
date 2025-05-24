@@ -81,6 +81,7 @@
 
 .form-input-container.disabled {
   background-color: gray;
+  cursor: not-allowed;
 }
 
 @media (max-width: 1024px) {

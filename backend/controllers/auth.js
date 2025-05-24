@@ -22,7 +22,7 @@ export class AuthController {
   static async login (req, res) {
     try {
       const { email, password } = req.body
-      const user = await User.findOne({ where: { email } })
+      const user = await User.findOne({ where: { email: { [Op.like]: email } } })
 
       if (!user) {
         return res.status(404).json({ code: 'user_not_found' })
@@ -48,6 +48,7 @@ export class AuthController {
 
       res.status(200).json(userData)
     } catch (error) {
+      console.error('Error in login:', error.message)
       res.status(500).json({ code: 'internal_server_error' })
     }
   }

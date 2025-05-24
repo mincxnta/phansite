@@ -16,6 +16,8 @@ export const ChatList = () => {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const displayUsername = useDisplayUsername();
 
   useEffect(() => {
@@ -104,6 +106,39 @@ export const ChatList = () => {
     };
   }, [socket, user]);
 
+  const fetchSearchResults = async (query) => {
+    if (!query) {
+      setSearchResults([]);
+      return;
+    }
+    try {
+      const response = await fetch(`${API_URL}/users/fans`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      const data = await response.json();
+      console.log(data)
+      
+      if (response.ok) {
+        const nonContacts = data.users.filter(
+          (userData) => !contacts.some((contact) => contact.id === userData.id)
+        );
+        const filteredResults = nonContacts.filter((userData) =>
+          userData.username.toLowerCase().includes(query.toLowerCase())
+        );
+        setSearchResults(filteredResults);
+      } 
+    } catch (error) {
+      toast.error(t(errorHandler(error)));
+    }
+  };
+
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    fetchSearchResults(query);
+  }
+
   const handleContactClick = (username) => {
     navigate(`/chat/${username}`);
   };
@@ -115,6 +150,38 @@ export const ChatList = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="container mx-auto p-4 pt-20">
+        <div className="absolute top-25 right-4 w-[95%] sm:w-64">
+          <div className="relative">
+            <div className="flex items-center bg-white text-black p-2 -skew-x-6 gap-2">
+              <img src="/assets/images/icons/search.png" className="w-6 h-6" alt="Search Icon" />
+              <input
+                type="text"
+                placeholder={t('search.user')}
+                value={searchQuery}
+                onChange={handleSearch}
+                className="w-full bg-transparent focus:outline-none"
+              />
+            </div>
+            {searchQuery && searchResults.length > 0 && (
+              <ul className="absolute top-full left-0 w-full bg-white mt-1 border-2 border-black">
+                {searchResults.map((user) => (
+                  <li
+                    key={user.id}
+                    onClick={() => handleContactClick(user.username)}
+                    className="text-black p-2 hover:bg-red-500 hover:text-white flex items-center"
+                  >
+                    <img
+                      src={user.profilePicture || '/assets/images/unknownTarget.png'}
+                      alt={displayUsername(user)}
+                      className="w-8 h-8 rounded-full mr-2"
+                    />
+                    <span>{displayUsername(user)}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
         {contacts.length === 0 ? (
           <p className="text-white">{t('chat.empty.chat')}</p>
         ) : (

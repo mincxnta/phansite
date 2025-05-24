@@ -11,7 +11,7 @@ export const SettingsMenu = () => {
   const { isMuted, toggleMute } = useMusicPlayer();
 
   return (
-    <div className={`bg-black fixed top-17 ${user ? "right-20" : "right-75"} py-5 min-w-[13em] -skew-x-6 flex flex-col gap-5 text-xl`}
+    <div className={`bg-black absolute top-11 lg:top-12 right-0 sm:right-5 py-5 min-w-[13em] -skew-x-6 flex flex-col gap-5 text-xl`}
       style={{
         boxShadow: "6px 4px 0 white",
       }}
