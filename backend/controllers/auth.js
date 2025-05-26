@@ -22,7 +22,7 @@ export class AuthController {
   static async login (req, res) {
     try {
       const { email, password } = req.body
-      const user = await User.findOne({ where: { email: { [Op.like]: email } } })
+      const user = await User.findOne({ where: { email: email.toLowerCase() } })
 
       if (!user) {
         return res.status(404).json({ code: 'user_not_found' })
@@ -92,7 +92,7 @@ export class AuthController {
       return res.status(400).json({ code: newUser.error.issues[0].message })
     }
 
-    const { password, confirmPassword } = req.body
+    const { password, confirmPassword, email } = req.body
     if (!confirmPassword) {
       return res.status(400).json({ code: 'empty_confirm_password' })
     }
@@ -101,7 +101,7 @@ export class AuthController {
     }
 
     try {
-      const existingEmail = await User.findOne({ where: { email: newUser.data.email } })
+      const existingEmail = await User.findOne({ where: { email } })
       if (existingEmail && existingEmail.banned) {
         return res.status(403).json({ code: 'email_banned' })
       }
@@ -119,6 +119,7 @@ export class AuthController {
 
       const user = await User.create({
         ...newUser.data,
+        email: email.toLowerCase(),
         password: hashedPassword,
         verificationToken,
         verificationTokenExpiresAt: Date.now() + 60 * 60 * 1000
@@ -199,7 +200,7 @@ export class AuthController {
         return res.status(400).json({ code: 'empty_email' })
       }
 
-      const user = await User.findOne({ where: { email } })
+      const user = await User.findOne({ where: { email: email.toLowerCase() } })
       if (!user) {
         return res.status(404).json({ code: 'user_not_found' })
       }
@@ -239,7 +240,7 @@ export class AuthController {
         return res.status(400).json({ code: 'empty_email' })
       }
 
-      const user = await User.findOne({ where: { email } })
+      const user = await User.findOne({ where: { email: email.toLowerCase() } })
       if (!user) {
         return res.status(404).json({ code: 'user_not_found' })
       }

@@ -51,7 +51,7 @@ export const Poll = () => {
     };
   }, [poll.id]);
 
-    const getUserVote = async () => {
+  const getUserVote = async () => {
     if (poll && user && user.role === 'fan') {
       try {
         const response = await fetch(`${API_URL}/polls/${poll.id}/user-vote`, {
@@ -100,10 +100,10 @@ export const Poll = () => {
   }, [navigate])
 
   useEffect(() => {
-  if (poll && user && user.role === 'fan') {
-    getUserVote();
-  }
-}, [poll, user]);
+    if (poll && user && user.role === 'fan') {
+      getUserVote();
+    }
+  }, [poll, user]);
 
   const getPollResults = async (pollId) => {
     try {
@@ -223,14 +223,14 @@ export const Poll = () => {
           <button
             onClick={() => handleVote(true)}
             disabled={user && user?.role !== 'fan'}
-            className={`form-input-container form-input-3 px-4 py-2 text-4xl cursor-pointer ${userVote == true ? "voted" : ""} ${user && user?.role == 'fan' ? "" : "disabled"} ${user && user?.role == 'fan' && !userVote ? "button-hover" : "bg-gray"}`}
+            className={`form-input-container form-input-3 px-4 py-2 text-4xl ${userVote === true ? "voted" : ""} ${(!user || user.role !== 'fan' ? "disabled" : "")} ${(userVote !== null) ? "" : "button-hover"}`}
           >
             {t('yes')}
           </button>
           <button
             onClick={() => handleVote(false)}
             disabled={user && user?.role !== 'fan'}
-            className={`form-input-container form-input-4 px-4 py-2 text-4xl cursor-pointer ${userVote == false ? "voted" : ""} ${user && user?.role == 'fan' ? "" : "disabled"} ${user && user?.role == 'fan' && !userVote ? "button-hover" : "bg-gray"}`}
+            className={`form-input-container form-input-3 px-4 py-2 text-4xl ${userVote === false ? "voted" : ""} ${(!user || user.role !== 'fan' ? "disabled" : "")} ${(userVote !== null) ? "" : "button-hover"}`}
           >
             {t('no')}
           </button>

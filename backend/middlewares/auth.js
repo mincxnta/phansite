@@ -29,7 +29,7 @@ export const authenticateToken = async (req, res, next) => {
     req.user = data
     next()
   } catch (error) {
-    res.status(403).json({ error: 'No autorizado' })
+    res.status(403).json({ error: 'Unauthorized' })
   }
 }
 
