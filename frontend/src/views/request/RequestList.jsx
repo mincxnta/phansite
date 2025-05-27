@@ -161,7 +161,7 @@ export const RequestList = ({ profile }) => {
 
   const handleStatusChange = async (id, status) => {
     showRequestPopup(id, status, async (updatedRequest) => {
-      await fetchRequests(); // 👈 Volver a cargar los datos actualizados desde el servidor
+      await fetchRequests();
     });
   };
 
@@ -170,7 +170,7 @@ export const RequestList = ({ profile }) => {
   const headers = [
     ...(location.pathname === '/profile' ? [t('requests.status.title')] : []),
     t('title'),
-    t('requests.target'),
+    t('requests.target.person'),
     t('requests.votes'),
     ...(user && user.role === 'phantom_thief' && location.pathname === '/thieves' ? [t('comments.title')] : []),
     ...(user && user.role === 'phantom_thief' && location.pathname === '/thieves' && hasPendingRequests

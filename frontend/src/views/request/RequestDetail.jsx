@@ -72,26 +72,38 @@ export const RequestDetail = () => {
           animate={{ rotateY: flip ? 0 : 180 }}
         >
           <motion.div
-            transition={{ duration: 0.7 }}
-            animate={{ rotateY: flip ? 0 : 180 }}
-            onClick={() => setFlip((prevState) => !prevState)}
-            className="front flex flex-col items-start justify-start relative h-full"
-          >
-            {user && user.role === 'fan' && (
-              <div className="absolute top-2 right-3 z-30">
-                <button className="relative bg-white border-2 border-black transform -skew-x-6 -rotate-6 px-2 py-1" onClick={(e) => {
-                  e.stopPropagation()
-                  handleReport("request", request.id)
-                }}>
-                  <img src={'/assets/images/icons/report.png'} alt="Report comment" className="max-h-4" />
-                </button>
-              </div>
-            )}
-            <h1 className="text-6xl text-left text-border mb-4 break-words max-w-full text-[4rem] sm:text-[5rem]">{request.target}</h1>
-            <div className="flex-grow flex items-center justify-center h-full absolute inset-0">
-              <p className="text-5xl filled-text text-stroke-2 text-stroke-black px-2 text-center break-words max-w-full">{request.description}</p>
-            </div>
-          </motion.div>
+  transition={{ duration: 0.7 }}
+  animate={{ rotateY: flip ? 0 : 180 }}
+  onClick={() => setFlip((prevState) => !prevState)}
+  className="front flex flex-col items-start justify-start relative h-full"
+>
+  {user && user.role === 'fan' && (
+    <div className="absolute top-2 right-3 z-30">
+      <button
+        className="relative bg-white border-2 border-black transform -skew-x-6 -rotate-6 px-2 py-1"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleReport("request", request.id);
+        }}
+      >
+        <img
+          src={'/assets/images/icons/report.png'}
+          alt="Report comment"
+          className="max-h-4"
+        />
+      </button>
+    </div>
+  )}
+  <div className="absolute inset-x-0 bottom-0 top-16 flex flex-col items-center md:gap-2 overflow-y-auto">
+  <h1 className="text-left text-border mb-4 break-words max-w-full text-[2rem] md:text-[3rem] xl:text-[5rem]">
+    {request.target}
+  </h1>
+  
+    <p className="text-3xl xl:text-4xl 2xl:text-[2.5rem] filled-text text-stroke-2 text-stroke-black px-2 text-center break-words max-w-full">
+      {request.description}
+    </p>
+  </div>
+</motion.div>
           <motion.div
             initial={{ rotateY: 180 }}
             animate={{ rotateY: flip ? 180 : 0 }}
