@@ -111,3 +111,14 @@ textarea:focus {
 .box-shadow {
   box-shadow: 8px 8px black;
 }
+
+@media (max-height: 800px) {
+  .main {
+    padding-top: 10rem;
+  }
+
+  .arrow {
+    margin-top: 0;
+    margin-bottom: 5rem;
+  }
+}

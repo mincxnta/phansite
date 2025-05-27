@@ -178,7 +178,7 @@ export const Poll = () => {
   return (
     <div className="w-full min-h-screen flex flex-col">
       <div className="w-full flex h-screen flex-col items-center justify-center">
-        <h1 className="text-3xl mb-4 pt-20 text-[4rem] sm:text-[5rem]">
+        <h1 className="text-3xl mb-4 pt-20 text-[4rem] sm:text-[5rem] main">
           {t('home.poll')}
         </h1>
         <div className='flex flex-col items-center sm:flex-row'>
@@ -238,7 +238,7 @@ export const Poll = () => {
           </button>
         </div>
         <img
-          className="mt-24 w-14 button-hover"
+          className="mt-24 w-14 button-hover arrow"
           src="/assets/images/icons/down.png"
           onClick={() => showComments()}
         />
