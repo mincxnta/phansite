@@ -20,7 +20,7 @@
 
 > “Justice is a matter of perspective.”
 
-**Phansite** aims to bring the spirit of camaraderie, justice, and stylish rebellion from **Persona 5** into a dynamic social platform. Users can create profiles, join discussions, make reqyests, participate in polls, and interact with each other in real-time.
+**Phansite** aims to bring the spirit of camaraderie, justice, and stylish rebellion from **Persona 5** into a dynamic social platform. Users can create profiles, join discussions, make requests, participate in polls, and interact with each other in real-time.
 
 The aesthetic and thematic elements are heavily drawn from Persona 5, aiming to create an immersive experience for fans and newcomers alike.
 
