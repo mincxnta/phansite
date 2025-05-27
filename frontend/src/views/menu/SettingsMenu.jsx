@@ -16,13 +16,7 @@ export const SettingsMenu = () => {
         boxShadow: "6px 4px 0 white",
       }}
     >
-      <div className="table-text">
-        <div className="flex items-center justify-start gap-2 px-8"
-        >
-          <img className="w-5 h-auto" src="/assets/images/icons/language.png" />
-          <LanguageSwitcher />
-        </div>
-      </div>
+      <LanguageSwitcher />
 
       <div className="table-text w-full" onClick={toggleMute}>
         <button className="flex items-center justify-start gap-2 px-8"

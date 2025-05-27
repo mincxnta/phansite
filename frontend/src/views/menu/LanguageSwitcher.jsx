@@ -18,8 +18,11 @@ const LanguageSwitcher = () => {
   };
 
   return (
-    <div onClick={() => toggleLanguage('prev')}>
-      <span >{t(`language.${languages[currentIndex]}`)}</span>
+    <div className="table-text w-full" onClick={() => toggleLanguage('prev')}>
+      <button className="flex items-center justify-start gap-2 px-8" >
+        <img className="w-5 h-auto" src="/assets/images/icons/language.png" />
+        <span >{t(`language.${languages[currentIndex]}`)}</span>
+      </button>
     </div>
   );
 };
