@@ -9,7 +9,7 @@ usersRouter.get('/', authenticateToken, UserController.getAll)
 
 usersRouter.get('/fans', authenticateToken, UserController.getFans)
 
-usersRouter.get('/list', authenticateToken, UserController.getAllUsers)
+usersRouter.get('/list', authenticateToken, UserController.getActiveUsers)
 
 usersRouter.get('/:username', UserController.getByUsername)
 
