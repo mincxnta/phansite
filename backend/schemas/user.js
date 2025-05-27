@@ -3,7 +3,7 @@ import { ROLES } from '../constants/constants.js'
 
 const userSchema = z.object({
   email: z.string().trim().min(1, { message: 'empty_email' }).email({ message: 'invalid_email' }).max(255, { message: 'email_too_long' }),
-  username: z.string().trim().min(1, { message: 'empty_username' }).max(50, { message: 'username_too_long' }),
+  username: z.string().trim().min(1, { message: 'empty_username' }).max(30, { message: 'username_too_long' }),
   password: z
     .string()
     .min(8, { message: 'password_too_short' })
@@ -15,15 +15,15 @@ const userSchema = z.object({
   aboutMe: z.string().trim().max(255, { message: 'about_me_too_long' }).optional().nullable()
 })
 
-export function validateUser(user) {
+export function validateUser (user) {
   return userSchema.safeParse(user)
 }
 
-export function validateUpdatedUser(user) {
+export function validateUpdatedUser (user) {
   return userSchema.partial().safeParse(user)
 }
 
 const passwordSchema = userSchema.shape.password
-export function validatePassword(password) {
+export function validatePassword (password) {
   return passwordSchema.safeParse(password)
 }

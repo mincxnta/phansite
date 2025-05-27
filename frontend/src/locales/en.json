@@ -203,7 +203,7 @@
             "link": "Expired link"
         },
         "too.long": {
-            "username": "Username cannot exceed 50 characters",
+            "username": "Username cannot exceed 30 characters",
             "password": "Password cannot exceed 255 characters",
             "email": "Email cannot exceed 255 characters",
             "title": "Title cannot exceed 100 characters",

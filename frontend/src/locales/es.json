@@ -203,7 +203,7 @@
             "link": "El enlace ha expirado"
         },
         "too.long": {
-            "username": "El nombre de usuario excede el límite de 50 caracteres",
+            "username": "El nombre de usuario excede el límite de 30 caracteres",
             "password": "La contraseña excede el límite de 255 caracteres",
             "email": "El correo electrónico excede el límite de 255 caracteres",
             "title": "El título excede el límite de 100 caracteres",

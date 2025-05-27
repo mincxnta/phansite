@@ -215,7 +215,7 @@ export const CommentSection = ({ pollId, ref }) => {
                                         )}
                                     </div>
                                 </div>
-                                <div className="absolute left-20 sm:left-24 top-[-1.5rem] sm:top-[-2rem] z-20 max-w-[150px] ">
+                                <div className="absolute left-20 sm:left-24 top-[-1.5rem] sm:top-[-2rem] z-20 max-w-[350px] ">
                                     <span className={`font-earwig text-3xl sm:text-4xl  text-white text-border ${comment.anonymous || comment.user?.banned ? "" : "transition-[color] hover:text-[#FF0000]"}`}>
                                         {comment.anonymous ? (
                                             t("anonymous")
