@@ -28,11 +28,6 @@ body {
   color: white;
 }
 
-/* h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-} */
-
 @font-face {
   font-family: 'Optima Nova LT Black';
   src: local("OptimaNovaLTBlack"),
@@ -64,7 +59,6 @@ p {
 h1 {
   font-family: 'Earwig Factory';
   color: white;
-  /*font-size: 5rem;*/
 }
 
 .font-earwig {

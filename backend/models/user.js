@@ -9,7 +9,7 @@ export const User = sequelize.define('user', {
     defaultValue: DataTypes.UUIDV4
   },
   username: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(30),
     allowNull: false,
     unique: true
   },

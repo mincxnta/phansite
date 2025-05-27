@@ -9,10 +9,10 @@ const requestSchema = z.object({
   thiefComment: z.string().trim().max(500, { message: 'comment_too_long' }).optional().nullable()
 })
 
-export function validateRequest(request) {
+export function validateRequest (request) {
   return requestSchema.safeParse(request)
 }
 
-export function validateUpdatedRequest(request) {
+export function validateUpdatedRequest (request) {
   return requestSchema.partial().safeParse(request)
 }

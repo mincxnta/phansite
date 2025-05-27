@@ -87,23 +87,6 @@
   color: white;
 }
 
-/* .back img {
-  max-width: 80%;
-  max-height: 80%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-} */
-
-/* .front h1 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  margin-bottom: 10px;
-} */
-
-/* .front p {
-  font-size: clamp(0.875rem, 2vw, 1rem);
-} */
-
 @media (max-width: 768px) {
   .popup-content {
     width: 70vw;
