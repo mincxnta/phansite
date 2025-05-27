@@ -9,6 +9,8 @@ usersRouter.get('/', authenticateToken, UserController.getAll)
 
 usersRouter.get('/fans', authenticateToken, UserController.getFans)
 
+usersRouter.get('/list', authenticateToken, UserController.getAllUsers)
+
 usersRouter.get('/:username', UserController.getByUsername)
 
 usersRouter.patch('/update', authenticateToken, upload.single('profilePicture'), UserController.update)

@@ -16,7 +16,7 @@ export class UserController {
    * @throws {403} Si el usuario no es admin.
    * @throws {500} Error interno del servidor.
    */
-  static async getAll (req, res) {
+  static async getAll(req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
     const offset = (page - 1) * limit
@@ -43,6 +43,30 @@ export class UserController {
     }
   }
 
+  static async getAllUsers(req, res) {
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 5
+    const offset = (page - 1) * limit
+
+    if (!req.user || req.user.role === 'fan') {
+      return res.status(403).json({ code: 'forbidden' })
+    }
+
+    try {
+      const users = await User.findAll({
+        where: {
+          banned: false
+        },
+        attributes: { exclude: ['password'] }
+
+      })
+
+      res.status(200).json(users)
+    } catch (error) {
+      res.status(500).json({ code: 'internal_server_error' })
+    }
+  }
+
   /**
  * Obtiene una lista paginada de usuarios con rol 'fan'.
  *
@@ -52,7 +76,7 @@ export class UserController {
  * @throws {401} Si el usuario no está autenticado.
  * @throws {500} Error interno del servidor.
  */
-  static async getFans (req, res) {
+  static async getFans(req, res) {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 5
     const offset = (page - 1) * limit
@@ -88,7 +112,7 @@ export class UserController {
    * @throws {404} Si no se encuentra el usuario.
    * @throws {500} Error interno del servidor.
    */
-  static async getByUsername (req, res) {
+  static async getByUsername(req, res) {
     try {
       const { username } = req.params
       const user = await User.findOne({ where: { username }, attributes: { exclude: ['password'] } })
@@ -110,7 +134,7 @@ export class UserController {
    * @throws {400} Si los datos actualizados no son válidos.
    * @throws {500} Error interno del servidor.
    */
-  static async update (req, res) {
+  static async update(req, res) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ code: 'unauthorized' })
     }
@@ -160,7 +184,7 @@ export class UserController {
    * @throws {404} Si no se encuentra el usuario.
    * @throws {500} Error interno del servidor.
    */
-  static async ban (req, res) {
+  static async ban(req, res) {
     if (!req.user || req.user.role !== 'admin') {
       return res.status(403).json({ code: 'forbidden' })
     }

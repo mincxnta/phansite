@@ -53,7 +53,7 @@ export const ForgotPassword = () => {
               className="p-3 text-lg w-full"
             />
           </div>
-          <SubmitButton text={isLoading ? t('auth.sending') : t('auth.send.reset.link')}></SubmitButton>
+          <SubmitButton disabled={isLoading} text={isLoading ? t('auth.sending') : t('auth.send.reset.link')}></SubmitButton>
         </form>
         <div>
           <p>{t("auth.already.registered")} <Link to="/login" className="link-hover underline">{t('auth.login')}</Link></p>

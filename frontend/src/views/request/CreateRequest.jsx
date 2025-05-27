@@ -16,6 +16,7 @@ export const CreateRequest = () => {
     const navigate = useNavigate()
     const { user } = useAuth()
     const { t } = useTranslation();
+    const [sending, setSending] = useState(false)
 
     useEffect(() => {
         if (!user) {
@@ -43,6 +44,7 @@ export const CreateRequest = () => {
 
     const handleNewRequest = async (event) => {
         event.preventDefault()
+        setSending(true);
 
         const formData = new FormData();
         formData.append('title', title);
@@ -81,6 +83,8 @@ export const CreateRequest = () => {
             navigate('/requests')
         } catch (error) {
             toast.error(t(errorHandler(error)))
+        } finally {
+            setSending(false);
         }
     }
 
@@ -132,7 +136,7 @@ export const CreateRequest = () => {
                                     </button>
                                 </div>
                             )}
-                        <SubmitButton text={t('send')}></SubmitButton>
+                        <SubmitButton disabled={sending} text={t('send')}></SubmitButton>
                     </form>
                 </div>
             </div>

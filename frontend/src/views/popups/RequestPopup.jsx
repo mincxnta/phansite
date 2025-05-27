@@ -74,9 +74,9 @@ export const RequestPopup = () => {
     return createPortal(
         <div className="popup-overlay">
             <div className="report-popup-content bg-persona-dark-red -skew-x-4">
-                <button className="report-popup-close" onClick={closePopup}>X</button>
+                <button className="report-popup-close" onClick={closePopup}><img src="/assets/images/icons/close.png" alt="" className='w-1/2' /></button>
                 <form onSubmit={handleUpdateRequest}>
-                    <h4 className="text-4xl mb-[.5em]">{t("requests.popup")}</h4>
+                    <h4 className="text-4xl mb-[.5em] mt-[3rem]">{t("requests.popup")}</h4>
                     <textarea className="form-input-container form-input-1" name="" id="message" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
                     <SubmitButton text={t(status === "rejected" ? "requests.reject" : "requests.complete")}></SubmitButton>
                 </form>

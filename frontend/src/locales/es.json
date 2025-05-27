@@ -220,7 +220,8 @@
             "token": "Falta de token"
         },
         "inactive.poll": "La encuesta está inactiva",
-        "internal.server": "Error inesperado"
+        "internal.server": "Error inesperado",
+        "undefined": "Error inesperado"
     },
     "success": {
         "create": {

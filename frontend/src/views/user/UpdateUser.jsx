@@ -22,6 +22,7 @@ export const UpdateUser = () => {
     const [aboutMe, setAboutMe] = useState('')
     const navigate = useNavigate()
     const { t } = useTranslation();
+    const [sending, setSending] = useState(false);
 
     useEffect(() => {
         if (user) {
@@ -57,6 +58,7 @@ export const UpdateUser = () => {
 
     const handleUpdateUser = async (event) => {
         event.preventDefault()
+        setSending(true);
         const formData = new FormData();
         formData.append('username', username);
         formData.append('email', email);
@@ -93,6 +95,8 @@ export const UpdateUser = () => {
             }
         } catch (error) {
             toast.error(t(errorHandler(error)))
+        } finally {
+            setSending(false);
         }
     }
 
@@ -173,7 +177,7 @@ export const UpdateUser = () => {
                     <div className="form-input-container form-input-3 mb-6">
                         <input className="p-3 text-lg w-full" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="phantom@aficionado.xyz" />
                     </div>
-                    <SubmitButton text={loading ? t("profile.saving") : t("profile.save")}></SubmitButton>
+                    <SubmitButton disabled={sending} text={loading ? t("profile.saving") : t("profile.save")}></SubmitButton>
                 </div>
             </form>
         </div>

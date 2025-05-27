@@ -112,22 +112,23 @@ export const ChatList = () => {
       return;
     }
     try {
-      const response = await fetch(`${API_URL}/users/fans`, {
+      const url = user.role === 'fan' ? `${API_URL}/users/fans` : `${API_URL}/users/list`;
+      const response = await fetch(url, {
         method: 'GET',
         credentials: 'include',
       });
       const data = await response.json();
       console.log(data)
-      
+      const users = user.role === 'fan' ? data.users : data;
       if (response.ok) {
-        const nonContacts = data.users.filter(
+        const nonContacts = users.filter(
           (userData) => !contacts.some((contact) => contact.id === userData.id)
         );
         const filteredResults = nonContacts.filter((userData) =>
           userData.username.toLowerCase().includes(query.toLowerCase())
         );
         setSearchResults(filteredResults);
-      } 
+      }
     } catch (error) {
       toast.error(t(errorHandler(error)));
     }
@@ -218,12 +219,12 @@ export const ChatList = () => {
                       </div>
                       <div className="absolute left-32 top-[-1.5em] z-20">
                         <div className="flex items-center">
-                        <span className="font-earwig text-2xl sm:text-4xl w-fit text-white text-border">
-                          {displayUsername(contact)}
-                        </span>
-                        {contact.role === "phantom_thief" &&
-                          <img src="/assets/images/icons/mask.png" alt="" className='ml-2 h-12' />}
-                          </div>
+                          <span className="font-earwig text-2xl sm:text-4xl w-fit text-white text-border">
+                            {displayUsername(contact)}
+                          </span>
+                          {contact.role === "phantom_thief" &&
+                            <img src="/assets/images/icons/mask.png" alt="" className='ml-2 h-12' />}
+                        </div>
                       </div>
                       <div className="ml-[7rem] mt-[3rem] relative">
                         <div

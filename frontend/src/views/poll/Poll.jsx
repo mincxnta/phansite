@@ -181,17 +181,19 @@ export const Poll = () => {
         <h1 className="text-3xl mb-4 pt-20 text-[4rem] sm:text-[5rem]">
           {t('home.poll')}
         </h1>
-        <div className='flex items-center'>
-          <Link to="/polls">
-            <img
-              src="/assets/images/icons/previous.png"
-              title={t('polls.previous')}
-              alt={t('polls.previous')}
-              className="h-10 transition-transform hover:scale-110"
-            />
-          </Link>
-          <h2 className='text-7xl ml-3 mr-2 text-persona-dark-red text-stroke'>Q</h2>
-          <h2 className="text-3xl">
+        <div className='flex flex-col items-center sm:flex-row'>
+          <div className='flex items-center grow-1'>
+            <Link to="/polls">
+              <img
+                src="/assets/images/icons/previous.png"
+                title={t('polls.previous')}
+                alt={t('polls.previous')}
+                className="h-10 transition-transform hover:scale-110"
+              />
+            </Link>
+            <h2 className='text-7xl ml-3 mr-2 text-persona-dark-red text-stroke'>Q</h2>
+          </div>
+          <h2 className="text-3xl grow-1">
             {displayedQuestion}
           </h2>
         </div>

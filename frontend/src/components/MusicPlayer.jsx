@@ -147,7 +147,7 @@ export const MusicPlayer = () => {
           />
 
           <div className="flex flex-col items-center sm:w-full">
-            <div className="italic text-center font-bold text-lg" >
+            <div className="italic text-center font-bold text-lg mb-[1.5rem] sm:mb-0" >
               {currentTrack.title}
             </div>
 
@@ -170,7 +170,7 @@ export const MusicPlayer = () => {
             </div>
 
             {isVolumeOverlayOpen && (
-              <div className="absolute bottom-8 flex w-[12em]" id="range"
+              <div className="absolute bottom-13 flex w-[12em] sm:bottom-8" id="range"
                 ref={volumeOverlayRef}
               >
                 <input

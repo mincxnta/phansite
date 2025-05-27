@@ -53,6 +53,7 @@ export const ReportPopup = () => {
       closePopup();
 
     } catch (error) {
+      console.log("Error creating report:", error);
       toast.error(t(errorHandler(error)))
     }
   }
@@ -66,9 +67,9 @@ export const ReportPopup = () => {
   return createPortal(
     <div className="report-popup-overlay">
       <div className="report-popup-content bg-persona-dark-red -skew-x-4">
-        <button className="report-popup-close" onClick={closePopup}>X</button>
+        <button className="report-popup-close" onClick={closePopup}><img src="/assets/images/icons/close.png" alt="" className='w-1/2' /></button>
         <form onSubmit={handleNewReport}>
-          <h4 className="text-4xl mb-[.5em]">{t(reportedType === "comment" ? "reports.comment" : "reports.request")}</h4>
+          <h4 className="text-4xl mb-[.5em] mt-[3rem]">{t(reportedType === "comment" ? "reports.comment" : "reports.request")}</h4>
           <textarea className="form-input-container form-input-1" name="" id="reason" value={reason} onChange={(e) => setReason(e.target.value)}></textarea>
           <SubmitButton className="w-[90%]" text={t("reports.send")}></SubmitButton>
         </form>

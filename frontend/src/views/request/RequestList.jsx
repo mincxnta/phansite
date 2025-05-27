@@ -160,18 +160,10 @@ export const RequestList = ({ profile }) => {
   };
 
   const handleStatusChange = async (id, status) => {
-    showRequestPopup(id, status, (updatedRequest) => {
-      setRequests((prevRequests) =>
-        prevRequests
-          .map((request) =>
-            request.id === id ? { ...request, ...updatedRequest } : request
-          )
-          .filter((request) =>
-            filterStatus === '' || request.status === filterStatus
-          )
-      );
+    showRequestPopup(id, status, async (updatedRequest) => {
+      await fetchRequests(); // 👈 Volver a cargar los datos actualizados desde el servidor
     });
-  }
+  };
 
   const hasPendingRequests = requests.some((request) => request.status === 'pending')
 
@@ -270,7 +262,7 @@ export const RequestList = ({ profile }) => {
         <h1 className="text-[4rem] sm:text-[5rem] text-white item- mb-6 ">
           {profile ? t("profile.requests") : t("requests.title")}
         </h1>
-        {user && user.role === 'fan' && location.pathname === '/requests' && <SubmitButton to="/newrequest" text={t("requests.create")} />}
+        <div>{user && user.role === 'fan' && location.pathname === '/requests' && <SubmitButton className='py-3 px-6' to="/newrequest" text={t("requests.create")} />}</div>
       </div>
       {user && user.role === 'phantom_thief' && (location.pathname === '/thieves' || location.pathname === '/requests') && (
         <div className="flex justify-start w-[90%]">

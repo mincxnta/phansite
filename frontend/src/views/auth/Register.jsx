@@ -14,9 +14,11 @@ export const Register = () => {
     const [email, setEmail] = useState('')
     const navigate = useNavigate()
     const { t } = useTranslation()
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleRegister = async (event) => {
         event.preventDefault()
+        setIsLoading(true)
         try {
             const response = await fetch(`${API_URL}/auth/register`, {
                 method: 'POST',
@@ -36,6 +38,8 @@ export const Register = () => {
             }
         } catch (error) {
             toast.error(t(errorHandler(error)))
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -100,7 +104,7 @@ export const Register = () => {
                                 className="h-8 w-auto cursor-pointer" />
                         </button>
                     </div>
-                    <SubmitButton text={t('auth.register')}></SubmitButton>
+                    <SubmitButton disabled={isLoading} text={t('auth.register')}></SubmitButton>
                 </form>
                 <p>{t("auth.already.registered")} <Link to="/login" className="link-hover underline">{t('auth.login')}</Link></p>
             </div>

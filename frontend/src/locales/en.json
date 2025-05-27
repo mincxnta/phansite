@@ -8,7 +8,6 @@
         "add": "Add request",
         "new": "New request",
         "create": "Create request",
-        "status": "Status",
         "title.placeholder": "Enter the request title",
         "target": "Target",
         "target.person": "Target",
@@ -19,7 +18,15 @@
         "no.requests": "No requests",
         "no.comment": "No comment",
         "popup": "Do you want to add a comment?",
+        "status": {
+            "title": "Status",
+            "pending": "Pending",
+            "rejected": "Rejected",
+            "completed": "Completed"
+        },
+        "reject": "Reject",
         "rejected": "Rejected",
+        "complete": "Complete",
         "completed": "Completed",
         "pending": "Pending",
         "report": "Report",
@@ -213,7 +220,8 @@
             "token": "Missing token"
         },
         "inactive.poll": "The poll is inactive",
-        "internal.server": "Unexpected error"
+        "internal.server": "Unexpected error",
+        "undefined": "Unexpected error"
     },
     "success": {
         "create": {
