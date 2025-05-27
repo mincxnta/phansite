@@ -86,3 +86,48 @@ export const PASSWORD_RESET_REQUEST_TEMPLATE = (resetUrl, language = 'en') => {
 </html>
 `
 }
+
+export const REPORT_NOTIFICATION_TEMPLATE = (reportDetails, language = 'en') => {
+  const t = emailTranslations[language] || emailTranslations.en
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${t.reportNotificationTitle} - Phansite</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #1C2526; font-family: Arial, sans-serif; color: #FFFFFF;">
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin: 20px auto;">
+    <tr>
+      <td style="background: #AB0000; padding: 20px; text-align: center; position: relative;">
+        <h1 style="color: #FFFFFF; margin: 0; font-size: 32px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">${t.reportNotificationTitle}</h1>
+      </td>
+    </tr>
+    <tr>
+      <td style="background-color: #000; padding: 30px 20px; border: 2px solid #AB0000; border-top: none;">
+               <p style="color: #FFFFFF; margin: 0 0 20px; font-size: 16px; line-height: 1.6;">${t.hello}</p>
+        <p style="color: #FFFFFF; margin: 0 0 20px; font-size: 16px; line-height: 1.6;">${t.newReportMessage}</p>
+        <h3 style="color: #FFFFFF; margin: 0 0 10px; font-size: 20px;">${t.reportDetails}</h3>
+        <ul style="color: #FFFFFF; margin: 0 0 20px; font-size: 16px; line-height: 1.6; padding-left: 20px;">
+          <li><strong>${t.reportUser}:</strong> ${reportDetails.username}</li>
+          <li><strong>${t.reportReason}:</strong> ${reportDetails.reason || t.notSpecified}</li>
+          <li><strong>${t.reportDate}:</strong> ${new Date(reportDetails.createdAt).toLocaleString()}</li>
+        </ul>
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${process.env.ADMIN_URL || process.env.CLIENT_URL}/admin/reports" style="background-color: #F00; color: white; padding: 12px 20px; text-decoration: none; display: inline-block; border: 5px solid #000; outline: 5px solid #FFF; transform: skew(-10deg); transition: all 0.3s;">${t.viewReportButton}</a>
+        </div>
+        <p style="color: #FFFFFF; margin: 0; font-size: 16px; line-height: 1.6;">${t.regards}<br>${t.team}</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: center; padding: 20px; color: #BBBBBB; font-size: 12px;">
+        <p style="margin: 0;">${t.footerContact}</p>
+        <p style="margin: 5px 0 0;">${t.footerAutomated}</p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`
+}

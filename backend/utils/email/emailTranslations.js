@@ -15,7 +15,18 @@ export const emailTranslations = {
     passwordResetMessage: "We received a request to reset your password. If you didn't make this request, please ignore this email.",
     resetPasswordButton: 'Reset Password',
     resetPasswordInstruction: 'To reset your password, click the button below:',
-    resetExpiryMessage: 'This link will expire in 1 hour for security reasons.'
+    resetExpiryMessage: 'This link will expire in 1 hour for security reasons.',
+    reportNotificationTitle: 'New Report Notification',
+    newReportMessage: 'A new report has been submitted on the platform.',
+    reportDetails: 'Report Details',
+    reportUser: 'User',
+    reportContentType: 'Content Type',
+    reportContentId: 'Content ID',
+    reportReason: 'Reason',
+    reportDate: 'Date',
+    notSpecified: 'Not specified',
+    viewReportButton: 'View Report'
+
   },
   es: {
     verifyEmailTitle: 'Verifica tu correo',
@@ -33,6 +44,16 @@ export const emailTranslations = {
     passwordResetMessage: 'Hemos recibido una solicitud para restablecer tu contraseña. Si no has hecho esta solicitud, puedes ignorar este correo.',
     resetPasswordButton: 'Restablecer contraseña',
     resetPasswordInstruction: 'Para restablecer tu contraseña, haz clic en el botón de abajo:',
-    resetExpiryMessage: 'Este enlace expirará en 1 hora por razones de seguridad.'
+    resetExpiryMessage: 'Este enlace expirará en 1 hora por razones de seguridad.',
+    reportNotificationTitle: 'Notificación de Nuevo Reporte',
+    newReportMessage: 'Se ha enviado un nuevo reporte en la plataforma.',
+    reportDetails: 'Detalles del Reporte',
+    reportUser: 'Usuario',
+    reportContentType: 'Tipo de Contenido',
+    reportContentId: 'ID del Contenido',
+    reportReason: 'Motivo',
+    reportDate: 'Fecha',
+    notSpecified: 'No especificado',
+    viewReportButton: 'Ver Reporte'
   }
 }

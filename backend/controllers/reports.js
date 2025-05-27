@@ -3,6 +3,7 @@ import { validateReport } from '../schemas/report.js'
 import { User } from '../models/user.js'
 import { Comment } from '../models/comment.js'
 import { Request } from '../models/request.js'
+import { sendReportNotificationEmail } from '../utils/email/sendEmail.js'
 
 /**
  * Controlador para la gestión de reportes.
@@ -46,6 +47,22 @@ export class ReportController {
         requestId: reportedType === 'request' ? postId : null
       }
       const report = await Report.create(reportData)
+
+      try {
+        const reportDetails = {
+          userId: req.user.id,
+          username: req.user.username,
+          reportedType,
+          postId,
+          reason: newReport.data.reason,
+          createdAt: report.createdAt instanceof Date ? report.createdAt : new Date()
+        }
+        const acceptLanguage = req.headers['accept-language']
+        await sendReportNotificationEmail(reportDetails, acceptLanguage)
+      } catch (emailError) {
+        console.error('Error sending report notification email:', emailError)
+      }
+
       res.status(201).json(report)
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
