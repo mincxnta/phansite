@@ -118,10 +118,8 @@ export const ChatList = () => {
         credentials: 'include',
       });
       const data = await response.json();
-      console.log(data)
-      const users = user.role === 'fan' ? data.users : data;
       if (response.ok) {
-        const nonContacts = users.filter(
+        const nonContacts = data.filter(
           (userData) => !contacts.some((contact) => contact.id === userData.id)
         );
         const filteredResults = nonContacts.filter((userData) =>

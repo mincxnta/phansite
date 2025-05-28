@@ -70,37 +70,23 @@ export class UserController {
   }
 
   /**
- * Obtiene una lista paginada de usuarios con rol 'fan'.
- *
- * @param {number} page Número de página.
- * @param {number} limit Cantidad por página.
+ * Obtiene una lista de usuarios con rol 'fan'.
  *
  * @throws {401} Si el usuario no está autenticado.
  * @throws {500} Error interno del servidor.
  */
   static async getFans (req, res) {
-    const page = parseInt(req.query.page) || 1
-    const limit = parseInt(req.query.limit) || 5
-    const offset = (page - 1) * limit
-
     if (!req.user) {
       return res.status(401).json({ code: 'unauthorized' })
     }
 
     try {
-      const { count, rows } = await User.findAndCountAll({
+      const users = await User.findAll({
         where: { role: 'fan' },
-        attributes: ['username', 'profilePicture', 'id'],
-        limit,
-        offset
+        attributes: ['username', 'profilePicture', 'id']
       })
 
-      res.status(200).json({
-        users: rows,
-        totalUsers: count,
-        totalPages: Math.ceil(count / limit),
-        currentPage: page
-      })
+      res.status(200).json(users)
     } catch (error) {
       res.status(500).json({ code: 'internal_server_error' })
     }

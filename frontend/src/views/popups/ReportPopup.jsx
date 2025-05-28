@@ -53,7 +53,6 @@ export const ReportPopup = () => {
       closePopup();
 
     } catch (error) {
-      console.log("Error creating report:", error);
       toast.error(t(errorHandler(error)))
     }
   }
